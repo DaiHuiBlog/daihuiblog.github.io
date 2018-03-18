@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="配置虚拟机子网网段(hostonly模式时) 配置网段    点击VMware快捷方式，右键打开文件所在位置 -&amp;gt; 双击vmnetcfg.exe -&amp;gt; VMnet1 host-only -&amp;gt;修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&amp;gt; apply -&amp;gt; ok   设置本地机器IP    回到windows –&amp;g">
+<meta name="description" content="配置虚拟机子网网段(hostonly模式时) 配置网段   点击VMware快捷方式，右键打开文件所在位置 -&amp;gt; 双击vmnetcfg.exe -&amp;gt; VMnet1 host-only -&amp;gt;修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&amp;gt; apply -&amp;gt; ok">
 <meta name="keywords" content="Hadoop,集群">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop伪分布式搭建-(1)">
 <meta property="og:url" content="https://daihuiblog.github.io/2018/03/18/Hadoop伪分布式搭建-1/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
-<meta property="og:description" content="配置虚拟机子网网段(hostonly模式时) 配置网段    点击VMware快捷方式，右键打开文件所在位置 -&amp;gt; 双击vmnetcfg.exe -&amp;gt; VMnet1 host-only -&amp;gt;修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&amp;gt; apply -&amp;gt; ok   设置本地机器IP    回到windows –&amp;g">
+<meta property="og:description" content="配置虚拟机子网网段(hostonly模式时) 配置网段   点击VMware快捷方式，右键打开文件所在位置 -&amp;gt; 双击vmnetcfg.exe -&amp;gt; VMnet1 host-only -&amp;gt;修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&amp;gt; apply -&amp;gt; ok">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-18T15:35:09.618Z">
+<meta property="og:updated_time" content="2018-03-18T15:37:46.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop伪分布式搭建-(1)">
-<meta name="twitter:description" content="配置虚拟机子网网段(hostonly模式时) 配置网段    点击VMware快捷方式，右键打开文件所在位置 -&amp;gt; 双击vmnetcfg.exe -&amp;gt; VMnet1 host-only -&amp;gt;修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&amp;gt; apply -&amp;gt; ok   设置本地机器IP    回到windows –&amp;g">
+<meta name="twitter:description" content="配置虚拟机子网网段(hostonly模式时) 配置网段   点击VMware快捷方式，右键打开文件所在位置 -&amp;gt; 双击vmnetcfg.exe -&amp;gt; VMnet1 host-only -&amp;gt;修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&amp;gt; apply -&amp;gt; ok">
 
 
 
@@ -400,11 +400,13 @@
 
       
         <h3 id="配置虚拟机子网网段-hostonly模式时"><a href="#配置虚拟机子网网段-hostonly模式时" class="headerlink" title="配置虚拟机子网网段(hostonly模式时)"></a>配置虚拟机子网网段(hostonly模式时)</h3><ul>
-<li><p>配置网段  </p>
-<blockquote>
+<li>配置网段  <blockquote>
 <p>点击VMware快捷方式，右键打开文件所在位置 -&gt; 双击vmnetcfg.exe -&gt; VMnet1 host-only -&gt;<br>修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&gt; apply -&gt; ok</p>
 </blockquote>
 </li>
+</ul>
+<a id="more"></a>
+<ul>
 <li><p>设置本地机器IP  </p>
 <blockquote>
 <p>回到windows –&gt; 打开网络和共享中心 -&gt; 更改适配器设置 -&gt; 右键VMnet1 -&gt; 属性 -&gt; 双击IPv4 -&gt;<br>设置windows的IP：192.168.8.100 子网掩码：255.255.255.0 -&gt; 点击确定</p>
