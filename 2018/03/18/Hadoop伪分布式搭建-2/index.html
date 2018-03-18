@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="Hui&#39;s Blog">
 <meta property="og:description" content="安装JDK 2.1从Windows上传jdk到虚拟机你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-18T16:01:48.947Z">
+<meta property="og:updated_time" content="2018-03-18T16:04:20.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop伪分布式搭建-(2)">
 <meta name="twitter:description" content="安装JDK 2.1从Windows上传jdk到虚拟机你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下">
@@ -410,7 +410,9 @@
 </blockquote>
 </li>
 </ul>
+<blockquote>
 <p>解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</span><br></pre></td></tr></table></figure></p>
+</blockquote>
 <ul>
 <li>2.3将java添加到环境变量中  <blockquote>
 <p>vim /etc/profile  </p>
@@ -418,9 +420,11 @@
 </blockquote>
 </li>
 </ul>
+<blockquote>
 <p>保存退出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq+Enter</span><br></pre></td></tr></table></figure></p>
+</blockquote>
 <ul>
-<li>刷新配置   <blockquote>
+<li>2.4刷新配置   <blockquote>
 <p>source /etc/profile</p>
 </blockquote>
 </li>
