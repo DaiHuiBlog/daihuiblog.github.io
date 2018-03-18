@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="安装JDK 2.1从Windows上传jdk到虚拟机你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下">
+<meta name="description" content="安装JDK 从Windows上传jdk到虚拟机   你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下">
 <meta name="keywords" content="Hadoop,集群">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop伪分布式搭建-(2)">
 <meta property="og:url" content="https://daihuiblog.github.io/2018/03/18/Hadoop伪分布式搭建-2/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
-<meta property="og:description" content="安装JDK 2.1从Windows上传jdk到虚拟机你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下">
+<meta property="og:description" content="安装JDK 从Windows上传jdk到虚拟机   你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-18T16:08:23.102Z">
+<meta property="og:updated_time" content="2018-03-18T16:15:08.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop伪分布式搭建-(2)">
-<meta name="twitter:description" content="安装JDK 2.1从Windows上传jdk到虚拟机你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下">
+<meta name="twitter:description" content="安装JDK 从Windows上传jdk到虚拟机   你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下">
 
 
 
@@ -400,31 +400,26 @@
 
       
         <h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
-<li>2.1从Windows上传jdk到虚拟机<br>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</li>
+<li>从Windows上传jdk到虚拟机  <blockquote>
+<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
+</blockquote>
+</li>
 </ul>
 <a id="more"></a>
 <ul>
-<li>2.2解压jdk  <blockquote>
-<p>创建文件夹  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/java</span><br></pre></td></tr></table></figure>
+<li><p>解压jdk   </p>
+<blockquote>
+<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
 </blockquote>
 </li>
-</ul>
+<li><p>将java添加到环境变量中  </p>
 <blockquote>
-<p>解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<ul>
-<li>2.3将java添加到环境变量中  <blockquote>
 <p>vim /etc/profile  </p>
+</blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
-</blockquote>
 </li>
-</ul>
+<li><p>刷新配置   </p>
 <blockquote>
-<p>保存退出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq+Enter</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<ul>
-<li>2.4刷新配置   <blockquote>
 <p>source /etc/profile</p>
 </blockquote>
 </li>
