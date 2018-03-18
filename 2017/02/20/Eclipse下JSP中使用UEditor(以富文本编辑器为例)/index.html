@@ -87,13 +87,13 @@
 
 
 
-<meta name="description" content="1.下载UEditorhttp://ueditor.baidu.com/website/download.html版本如下：">
+<meta name="description" content="1.下载UEditorhttp://ueditor.baidu.com/website/download.html">
 <meta name="keywords" content="UEditor,富文本编辑器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Eclipse下JSP中使用UEditor（以富文本编辑器为例）">
 <meta property="og:url" content="https://daihuiblog.github.io/2017/02/20/Eclipse下JSP中使用UEditor(以富文本编辑器为例)/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
-<meta property="og:description" content="1.下载UEditorhttp://ueditor.baidu.com/website/download.html版本如下：">
+<meta property="og:description" content="1.下载UEditorhttp://ueditor.baidu.com/website/download.html">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/1.png">
 <meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/2.png">
@@ -106,10 +106,10 @@
 <meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/9.png">
 <meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/10.png">
 <meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/11.png">
-<meta property="og:updated_time" content="2018-03-18T14:44:30.239Z">
+<meta property="og:updated_time" content="2018-03-18T15:39:06.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Eclipse下JSP中使用UEditor（以富文本编辑器为例）">
-<meta name="twitter:description" content="1.下载UEditorhttp://ueditor.baidu.com/website/download.html版本如下：">
+<meta name="twitter:description" content="1.下载UEditorhttp://ueditor.baidu.com/website/download.html">
 <meta name="twitter:image" content="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/1.png">
 
 
@@ -411,8 +411,9 @@
       
 
       
-        <h3 id="1-下载UEditor"><a href="#1-下载UEditor" class="headerlink" title="1.下载UEditor"></a>1.下载UEditor</h3><p><a href="http://ueditor.baidu.com/website/download.html" target="_blank" rel="noopener">http://ueditor.baidu.com/website/download.html</a><br>版本如下：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/1.png" alt="avatar">      </p>
- <a id="more"></a>
+        <h3 id="1-下载UEditor"><a href="#1-下载UEditor" class="headerlink" title="1.下载UEditor"></a>1.下载UEditor</h3><p><a href="http://ueditor.baidu.com/website/download.html" target="_blank" rel="noopener">http://ueditor.baidu.com/website/download.html</a>     </p>
+<a id="more"></a>
+<p>版本如下：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/1.png" alt="avatar">      </p>
 <h3 id="2-解压，简单暴力地将-ueditor1-4-3-utf8-jsp-jsp-lib目录下的文件拷贝到项目的-WEB-INF-lib目录下"><a href="#2-解压，简单暴力地将-ueditor1-4-3-utf8-jsp-jsp-lib目录下的文件拷贝到项目的-WEB-INF-lib目录下" class="headerlink" title="2.解压，简单暴力地将\ueditor1_4_3-utf8-jsp\jsp\lib目录下的文件拷贝到项目的/WEB-INF/lib目录下"></a>2.解压，简单暴力地将<strong><em>\ueditor1_4_3-utf8-jsp\jsp\lib</em></strong>目录下的文件拷贝到项目的<strong><em>/WEB-INF/lib</em></strong>目录下</h3><p>如图所示：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/2.png" alt="avatar"><br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/3.png" alt="avatar"></p>
 <h3 id="3-将除index-html文件外的文件拷贝到项目中，例如："><a href="#3-将除index-html文件外的文件拷贝到项目中，例如：" class="headerlink" title="3.将除index.html文件外的文件拷贝到项目中，例如："></a>3.将除index.html文件外的文件拷贝到项目中，例如：</h3><p><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/4.png" alt="avatar">      </p>
 <h3 id="4-在要使用富文本编辑器的页面引入脚本："><a href="#4-在要使用富文本编辑器的页面引入脚本：" class="headerlink" title="4.在要使用富文本编辑器的页面引入脚本："></a>4.在要使用富文本编辑器的页面引入脚本：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/ueditor.config.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/ueditor.all.min.js&quot;&gt; &lt;/script&gt;</span><br><span class="line">&lt;!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败--&gt;</span><br><span class="line">&lt;!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文--&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/lang/zh-cn/zh-cn.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
