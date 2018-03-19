@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT,分享,机器学习,数据挖掘,知识库,知识图谱,人工智能,Java,Idea,暉暉博客,博客,暉暉,晖晖" />
+  <meta name="keywords" content="Hadoop,集群," />
 
 
 
@@ -87,17 +87,18 @@
 
 
 
-<meta name="description" content="知识在于分享,分享生活点滴">
+<meta name="description" content="安装hadoop2.4.1（或其他更高版本&amp;lt;最好用更高的64位版本，免得重新编译&amp;gt;）注意：hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop伪分布式需要修改5个配置文件  上传hadoop并解压到指定目录同jdk一样,上传Hadoop的包到本目录,并在root目录下创建/dh/这个目录,将Hadoop解压到该目录 配置hadoop hadoop-env.sh文件">
+<meta name="keywords" content="Hadoop,集群">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop伪分布式搭建-(3)">
 <meta property="og:url" content="https://daihuiblog.github.io/2018/03/18/Hadoop伪分布式搭建-3/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
-<meta property="og:description" content="知识在于分享,分享生活点滴">
+<meta property="og:description" content="安装hadoop2.4.1（或其他更高版本&amp;lt;最好用更高的64位版本，免得重新编译&amp;gt;）注意：hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop伪分布式需要修改5个配置文件  上传hadoop并解压到指定目录同jdk一样,上传Hadoop的包到本目录,并在root目录下创建/dh/这个目录,将Hadoop解压到该目录 配置hadoop hadoop-env.sh文件">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-18T15:44:48.252Z">
+<meta property="og:updated_time" content="2018-03-19T02:32:30.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop伪分布式搭建-(3)">
-<meta name="twitter:description" content="知识在于分享,分享生活点滴">
+<meta name="twitter:description" content="安装hadoop2.4.1（或其他更高版本&amp;lt;最好用更高的64位版本，免得重新编译&amp;gt;）注意：hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop伪分布式需要修改5个配置文件  上传hadoop并解压到指定目录同jdk一样,上传Hadoop的包到本目录,并在root目录下创建/dh/这个目录,将Hadoop解压到该目录 配置hadoop hadoop-env.sh文件">
 
 
 
@@ -351,6 +352,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -376,7 +399,66 @@
       
 
       
-        
+        <p><em><br>安装hadoop2.4.1（或其他更高版本&lt;最好用更高的64位版本，免得重新编译&gt;）<br>注意：hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop伪分布式需要修改5个配置文件
+</em></p>
+<h3 id="上传hadoop并解压到指定目录"><a href="#上传hadoop并解压到指定目录" class="headerlink" title="上传hadoop并解压到指定目录"></a>上传hadoop并解压到指定目录</h3><p>同jdk一样,上传Hadoop的包到本目录,并在root目录下创建/dh/这个目录,将Hadoop解压到该目录</p>
+<h3 id="配置hadoop"><a href="#配置hadoop" class="headerlink" title="配置hadoop"></a>配置hadoop</h3><ol>
+<li><p>hadoop-env.sh文件  </p>
+<blockquote>
+<p>vim hadoop-env.sh</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>core-site.xml文件</p>
+<blockquote>
+<p>vim core-site.xml</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--设定NameNode地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;hdfs://dh01:9000&lt;/value&gt;  &lt;!--或者把dh01换成对应IP--&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 指定hadoop运行时产生文件的存储目录 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;/dh/hadoop-2.4.1/tmp&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hdfs-site.xml文件  </p>
+<blockquote>
+<p>vim hdfs-site.xml</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定HDFS副本的数量 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;1&lt;/value&gt;&lt;!--因为为伪分布式,所以只有一个副本--&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mapred-site.xml文件</p>
+<blockquote>
+<p>#重命名<br>mv mapred-site.xml.template mapred-site.xml<br>#打开重命名后的文件<br>vim mapred-site.xml  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定mapreduce运行在YARN上 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>yarn-site.xml文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定YARN的老大（ResourceManager）的地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;dh01&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- mapreduce获取数据的方式 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="将hadoop添加到环境变量"><a href="#将hadoop添加到环境变量" class="headerlink" title="将hadoop添加到环境变量"></a>将hadoop添加到环境变量</h3><blockquote>
+<p>vim /etc/proflie</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79</span><br><span class="line">export HADOOP_HOME=/dh/hadoop-2.4.1</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HADOOP_HOME/lib</span><br></pre></td></tr></table></figure>
+<p>刷新配置文件  </p>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
+<h3 id="格式化namenode（是对namenode进行初始化）"><a href="#格式化namenode（是对namenode进行初始化）" class="headerlink" title="格式化namenode（是对namenode进行初始化）"></a>格式化namenode（是对namenode进行初始化）</h3><blockquote>
+<p>hdfs namenode -format (hadoop namenode -format)</p>
+</blockquote>
+<h3 id="启动hadoop"><a href="#启动hadoop" class="headerlink" title="启动hadoop"></a>启动hadoop</h3><p>先启动HDFS</p>
+<blockquote>
+<p>sbin/start-dfs.sh</p>
+</blockquote>
+<p>再启动YARN</p>
+<blockquote>
+<p>sbin/start-yarn.sh</p>
+</blockquote>
+<h3 id="验证是否启动成功"><a href="#验证是否启动成功" class="headerlink" title="验证是否启动成功"></a>验证是否启动成功</h3><p>使用jps命令验证</p>
+<blockquote>
+<p>jsp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">27408 NameNode</span><br><span class="line">28218 Jps</span><br><span class="line">27643 SecondaryNameNode</span><br><span class="line">28066 NodeManager</span><br><span class="line">27803 ResourceManager</span><br><span class="line">27512 DataNode</span><br></pre></td></tr></table></figure>
+<p><a href="http://192.168.8.88:50070" target="_blank" rel="noopener">http://192.168.8.88:50070</a> （HDFS管理界面）</p>
+<p>在这个文件中添加linux主机名和IP的映射关系<br>C:\Windows\System32\drivers\etc\hosts下添加:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.66	dh01</span><br></pre></td></tr></table></figure></p>
+<p>打开：<a href="http://192.168.8.88:8088验证" target="_blank" rel="noopener">http://192.168.8.88:8088验证</a> （mapreduce管理界面）  </p>
+
       
     </div>
 
@@ -396,6 +478,14 @@
 
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+            <a href="/tags/集群/" rel="tag"># 集群</a>
+          
+        </div>
       
 
       
@@ -465,8 +555,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -551,6 +650,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#上传hadoop并解压到指定目录"><span class="nav-number">1.</span> <span class="nav-text">上传hadoop并解压到指定目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置hadoop"><span class="nav-number">2.</span> <span class="nav-text">配置hadoop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将hadoop添加到环境变量"><span class="nav-number">3.</span> <span class="nav-text">将hadoop添加到环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化namenode（是对namenode进行初始化）"><span class="nav-number">4.</span> <span class="nav-text">格式化namenode（是对namenode进行初始化）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动hadoop"><span class="nav-number">5.</span> <span class="nav-text">启动hadoop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证是否启动成功"><span class="nav-number">6.</span> <span class="nav-text">验证是否启动成功</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
