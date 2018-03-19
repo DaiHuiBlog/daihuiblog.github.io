@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT,分享,机器学习,数据挖掘,知识库,知识图谱,人工智能,Java,Idea,暉暉博客,博客,暉暉,晖晖" />
+  <meta name="keywords" content="Framework3.5无法安装," />
 
 
 
@@ -87,17 +87,18 @@
 
 
 
-<meta name="description" content="知识在于分享,分享生活点滴">
+<meta name="description" content="首先下载 .Net Framework 3.5.  将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：">
+<meta name="keywords" content="Framework3.5无法安装">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】">
 <meta property="og:url" content="https://daihuiblog.github.io/2018/03/18/Win10下-Net-Framework-3-5无法安装【错误代码0x800F081F】/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
-<meta property="og:description" content="知识在于分享,分享生活点滴">
+<meta property="og:description" content="首先下载 .Net Framework 3.5.  将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-18T15:46:50.508Z">
+<meta property="og:updated_time" content="2018-03-19T04:00:11.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】">
-<meta name="twitter:description" content="知识在于分享,分享生活点滴">
+<meta name="twitter:description" content="首先下载 .Net Framework 3.5.  将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：">
 
 
 
@@ -351,6 +352,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Windows/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -376,7 +399,22 @@
       
 
       
-        
+        <ol>
+<li><p>首先下载 .Net Framework 3.5.</p>
+</li>
+<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
+<a id="more"></a>
+<blockquote>
+<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
+</blockquote>
+</li>
+</ol>
+<p>其他:</p>
+<ul>
+<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
+<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
+</ul>
+
       
     </div>
 
@@ -396,6 +434,12 @@
 
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Framework3-5无法安装/" rel="tag"># Framework3.5无法安装</a>
+          
+        </div>
       
 
       
@@ -484,7 +528,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -493,7 +537,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
