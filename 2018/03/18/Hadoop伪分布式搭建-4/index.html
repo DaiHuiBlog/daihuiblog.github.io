@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="Hui&#39;s Blog">
 <meta property="og:description" content="生成ssh免登陆密钥 进入到/dh/下的home目录(隐藏)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-19T02:59:22.752Z">
+<meta property="og:updated_time" content="2018-03-19T03:01:21.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop伪分布式搭建-(4)">
 <meta name="twitter:description" content="生成ssh免登陆密钥 进入到/dh/下的home目录(隐藏)">
@@ -400,24 +400,17 @@
 
       
         <h3 id="生成ssh免登陆密钥"><a href="#生成ssh免登陆密钥" class="headerlink" title="生成ssh免登陆密钥"></a>生成ssh免登陆密钥</h3><ul>
-<li>进入到/dh/下的home目录(隐藏)</li>
-</ul>
+<li><p>进入到/dh/下的home目录(隐藏)</p>
 <a id="more"></a>
 <blockquote>
-<p>cd ~/.ssh</p>
+<p>cd ~/.ssh<br>ssh-keygen -t rsa （一直回车）</p>
 </blockquote>
-<blockquote>
-<p>ssh-keygen -t rsa （一直回车）</p>
-</blockquote>
+</li>
+</ul>
 <p>执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥）</p>
 <ul>
-<li><p>将公钥拷贝到要免登陆的机器上</p>
-<blockquote>
-<p>ssh-copy-id -i localhost (ssh-copy-id -i 要免登陆的机器的IP)</p>
-</blockquote>
-<p>或</p>
-<blockquote>
-<p>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</p>
+<li>将公钥拷贝到要免登陆的机器上<blockquote>
+<p>ssh-copy-id -i localhost (ssh-copy-id -i 要免登陆的机器的IP)<br>或者<br>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys  </p>
 </blockquote>
 </li>
 </ul>
