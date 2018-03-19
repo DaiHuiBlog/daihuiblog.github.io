@@ -1,21 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
-  
-    
-    <entry>
-      <title><![CDATA[Eclipse下JSP中使用UEditor（以富文本编辑器为例）]]></title>
-      <url>%2F2017%2F02%2F20%2FEclipse%E4%B8%8BJSP%E4%B8%AD%E4%BD%BF%E7%94%A8UEditor(%E4%BB%A5%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%BA%E4%BE%8B)%2F</url>
-      <content type="text"><![CDATA[这篇笔记是我2014年10月写的，写着个博客的原因仅仅是为了把之前的笔记搬个家，可能有的笔记有的地方有些和新的版本有出入，此笔记仅供入门学习，请大家多指教。 1.下载UEditorhttp://ueditor.baidu.com/website/download.html版本如下： 2.解压，简单暴力地将\ueditor1_4_3-utf8-jsp\jsp\lib目录下的文件拷贝到项目的/WEB-INF/lib目录下如图所示： 3.将除index.html文件外的文件拷贝到项目中，例如： 4.在要使用富文本编辑器的页面引入脚本：12345&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/ueditor.config.js&quot;&gt;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/ueditor.all.min.js&quot;&gt; &lt;/script&gt;&lt;!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败--&gt;&lt;!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文--&gt;&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/lang/zh-cn/zh-cn.js&quot;&gt;&lt;/script&gt; 如图： 5.在需要用富文本编辑器的区域添加以下脚本：1&lt;script id=&quot;editor&quot; type=&quot;text/plain&quot; style=&quot;width:486px;height:300px;&quot;&gt;&lt;/script&gt; 如图： 6.在页面最下端写以下javascript脚本：12345&lt;script type=&quot;text/javascript&quot;&gt; //实例化编辑器 //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor(&apos;editor&apos;)就能拿到相关的实例 var ue = UE.getEditor(&apos;editor&apos;);&lt;/script&gt; 如图： 7.添加提交按钮的js脚本，用来提交内容脚本文件：代码：12345678function check_post_msg_valid()&#123; if(false==UE.getEditor(&apos;editor&apos;).hasContents())&#123; alert(&apos;请输入内容！&apos;); return false; &#125; document.getElementById(&quot;msg&quot;).value=UE.getEditor(&apos;editor&apos;).getContent(); document.forms[0].submit(); &#125; 8.其他：]]></content>
-    </entry>
-
-    
-    <entry>
-      <title><![CDATA[intelij IDEA-2016.2.4（或PhpStorm10,WebStorm11）的几个自己用过的破解方法]]></title>
-      <url>%2F2017%2F02%2F13%2Fintelij-IDEA-2016-2-4%EF%BC%88%E6%88%96PhpStorm10-WebStorm11%EF%BC%89%E7%9A%84%E5%87%A0%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%94%A8%E8%BF%87%E7%9A%84%E7%A0%B4%E8%A7%A3%E6%96%B9%E6%B3%95%2F</url>
-      <content type="text"><![CDATA[方法一 下载JetbrainsCrack-2.5.3.jar 网上有很多地方都能下到它，例如我自己的云盘里的（在intelij IDEA-2016.2.4目录下）：http://pan.baidu.com/s/1boCmpcj 修改bin目录下的idea.exe.vmoptions和idea64.exe.vmoptions文件，添加一行(根据自己目录自行修改一下)： 1-javaagent:D:\ntelij IDEA\IntelliJ IDEA 2016.2.4\bin\JetbrainsCrack-2.5.3.jar 做完上面这几步一般情况下就破解了，有时候弄完后IDEA打不开了！（我自己的笔记本上就是这样！）可以尝试把文件修改的地方恢复回去用下面这个简单点的方法。不过要联网，上面那个适合单击没网的情况下破解。 方法二 安装好IDEA,打开IDEA后选择“License server”,把下面两个地址任意一个粘贴进去(一个不行换另一个) 12http://www.iteblog.com/idea/key.phphttp://idea.qinxi1992.cn OK. 方法三（推荐&lt;持续更新…&gt;） 选择“Activation Code”选项，把以下最新更新一个注册码直接粘贴进去 OK. 123## 2017年02月08日更新 ##BIG3CLIK6F-eyJsaWNlbnNlSWQiOiJCSUczQ0xJSzZGIiwibGljZW5zZWVOYW1lIjoibGFuIHl1IiwiYXNzaWduZWVOYW1lIjoiIiwiYXNzaWduZWVFbWFpbCI6IiIsImxpY2Vuc2VSZXN0cmljdGlvbiI6IkZvciBlZHVjYXRpb25hbCB1c2Ugb25seSIsImNoZWNrQ29uY3VycmVudFVzZSI6ZmFsc2UsInByb2R1Y3RzIjpbeyJjb2RlIjoiQUMiLCJwYWlkVXBUbyI6IjIwMTctMTEtMjMifSx7ImNvZGUiOiJETSIsInBhaWRVcFRvIjoiMjAxNy0xMS0yMyJ9LHsiY29kZSI6IklJIiwicGFpZFVwVG8iOiIyMDE3LTExLTIzIn0seyJjb2RlIjoiUlMwIiwicGFpZFVwVG8iOiIyMDE3LTExLTIzIn0seyJjb2RlIjoiV1MiLCJwYWlkVXBUbyI6IjIwMTctMTEtMjMifSx7ImNvZGUiOiJEUE4iLCJwYWlkVXBUbyI6IjIwMTctMTEtMjMifSx7ImNvZGUiOiJSQyIsInBhaWRVcFRvIjoiMjAxNy0xMS0yMyJ9LHsiY29kZSI6IlBTIiwicGFpZFVwVG8iOiIyMDE3LTExLTIzIn0seyJjb2RlIjoiREMiLCJwYWlkVXBUbyI6IjIwMTctMTEtMjMifSx7ImNvZGUiOiJEQiIsInBhaWRVcFRvIjoiMjAxNy0xMS0yMyJ9LHsiY29kZSI6IlJNIiwicGFpZFVwVG8iOiIyMDE3LTExLTIzIn0seyJjb2RlIjoiUEMiLCJwYWlkVXBUbyI6IjIwMTctMTEtMjMifSx7ImNvZGUiOiJDTCIsInBhaWRVcFRvIjoiMjAxNy0xMS0yMyJ9XSwiaGFzaCI6IjQ3NzU1MTcvMCIsImdyYWNlUGVyaW9kRGF5cyI6MCwiYXV0b1Byb2xvbmdhdGVkIjpmYWxzZSwiaXNBdXRvUHJvbG9uZ2F0ZWQiOmZhbHNlfQ==-iygsIMXTVeSyYkUxAqpHmymrgwN5InkOfeRhhPIPa88FO9FRuZosIBTY18tflChACznk3qferT7iMGKm7pumDTR4FbVVlK/3n1ER0eMKu2NcaXb7m10xT6kLW1Xb3LtuZEnuis5pYuEwT1zR7GskeNWdYZ0dAJpNDLFrqPyAPo5s1KLDHKpw+VfVd4uf7RMjOIzuJhAAYAG+amyivQt61I9aYiwpHQvUphvTwi0X0qL/oDJHAQbIv4Qwscyo4aYZJBKutYioZH9rgOP6Yw/sCltpoPWlJtDOcw/iEWYiCVG1pH9AWjCYXZ9AbbEBOWV71IQr5VWrsqFZ7cg7hLEJ3A==-MIIEPjCCAiagAwIBAgIBBTANBgkqhkiG9w0BAQsFADAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBMB4XDTE1MTEwMjA4MjE0OFoXDTE4MTEwMTA4MjE0OFowETEPMA0GA1UEAwwGcHJvZDN5MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxcQkq+zdxlR2mmRYBPzGbUNdMN6OaXiXzxIWtMEkrJMO/5oUfQJbLLuMSMK0QHFmaI37WShyxZcfRCidwXjot4zmNBKnlyHodDij/78TmVqFl8nOeD5+07B8VEaIu7c3E1N+e1doC6wht4I4+IEmtsPAdoaj5WCQVQbrI8KeT8M9VcBIWX7fD0fhexfg3ZRt0xqwMcXGNp3DdJHiO0rCdU+Itv7EmtnSVq9jBG1usMSFvMowR25mju2JcPFp1+I4ZI+FqgR8gyG8oiNDyNEoAbsR3lOpI7grUYSvkB/xVy/VoklPCK2h0f0GJxFjnye8NT1PAywoyl7RmiAVRE/EKwIDAQABo4GZMIGWMAkGA1UdEwQCMAAwHQYDVR0OBBYEFGEpG9oZGcfLMGNBkY7SgHiMGgTcMEgGA1UdIwRBMD+AFKOetkhnQhI2Qb1t4Lm0oFKLl/GzoRykGjAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBggkA0myxg7KDeeEwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4ICAQC9WZuYgQedSuOc5TOUSrRigMw4/+wuC5EtZBfvdl4HT/8vzMW/oUlIP4YCvA0XKyBaCJ2iX+ZCDKoPfiYXiaSiH+HxAPV6J79vvouxKrWg2XV6ShFtPLP+0gPdGq3x9R3+kJbmAm8w+FOdlWqAfJrLvpzMGNeDU14YGXiZ9bVzmIQbwrBA+c/F4tlK/DV07dsNExihqFoibnqDiVNTGombaU2dDup2gwKdL81ua8EIcGNExHe82kjF4zwfadHk3bQVvbfdAwxcDy4xBjs3L4raPLU3yenSzr/OEur1+jfOxnQSmEcMXKXgrAQ9U55gwjcOFKrgOxEdek/Sk1VfOjvS+nuM4eyEruFMfaZHzoQiuw4IqgGc45ohFH0UUyjYcuFxxDSU9lMCv8qdHKm+wnPRb0l9l5vXsCBDuhAGYD6ss+Ga+aDY6f/qXZuUCEUOH3QUNbbCUlviSz6+GiRnt1kA9N2Qachl+2yBfaqUqr8h7Z2gsx5LcIf5kYNsqJ0GavXTVyWh7PYiKX4bs354ZQLUwwa/cG++2+wNWP+HtBhVxMRNTdVhSm38AknZlD+PTAsWGu9GyLmhti2EnVwGybSD2Dxmhxk3IPCkhKAK+pl0eWYGZWG3tJ9mZ7SowcXLWDFAk0lRJnKGFMTggrWjV8GYpw5bq23VmIqqDLgkNzuoog==]]></content>
-    </entry>
-
-    
-  
-  
+  <entry>
+    <title><![CDATA[Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】]]></title>
+    <url>%2F2018%2F03%2F18%2FWin10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85%E3%80%90%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%810x800F081F%E3%80%91%2F</url>
+    <content type="text"><![CDATA[首先下载 .Net Framework 3.5. 将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令： dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess 其他: Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0) 再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Framework3.5无法安装</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[虚拟机VirtualBox中挂载新硬盘]]></title>
+    <url>%2F2018%2F03%2F18%2F%E8%99%9A%E6%8B%9F%E6%9C%BAVirtualBox%E4%B8%AD%E6%8C%82%E8%BD%BD%E6%96%B0%E7%A1%AC%E7%9B%98%2F</url>
+    <content type="text"><![CDATA[在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘： 添加新硬盘 设置 -&gt; Storage(存储) -&gt; SATA控制器-&gt;右击，选择”添加虚拟硬盘”然后，根据需求创建合适的硬盘 重启虚拟机 查看现有系统的磁盘空间 sudo fdisk -l 可看到新加的虚拟硬盘，一般名为：Disk /dev/sdb 给新加的硬盘分区 fdisk /dev/sdb 键入m,可看到帮助信息 command (m for help):m 增加新分区 command (m for help):n 选择基本分区，输入：p 建一个分区 Partition number(1-4): 回车 First cylinder (1-15908,default 1):Enter 写入并退出 command (m for help):w 格式化磁盘分区 用ext4格式对/dev/sdb1进入格式化 sudo mkfs.ext4 /dev/sdb1 挂载分区 创建新的挂载点 sudo mkdir /work 将新磁盘分区挂载到/work目录下 sudo mount -t ext4 /dev/sdb1 /work 查看挂载 df -h 可以看到新加的硬盘：/dev/sdb1 开机自动挂载 修改文件 sudo vim /etc/fstab 在最后一行加入： /dev/sdb1 /work ext4 errors=remount-ro 0 1 完成! 补充：为挂载点扩容假设之前我们有一个挂载点为 /mydata ，但该 /mydata 已经写满，但依然想在 /mydata 下添加新的数据，这时可以使用软链接将 /mydata 软链接到一个新挂载的磁盘分区上以实现扩容。具体步骤如下。 1. 创建一个目录，以便稍后作为挂载点： mkdir /newdata 2. 将 /dev/sdb1 分区挂载到 /newdata 下： mount /dev/sdb1 /newdata 3. 新建 /mydata 到 /newdata 的软链接： ln -s /newdata /mydata 此时在 /mydata 目录下会有一个软链接文件 newdata 指向 /newdata/ ，即 newdata-&gt; /newdata/ 。这样一来，只要我们向 /mydata/newdata 下写文件，实际就写入了 /newdata/ 目录下，相当于我们为原 /mydata 挂载点新增加了一部分使用空间。 也可以手动指定该软链接文件的名称： ln -s /newdata /mydata/customed_name 这样就有 /mydata/customed_name -&gt; /newdata 注： 我们也可以利用软链接的这一用途，将比较大的日志文件链接到存储空间充足的磁盘分区的挂载点上。 举例来说，如果 /opt/tomcat/logs/catalina.out 日志文件输入很多，占用空间很大，而 /opt 挂载点中所剩空间已经不多，存在溢出风险，通过下面两步就可以将该日志文件软链接到另一个磁盘分区的挂载点上： touch /newdata/catalina_link.outln -sf /newdata/catalina_link.out /opt/tomcat/logs/catalina.out 这里还需要注意三点： 一是必须先创建一个被链接的文件，否则软链接后失败； 二是强制软链接会清空之前 /opt/tomcat/logs/catalina.out 日志文件中的全部内容清空； 三是需要重启 tomcat 目录后才能继续向 /opt/tomcat/logs/catalina.out 写入。]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>Linux挂载硬盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Java常见异常总结]]></title>
+    <url>%2F2018%2F03%2F18%2FJava%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[java.lang.NullPointerException(空指针异常) 调用了未经初始化的对象或者是不存在的对象 经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还需要对每个元素都进行初始化（如果要调用的话）。 java.lang.ClassNotFoundException 指定的类不存在 这里主要考虑一下类的名称和路径是否正确即可，通常都是程序试图通过字符串来加载某个类时可能引发 异常 比如：调用Class.forName(); 或者调用ClassLoad的finaSystemClass();或者LoadClass(); java.lang.NumberFormatException 字符串转换为数字异常 当试图将一个String转换为指定的数字类型，而该字符串确不满足数字类型要求的格式时，抛出该异常.如现在讲字符型的数据“123456”转换为数值型数据时，是允许的。但是如果字符型数据中包含了非数字型的字符，如123#56，此时转换为数值型时就会出现异常。系统就会捕捉到这个异常，并进行处理. java.lang.IndexOutOfBoundsException 数组下标越界异常 查看调用的数组或者字符串的下标值是不是超出了数组的范围，一般来说，显示（即直接用常数当下标）调用不太容易出这样的错，但隐式（即用变量表示下标）调用就经常出错了，还有一种情况，是程序中定义的数组的长度是通过某些特定方法决定的，不是事先声明的，这个时候，最好先查看一下数组的length，以免出现这个异常。 java.lang.IllegalArgumentException 方法的参数错误 比如g.setColor(int red,int green,int blue)这个方法中的三个值，如果有超过２５５的也会出现这个异常，因此一旦发现这个异常，我们要做的，就是赶紧去检查一下方法调用中的参数传递是不是出现了错误。 java.lang.IllegalAccessException 没有访问权限 当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常。对程序中用了Package的情况下要注意这个异常 java.lang.ArithmeticException 数学运算异常 当算术运算中出现了除以零这样的运算就会出这样的异常。 java.lang.ClassCastException 数据类型转换异常 当试图将对某个对象强制执行向下转型，但该对象又不可转换又不可转换为其子类的实例时将引发该异常，如下列代码。 123Object obj = new Integer(0);String str = obj;java.lang.FileNotFoundException java.lang.FileNotFoundException 文件未找到异常 当程序试图打开一个不存在的文件进行读写时将会引发该异常。该异常由FileInputStream,FileOutputStream,RandomAccessFile的构造器声明抛出即使被操作的文件存在，但是由于某些原因不可访问，比如打开一个只读文件进行写入，这些构造方法仍然会引发异常 java.lang.ArrayStoreException 数组存储异常 当试图将类型不兼容类型的对象存入一个Object[]数组时将引发异常 123Object[] obj = new String[3];obj[0] = new Integer(0);java.lang.NoSuchMethodException java.lang.NoSuchMethodException 方法不存在异常 当程序试图通过反射来创建对象，访问(修改或读取)某个方法，但是该方法不存在就会引发异常 java.lang.NoSuchFiledException 方法不存在异常 当程序试图通过反射来创建对象，访问(修改或读取)某个filed，但是该filed不存在就会引发异常 java.lang.EOFException 文件已结束异常 当程序在输入的过程中遇到文件或流的结尾时，引发异常。因此该异常用于检查是否达到文件或流的结尾 java.lang.InstantiationException 实例化异常 当试图通过Class的newInstance()方法创建某个类的实例,但程序无法通过该构造器来创建该对象时引发Class对象表示一个抽象类，接口，数组类，基本类型该Class表示的类没有对应的构造器 java.lang.InterruptedException 被中止异常 当某个线程处于长时间的等待、休眠或其他暂停状态，而此时其他的线程通过Thread的interrupt方法终止该线程时抛出该异常。 java.lang.CloneNotSupportedException 不支持克隆异常 当没有实现Cloneable接口或者不支持克隆方法时,调用其clone()方法则抛出该异常。 java.lang.OutOfMemoryException 内存不足错误 当可用内存不足以让Java虚拟机分配给一个对象时抛出该错误。 java.lang.NoClassDefFoundException 未找到类定义错误 当Java虚拟机或者类装载器试图实例化某个类，而找不到该类的定义时抛出该错误。 违背安全原则异常：SecturityException 操作数据库异常：SQLException 输入输出异常：IOException 通信异常：SocketException]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>异常</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hadoop伪分布式搭建-(4)]]></title>
+    <url>%2F2018%2F03%2F18%2FHadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-4%2F</url>
+    <content type="text"><![CDATA[生成ssh免登陆密钥 进入到/dh/下的home目录(隐藏) cd ~/.sshssh-keygen -t rsa （一直回车） 执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥） 将公钥拷贝到要免登陆的机器上 ssh-copy-id -i localhost (ssh-copy-id -i 要免登陆的机器的IP)或者cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys]]></content>
+      <categories>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hadoop伪分布式搭建-(3)]]></title>
+    <url>%2F2018%2F03%2F18%2FHadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-3%2F</url>
+    <content type="text"><![CDATA[安装hadoop2.4.1（或其他更高版本&lt;最好用更高的64位版本，免得重新编译&gt;）注意：hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop伪分布式需要修改5个配置文件 上传hadoop并解压到指定目录同jdk一样,上传Hadoop的包到本目录,并在root目录下创建/dh/这个目录,将Hadoop解压到该目录 配置hadoop hadoop-env.sh文件 vim hadoop-env.sh 1export JAVA_HOME=/usr/java/jdk1.7.0_79 core-site.xml文件 vim core-site.xml 12345678910&lt;!--设定NameNode地址 --&gt;&lt;property&gt; &lt;name&gt;fs.defaultFS&lt;/name&gt; &lt;value&gt;hdfs://dh01:9000&lt;/value&gt; &lt;!--或者把dh01换成对应IP--&gt;&lt;/property&gt;&lt;!-- 指定hadoop运行时产生文件的存储目录 --&gt;&lt;property&gt; &lt;name&gt;hadoop.tmp.dir&lt;/name&gt; &lt;value&gt;/dh/hadoop-2.4.1/tmp&lt;/value&gt;&lt;/property&gt; hdfs-site.xml文件 vim hdfs-site.xml 12345&lt;!-- 指定HDFS副本的数量 --&gt;&lt;property&gt; &lt;name&gt;dfs.replication&lt;/name&gt; &lt;value&gt;1&lt;/value&gt;&lt;!--因为为伪分布式,所以只有一个副本--&gt;&lt;/property&gt; mapred-site.xml文件 #重命名mv mapred-site.xml.template mapred-site.xml#打开重命名后的文件vim mapred-site.xml 12345&lt;!-- 指定mapreduce运行在YARN上 --&gt;&lt;property&gt; &lt;name&gt;mapreduce.framework.name&lt;/name&gt; &lt;value&gt;yarn&lt;/value&gt;&lt;/property&gt; yarn-site.xml文件 12345678910&lt;!-- 指定YARN的老大（ResourceManager）的地址 --&gt;&lt;property&gt; &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt; &lt;value&gt;dh01&lt;/value&gt;&lt;/property&gt;&lt;!-- mapreduce获取数据的方式 --&gt;&lt;property&gt; &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt; &lt;value&gt;mapreduce_shuffle&lt;/value&gt;&lt;/property&gt; 将hadoop添加到环境变量 vim /etc/proflie 123export JAVA_HOME=/usr/java/jdk1.7.0_79export HADOOP_HOME=/dh/hadoop-2.4.1export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HADOOP_HOME/lib 刷新配置文件 source /etc/profile 格式化namenode（是对namenode进行初始化） hdfs namenode -format (hadoop namenode -format) 启动hadoop先启动HDFS sbin/start-dfs.sh 再启动YARN sbin/start-yarn.sh 验证是否启动成功使用jps命令验证 jsp 12345627408 NameNode28218 Jps27643 SecondaryNameNode28066 NodeManager27803 ResourceManager27512 DataNode http://192.168.8.88:50070 （HDFS管理界面） 在这个文件中添加linux主机名和IP的映射关系C:\Windows\System32\drivers\etc\hosts下添加:1192.168.1.66 dh01 打开：http://192.168.8.88:8088验证 （mapreduce管理界面）]]></content>
+      <categories>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hadoop伪分布式搭建-(2)]]></title>
+    <url>%2F2018%2F03%2F18%2FHadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2%2F</url>
+    <content type="text"><![CDATA[安装JDK 从Windows上传jdk到虚拟机 你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下 解压jdk mkdir /usr/javatar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/ 将java添加到环境变量中 vim /etc/profile 12export JAVA_HOME=/usr/java/jdk1.7.0_79 export PATH=$PATH:$JAVA_HOME/bin 刷新配置 source /etc/profile]]></content>
+      <categories>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hadoop伪分布式搭建-(1)]]></title>
+    <url>%2F2018%2F03%2F18%2FHadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-1%2F</url>
+    <content type="text"><![CDATA[配置虚拟机子网网段(hostonly模式时) 配置网段 点击VMware快捷方式，右键打开文件所在位置 -&gt; 双击vmnetcfg.exe -&gt; VMnet1 host-only -&gt;修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&gt; apply -&gt; ok 设置本地机器IP 回到windows –&gt; 打开网络和共享中心 -&gt; 更改适配器设置 -&gt; 右键VMnet1 -&gt; 属性 -&gt; 双击IPv4 -&gt;设置windows的IP：192.168.8.100 子网掩码：255.255.255.0 -&gt; 点击确定 设置为hostonly模式 在虚拟软件上 –My Computer -&gt; 选中虚拟机 -&gt; 右键 -&gt; settings -&gt; network adapter -&gt; host only -&gt; ok 另:桥接模式 桥接模式直接将本地机器的当前正在使用的网卡(无线/非无线网卡)IP改为静态IP即可.设置windows的IP：192.168.8.100 子网掩 码：255.255.255.0 -&gt; 网关:192.168.1.1 -&gt; 若为无线网卡,设置前先查看路由分配的DNS是多少,直接照着填进来就行.-&gt;点击确定 修改主机名 vim /etc/sysconfig/network 12NETWORKING=yesHOSTNAME=dh01 #随便设置一个名字 修改虚拟机IP(这里是centos7)两种方式： 第一种：通过Linux图形界面进行修改（推荐） 进入Linux图形界面 -&gt; 右键点击右上方的两个小电脑 -&gt;点击Edit connections -&gt; 选中当前网络System eth0 -&gt;点击edit按钮 -&gt; 选择IPv4 -&gt; method选择为manual -&gt;点击add按钮 -&gt;添加IP：192.168.8.88子网掩码：255.255.255.0 网关：192.168.8.1 -&gt; apply 第二种：修改配置文件方式 vim /etc/sysconfig/network-scripts/ifcfg-eth0 (不一定一定是ifcfg-eth0) 1234567891011DEVICE=&quot;eth0&quot;BOOTPROTO=&quot;static&quot; #修改HWADDR=&quot;00:0C:29:3C:BF:E7&quot;IPV6INIT=&quot;yes&quot;NM_CONTROLLED=&quot;yes&quot;ONBOOT=&quot;yes&quot;TYPE=&quot;Ethernet&quot;UUID=&quot;ce22eeca-ecde-4536-8cc2-ef0dc36d4a8c&quot;IPADDR=&quot;192.168.8.88&quot; #修改NETMASK=&quot;255.255.255.0&quot; #修改GATEWAY=&quot;192.168.8.1&quot; #修改 修改主机名和IP的映射关系 vim /etc/hosts 1192.168.8.88 dh01 关闭防火墙(以下为centos7以前命令,centos7) #查看防火墙状态service iptables status #关闭防火墙service iptables stop #查看防火墙开机启动状态chkconfig iptables –list #关闭防火墙开机启动chkconfig iptables off CentOS 7.0默认使用的是firewall作为防火墙 systemctl start firewalld.service #启动firewallsystemctl stop firewalld.service #停止firewallsystemctl disable firewalld.service #禁止firewall开机启动 也可以改成使用iptables：systemctl start iptables.service 重启Linux reboot]]></content>
+      <categories>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Eclipse下JSP中使用UEditor（以富文本编辑器为例）]]></title>
+    <url>%2F2017%2F02%2F20%2FEclipse%E4%B8%8BJSP%E4%B8%AD%E4%BD%BF%E7%94%A8UEditor(%E4%BB%A5%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%BA%E4%BE%8B)%2F</url>
+    <content type="text"><![CDATA[1.下载UEditorhttp://ueditor.baidu.com/website/download.html 版本如下： 2.解压，简单暴力地将\ueditor1_4_3-utf8-jsp\jsp\lib目录下的文件拷贝到项目的/WEB-INF/lib目录下如图所示： 3.将除index.html文件外的文件拷贝到项目中，例如： 4.在要使用富文本编辑器的页面引入脚本：12345&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/ueditor.config.js&quot;&gt;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/ueditor.all.min.js&quot;&gt; &lt;/script&gt;&lt;!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败--&gt;&lt;!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文--&gt;&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/lang/zh-cn/zh-cn.js&quot;&gt;&lt;/script&gt; 如图： 5.在需要用富文本编辑器的区域添加以下脚本：1&lt;script id=&quot;editor&quot; type=&quot;text/plain&quot; style=&quot;width:486px;height:300px;&quot;&gt;&lt;/script&gt; 如图： 6.在页面最下端写以下javascript脚本：12345&lt;script type=&quot;text/javascript&quot;&gt; //实例化编辑器 //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor(&apos;editor&apos;)就能拿到相关的实例 var ue = UE.getEditor(&apos;editor&apos;);&lt;/script&gt; 如图： 7.添加提交按钮的js脚本，用来提交内容脚本文件：代码：12345678function check_post_msg_valid()&#123; if(false==UE.getEditor(&apos;editor&apos;).hasContents())&#123; alert(&apos;请输入内容！&apos;); return false; &#125; document.getElementById(&quot;msg&quot;).value=UE.getEditor(&apos;editor&apos;).getContent(); document.forms[0].submit(); &#125; 8.其他：]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>UEditor</tag>
+        <tag>富文本编辑器</tag>
+      </tags>
+  </entry>
 </search>
