@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="知识在于分享,分享生活点滴">
+<meta name="description" content="生成ssh免登陆密钥 进入到/dh/下的home目录(隐藏)">
 <meta name="keywords" content="Hadoop,集群">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop伪分布式搭建-(4)">
 <meta property="og:url" content="https://daihuiblog.github.io/2018/03/18/Hadoop伪分布式搭建-4/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
-<meta property="og:description" content="知识在于分享,分享生活点滴">
+<meta property="og:description" content="生成ssh免登陆密钥 进入到/dh/下的home目录(隐藏)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-18T16:20:13.349Z">
+<meta property="og:updated_time" content="2018-03-19T02:59:22.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop伪分布式搭建-(4)">
-<meta name="twitter:description" content="知识在于分享,分享生活点滴">
+<meta name="twitter:description" content="生成ssh免登陆密钥 进入到/dh/下的home目录(隐藏)">
 
 
 
@@ -399,7 +399,29 @@
       
 
       
-        
+        <h3 id="生成ssh免登陆密钥"><a href="#生成ssh免登陆密钥" class="headerlink" title="生成ssh免登陆密钥"></a>生成ssh免登陆密钥</h3><ul>
+<li>进入到/dh/下的home目录(隐藏)</li>
+</ul>
+<a id="more"></a>
+<blockquote>
+<p>cd ~/.ssh</p>
+</blockquote>
+<blockquote>
+<p>ssh-keygen -t rsa （一直回车）</p>
+</blockquote>
+<p>执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥）</p>
+<ul>
+<li><p>将公钥拷贝到要免登陆的机器上</p>
+<blockquote>
+<p>ssh-copy-id -i localhost (ssh-copy-id -i 要免登陆的机器的IP)</p>
+</blockquote>
+<p>或</p>
+<blockquote>
+<p>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</p>
+</blockquote>
+</li>
+</ul>
+
       
     </div>
 
@@ -496,8 +518,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -582,6 +613,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成ssh免登陆密钥"><span class="nav-number">1.</span> <span class="nav-text">生成ssh免登陆密钥</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
