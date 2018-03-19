@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Mac下安装mysql5.7完整步骤及问题整理]]></title>
     <url>%2F2018%2F03%2F19%2FMac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86%2F</url>
-    <content type="text"><![CDATA[安装参考以下这个博客：[1]: http://www.jb51.net/article/103841.htm “Mac下安装mysql5.7完整步骤” 问题 “MAC下安装Mysql找不到my.cnf配置文件的问题”，参考： “Warning: World-writable config file ‘/etc/my.cnf’ is ignored”，参考：]]></content>
+    <content type="text"><![CDATA[安装参考以下这个博客：[Mac下安装mysql5.7完整步骤]: http://www.jb51.net/article/103841.htm 问题 “MAC下安装Mysql找不到my.cnf配置文件的问题”，参考： “Warning: World-writable config file ‘/etc/my.cnf’ is ignored”，参考：]]></content>
       <categories>
         <category>Mac</category>
       </categories>
