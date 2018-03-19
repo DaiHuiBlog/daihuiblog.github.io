@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="java.lang.NullPointerException(空指针异常)    调用了未经初始化的对象或者是不存在的对象  经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还需要对每个元素都">
+<meta name="description" content="java.lang.NullPointerException(空指针异常) 调用了未经初始化的对象或者是不存在的对象  经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还需要对每个元素都进行初">
 <meta name="keywords" content="Java,异常">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java常见异常总结">
 <meta property="og:url" content="https://daihuiblog.github.io/2018/03/18/Java常见异常总结/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
-<meta property="og:description" content="java.lang.NullPointerException(空指针异常)    调用了未经初始化的对象或者是不存在的对象  经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还需要对每个元素都">
+<meta property="og:description" content="java.lang.NullPointerException(空指针异常) 调用了未经初始化的对象或者是不存在的对象  经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还需要对每个元素都进行初">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-19T03:18:20.378Z">
+<meta property="og:updated_time" content="2018-03-19T03:20:25.843Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java常见异常总结">
-<meta name="twitter:description" content="java.lang.NullPointerException(空指针异常)    调用了未经初始化的对象或者是不存在的对象  经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还需要对每个元素都">
+<meta name="twitter:description" content="java.lang.NullPointerException(空指针异常) 调用了未经初始化的对象或者是不存在的对象  经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还需要对每个元素都进行初">
 
 
 
@@ -400,8 +400,7 @@
 
       
         <ul>
-<li><p>java.lang.NullPointerException(空指针异常)  </p>
-<blockquote>
+<li><h5 id="java-lang-NullPointerException-空指针异常"><a href="#java-lang-NullPointerException-空指针异常" class="headerlink" title="java.lang.NullPointerException(空指针异常)"></a>java.lang.NullPointerException(空指针异常)</h5><blockquote>
 <p>调用了未经初始化的对象或者是不存在的对象</p>
 </blockquote>
 <p>经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，<br>即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，<br>依然是空的，所以还需要对每个元素都进行初始化（如果要调用的话）。</p>
@@ -409,115 +408,97 @@
 </ul>
 <a id="more"></a>
 <ul>
-<li><p>java.lang.ClassNotFoundException　　</p>
-<blockquote>
+<li><h5 id="java-lang-ClassNotFoundException"><a href="#java-lang-ClassNotFoundException" class="headerlink" title="java.lang.ClassNotFoundException　　"></a>java.lang.ClassNotFoundException　　</h5><blockquote>
 <p>指定的类不存在</p>
 </blockquote>
 <p> 这里主要考虑一下类的名称和路径是否正确即可，通常都是程序试图通过字符串来加载某个类时可能引发 异常<br> 比如：调用Class.forName();<br> 或者调用ClassLoad的finaSystemClass();或者LoadClass();</p>
 </li>
-<li><p>java.lang.NumberFormatException</p>
-<blockquote>
+<li><h5 id="java-lang-NumberFormatException"><a href="#java-lang-NumberFormatException" class="headerlink" title="java.lang.NumberFormatException"></a>java.lang.NumberFormatException</h5><blockquote>
 <p>字符串转换为数字异常</p>
 </blockquote>
 <p>当试图将一个String转换为指定的数字类型，而该字符串确不满足数字类型要求的格式时，抛出该异常.如现在讲字符型的数据“123456”转换为数值型数据时，是允许的。<br>但是如果字符型数据中包含了非数字型的字符，如123#56，此时转换为数值型时就会出现异常。系统就会捕捉到这个异常，并进行处理.</p>
 </li>
-<li><p>java.lang.IndexOutOfBoundsException</p>
-<blockquote>
+<li><h5 id="java-lang-IndexOutOfBoundsException"><a href="#java-lang-IndexOutOfBoundsException" class="headerlink" title="java.lang.IndexOutOfBoundsException"></a>java.lang.IndexOutOfBoundsException</h5><blockquote>
 <p>数组下标越界异常</p>
 </blockquote>
 <p>查看调用的数组或者字符串的下标值是不是超出了数组的范围，一般来说，显示（即直接用常数当下标）调用不太容易出这样的错，但隐式（即用变量表示下标）调用就经常出错了，还有一种情况，是程序中定义的数组的长度是通过某些特定方法决定的，不是事先声明的，这个时候，最好先查看一下数组的length，以免出现这个异常。</p>
 </li>
-<li><p>java.lang.IllegalArgumentException</p>
-<blockquote>
+<li><h5 id="java-lang-IllegalArgumentException"><a href="#java-lang-IllegalArgumentException" class="headerlink" title="java.lang.IllegalArgumentException"></a>java.lang.IllegalArgumentException</h5><blockquote>
 <p>方法的参数错误</p>
 </blockquote>
 <p>比如g.setColor(int red,int green,int blue)这个方法中的三个值，如果有超过２５５的也会出现这个异常，因此一旦发现这个异常，我们要做的，就是赶紧去检查一下方法调用中的参数传递是不是出现了错误。</p>
 </li>
-<li><p>java.lang.IllegalAccessException</p>
-<blockquote>
+<li><h5 id="java-lang-IllegalAccessException"><a href="#java-lang-IllegalAccessException" class="headerlink" title="java.lang.IllegalAccessException"></a>java.lang.IllegalAccessException</h5><blockquote>
 <p>没有访问权限</p>
 </blockquote>
 <p>当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常。对程序中用了Package的情况下要注意这个异常</p>
 </li>
-<li><p>java.lang.ArithmeticException</p>
-<blockquote>
+<li><h5 id="java-lang-ArithmeticException"><a href="#java-lang-ArithmeticException" class="headerlink" title="java.lang.ArithmeticException"></a>java.lang.ArithmeticException</h5><blockquote>
 <p>数学运算异常</p>
 </blockquote>
 <p>当算术运算中出现了除以零这样的运算就会出这样的异常。</p>
 </li>
-<li><p>java.lang.ClassCastException</p>
-<blockquote>
+<li><h5 id="java-lang-ClassCastException"><a href="#java-lang-ClassCastException" class="headerlink" title="java.lang.ClassCastException"></a>java.lang.ClassCastException</h5><blockquote>
 <p>数据类型转换异常</p>
 </blockquote>
 <p>当试图将对某个对象强制执行向下转型，但该对象又不可转换又不可转换为其子类的实例时将引发该异常，如下列代码。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object obj = new Integer(0);</span><br><span class="line">String str = obj;</span><br><span class="line">java.lang.FileNotFoundException</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>java.lang.FileNotFoundException</p>
-<blockquote>
+<li><h5 id="java-lang-FileNotFoundException"><a href="#java-lang-FileNotFoundException" class="headerlink" title="java.lang.FileNotFoundException"></a>java.lang.FileNotFoundException</h5><blockquote>
 <p>文件未找到异常</p>
 </blockquote>
 <p>当程序试图打开一个不存在的文件进行读写时将会引发该异常。该异常由FileInputStream,FileOutputStream,RandomAccessFile的构造器声明抛出<br>即使被操作的文件存在，但是由于某些原因不可访问，比如打开一个只读文件进行写入，这些构造方法仍然会引发异常</p>
 </li>
-<li><p>java.lang.ArrayStoreException  </p>
-<blockquote>
+<li><h5 id="java-lang-ArrayStoreException"><a href="#java-lang-ArrayStoreException" class="headerlink" title="java.lang.ArrayStoreException"></a>java.lang.ArrayStoreException</h5><blockquote>
 <p>数组存储异常</p>
 </blockquote>
 <p>当试图将类型不兼容类型的对象存入一个Object[]数组时将引发异常</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object[] obj = new String[3];</span><br><span class="line">obj[0] = new Integer(0);</span><br><span class="line">java.lang.NoSuchMethodException</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>java.lang.NoSuchMethodException  </p>
-<blockquote>
+<li><h5 id="java-lang-NoSuchMethodException"><a href="#java-lang-NoSuchMethodException" class="headerlink" title="java.lang.NoSuchMethodException"></a>java.lang.NoSuchMethodException</h5><blockquote>
 <p>方法不存在异常  </p>
 </blockquote>
 <p>当程序试图通过反射来创建对象，访问(修改或读取)某个方法，但是该方法不存在就会引发异常</p>
 </li>
-<li><p>java.lang.NoSuchFiledException</p>
-<blockquote>
+<li><h5 id="java-lang-NoSuchFiledException"><a href="#java-lang-NoSuchFiledException" class="headerlink" title="java.lang.NoSuchFiledException"></a>java.lang.NoSuchFiledException</h5><blockquote>
 <p>方法不存在异常</p>
 </blockquote>
 <p>当程序试图通过反射来创建对象，访问(修改或读取)某个filed，但是该filed不存在就会引发异常</p>
 </li>
-<li><p>java.lang.EOFException</p>
-<blockquote>
+<li><h5 id="java-lang-EOFException"><a href="#java-lang-EOFException" class="headerlink" title="java.lang.EOFException"></a>java.lang.EOFException</h5><blockquote>
 <p>文件已结束异常</p>
 </blockquote>
 <p>当程序在输入的过程中遇到文件或流的结尾时，引发异常。因此该异常用于检查是否达到文件或流的结尾</p>
 </li>
-<li><p>java.lang.InstantiationException</p>
-<blockquote>
+<li><h5 id="java-lang-InstantiationException"><a href="#java-lang-InstantiationException" class="headerlink" title="java.lang.InstantiationException"></a>java.lang.InstantiationException</h5><blockquote>
 <p>实例化异常</p>
 </blockquote>
 <p>当试图通过Class的newInstance()方法创建某个类的实例,但程序无法通过该构造器来创建该对象时引发<br>Class对象表示一个抽象类，接口，数组类，基本类型<br>该Class表示的类没有对应的构造器</p>
 </li>
-<li><p>java.lang.InterruptedException</p>
-<blockquote>
+<li><h5 id="java-lang-InterruptedException"><a href="#java-lang-InterruptedException" class="headerlink" title="java.lang.InterruptedException"></a>java.lang.InterruptedException</h5><blockquote>
 <p>被中止异常</p>
 </blockquote>
 <p>当某个线程处于长时间的等待、休眠或其他暂停状态，而此时其他的线程通过Thread的interrupt方法终止该线程时抛出该异常。</p>
 </li>
-<li><p>java.lang.CloneNotSupportedException</p>
-<blockquote>
+<li><h5 id="java-lang-CloneNotSupportedException"><a href="#java-lang-CloneNotSupportedException" class="headerlink" title="java.lang.CloneNotSupportedException"></a>java.lang.CloneNotSupportedException</h5><blockquote>
 <p>不支持克隆异常</p>
 </blockquote>
 <p>当没有实现Cloneable接口或者不支持克隆方法时,调用其clone()方法则抛出该异常。</p>
 </li>
-<li><p>java.lang.OutOfMemoryException</p>
-<blockquote>
+<li><h5 id="java-lang-OutOfMemoryException"><a href="#java-lang-OutOfMemoryException" class="headerlink" title="java.lang.OutOfMemoryException"></a>java.lang.OutOfMemoryException</h5><blockquote>
 <p>内存不足错误</p>
 </blockquote>
 <p>当可用内存不足以让Java虚拟机分配给一个对象时抛出该错误。</p>
 </li>
-<li><p>java.lang.NoClassDefFoundException</p>
-<blockquote>
+<li><h5 id="java-lang-NoClassDefFoundException"><a href="#java-lang-NoClassDefFoundException" class="headerlink" title="java.lang.NoClassDefFoundException"></a>java.lang.NoClassDefFoundException</h5><blockquote>
 <p>未找到类定义错误</p>
 </blockquote>
 <p>当Java虚拟机或者类装载器试图实例化某个类，而找不到该类的定义时抛出该错误。</p>
 </li>
-<li><p>违背安全原则异常：SecturityException</p>
-</li>
-<li>操作数据库异常：SQLException</li>
-<li>输入输出异常：IOException</li>
-<li>通信异常：SocketException</li>
+<li><h5 id="违背安全原则异常：SecturityException"><a href="#违背安全原则异常：SecturityException" class="headerlink" title="违背安全原则异常：SecturityException"></a>违背安全原则异常：SecturityException</h5></li>
+<li><h5 id="操作数据库异常：SQLException"><a href="#操作数据库异常：SQLException" class="headerlink" title="操作数据库异常：SQLException"></a>操作数据库异常：SQLException</h5></li>
+<li><h5 id="输入输出异常：IOException"><a href="#输入输出异常：IOException" class="headerlink" title="输入输出异常：IOException"></a>输入输出异常：IOException</h5></li>
+<li><h5 id="通信异常：SocketException"><a href="#通信异常：SocketException" class="headerlink" title="通信异常：SocketException"></a>通信异常：SocketException</h5></li>
 </ul>
 
       
@@ -616,8 +597,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -702,6 +692,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-NullPointerException-空指针异常"><span class="nav-number">1.</span> <span class="nav-text">java.lang.NullPointerException(空指针异常)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-ClassNotFoundException"><span class="nav-number">2.</span> <span class="nav-text">java.lang.ClassNotFoundException　　</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-NumberFormatException"><span class="nav-number">3.</span> <span class="nav-text">java.lang.NumberFormatException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-IndexOutOfBoundsException"><span class="nav-number">4.</span> <span class="nav-text">java.lang.IndexOutOfBoundsException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-IllegalArgumentException"><span class="nav-number">5.</span> <span class="nav-text">java.lang.IllegalArgumentException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-IllegalAccessException"><span class="nav-number">6.</span> <span class="nav-text">java.lang.IllegalAccessException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-ArithmeticException"><span class="nav-number">7.</span> <span class="nav-text">java.lang.ArithmeticException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-ClassCastException"><span class="nav-number">8.</span> <span class="nav-text">java.lang.ClassCastException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-FileNotFoundException"><span class="nav-number">9.</span> <span class="nav-text">java.lang.FileNotFoundException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-ArrayStoreException"><span class="nav-number">10.</span> <span class="nav-text">java.lang.ArrayStoreException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-NoSuchMethodException"><span class="nav-number">11.</span> <span class="nav-text">java.lang.NoSuchMethodException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-NoSuchFiledException"><span class="nav-number">12.</span> <span class="nav-text">java.lang.NoSuchFiledException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-EOFException"><span class="nav-number">13.</span> <span class="nav-text">java.lang.EOFException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-InstantiationException"><span class="nav-number">14.</span> <span class="nav-text">java.lang.InstantiationException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-InterruptedException"><span class="nav-number">15.</span> <span class="nav-text">java.lang.InterruptedException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-CloneNotSupportedException"><span class="nav-number">16.</span> <span class="nav-text">java.lang.CloneNotSupportedException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-OutOfMemoryException"><span class="nav-number">17.</span> <span class="nav-text">java.lang.OutOfMemoryException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#java-lang-NoClassDefFoundException"><span class="nav-number">18.</span> <span class="nav-text">java.lang.NoClassDefFoundException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#违背安全原则异常：SecturityException"><span class="nav-number">19.</span> <span class="nav-text">违背安全原则异常：SecturityException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#操作数据库异常：SQLException"><span class="nav-number">20.</span> <span class="nav-text">操作数据库异常：SQLException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输入输出异常：IOException"><span class="nav-number">21.</span> <span class="nav-text">输入输出异常：IOException</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通信异常：SocketException"><span class="nav-number">22.</span> <span class="nav-text">通信异常：SocketException</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
