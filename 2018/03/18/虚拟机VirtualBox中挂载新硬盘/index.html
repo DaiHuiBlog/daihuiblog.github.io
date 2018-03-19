@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT,分享,机器学习,数据挖掘,知识库,知识图谱,人工智能,Java,Idea,暉暉博客,博客,暉暉,晖晖" />
+  <meta name="keywords" content="虚拟机,Linux挂载硬盘," />
 
 
 
@@ -87,17 +87,18 @@
 
 
 
-<meta name="description" content="知识在于分享,分享生活点滴">
+<meta name="description" content="在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘：  添加新硬盘    设置 -&amp;gt; Storage(存储) -&amp;gt; SATA控制器-&amp;gt;右击，选择”添加虚拟硬盘”然后，根据需求创建合适的硬盘">
+<meta name="keywords" content="虚拟机,Linux挂载硬盘">
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟机VirtualBox中挂载新硬盘">
 <meta property="og:url" content="https://daihuiblog.github.io/2018/03/18/虚拟机VirtualBox中挂载新硬盘/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
-<meta property="og:description" content="知识在于分享,分享生活点滴">
+<meta property="og:description" content="在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘：  添加新硬盘    设置 -&amp;gt; Storage(存储) -&amp;gt; SATA控制器-&amp;gt;右击，选择”添加虚拟硬盘”然后，根据需求创建合适的硬盘">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-18T15:46:07.754Z">
+<meta property="og:updated_time" content="2018-03-19T03:47:32.643Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟机VirtualBox中挂载新硬盘">
-<meta name="twitter:description" content="知识在于分享,分享生活点滴">
+<meta name="twitter:description" content="在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘：  添加新硬盘    设置 -&amp;gt; Storage(存储) -&amp;gt; SATA控制器-&amp;gt;右击，选择”添加虚拟硬盘”然后，根据需求创建合适的硬盘">
 
 
 
@@ -351,6 +352,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -376,7 +399,110 @@
       
 
       
-        
+        <p>在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘：</p>
+<ol>
+<li><p>添加新硬盘  </p>
+<blockquote>
+<p>设置 -&gt; Storage(存储) -&gt; SATA控制器-&gt;右击，选择”添加虚拟硬盘”<br>然后，根据需求创建合适的硬盘</p>
+</blockquote>
+</li>
+</ol>
+<a id="more"></a>
+<ol>
+<li><p>重启虚拟机  </p>
+<p>查看现有系统的磁盘空间</p>
+<blockquote>
+<p>sudo fdisk -l<br>可看到新加的虚拟硬盘，一般名为：Disk /dev/sdb</p>
+</blockquote>
+</li>
+<li><p>给新加的硬盘分区</p>
+<blockquote>
+<p>fdisk /dev/sdb  </p>
+</blockquote>
+<p>键入m,可看到帮助信息</p>
+<blockquote>
+<p>command (m for help):m</p>
+</blockquote>
+<p>增加新分区</p>
+<blockquote>
+<p>command (m for help):n  </p>
+</blockquote>
+<p>选择基本分区，输入：p 建一个分区</p>
+<blockquote>
+<p>Partition number(1-4):  </p>
+</blockquote>
+<p>回车</p>
+<blockquote>
+<p>First cylinder (1-15908,default 1):Enter</p>
+</blockquote>
+<p>写入并退出</p>
+<blockquote>
+<p>command (m for help):w</p>
+</blockquote>
+</li>
+<li><p>格式化磁盘分区</p>
+<p>用ext4格式对/dev/sdb1进入格式化</p>
+<blockquote>
+<p>sudo mkfs.ext4 /dev/sdb1</p>
+</blockquote>
+</li>
+<li><p>挂载分区</p>
+<p>创建新的挂载点</p>
+<blockquote>
+<p>sudo mkdir /work</p>
+</blockquote>
+<p>将新磁盘分区挂载到/work目录下</p>
+<blockquote>
+<p>sudo mount -t ext4 /dev/sdb1 /work</p>
+</blockquote>
+<p>查看挂载</p>
+<blockquote>
+<p>df -h</p>
+</blockquote>
+<p>可以看到新加的硬盘：/dev/sdb1</p>
+</li>
+<li><p>开机自动挂载<br>修改文件</p>
+<blockquote>
+<p>sudo vim /etc/fstab</p>
+</blockquote>
+<p>在最后一行加入：</p>
+<blockquote>
+<p>/dev/sdb1 /work ext4 errors=remount-ro 0 1</p>
+</blockquote>
+<p>完成!</p>
+</li>
+</ol>
+<hr>
+<h4 id="补充：为挂载点扩容"><a href="#补充：为挂载点扩容" class="headerlink" title="补充：为挂载点扩容"></a>补充：为挂载点扩容</h4><p>假设之前我们有一个挂载点为 <em>/mydata</em> ，但该 <em>/mydata</em> 已经写满，但依然想在 <em>/mydata</em> 下添加新的数据，这时可以使用软链接将 <em>/mydata</em> 软链接到一个新挂载的磁盘分区上以实现扩容。具体步骤如下。</p>
+<ol>
+<li><p>创建一个目录，以便稍后作为挂载点：</p>
+<blockquote>
+<p>mkdir /newdata</p>
+</blockquote>
+</li>
+<li><p>将 /dev/sdb1 分区挂载到 /newdata 下：</p>
+<blockquote>
+<p>mount /dev/sdb1 /newdata</p>
+</blockquote>
+</li>
+<li><p>新建 /mydata 到 /newdata 的软链接：</p>
+<blockquote>
+<p>ln -s /newdata /mydata</p>
+</blockquote>
+<p>此时在 /mydata 目录下会有一个软链接文件 <em>newdata</em> 指向 <em>/newdata/</em> ，即 <em>newdata-&gt; /newdata/</em> 。这样一来，只要我们向 <em>/mydata/newdata</em> 下写文件，实际就写入了 <em>/newdata/</em> 目录下，相当于我们为原 <em>/mydata</em> 挂载点新增加了一部分使用空间。  </p>
+<p>也可以手动指定该软链接文件的名称：</p>
+<blockquote>
+<p>ln -s /newdata /mydata/customed_name</p>
+</blockquote>
+<p>这样就有 /mydata/customed_name -&gt; /newdata<br><strong>注：</strong> 我们也可以利用软链接的这一用途，将比较大的日志文件链接到存储空间充足的磁盘分区的挂载点上。<br>举例来说，如果 /opt/tomcat/logs/catalina.out 日志文件输入很多，占用空间很大，而 /opt 挂载点中所剩空间已经不多，存在溢出风险，通过下面两步就可以将该日志文件软链接到另一个磁盘分区的挂载点上：  </p>
+<blockquote>
+<p>touch /newdata/catalina_link.out<br>ln -sf /newdata/catalina_link.out /opt/tomcat/logs/catalina.out</p>
+</blockquote>
+<p><strong><em>这里还需要注意三点：</em></strong></p>
+<p>一是必须先创建一个被链接的文件，否则软链接后失败；<br>二是强制软链接会清空之前 /opt/tomcat/logs/catalina.out 日志文件中的全部内容清空；<br>三是需要重启 tomcat 目录后才能继续向 /opt/tomcat/logs/catalina.out 写入。  </p>
+</li>
+</ol>
+
       
     </div>
 
@@ -396,6 +522,14 @@
 
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/虚拟机/" rel="tag"># 虚拟机</a>
+          
+            <a href="/tags/Linux挂载硬盘/" rel="tag"># Linux挂载硬盘</a>
+          
+        </div>
       
 
       
@@ -465,8 +599,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -479,7 +622,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -488,7 +631,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -497,7 +640,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -551,6 +694,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#补充：为挂载点扩容"><span class="nav-number">1.</span> <span class="nav-text">补充：为挂载点扩容</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
