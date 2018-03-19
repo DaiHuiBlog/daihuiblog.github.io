@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Mac下安装mysql5.7完整步骤及问题整理]]></title>
+    <url>%2F2018%2F03%2F19%2FMac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86%2F</url>
+    <content type="text"><![CDATA[安装 参考以下这个博客： [Mac下安装mysql5.7 完整步骤（图文详解）]: http://www.jb51.net/article/103841.htm “Mac下安装mysql5.7” 问题 “MAC下安装Mysql找不到my.cnf配置文件的问题”，参考： “Warning: World-writable config file ‘/etc/my.cnf’ is ignored”，参考：]]></content>
+      <categories>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac安装Mysql</tag>
+        <tag>Mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】]]></title>
     <url>%2F2018%2F03%2F18%2FWin10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85%E3%80%90%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%810x800F081F%E3%80%91%2F</url>
     <content type="text"><![CDATA[首先下载 .Net Framework 3.5. 将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令： dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess 其他: Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0) 再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。]]></content>
