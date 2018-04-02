@@ -434,55 +434,14 @@
 
       
         
-          
-            <h4 id="最终效果图大概是这个样子："><a href="#最终效果图大概是这个样子：" class="headerlink" title="最终效果图大概是这个样子："></a>最终效果图大概是这个样子：</h4><p><img src="https://DaiHuiBlog.github.io/images/posts/iTerm 2和Oh My Zsh代替自带terminal教程简单整理/1.png" alt="avatar">  </p>
-<p>但是如果你有用到Atom编辑器的控制台插件的话可能会由于字体原因特殊的符号显示不了，就像我这样：<br><img src="https://DaiHuiBlog.github.io/images/posts/iTerm 2和Oh My Zsh代替自带terminal教程简单整理/4.png" alt="avatar">    </p>
-<h4 id="1-首先下载iterm2"><a href="#1-首先下载iterm2" class="headerlink" title="1. 首先下载iterm2"></a>1. 首先下载<a href="http://www.iterm2.com/" target="_blank" rel="noopener">iterm2</a></h4><h4 id="2-打开iTerm-2"><a href="#2-打开iTerm-2" class="headerlink" title="2. 打开iTerm 2"></a>2. 打开iTerm 2</h4><h4 id="3-输入下面指令安装oh-my-zsh"><a href="#3-输入下面指令安装oh-my-zsh" class="headerlink" title="3. 输入下面指令安装oh-my-zsh"></a>3. 输入下面指令安装<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="noopener">oh-my-zsh</a></h4><blockquote>
-<p>curl -L <a href="https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh" target="_blank" rel="noopener">https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh</a> | sh</p>
-</blockquote>
-<h4 id="4-接下来安装Powerline"><a href="#4-接下来安装Powerline" class="headerlink" title="4. 接下来安装Powerline"></a>4. 接下来安装<a href="http://powerline.readthedocs.io/en/latest/installation.html" target="_blank" rel="noopener">Powerline</a></h4><p>在官网有教程，我们只需要执行官网第一条安装指令就行</p>
-<p>如果你的终端能够正常执行pip指令，那么直接执行下面的指令可以完成安装</p>
-<blockquote>
-<p>pip install powerline-status</p>
-</blockquote>
-<p>如果没有，则先执行安装pip指令</p>
-<blockquote>
-<p>sudo easy_install pip</p>
-</blockquote>
-<h4 id="5-下载、安装库字体库"><a href="#5-下载、安装库字体库" class="headerlink" title="5. 下载、安装库字体库"></a>5. 下载、安装库<a href="https://github.com/powerline/fonts" target="_blank" rel="noopener">字体库</a></h4><p>1）将工程下载下来后cd到<em>install.sh</em>文件所在目录</p>
-<p>2）执行指令安装字体库</p>
-<p>执行<em>./install.sh</em>指令安装所有Powerline字体</p>
-<p>安装完成后提示所有字体均已下载到<em>/Users/superdanny/Library/Fonts</em>路径下</p>
-<p>All Powerline fonts installed to /Users/superdanny/Library/Fonts</p>
-<h4 id="6-设置iTerm-2的Regular-Font-和-Non-ASCII-Font"><a href="#6-设置iTerm-2的Regular-Font-和-Non-ASCII-Font" class="headerlink" title="6. 设置iTerm 2的Regular Font 和 Non-ASCII Font"></a>6. 设置iTerm 2的Regular Font 和 Non-ASCII Font</h4><p>安装完字体库之后，把iTerm 2的设置里的<em>Profile</em>中的<em>Text</em> 选项卡中里的<em>Regular Font</em>和<em>Non-ASCII Font</em>的字体都设置成 Powerline的字体，我这里设置的字体是12pt Meslo LG S DZ Regular for Powerline</p>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/iTerm 2和Oh My Zsh代替自带terminal教程简单整理/2.jpg" alt="avatar">  </p>
-<p>设置iTerm 2设置iTerm 2</p>
-<h4 id="7-配色方案"><a href="#7-配色方案" class="headerlink" title="7. 配色方案"></a>7. <a href="https://github.com/altercation/solarized" target="_blank" rel="noopener">配色方案</a></h4><p>1）安装配色方案</p>
-<p>进入刚刚下载的工程的<em>solarized/iterm2-colors-solarized</em>下双击<em>Solarized Dark.itermcolors</em>和<em>Solarized Light.itermcolors</em>两个文件就可以把配置文件导入到 iTerm2 里</p>
-<p>2）配置配色方案</p>
-<p>通过load presets选择刚刚安装的配色主题即可</p>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/iTerm 2和Oh My Zsh代替自带terminal教程简单整理/3.jpg" alt="avatar">  </p>
-<p>配色方案配色方案</p>
-<h4 id="8-使用agnoster主题"><a href="#8-使用agnoster主题" class="headerlink" title="8. 使用agnoster主题"></a>8. 使用agnoster主题</h4><p>1）下载<a href="https://github.com/fcamblor/oh-my-zsh-agnoster-fcamblor" target="_blank" rel="noopener">agnoster</a>主题</p>
-<p>到下载的工程里面运行install文件,主题将安装到<em>~/.oh-my-zsh/themes</em>目录下</p>
-<p>2）设置该主题<br>进入<em>~/.zshrc</em>打开<em>.zshrc</em>文件，然后将<em>ZSH_THEME</em>后面的字段改为<em>agnoster</em>。<em>ZSH_THEME=”agnoster”</em>（agnoster即为要设置的主题）</p>
-<h4 id="9-增加指令高亮效果——zsh-syntax-highlighting"><a href="#9-增加指令高亮效果——zsh-syntax-highlighting" class="headerlink" title="9. 增加指令高亮效果——zsh-syntax-highlighting"></a>9. 增加指令高亮效果——<a href="https://github.com/zsh-users/zsh-syntax-highlighting" target="_blank" rel="noopener">zsh-syntax-highlighting</a></h4><p>指令高亮效果作用是当用户输入正确命令时指令会绿色高亮，错误时命令红色高亮</p>
-<p>1）首先在~/.oh-my-zsh/custom/plugins/路径下执行git clone <a href="https://github.com/zsh-users/zsh-syntax-highlighting.git" target="_blank" rel="noopener">https://github.com/zsh-users/zsh-syntax-highlighting.git</a><br>到了此路径:<em>~/.oh-my-zsh/custom/plugins/</em></p>
-<p>2）然后在<em>~/.zshrc</em>最后添加了下面两句：<br><strong>“plugins=(zsh-syntax-highlighting)<br>source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh”</strong></p>
-<p>3）最后执行 source ~/.zshrc</p>
-<p>这样就同时配置好了zsh和oh-my-zsh。<br>有两点需要注意(摘自官网):<br>Note the source command must be at the end of ~/.zshrc.<br>Note that zsh-syntax-highlighting must be the last plugin sourced, so make it the last element of the $plugins array.    </p>
-<h4 id="问题解答区"><a href="#问题解答区" class="headerlink" title="问题解答区"></a>问题解答区</h4><ol>
-<li>启动iTerm 2 默认使用dash改用zsh解决方法：chsh -s /bin/zsh  </li>
-<li>如果想切换回原来的dash：chsh -s /bin/bash   </li>
-<li>卸载oh my zsh，在命令行输入如下命令，回车即可：uninstall_oh_my_zsh  </li>
-<li>执行指令pip install powerline-status出错解决方法：<br>需要下载苹果官方的<a href="https://idmsa.apple.com/IDMSWebAuth/login?appIdKey=891bd3417a7776362562d2197f89480a8547b108fd934911bcbea0110d07f757&amp;path=%2Fdownload%2Fmore%2F%3Fname%3Dfor%2520Xcode%2520&amp;rv=1" target="_blank" rel="noopener">Command line</a>。必須官方工具下载最新版 Command Line  </li>
-<li>⌘+Q关闭iTerm 2 时每次弹窗提示问题：<br>iTerm 2 中，进入Preference-General-Closing栏目，将Confirm “Quit iTerm2(⌘Q)” command选项勾选去掉就行   </li>
-<li>找不到.zshrc文件问题：<br>我这里将原作者的.zshrc文件分享出来。供大家下载<a href="https://pan.baidu.com/s/1sk1LqCt" target="_blank" rel="noopener">网盘</a>   </li>
-<li>路径前缀的XX@XX太长，缩短问题：<br>在此感谢评论区的朋友提供的<a href="https://blog.csdn.net/z3512498/article/details/51245853" target="_blank" rel="noopener">解决方案</a>。在~/.oh-my-zsh/themes路径下找到agnoster.zsh-theme文件，可使用文本工具打开，将里面的build_prompt下的prompt_context字段在前面加#注释掉即可。</li>
-</ol>
-<p><a href="https://www.jianshu.com/p/7de00c73a2bb" target="_blank" rel="noopener">原文</a></p>
-
-          
+          <h4 id="最终效果图大概是这个样子："><a href="#最终效果图大概是这个样子：" class="headerlink" title="最终效果图大概是这个样子："></a>最终效果图大概是这个样子：</h4><p><img src="https://DaiHuiBlog.github.io/images/posts/iTerm 2和Oh My Zsh代替自带terminal教程简单整理/1.png" alt="avatar">  </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/02/iTerm-2和Oh-My-Zsh代替自带terminal教程简单整理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
