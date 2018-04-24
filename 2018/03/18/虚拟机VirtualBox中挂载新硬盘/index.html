@@ -625,7 +625,39 @@
           
   <div class="comments" id="comments">
     
-       <div id="gitalk-container"></div>
+     <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
+     <div id="container" style="display:none"></div>
+     <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+     <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+     <script>
+     const myTheme = {
+       render(state, instance) {
+         const container = document.createElement('div');
+         container.lang = "en-US";
+         container.className = 'gitment-container gitment-root-container';
+         container.appendChild(instance.renderHeader(state, instance));
+         container.appendChild(instance.renderEditor(state, instance));
+         container.appendChild(instance.renderComments(state, instance));
+         container.appendChild(instance.renderFooter(state, instance));
+         return container;
+       }
+     }
+     function showGitment() {
+       $("#gitment_title").attr("style", "display:none");
+       $("#container").attr("style", "").addClass("gitment_container");
+       var gitment = new Gitment({
+         id: window.location.pathname,
+         theme: myTheme,
+         owner: 'DaiHuiBlog',
+         repo: 'DaiHuiBlog.github.io',
+         oauth: {
+           client_id: '800c93d2e4b92609462f',
+           client_secret: 'a6f465497fd14c95ea17870f5f7554f3b627cbb4'
+         }
+       });
+       gitment.render('container');
+     }
+     </script>
     
   </div>
 
