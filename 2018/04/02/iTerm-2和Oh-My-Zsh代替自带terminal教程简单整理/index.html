@@ -116,7 +116,7 @@
 <meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/iTerm 2和Oh My Zsh代替自带terminal教程简单整理/4.png">
 <meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/iTerm 2和Oh My Zsh代替自带terminal教程简单整理/2.jpg">
 <meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/iTerm 2和Oh My Zsh代替自带terminal教程简单整理/3.jpg">
-<meta property="og:updated_time" content="2018-04-08T06:07:04.529Z">
+<meta property="og:updated_time" content="2018-06-06T09:44:48.147Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iTerm 2和Oh My Zsh代替自带terminal教程简单整理">
 <meta name="twitter:description" content="最终效果图大概是这个样子：">
@@ -497,13 +497,34 @@
 <p>3）最后执行 source ~/.zshrc</p>
 <p>这样就同时配置好了zsh和oh-my-zsh。<br>有两点需要注意(摘自官网):<br>Note the source command must be at the end of ~/.zshrc.<br>Note that zsh-syntax-highlighting must be the last plugin sourced, so make it the last element of the $plugins array.    </p>
 <h4 id="问题解答区"><a href="#问题解答区" class="headerlink" title="问题解答区"></a>问题解答区</h4><ol>
-<li>启动iTerm 2 默认使用dash改用zsh解决方法：chsh -s /bin/zsh  </li>
-<li>如果想切换回原来的dash：chsh -s /bin/bash   </li>
-<li>卸载oh my zsh，在命令行输入如下命令，回车即可：uninstall_oh_my_zsh  </li>
-<li>执行指令pip install powerline-status出错解决方法：<br>需要下载苹果官方的<a href="https://idmsa.apple.com/IDMSWebAuth/login?appIdKey=891bd3417a7776362562d2197f89480a8547b108fd934911bcbea0110d07f757&amp;path=%2Fdownload%2Fmore%2F%3Fname%3Dfor%2520Xcode%2520&amp;rv=1" target="_blank" rel="noopener">Command line</a>。必須官方工具下载最新版 Command Line  </li>
-<li>⌘+Q关闭iTerm 2 时每次弹窗提示问题：<br>iTerm 2 中，进入Preference-General-Closing栏目，将Confirm “Quit iTerm2(⌘Q)” command选项勾选去掉就行   </li>
-<li>找不到.zshrc文件问题：<br>我这里将原作者的.zshrc文件分享出来。供大家下载<a href="https://pan.baidu.com/s/1sk1LqCt" target="_blank" rel="noopener">网盘</a>   </li>
-<li>路径前缀的XX@XX太长，缩短问题：<br>在此感谢评论区的朋友提供的<a href="https://blog.csdn.net/z3512498/article/details/51245853" target="_blank" rel="noopener">解决方案</a>。在~/.oh-my-zsh/themes路径下找到agnoster.zsh-theme文件，可使用文本工具打开，将里面的build_prompt下的prompt_context字段在前面加#注释掉即可。</li>
+<li><p>启动iTerm 2 默认使用dash改用zsh解决方法：</p>
+<blockquote>
+<p>chsh -s /bin/zsh  </p>
+</blockquote>
+</li>
+<li><p>如果想切换回原来的dash：</p>
+<blockquote>
+<p>chsh -s /bin/bash   </p>
+</blockquote>
+</li>
+<li><p>卸载oh my zsh，在命令行输入如下命令，回车即可：</p>
+<blockquote>
+<p>uninstall_oh_my_zsh  </p>
+</blockquote>
+</li>
+<li><p>执行指令pip install powerline-status出错解决方法：<br>需要下载苹果官方的<a href="https://idmsa.apple.com/IDMSWebAuth/login?appIdKey=891bd3417a7776362562d2197f89480a8547b108fd934911bcbea0110d07f757&amp;path=%2Fdownload%2Fmore%2F%3Fname%3Dfor%2520Xcode%2520&amp;rv=1" target="_blank" rel="noopener">Command line</a>。必須官方工具下载最新版 Command Line  </p>
+</li>
+<li><p>⌘+Q关闭iTerm 2 时每次弹窗提示问题：<br>iTerm 2 中，进入Preference-General-Closing栏目，将Confirm “Quit iTerm2(⌘Q)” command选项勾选去掉就行   </p>
+</li>
+<li><p>找不到.zshrc文件问题：<br>我这里将原作者的.zshrc文件分享出来。供大家下载<a href="https://pan.baidu.com/s/1sk1LqCt" target="_blank" rel="noopener">网盘</a>   </p>
+</li>
+<li><p>路径前缀的XX@XX太长，缩短问题：<br>在此感谢评论区的朋友提供的<a href="https://blog.csdn.net/z3512498/article/details/51245853" target="_blank" rel="noopener">解决方案</a>。在~/.oh-my-zsh/themes路径下找到agnoster.zsh-theme文件，可使用文本工具打开，将里面的build_prompt下的prompt_context字段在前面加#注释掉即可。    </p>
+</li>
+<li><p>执行指令pip install powerline-status出错，下载了Command Line也没有办法,是权限原因造成的,执行:   </p>
+<blockquote>
+<p>pip install powerline-status –user</p>
+</blockquote>
+</li>
 </ol>
 <p><a href="https://www.jianshu.com/p/7de00c73a2bb" target="_blank" rel="noopener">原文</a></p>
 
