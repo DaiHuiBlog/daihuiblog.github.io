@@ -1,0 +1,1190 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        /*background: #1E92FB;*/ /*进度条颜色*/
+        background: #222;
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #222;    /*上边框颜色*/
+        border-left-color: #222;    /*左边框颜色*/
+    }
+</style>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vim," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最终效果图大概是这个样子：">
+<meta name="keywords" content="vim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设置mac自带的vim语法高亮">
+<meta property="og:url" content="http://blog.daihui888.com/2018/06/15/设置mac自带的vim语法高亮/index.html">
+<meta property="og:site_name" content="Hui&#39;s Blog">
+<meta property="og:description" content="最终效果图大概是这个样子：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/设置mac自带的vim语法高亮/1.png">
+<meta property="og:updated_time" content="2018-06-15T02:51:32.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设置mac自带的vim语法高亮">
+<meta name="twitter:description" content="最终效果图大概是这个样子：">
+<meta name="twitter:image" content="https://DaiHuiBlog.github.io/images/posts/设置mac自带的vim语法高亮/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.daihui888.com/2018/06/15/设置mac自带的vim语法高亮/"/>
+
+
+
+
+
+  <title> 设置mac自带的vim语法高亮 | Hui's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?19cede93d512081046c555fc5fad525f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+<a href="https://github.com/d470969047h">
+  <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="GitHub">
+</a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hui's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">DaiHui's blog</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://blog.daihui888.com/2018/06/15/设置mac自带的vim语法高亮/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dai Hui">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hui's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Hui's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                设置mac自带的vim语法高亮
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-15T10:09:00+08:00">
+                2018-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/转载/" itemprop="url" rel="index">
+                    <span itemprop="name">转载</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/15/设置mac自带的vim语法高亮/" class="leancloud_visitors" data-flag-title="设置mac自带的vim语法高亮">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text"> 热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="最终效果图大概是这个样子："><a href="#最终效果图大概是这个样子：" class="headerlink" title="最终效果图大概是这个样子："></a>最终效果图大概是这个样子：</h4><p><img src="https://DaiHuiBlog.github.io/images/posts/设置mac自带的vim语法高亮/1.png" alt="avatar">  </p>
+<a id="more"></a>
+<h4 id="设置vimrc"><a href="#设置vimrc" class="headerlink" title="设置vimrc"></a>设置vimrc</h4><p>vimrc文件是vim的环境设置文件。<br>整体的vim的设置是在 <strong>/etc/vimrc</strong> 文件中。<br>不建议修改/etc/vimrc 文件，每个用户可以在用户根目录中设置vim，新建<strong> ~/.vimrc</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">touch .vimrc</span><br><span class="line">```   </span><br><span class="line"></span><br><span class="line">##### 在.vimrc中添加以下内容</span><br></pre></td></tr></table></figure></p>
+<p>“=========================================================================<br>“ DesCRiption: 适合自己使用的vimrc文件，for Mac/Linux/Windows, GUI/Console<br>“<br>“ Last Change: 2017年09月11日<br>“<br>“ Version: 1.80<br>“<br>“=========================================================================</p>
+<p>set nocompatible “ 关闭 vi 兼容模式<br>syntax on “ 自动语法高亮<br>colorscheme molokai “ 设定配色方案<br>set number “ 显示行号<br>set cursorline “ 突出显示当前行<br>set ruler “ 打开状态栏标尺<br>set shiftwidth=4 “ 设定 &lt;&lt; 和 &gt;&gt; 命令移动时的宽度为 4<br>set softtabstop=4 “ 使得按退格键时可以一次删掉 4 个空格<br>set tabstop=4 “ 设定 tab 长度为 4<br>set nobackup “ 覆盖文件时不备份<br>set autochdir “ 自动切换当前目录为当前文件所在的目录<br>filetype plugin indent on “ 开启插件<br>set backupcopy=yes “ 设置备份时的行为为覆盖<br>set ignorecase smartcase “ 搜索时忽略大小写，但在有一个或以上大写字母时仍保持对大小写敏感<br>set nowrapscan “ 禁止在搜索到文件两端时重新搜索<br>set incsearch “ 输入搜索内容时就显示搜索结果<br>set hlsearch “ 搜索时高亮显示被找到的文本<br>set noerrorbells “ 关闭错误信息响铃<br>set novisualbell “ 关闭使用可视响铃代替呼叫<br>set t_vb= “ 置空错误铃声的终端代码<br>“ set showmatch “ 插入括号时，短暂地跳转到匹配的对应括号<br>“ set matchtime=2 “ 短暂跳转到匹配括号的时间<br>set magic “ 设置魔术<br>set hidden “ 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存<br>set guioptions-=T “ 隐藏工具栏<br>set guioptions-=m “ 隐藏菜单栏<br>set smartindent “ 开启新行时使用智能自动缩进<br>set backspace=indent,eol,start<br>“ 不设定在插入状态无法用退格键和 Delete 键删除回车符<br>set cmdheight=1 “ 设定命令行的行数为 1<br>set laststatus=2 “ 显示状态栏 (默认值为 1, 无法显示状态栏)<br>set statusline=\ %&lt;%F[%1<em>%M%</em>%n%R%H]%=\ %y\ %0(%{&amp;fileformat}\ %{&amp;encoding}\ %c:%l/%L%)\<br>“ 设置在状态行显示的信息<br>set foldenable “ 开始折叠<br>set foldmethod=syntax “ 设置语法折叠<br>set foldcolumn=0 “ 设置折叠区域的宽度<br>setlocal foldlevel=1 “ 设置折叠层数为<br>“ set foldclose=all “ 设置为自动关闭折叠<br>“ nnoremap <space> @=((foldclosed(line(‘.’)) &lt; 0) ? ‘zc’ : ‘zo’)<cr><br>“ 用空格键来开关折叠</cr></space></p>
+<p>“ return OS type, eg: windows, or linux, mac, et.st..<br>function! MySys()<br>if has(“win16”) || has(“win32”) || has(“win64”) || has(“win95”)<br>return “windows”<br>elseif has(“unix”)<br>return “linux”<br>endif<br>endfunction</p>
+<p>“ 用户目录变量$VIMFILES<br>if MySys() == “windows”<br>let $VIMFILES = $VIM.’/vimfiles’<br>elseif MySys() == “linux”<br>let $VIMFILES = $HOME.’/.vim’<br>endif</p>
+<p>“ 设定doc文档目录<br>let helptags=$VIMFILES.’/doc’</p>
+<p>“ 设置字体 以及中文支持<br>if has(“win32”)<br>set guifont=Inconsolata:h12:cANSI<br>endif</p>
+<p>“ 配置多语言环境<br>if has(“multi_byte”)<br>“ UTF-8 编码<br>set encoding=utf-8<br>set termencoding=utf-8<br>set formatoptions+=mM<br>set fencs=utf-8,gbk</p>
+<p>if v:lang =~? ‘^(zh)|(ja)|(ko)‘<br>set ambiwidth=double<br>endif</p>
+<p>if has(“win32”)<br>source $VIMRUNTIME/delmenu.vim<br>source $VIMRUNTIME/menu.vim<br>language messages zh_CN.utf-8<br>endif<br>else<br>echoerr “Sorry, this version of (g)vim was not compiled with +multi_byte”<br>endif</p>
+<p>“ Buffers操作快捷方式!<br>nnoremap <c-return> :bnext<cr><br>nnoremap <c-s-return> :bprevious<cr></cr></c-s-return></cr></c-return></p>
+<p>“ Tab操作快捷方式!<br>nnoremap <c-tab> :tabnext<cr><br>nnoremap <c-s-tab> :tabprev<cr></cr></c-s-tab></cr></c-tab></p>
+<p>“关于tab的快捷键<br>“ map tn :tabnext<cr><br>“ map tp :tabprevious<cr><br>“ map td :tabnew .<cr><br>“ map te :tabedit<br>“ map tc :tabclose<cr></cr></cr></cr></cr></p>
+<p>“窗口分割时,进行切换的按键热键需要连接两次,比如从下方窗口移动<br>“光标到上方窗口,需要<c-w><c-w>k,非常麻烦,现在重映射为<c-k>,切换的<br>“时候会变得非常方便.<br>nnoremap <c-h> <c-w>h<br>nnoremap <c-j> <c-w>j<br>nnoremap <c-k> <c-w>k<br>nnoremap <c-l> <c-w>l</c-w></c-l></c-w></c-k></c-w></c-j></c-w></c-h></c-k></c-w></c-w></p>
+<p>“一些不错的映射转换语法（如果在一个文件中混合了不同语言时有用）<br>nnoremap <leader>1 :set filetype=xhtml<cr><br>nnoremap <leader>2 :set filetype=css<cr><br>nnoremap <leader>3 :set filetype=javascript<cr><br>nnoremap <leader>4 :set filetype=php<cr></cr></leader></cr></leader></cr></leader></cr></leader></p>
+<p>“ set fileformats=unix,dos,mac<br>“ nmap <leader>fd :se fileformat=dos<cr><br>“ nmap <leader>fu :se fileformat=unix<cr></cr></leader></cr></leader></p>
+<p>“ use Ctrl+[l|n|p|cc] to list|next|previous|jump to count the result<br>“ map <c-x>l <esc>:cl<cr><br>“ map <c-x>n <esc>:cn<cr><br>“ map <c-x>p <esc>:cp<cr><br>“ map <c-x>c <esc>:cc<cr></cr></esc></c-x></cr></esc></c-x></cr></esc></c-x></cr></esc></c-x></p>
+<p>“ 让 Tohtml 产生有 CSS 语法的 html<br>“ syntax/2html.vim，可以用:runtime! syntax/2html.vim<br>let html_use_css=1</p>
+<p>“ Python 文件的一般设置，比如不要 tab 等<br>autocmd FileType python set tabstop=4 shiftwidth=4 expandtab<br>autocmd FileType python map <f12> :!python %<cr></cr></f12></p>
+<p>“ 选中状态下 Ctrl+c 复制<br>vmap <c-c> “+y</c-c></p>
+<p>“ 打开javascript折叠<br>let b:javascript_fold=1<br>“ 打开javascript对dom、html和css的支持<br>let javascript_enable_domhtmlcss=1<br>“ 设置字典 ~/.vim/dict/文件的路径<br>autocmd filetype javascript set dictionary=$VIMFILES/dict/javascript.dict<br>autocmd filetype css set dictionary=$VIMFILES/dict/css.dict<br>autocmd filetype php set dictionary=$VIMFILES/dict/php.dict</p>
+<p>“—————————————————————–<br>“ plugin - bufexplorer.vim Buffers切换<br>“ \be 全屏方式查看全部打开的文件列表<br>“ \bv 左右方式查看 \bs 上下方式查看<br>“—————————————————————–</p>
+<p>“—————————————————————–<br>“ plugin - taglist.vim 查看函数列表，需要ctags程序<br>“ F4 打开隐藏taglist窗口<br>“—————————————————————–<br>if MySys() == “windows” “ 设定windows系统中ctags程序的位置<br>let Tlist_Ctags_Cmd = ‘“‘.$VIMRUNTIME.’/ctags.exe”‘<br>elseif MySys() == “linux” “ 设定windows系统中ctags程序的位置<br>let Tlist_Ctags_Cmd = ‘/usr/bin/ctags’<br>endif<br>nnoremap <silent><f4> :TlistToggle<cr><br>let Tlist_Show_One_File = 1 “ 不同时显示多个文件的tag，只显示当前文件的<br>let Tlist_Exit_OnlyWindow = 1 “ 如果taglist窗口是最后一个窗口，则退出vim<br>let Tlist_Use_Right_Window = 1 “ 在右侧窗口中显示taglist窗口<br>let Tlist_File_Fold_Auto_Close=1 “ 自动折叠当前非编辑文件的方法列表<br>let Tlist_Auto_Open = 0<br>let Tlist_Auto_Update = 1<br>let Tlist_Hightlight_Tag_On_BufEnter = 1<br>let Tlist_Enable_Fold_Column = 0<br>let Tlist_Process_File_Always = 1<br>let Tlist_Display_Prototype = 0<br>let Tlist_Compact_Format = 1</cr></f4></silent></p>
+<p>“—————————————————————–<br>“ plugin - mark.vim 给各种tags标记不同的颜色，便于观看调式的插件。<br>“ \m mark or unmark the word under (or before) the cursor<br>“ \r manually input a regular expression. 用于搜索.<br>“ \n clear this mark (i.e. the mark under the cursor), or clear all highlighted marks .<br>“ * 当前MarkWord的下一个 # 当前MarkWord的上一个<br>“ \/ 所有MarkWords的下一个 \? 所有MarkWords的上一个<br>“—————————————————————–</p>
+<p>“—————————————————————–<br>“ plugin - NERD_tree.vim 以树状方式浏览系统中的文件和目录<br>“ :ERDtree 打开NERD_tree :NERDtreeClose 关闭NERD_tree<br>“ o 打开关闭文件或者目录 t 在标签页中打开<br>“ T 在后台标签页中打开 ! 执行此文件<br>“ p 到上层目录 P 到根目录<br>“ K 到第一个节点 J 到最后一个节点<br>“ u 打开上层目录 m 显示文件系统菜单（添加、删除、移动操作）<br>“ r 递归刷新当前目录 R 递归刷新当前根目录<br>“—————————————————————–<br>“ F3 NERDTree 切换<br>map <f3> :NERDTreeToggle<cr><br>imap <f3> <esc>:NERDTreeToggle<cr></cr></esc></f3></cr></f3></p>
+<p>“—————————————————————–<br>“ plugin - NERD_commenter.vim 注释代码用的，<br>“ [count],cc 光标以下count行逐行添加注释(7,cc)<br>“ [count],cu 光标以下count行逐行取消注释(7,cu)<br>“ [count],cm 光标以下count行尝试添加块注释(7,cm)<br>“ ,cA 在行尾插入 ,并且进入插入模式。 这个命令方便写注释。<br>“ 注：count参数可选，无则默认为选中行或当前行<br>“—————————————————————–<br>let NERDSpaceDelims=1 “ 让注释符与语句之间留一个空格<br>let NERDCompactSexyComs=1 “ 多行注释时样子更好看</p>
+<p>“—————————————————————–<br>“ plugin - DoxygenToolkit.vim 由注释生成文档，并且能够快速生成函数标准注释<br>“—————————————————————–<br>let g:DoxygenToolkit_authorName=”Asins - asinsimple AT gmail DOT com”<br>let g:DoxygenToolkit_briefTag_funcName=”yes”<br>map <leader>da :DoxAuthor<cr><br>map <leader>df :Dox<cr><br>map <leader>db :DoxBlock<cr><br>map <leader>dc a <left><left><left></left></left></left></leader></cr></leader></cr></leader></cr></leader></p>
+<p>“—————————————————————–<br>“ plugin – ZenCoding.vim 很酷的插件，HTML代码生成<br>“ 插件最新版：<a href="http://github.com/mattn/zencoding-vim" target="_blank" rel="noopener">http://github.com/mattn/zencoding-vim</a><br>“ 常用命令可看：<a href="http://nootn.com/blog/Tool/23/" target="_blank" rel="noopener">http://nootn.com/blog/Tool/23/</a><br>“—————————————————————–</p>
+<p>“—————————————————————–<br>“ plugin – checksyntax.vim JavaScript常见语法错误检查<br>“ 默认快捷方式为 F5<br>“—————————————————————–<br>let g:checksyntax_auto = 0 “ 不自动检查</p>
+<p>“—————————————————————–<br>“ plugin - NeoComplCache.vim 自动补全插件<br>“—————————————————————–<br>let g:AutoComplPop_NotEnableAtStartup = 1<br>let g:NeoComplCache_EnableAtStartup = 1<br>let g:NeoComplCache_SmartCase = 1<br>let g:NeoComplCache_TagsAutoUpdate = 1<br>let g:NeoComplCache_EnableInfo = 1<br>let g:NeoComplCache_EnableCamelCaseCompletion = 1<br>let g:NeoComplCache_MinSyntaxLength = 3<br>let g:NeoComplCache_EnableSkipCompletion = 1<br>let g:NeoComplCache_SkipInputTime = ‘0.5’<br>let g:NeoComplCache_SnippetsDir = $VIMFILES.’/snippets’<br>“ <tab> completion.<br>inoremap <expr><tab> pumvisible() ? “\<c-n>“ : “\<tab>“<br>“ snippets expand key<br>imap <silent> <c-e> <plug>(neocomplcache_snippets_expand)<br>smap <silent> <c-e> <plug>(neocomplcache_snippets_expand)</plug></c-e></silent></plug></c-e></silent></tab></c-n></tab></expr></tab></p>
+<p>“—————————————————————–<br>“ plugin - matchit.vim 对%命令进行扩展使得能在嵌套标签和语句之间跳转<br>“ % 正向匹配 g% 反向匹配<br>“ [% 定位块首 ]% 定位块尾<br>“—————————————————————–</p>
+<p>“—————————————————————–<br>“ plugin - vcscommand.vim 对%命令进行扩展使得能在嵌套标签和语句之间跳转<br>“ SVN/git管理工具<br>“—————————————————————–</p>
+<p>“—————————————————————–<br>“ plugin – a.vim<br>“—————————————————————–<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 设置颜色主题</span><br><span class="line">进入对应目录准备颜色文件，没有就创建对应目录和文件</span><br></pre></td></tr></table></figure></p>
+<p>daihui@daihuideMBP ~ cd .vim/colors<br>daihui@daihuideMBP ~/.vim/colors pwd<br>/Users/daihui/.vim/colors</p>
+<h2 id="在-vim-colors目录下新建一个颜色文件"><a href="#在-vim-colors目录下新建一个颜色文件" class="headerlink" title="在~/.vim/colors目录下新建一个颜色文件"></a>在~/.vim/colors目录下新建一个颜色文件</h2><p>daihui@daihuideMBP ~/.vim/colors touch molokai.vim<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">molokai.vim 文件内容如下：</span><br></pre></td></tr></table></figure></p>
+<p>“ Vim color file<br>“<br>“ Author: Tomas Restrepo <a href="mailto:&#x74;&#x6f;&#x6d;&#x61;&#x73;&#x40;&#119;&#105;&#110;&#116;&#101;&#x72;&#x64;&#x6f;&#x6d;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#x74;&#x6f;&#x6d;&#x61;&#x73;&#x40;&#119;&#105;&#110;&#116;&#101;&#x72;&#x64;&#x6f;&#x6d;&#x2e;&#x63;&#111;&#x6d;</a><br>“<br>“ Note: Based on the monokai theme for textmate<br>“ by Wimer Hazenberg and its darker variant<br>“ by Hamish Stuart Macpherson<br>“</p>
+<p>hi clear</p>
+<p>set background=dark<br>if version &gt; 580<br>    “ no guarantees for version 5.8 and below, but this makes it stop<br>    “ complaining<br>    hi clear<br>    if exists(“syntax_on”)<br>        syntax reset<br>    endif<br>endif<br>let g:colors_name=”molokai”</p>
+<p>if exists(“g:molokai_original”)<br>    let s:molokai_original = g:molokai_original<br>else<br>    let s:molokai_original = 0<br>endif</p>
+<p>hi Boolean         guifg=#AE81FF<br>hi Character       guifg=#E6DB74<br>hi Number          guifg=#AE81FF<br>hi String          guifg=#E6DB74<br>hi Conditional     guifg=#F92672               gui=bold<br>hi Constant        guifg=#AE81FF               gui=bold<br>hi Cursor          guifg=#000000 guibg=#F8F8F0<br>hi Debug           guifg=#BCA3A3               gui=bold<br>hi Define          guifg=#66D9EF<br>hi Delimiter       guifg=#8F8F8F<br>hi DiffAdd                       guibg=#13354A<br>hi DiffChange      guifg=#89807D guibg=#4C4745<br>hi DiffDelete      guifg=#960050 guibg=#1E0010<br>hi DiffText                      guibg=#4C4745 gui=italic,bold</p>
+<p>hi Directory       guifg=#A6E22E               gui=bold<br>hi Error           guifg=#960050 guibg=#1E0010<br>hi ErrorMsg        guifg=#F92672 guibg=#232526 gui=bold<br>hi Exception       guifg=#A6E22E               gui=bold<br>hi Float           guifg=#AE81FF<br>hi FoldColumn      guifg=#465457 guibg=#000000<br>hi Folded          guifg=#465457 guibg=#000000<br>hi Function        guifg=#A6E22E<br>hi Identifier      guifg=#FD971F<br>hi Ignore          guifg=#808080 guibg=bg<br>hi IncSearch       guifg=#C4BE89 guibg=#000000</p>
+<p>hi Keyword         guifg=#F92672               gui=bold<br>hi Label           guifg=#E6DB74               gui=none<br>hi Macro           guifg=#C4BE89               gui=italic<br>hi SpecialKey      guifg=#66D9EF               gui=italic</p>
+<p>hi MatchParen      guifg=#000000 guibg=#FD971F gui=bold<br>hi ModeMsg         guifg=#E6DB74<br>hi MoreMsg         guifg=#E6DB74<br>hi Operator        guifg=#F92672</p>
+<p>“ complete menu<br>hi Pmenu           guifg=#66D9EF guibg=#000000<br>hi PmenuSel                      guibg=#808080<br>hi PmenuSbar                     guibg=#080808<br>hi PmenuThumb      guifg=#66D9EF</p>
+<p>hi PreCondit       guifg=#A6E22E               gui=bold<br>hi PreProc         guifg=#A6E22E<br>hi Question        guifg=#66D9EF<br>hi Repeat          guifg=#F92672               gui=bold<br>hi Search          guifg=#FFFFFF guibg=#455354<br>“ marks column<br>hi SignColumn      guifg=#A6E22E guibg=#232526<br>hi SpecialChar     guifg=#F92672               gui=bold<br>hi SpecialComment  guifg=#465457               gui=bold<br>hi Special         guifg=#66D9EF guibg=bg      gui=italic<br>hi SpecialKey      guifg=#888A85               gui=italic<br>if has(“spell”)<br>    hi SpellBad    guisp=#FF0000 gui=undercurl<br>    hi SpellCap    guisp=#7070F0 gui=undercurl<br>    hi SpellLocal  guisp=#70F0F0 gui=undercurl<br>    hi SpellRare   guisp=#FFFFFF gui=undercurl<br>endif<br>hi Statement       guifg=#F92672               gui=bold<br>hi StatusLine      guifg=#455354 guibg=fg<br>hi StatusLineNC    guifg=#808080 guibg=#080808<br>hi StorageClass    guifg=#FD971F               gui=italic<br>hi Structure       guifg=#66D9EF<br>hi Tag             guifg=#F92672               gui=italic<br>hi Title           guifg=#ef5939<br>hi Todo            guifg=#FFFFFF guibg=bg      gui=bold</p>
+<p>hi Typedef         guifg=#66D9EF<br>hi Type            guifg=#66D9EF               gui=none<br>hi Underlined      guifg=#808080               gui=underline</p>
+<p>hi VertSplit       guifg=#808080 guibg=#080808 gui=bold<br>hi VisualNOS                     guibg=#403D3D<br>hi Visual                        guibg=#403D3D<br>hi WarningMsg      guifg=#FFFFFF guibg=#333333 gui=bold<br>hi WildMenu        guifg=#66D9EF guibg=#000000</p>
+<p>if s:molokai_original == 1<br>   hi Normal          guifg=#F8F8F2 guibg=#272822<br>   hi Comment         guifg=#75715E<br>   hi CursorLine                    guibg=#3E3D32<br>   hi CursorColumn                  guibg=#3E3D32<br>   hi LineNr          guifg=#BCBCBC guibg=#3B3A32<br>   hi NonText         guifg=#BCBCBC guibg=#3B3A32<br>else<br>   hi Normal          guifg=#F8F8F2 guibg=#1B1D1E<br>   hi Comment         guifg=#465457<br>   hi CursorLine                    guibg=#293739<br>   hi CursorColumn                  guibg=#293739<br>   hi LineNr          guifg=#BCBCBC guibg=#232526<br>   hi NonText         guifg=#BCBCBC guibg=#232526<br>end</p>
+<p>“<br>“ Support for 256-color terminal<br>“<br>if &amp;t_Co &gt; 255<br>   hi Boolean         ctermfg=135<br>   hi Character       ctermfg=144<br>   hi Number          ctermfg=135<br>   hi String          ctermfg=144<br>   hi Conditional     ctermfg=161               cterm=bold<br>   hi Constant        ctermfg=135               cterm=bold<br>   hi Cursor          ctermfg=16  ctermbg=253<br>   hi Debug           ctermfg=225               cterm=bold<br>   hi Define          ctermfg=81<br>   hi Delimiter       ctermfg=241</p>
+<p>   hi DiffAdd                     ctermbg=24<br>   hi DiffChange      ctermfg=181 ctermbg=239<br>   hi DiffDelete      ctermfg=162 ctermbg=53<br>   hi DiffText                    ctermbg=102 cterm=bold</p>
+<p>   hi Directory       ctermfg=118               cterm=bold<br>   hi Error           ctermfg=219 ctermbg=89<br>   hi ErrorMsg        ctermfg=199 ctermbg=16    cterm=bold<br>   hi Exception       ctermfg=118               cterm=bold<br>   hi Float           ctermfg=135<br>   hi FoldColumn      ctermfg=67  ctermbg=16<br>   hi Folded          ctermfg=67  ctermbg=16<br>   hi Function        ctermfg=118<br>   hi Identifier      ctermfg=208<br>   hi Ignore          ctermfg=244 ctermbg=232<br>   hi IncSearch       ctermfg=193 ctermbg=16</p>
+<p>   hi Keyword         ctermfg=161               cterm=bold<br>   hi Label           ctermfg=229               cterm=none<br>   hi Macro           ctermfg=193<br>   hi SpecialKey      ctermfg=81</p>
+<p>   hi MatchParen      ctermfg=16  ctermbg=208 cterm=bold<br>   hi ModeMsg         ctermfg=229<br>   hi MoreMsg         ctermfg=229<br>   hi Operator        ctermfg=161</p>
+<p>   “ complete menu<br>   hi Pmenu           ctermfg=81  ctermbg=16<br>   hi PmenuSel                    ctermbg=244<br>   hi PmenuSbar                   ctermbg=232<br>   hi PmenuThumb      ctermfg=81</p>
+<p>   hi PreCondit       ctermfg=118               cterm=bold<br>   hi PreProc         ctermfg=118<br>   hi Question        ctermfg=81<br>   hi Repeat          ctermfg=161               cterm=bold<br>   hi Search          ctermfg=253 ctermbg=66</p>
+<p>   “ marks column<br>   hi SignColumn      ctermfg=118 ctermbg=235<br>   hi SpecialChar     ctermfg=161               cterm=bold<br>   hi SpecialComment  ctermfg=245               cterm=bold<br>   hi Special         ctermfg=81  ctermbg=232<br>   hi SpecialKey      ctermfg=245</p>
+<p>   hi Statement       ctermfg=161               cterm=bold<br>   hi StatusLine      ctermfg=238 ctermbg=253<br>   hi StatusLineNC    ctermfg=244 ctermbg=232<br>   hi StorageClass    ctermfg=208<br>   hi Structure       ctermfg=81<br>   hi Tag             ctermfg=161<br>   hi Title           ctermfg=166<br>   hi Todo            ctermfg=231 ctermbg=232   cterm=bold</p>
+<p>   hi Typedef         ctermfg=81<br>   hi Type            ctermfg=81                cterm=none<br>   hi Underlined      ctermfg=244               cterm=underline</p>
+<p>   hi VertSplit       ctermfg=244 ctermbg=232   cterm=bold<br>   hi VisualNOS                   ctermbg=238<br>   hi Visual                      ctermbg=235<br>   hi WarningMsg      ctermfg=231 ctermbg=238   cterm=bold<br>   hi WildMenu        ctermfg=81  ctermbg=16</p>
+<p>   hi Normal          ctermfg=252 ctermbg=233<br>   hi Comment         ctermfg=59<br>   hi CursorLine                  ctermbg=234   cterm=none<br>   hi CursorColumn                ctermbg=234<br>   hi LineNr          ctermfg=250 ctermbg=234<br>   hi NonText         ctermfg=250 ctermbg=234<br>end<br><code>`</code></p>
+<h4 id="重启vim再进来看看"><a href="#重启vim再进来看看" class="headerlink" title="重启vim再进来看看"></a>重启vim再进来看看</h4><p><a href="https://blog.csdn.net/ccorg/article/details/77940023" target="_blank" rel="noopener">原文</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束-------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vim/" rel="tag"><i class="fa fa-tag"></i> vim</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/16/Mac下删除launchpad还有残留图标的应用/" rel="next" title="Mac下删除launchpad还有残留图标的应用">
+                <i class="fa fa-chevron-left"></i> Mac下删除launchpad还有残留图标的应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+     <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
+     <div id="container" style="display:none"></div>
+     <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+     <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+     <script>
+     const myTheme = {
+       render(state, instance) {
+         const container = document.createElement('div');
+         container.lang = "en-US";
+         container.className = 'gitment-container gitment-root-container';
+         container.appendChild(instance.renderHeader(state, instance));
+         container.appendChild(instance.renderEditor(state, instance));
+         container.appendChild(instance.renderComments(state, instance));
+         container.appendChild(instance.renderFooter(state, instance));
+         return container;
+       }
+     }
+     function showGitment() {
+       $("#gitment_title").attr("style", "display:none");
+       $("#container").attr("style", "").addClass("gitment_container");
+       var gitment = new Gitment({
+         id: decodeURI(window.location.pathname),
+         theme: myTheme,
+         owner: 'DaiHuiBlog',
+         repo: 'DaiHuiBlog.github.io',
+         oauth: {
+           client_id: '8d7b7f95fe47ac34c549',
+           client_secret: '4d91064b17493b0c95ab04e2cedcb1cdf2049a7c'
+         }
+       });
+       gitment.render('container');
+     }
+     </script>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Dai Hui" />
+          <p class="site-author-name" itemprop="name">Dai Hui</p>
+          <p class="site-description motion-element" itemprop="description">知识在于分享,分享生活点滴</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/d470969047h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/d470969047h" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.daihui888.com/" target="_blank" title="小说">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  小说
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              推荐阅读
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.kailing.pub/" title="KLBlog" target="_blank">KLBlog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bysocket.com/" title="BYSocket" target="_blank">BYSocket</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#最终效果图大概是这个样子："><span class="nav-number">1.</span> <span class="nav-text">最终效果图大概是这个样子：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置vimrc"><span class="nav-number">2.</span> <span class="nav-text">设置vimrc</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-vim-colors目录下新建一个颜色文件"><span class="nav-number"></span> <span class="nav-text">在~/.vim/colors目录下新建一个颜色文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重启vim再进来看看"><span class="nav-number">1.</span> <span class="nav-text">重启vim再进来看看</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dai Hui</span>
+</div>
+
+<!--
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+-->
+
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("1JuPXM6LFHiIaehU02hnXbSp-gzGzoHsz", "2oF7dDN1HR4oc7B1oNGkXJ2P");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
