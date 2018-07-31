@@ -446,23 +446,15 @@
 
       
         
-          
-            <h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
-<li>进入GRUB界面后，有几秒钟时间给你。进入GRUB出现：<br> Red Hat Enterprise Linux Server (2.6.18-8.e15xen)</li>
-<li>倒计时结束前，键入e出现：<br>root（hd0,0）<br>kernel /xen.gz-2.6.28-8.e15<br>module /vmlinux-2.6.18.e15xen ro root=/dev/VolGroup00/LogVo100 rhgb quiet<br>module /initrd-2.6.18-8.e15xen.img<br>上下键移到quiet那一行，按e进入，加上 linux single或者1即可，回车</li>
-<li>按b后进入重启模式，一定注意出现：<br> Starting udev:<br> 在后面输入boot回车</li>
-<li>之后出现命令行：<br> sh-3.2#</li>
-<li>输入passwd，回车即可修改root密码，输入两次密码</li>
-<li>完成之后reboot即可重启。</li>
-</ol>
-<h1 id="普通用户密码忘记了，比较简单"><a href="#普通用户密码忘记了，比较简单" class="headerlink" title="普通用户密码忘记了，比较简单"></a>普通用户密码忘记了，比较简单</h1><ol>
-<li>在root账户下，打开/etc/shadow (不是passwd文件，因为密码实际上经过加密后放在了“影子口令”文件shadow中了。passwd文件每个用户均可见，但是shadow只有root可以见)。</li>
-<li>找到普通用户名cicikasa，然后删除第二个域即可，域之间用“:”隔开的，如下：<br>cicikasa:TdkakkkYUukkjkjk:14672:0:99999:7:::<br>上述红色部分就是经过加密的密码，删除即可</li>
-<li>在普通用户下，输入passwd即可输入新密码</li>
-</ol>
-<h1 id="如果想修改VMware的bios"><a href="#如果想修改VMware的bios" class="headerlink" title="如果想修改VMware的bios"></a>如果想修改VMware的bios</h1><p>在VMWare中将BIOS设成光驱启动:<br>启动时(点击启动虚拟机按钮),按F2 ,进入BIOS 设置,找到 BOOT—把CDROM光驱，移动到最上面即可。根据提示进行设置，一般按“-”号进行设置。<br>注意：启动时，点了启动虚拟机按钮后一定要在点一下窗口（或者Ctrl +G），然后快按F2。否则，窗口没激活，F2是不起作用的.</p>
-
-          
+          <h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
+<li>进入GRUB界面后，有几秒钟时间给你。进入GRUB出现：<br> Red Hat Enterprise Linux Server (2.6.18-8.e15xen)
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/31/虚拟机Linux的root或普通用户密码忘记找回/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
