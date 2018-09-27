@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Mac安装软件时提示已损坏的解决方法]]></title>
+    <url>%2F2018%2F09%2F27%2FMac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图： 这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。 解决办法：打开终端，在终端中输入：1sudo spctl --master-disable 输入密码，回车。搞定]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>文件损坏</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[虚拟机Linux的root或普通用户密码忘记找回]]></title>
     <url>%2F2018%2F07%2F31%2F%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E%2F</url>
     <content type="text"><![CDATA[启动VMware的Linux 进入GRUB界面后，有几秒钟时间给你。进入GRUB出现： Red Hat Enterprise Linux Server (2.6.18-8.e15xen) 倒计时结束前，键入e出现：root（hd0,0）kernel /xen.gz-2.6.28-8.e15module /vmlinux-2.6.18.e15xen ro root=/dev/VolGroup00/LogVo100 rhgb quietmodule /initrd-2.6.18-8.e15xen.img上下键移到quiet那一行，按e进入，加上 linux single或者1即可，回车 按b后进入重启模式，一定注意出现： Starting udev: 在后面输入boot回车 之后出现命令行： sh-3.2# 输入passwd，回车即可修改root密码，输入两次密码 完成之后reboot即可重启。 普通用户密码忘记了，比较简单 在root账户下，打开/etc/shadow (不是passwd文件，因为密码实际上经过加密后放在了“影子口令”文件shadow中了。passwd文件每个用户均可见，但是shadow只有root可以见)。 找到普通用户名cicikasa，然后删除第二个域即可，域之间用“:”隔开的，如下：cicikasa:TdkakkkYUukkjkjk:14672:0:99999:7:::上述红色部分就是经过加密的密码，删除即可 在普通用户下，输入passwd即可输入新密码 如果想修改VMware的bios在VMWare中将BIOS设成光驱启动:启动时(点击启动虚拟机按钮),按F2 ,进入BIOS 设置,找到 BOOT—把CDROM光驱，移动到最上面即可。根据提示进行设置，一般按“-”号进行设置。注意：启动时，点了启动虚拟机按钮后一定要在点一下窗口（或者Ctrl +G），然后快按F2。否则，窗口没激活，F2是不起作用的.]]></content>
