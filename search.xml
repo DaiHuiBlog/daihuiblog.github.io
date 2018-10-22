@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[win2008R2磁盘脱机和写入保护解决办法]]></title>
-    <url>%2F2018%2F10%2F22%2Fwindows2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%2F</url>
+    <url>%2F2018%2F10%2F22%2Fwin2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%2F</url>
     <content type="text"><![CDATA[打开cmd命令行，输入：diskpart，进入diskpart工具 输入：list disk，查看到所有磁盘 找到脱机的磁盘，输入：select disk 1 接着输入：online disk 查看此时磁盘联机状态 清除只读属性，输入：attribute disk clear readonly 查看此时的清盘情况，输入：attribute disk]]></content>
       <categories>
         <category>OS</category>
