@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Mac远程连接谷歌云VM实例]]></title>
     <url>%2F2019%2F02%2F19%2FMac%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%B0%B7%E6%AD%8C%E4%BA%91VM%E5%AE%9E%E4%BE%8B%2F</url>
-    <content type="text"><![CDATA[官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话） 第一步:生成密钥对1ssh-keygen -t rsa -f ~/.ssh/秘钥名称 -C "邮箱" 这样就在主目录下的.ssh目录中生成了两个文件“秘钥名称”和“秘钥名称.pub”。“秘钥名称”中保存的是私钥，”秘钥名称.pub“中保存的是公钥。 第二步:添加公钥拷贝公钥到剪切板:1pbcopy &lt; 秘钥名称.pub 在GPC导航菜单中找到”元数据“连接，选择”SSH秘钥“选项卡-&gt;点击”修改“按钮-&gt;”添加一项“，粘贴公钥，保存，就添加完成了。 第三步:测试1ssh -i ~/.ssh/秘钥名称 用户名@VM外部IP 用户名，在第二部添加公钥时，粘贴之后会在第一列出现你的用户名 如果没问题的话你已经进入到VM实例终端了 同样的方式gitlab和GitHub也是支持的]]></content>
+    <content type="text"><![CDATA[一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话） 第一步:生成密钥对1ssh-keygen -t rsa -f ~/.ssh/秘钥名称 -C "邮箱" 这样就在主目录下的.ssh目录中生成了两个文件“秘钥名称”和“秘钥名称.pub”。“秘钥名称”中保存的是私钥，”秘钥名称.pub“中保存的是公钥。 第二步:添加公钥拷贝公钥到剪切板:1pbcopy &lt; 秘钥名称.pub 在GPC导航菜单中找到”元数据“连接，选择”SSH秘钥“选项卡-&gt;点击”修改“按钮-&gt;”添加一项“，粘贴公钥，保存，就添加完成了。 第三步:测试1ssh -i ~/.ssh/秘钥名称 用户名@VM外部IP 用户名，在第二部添加公钥时，粘贴之后会在第一列出现你的用户名 如果没问题的话你已经进入到VM实例终端了 同样的方式gitlab和GitHub也是支持的]]></content>
       <categories>
         <category>OS</category>
         <category>Mac</category>

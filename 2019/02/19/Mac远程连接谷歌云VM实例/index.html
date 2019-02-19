@@ -104,18 +104,18 @@
 
 
 
-<meta name="description" content="官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话） 第一步:生成密钥对1ssh-keygen -t rsa -f ~/.ssh/秘钥名称 -C &quot;邮箱&quot; 这样就在主目录下的.ssh目录中生成了两个文件“秘钥名称”和“秘钥名称.pub”。“秘钥名称”中保存的是私钥，”秘钥名称.pub">
+<meta name="description" content="一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连">
 <meta name="keywords" content="Mac,GCP,谷歌云">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac远程连接谷歌云VM实例">
 <meta property="og:url" content="http://blog.daihui888.com/2019/02/19/Mac远程连接谷歌云VM实例/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
-<meta property="og:description" content="官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话） 第一步:生成密钥对1ssh-keygen -t rsa -f ~/.ssh/秘钥名称 -C &quot;邮箱&quot; 这样就在主目录下的.ssh目录中生成了两个文件“秘钥名称”和“秘钥名称.pub”。“秘钥名称”中保存的是私钥，”秘钥名称.pub">
+<meta property="og:description" content="一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-19T07:05:03.076Z">
+<meta property="og:updated_time" content="2019-02-19T07:07:34.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac远程连接谷歌云VM实例">
-<meta name="twitter:description" content="官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话） 第一步:生成密钥对1ssh-keygen -t rsa -f ~/.ssh/秘钥名称 -C &quot;邮箱&quot; 这样就在主目录下的.ssh目录中生成了两个文件“秘钥名称”和“秘钥名称.pub”。“秘钥名称”中保存的是私钥，”秘钥名称.pub">
+<meta name="twitter:description" content="一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连">
 
 
 
@@ -454,7 +454,8 @@
       
 
       
-        <p>官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话）</p>
+        <p>一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了<br>官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话）</p>
+<a id="more"></a>
 <h2 id="第一步-生成密钥对"><a href="#第一步-生成密钥对" class="headerlink" title="第一步:生成密钥对"></a>第一步:生成密钥对</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -f ~/.ssh/秘钥名称 -C "邮箱"</span><br></pre></td></tr></table></figure>
 <p>这样就在主目录下的.ssh目录中生成了两个文件“秘钥名称”和“秘钥名称.pub”。“秘钥名称”中保存的是私钥，”秘钥名称.pub“中保存的是公钥。</p>
 <h2 id="第二步-添加公钥"><a href="#第二步-添加公钥" class="headerlink" title="第二步:添加公钥"></a>第二步:添加公钥</h2><p>拷贝公钥到剪切板:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pbcopy &lt; 秘钥名称.pub</span><br></pre></td></tr></table></figure></p>
