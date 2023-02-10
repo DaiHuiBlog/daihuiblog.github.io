@@ -1,0 +1,1145 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        /*background: #1E92FB;*/ /*进度条颜色*/
+        background: #222;
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #222;    /*上边框颜色*/
+        border-left-color: #222;    /*左边框颜色*/
+    }
+</style>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="tHCGpODENh" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo,Gitment," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最终效果图大概是这个样子：">
+<meta name="keywords" content="Hexo,Gitment">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo下NexT主题添加Gitment评论插件">
+<meta property="og:url" content="https://daihuiblog.github.io/2018/06/20/Hexo下NexT主题添加Gitment评论插件/index.html">
+<meta property="og:site_name" content="Hui&#39;s Blog">
+<meta property="og:description" content="最终效果图大概是这个样子：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/Hexo下NexT主题添加Gitment评论插件/3.png">
+<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/Hexo下NexT主题添加Gitment评论插件/1.png">
+<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/Hexo下NexT主题添加Gitment评论插件/2.jpg">
+<meta property="og:updated_time" content="2018-06-20T07:22:29.943Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo下NexT主题添加Gitment评论插件">
+<meta name="twitter:description" content="最终效果图大概是这个样子：">
+<meta name="twitter:image" content="https://DaiHuiBlog.github.io/images/posts/Hexo下NexT主题添加Gitment评论插件/3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://daihuiblog.github.io/2018/06/20/Hexo下NexT主题添加Gitment评论插件/"/>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "220019cc"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+  <title> Hexo下NexT主题添加Gitment评论插件 | Hui's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?67d378f80621ac358716630cffda21f0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+<a href="https://github.com/d470969047h">
+  <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="GitHub">
+</a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hui's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">DaiHui's blog</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://daihuiblog.github.io/2018/06/20/Hexo下NexT主题添加Gitment评论插件/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dai Hui">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Hui's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Hui's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Hexo下NexT主题添加Gitment评论插件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-20T11:00:57+08:00">
+                2018-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/20/Hexo下NexT主题添加Gitment评论插件/" class="leancloud_visitors" data-flag-title="Hexo下NexT主题添加Gitment评论插件">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text"> 热度 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="最终效果图大概是这个样子："><a href="#最终效果图大概是这个样子：" class="headerlink" title="最终效果图大概是这个样子："></a>最终效果图大概是这个样子：</h3><p><img src="https://DaiHuiBlog.github.io/images/posts/Hexo下NexT主题添加Gitment评论插件/3.png" alt="最终">  </p>
+<a id="more"></a>
+<p>Gitment 是作者<a href="https://imsun.net/" target="_blank" rel="noopener">imsun</a>实现的一款基于 GitHub Issues 的评论系统。 支持在前端直接引入， 不需要任何后端代码。 可以在页面进行登录， 查看，评论，点赞等操作。 同时有完整的 Markdown / GFM 和代码高亮支持。 尤为适合各种基于 GitHub Pages 的静态博客或项目页面。</p>
+<p>这篇文章仅介绍如果在 hexo-NexT 中添加 Gitment 评论插件，并且增加一个点开显示评论的按钮，对于 Gitment 的使用请参考 <a href="https://imsun.net/" target="_blank" rel="noopener">imsun</a> 的博客。</p>
+<p>另外，本教程的按钮样式和代码均直接取自 <a href="https://ehlxr.me/" target="_blank" rel="noopener">ehlxr</a> 博主。</p>
+<h3 id="注册OAuth-Application"><a href="#注册OAuth-Application" class="headerlink" title="注册OAuth Application"></a>注册OAuth Application</h3><p>因为 Gitment 评论插件是基于Github Issues评论系统，这类评论系统都需要一个OAuth Application，所以咱们没有注册OAuth Application的同学先注册一个。<br>博客咱们已经有啦，例如我的：DaiHuiBlog.github.io。没有的同学以自己GitHub用户新建一个仓库就行：<strong>你的用户名.github.io</strong><br>接下来创建 <em>OAuth Application</em>，没有的同学可以<a href="https://github.com/settings/applications/new" target="_blank" rel="noopener"><strong>新建一个</strong></a>。</p>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/Hexo下NexT主题添加Gitment评论插件/1.png" alt="新建OA">  </p>
+<p>其中</p>
+<ul>
+<li><strong>Application name</strong> 为仓库名，例：DaiHuiBlog.github.io  </li>
+<li><strong>Homepage URL</strong> 填你的博客网址，例：blog.daihui888.com</li>
+<li><strong>Application description</strong> 描述，随便写</li>
+<li><strong>Authorization callback URL</strong> 填你的博客网址，例：blog.daihui888.com  </li>
+</ul>
+<p>完成后会生成相应的 <strong>clientID</strong> 和 <strong>clientSecret</strong>。</p>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/Hexo下NexT主题添加Gitment评论插件/2.jpg" alt="完成OA">  </p>
+<p>接下来开始配置Gitment</p>
+<h3 id="“显示-Gitment-评论”-的按钮样式"><a href="#“显示-Gitment-评论”-的按钮样式" class="headerlink" title="“显示 Gitment 评论” 的按钮样式"></a>“显示 Gitment 评论” 的按钮样式</h3><p>在 <strong>next/source/css/_common/components</strong> 目录中新建一个 <strong>gitment.styl</strong> 的 css 样式文件, 复制以下代码    </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.gitment_title</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#0a9caf</span>;</span><br><span class="line">    <span class="attribute">background-image</span>: initial;</span><br><span class="line">    <span class="attribute">background-position-x</span>: initial;</span><br><span class="line">    <span class="attribute">background-position-y</span>: initial;</span><br><span class="line">    <span class="attribute">background-size</span>: initial;</span><br><span class="line">    <span class="attribute">background-repeat-x</span>: initial;</span><br><span class="line">    <span class="attribute">background-repeat-y</span>: initial;</span><br><span class="line">    <span class="attribute">background-attachment</span>: initial;</span><br><span class="line">    <span class="attribute">background-origin</span>: initial;</span><br><span class="line">    <span class="attribute">background-clip</span>: initial;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.gitment_title</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#0a9caf</span>;</span><br><span class="line">    <span class="attribute">border-top-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-top-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-top-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-right-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-right-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-right-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-bottom-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-bottom-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-bottom-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-left-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-left-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-left-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-image-source</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-slice</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-width</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-outset</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-repeat</span>: initial;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-top-left-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-top-right-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-bottom-right-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-bottom-left-radius</span>: <span class="number">4px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.gitment_title</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">padding-top</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#0a9caf</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">14px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后打开同目录中的 components.styl 文件, 找个顺眼的位置添加一句    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import &quot;gitment&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="添加-Gitment-插件"><a href="#添加-Gitment-插件" class="headerlink" title="添加 Gitment 插件"></a>添加 Gitment 插件</h3><p>打开 <strong>/next/layout/_partials/comments.swig</strong> 文件, 在最后一个 <em>elseif</em> 代码块下面添加 Gitment 的内容.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前面的略... ...</span></span><br><span class="line">&#123;% elseif theme.changyan.appid and theme.changyan.appkey %&#125;</span><br><span class="line"> &lt;div id=<span class="string">"SOHUCS"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#123;% elseif theme.gitment.enable %&#125;</span><br><span class="line"> &lt;div onclick=<span class="string">"showGitment()"</span> id=<span class="string">"gitment_title"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"gitment_title"</span>&gt;显示 Gitment 评论&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"> &lt;div id="container" style="display:none"&gt;&lt;/</span>div&gt;</span><br><span class="line"> &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://imsun.github.io/gitment/style/default.css"</span>&gt;</span><br><span class="line"> &lt;script src=<span class="string">"https://imsun.github.io/gitment/dist/gitment.browser.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"> &lt;script&gt;</span><br><span class="line"> <span class="keyword">const</span> myTheme = &#123;</span><br><span class="line">   render(state, instance) &#123;</span><br><span class="line">     <span class="keyword">const</span> container = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">     container.lang = <span class="string">"en-US"</span>;</span><br><span class="line">     container.className = <span class="string">'gitment-container gitment-root-container'</span>;</span><br><span class="line">     container.appendChild(instance.renderHeader(state, instance));</span><br><span class="line">     container.appendChild(instance.renderEditor(state, instance));</span><br><span class="line">     container.appendChild(instance.renderComments(state, instance));</span><br><span class="line">     container.appendChild(instance.renderFooter(state, instance));</span><br><span class="line">     <span class="keyword">return</span> container;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">showGitment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   $(<span class="string">"#gitment_title"</span>).attr(<span class="string">"style"</span>, <span class="string">"display:none"</span>);</span><br><span class="line">   $(<span class="string">"#container"</span>).attr(<span class="string">"style"</span>, <span class="string">""</span>).addClass(<span class="string">"gitment_container"</span>);</span><br><span class="line">   <span class="keyword">var</span> gitment = <span class="keyword">new</span> Gitment(&#123;</span><br><span class="line">     id: <span class="built_in">decodeURI</span>(<span class="built_in">window</span>.location.pathname),</span><br><span class="line">     theme: myTheme,</span><br><span class="line">     owner: <span class="string">'&#123;&#123; theme.gitment.owner &#125;&#125;'</span>,</span><br><span class="line">     repo: <span class="string">'&#123;&#123; theme.gitment.repo &#125;&#125;'</span>,</span><br><span class="line">     oauth: &#123;</span><br><span class="line">       client_id: <span class="string">'&#123;&#123; theme.gitment.client_id &#125;&#125;'</span>,</span><br><span class="line">       client_secret: <span class="string">'&#123;&#123; theme.gitment.client_secret &#125;&#125;'</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   gitment.render(<span class="string">'container'</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
+<p>然后打开 NexT 主题的_config.yml 文件，在评论相关设置的区域添加下面的代码，并根据 Gitment 文档说明来添加相应的值</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Gitment comments</span></span><br><span class="line"><span class="attr">gitment:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  owner:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  client_id:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  client_secret:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  lazy:</span> <span class="literal">true</span>  <span class="comment">#lazy属性为是否直接显示评论模块，true会显示”显示评论”按钮，false会直接显示</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>另外，Gitment需要自己手动初始化一下来创建一个issues，不喜欢他的同学可以用<a href="https://github.com/gitalk/gitalk" target="_blank" rel="noopener"><strong>Gitalk</strong></a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束-------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+          
+            <a href="/tags/Gitment/" rel="tag"><i class="fa fa-tag"></i> Gitment</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/15/设置mac自带的vim语法高亮/" rel="next" title="设置mac自带的vim语法高亮">
+                <i class="fa fa-chevron-left"></i> 设置mac自带的vim语法高亮
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/31/虚拟机Linux的root或普通用户密码忘记找回/" rel="prev" title="虚拟机Linux的root或普通用户密码忘记找回">
+                虚拟机Linux的root或普通用户密码忘记找回 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="gitalk-container"></div>
+      <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+      <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+      <script>
+        var gitalk = new Gitalk({
+          clientID: '8d7b7f95fe47ac34c549',
+          clientSecret: '4d91064b17493b0c95ab04e2cedcb1cdf2049a7c',
+          repo: 'daihuiblog.github.io',
+          owner: 'DaiHuiBlog',
+          admin: ['DaiHuiBlog'],
+          id: decodeURI(window.location.pathname),      // Ensure uniqueness and length less than 50
+          distractionFreeMode: true  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Dai Hui" />
+          <p class="site-author-name" itemprop="name">Dai Hui</p>
+          <p class="site-description motion-element" itemprop="description">好记性不如烂博客</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/d470969047h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/d470969047h" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              推荐阅读
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.bysocket.com/" title="BYSocket" target="_blank">BYSocket</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn/" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#最终效果图大概是这个样子："><span class="nav-number">1.</span> <span class="nav-text">最终效果图大概是这个样子：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册OAuth-Application"><span class="nav-number">2.</span> <span class="nav-text">注册OAuth Application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#“显示-Gitment-评论”-的按钮样式"><span class="nav-number">3.</span> <span class="nav-text">“显示 Gitment 评论” 的按钮样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-Gitment-插件"><span class="nav-number">4.</span> <span class="nav-text">添加 Gitment 插件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dai Hui</span>
+  &nbsp;
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span class="site-pv"><i class="fa fa-eye"></i> <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+</div>
+
+<!--
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+-->
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("1JuPXM6LFHiIaehU02hnXbSp-gzGzoHsz", "2oF7dDN1HR4oc7B1oNGkXJ2P");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 音乐播放器 -->
+    <!-- <link rel="stylesheet" href="/aplayer/APlayer.min.css"> -->
+    <!-- <div id="aplayer"></div> -->
+    <!-- <script type="text/javascript" src="/aplayer/APlayer.min.js"></script> -->
+    <!-- <script type="text/javascript" src="/aplayer/music.js"></script> -->
+  
+</body>
+</html>
