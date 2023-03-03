@@ -3294,6 +3294,8 @@
 <td>符号</td>
 <td>/æt/</td>
 <td>@</td>
+</tr>
+<tr>
 <td>backslash</td>
 <td>反斜线符号</td>
 <td>/ˈbækslæʃ/</td>
@@ -3520,7 +3522,75 @@
 </tbody>
 </table>
 <h3 id="词组"><a href="#词组" class="headerlink" title="词组"></a>词组</h3><p>单词 | 翻译 | 词性 | 美式发音 | 实例应用 |<br>| — | — | — | — | — |<br>| catastrophic failover | 灾难性故障转移 | 词组 | /null/ |<br>| data sovereignty | 数据主权 | 词组 | /null/ | 数据主权指的是在该国或地区采集的数据应当归属于当地政府且需服从当地法律法规 |<br>| dead letter queue | 死信队列 | 词组 | /null/ | 在队列服务中，那些无法发送的信息将被送至死信队列 |<br>| faceted search | 分面搜索 | 词组 | /null/ |<br>| false positive | 假阳性 | 词组 | /null/ | 当你真的没有的时候，别人却说你有。 |<br>| fault tolerance | | 词组 | /null/ |<br>| magnetic storage | 磁储存 | 词组 | /null/ |<br>| roll off | TBD | 词组 | /null/ |<br>| roll out | TBD | 词组 | /null/ |<br>| strangler pattern | 绞杀者模式 | 词组 | /null/ | 通过将特定的功能片断逐渐取代为新的应用程序和服务，逐步迁移旧系统。 随着旧系统的功能被替换，新系统最终将取代旧系| 统的所有功能，抑制旧系统并使其停用。 |<br>| under the hood | 引擎罩下，比喻内幕、原理 | 词组 | /null/ | Beneath the surface; in its internal workings |<br>| vice versa | 反之亦然 | 词组 | /ˌvaisi’və:sə/ |</p>
-<h3 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h3><p>单词 | 翻译 | 词性 | 美式发音 | 实例应用 |<br>| — | — | — | — | — |<br>| CLI | 命令行界面 | 缩写 | /null/ | Command Line Interface |<br>| GUI | 图形用户界面 | 缩写 | /null/ | Graphical User Interface |<br>| UUID / GUID | 全局唯一标识符 | 缩写 | /null/ | Globally Unique Identifier |<br>| SIT | 系统整合测试 | 缩写 | /null/ | System Integration Testing |<br>| UAT | 用户验收测试 | 缩写 | /null/ | User Acceptance Testing |<br>| BIOS | 基本输入输出系统 | 缩写 | /null/ | Basic Input Output System |<br>| DOM | 文档对象模型 | 缩写 | /null/ | Document Object Model |<br>| HTML | 超文本标记语言 | 缩写 | /null/ | HyperText Markup Language |</p>
+<h3 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h3><table>
+<thead>
+<tr>
+<th>单词</th>
+<th>翻译</th>
+<th>词性</th>
+<th>美式发音</th>
+<th>实例应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLI</td>
+<td>命令行界面</td>
+<td>缩写</td>
+<td>/null/</td>
+<td>Command Line Interface</td>
+</tr>
+<tr>
+<td>GUI</td>
+<td>图形用户界面</td>
+<td>缩写</td>
+<td>/null/</td>
+<td>Graphical User Interface</td>
+</tr>
+<tr>
+<td>UUID / GUID</td>
+<td>全局唯一标识符</td>
+<td>缩写</td>
+<td>/null/</td>
+<td>Globally Unique Identifier</td>
+</tr>
+<tr>
+<td>SIT</td>
+<td>系统整合测试</td>
+<td>缩写</td>
+<td>/null/</td>
+<td>System Integration Testing</td>
+</tr>
+<tr>
+<td>UAT</td>
+<td>用户验收测试</td>
+<td>缩写</td>
+<td>/null/</td>
+<td>User Acceptance Testing</td>
+</tr>
+<tr>
+<td>BIOS</td>
+<td>基本输入输出系统</td>
+<td>缩写</td>
+<td>/null/</td>
+<td>Basic Input Output System</td>
+</tr>
+<tr>
+<td>DOM</td>
+<td>文档对象模型</td>
+<td>缩写</td>
+<td>/null/</td>
+<td>Document Object Model</td>
+</tr>
+<tr>
+<td>HTML</td>
+<td>超文本标记语言</td>
+<td>缩写</td>
+<td>/null/</td>
+<td>HyperText Markup Language</td>
+</tr>
+</tbody>
+</table>
 <h3 id="其他网站"><a href="#其他网站" class="headerlink" title="其他网站"></a>其他网站</h3><p><a href="https://www.51test.net/show/9115284.html" target="_blank" rel="noopener">程序员常用英语词汇</a></p>
 ]]></content>
       <categories>
