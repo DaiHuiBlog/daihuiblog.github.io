@@ -165,7 +165,7 @@
   <entry>
     <title>Docker命令大全整理</title>
     <url>/2019/04/24/Docker%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%E6%95%B4%E7%90%86/</url>
-    <content><![CDATA[<p><img src="https://DaiHuiBlog.github.io/images/posts/Docker命令大全整理/1.jpg" alt="image1"></p>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/1.jpg" alt="1"></p>
 <a id="more"></a>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><strong><a href="#rqsmzqgl">容器生命周期管理</a></strong></p>
 <ul>
@@ -270,7 +270,7 @@
 <p>使用镜像 nginx:latest，以后台模式启动一个容器,将容器的 80 端口映射到主机的 80 端口,主机的目录 /data 映射到容器的 /data。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -p 80:80 -v /data:/data -d nginx:latest</span><br></pre></td></tr></table></figure>
 <p>绑定容器的 8080 端口，并将其映射到本地主机 127.0.0.1 的 80 端口上。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -p 127.0.0.1:80:8080/tcp ubuntu bash</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker run -p 127.0.0.1:80:8080/tcp ubuntu bash</span><br></pre></td></tr></table></figure>
 <p>使用镜像nginx:latest以交互模式启动一个容器,在容器内执行/bin/bash命令。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">runoob@runoob:~$ docker run -it nginx:latest /bin/bash</span><br><span class="line">root@b8573233d675:/#</span><br></pre></td></tr></table></figure>
 <hr>
@@ -384,10 +384,10 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">runoob@runoob:~$ docker exec -i -t  mynginx /bin/bash</span><br><span class="line">root@b1a0703e41e7:/#</span><br></pre></td></tr></table></figure>
 <p>也可以通过<code>docker ps -a</code> 命令查看已经在运行的容器，然后使用容器 ID 进入容器。</p>
 <p>查看已经在运行的容器 ID：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker ps -a </span></span><br><span class="line">...</span><br><span class="line">9df70f9a0714     openjdk        "/usercode/script.sh…" </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> docker ps -a </span><br><span class="line">...</span><br><span class="line">9df70f9a0714     openjdk        "/usercode/script.sh…" </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>第一列的 9df70f9a0714 就是容器 ID</p>
 <p>通过 exec 命令对指定的容器执行 bash:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker <span class="built_in">exec</span> -it 9df70f9a0714 /bin/bash</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> docker exec -it 9df70f9a0714 /bin/bash</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="rqcz">容器操作</h2>
 
@@ -768,9 +768,9 @@
 <p>使用URL github.com/creack/docker-firefox 的 Dockerfile 创建镜像。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker build github.com/creack/docker-firefox</span><br></pre></td></tr></table></figure>
 <p>也可以通过 -f Dockerfile 文件的位置：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker build -f /path/to/a/Dockerfile .</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker build -f /path/to/a/Dockerfile .</span><br></pre></td></tr></table></figure>
 <p>在 Docker 守护进程执行 Dockerfile 中的指令前，首先会对 Dockerfile 进行语法检查，有语法错误时会返回：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker build -t <span class="built_in">test</span>/myapp .</span></span><br><span class="line">Sending build context to Docker daemon 2.048 kB</span><br><span class="line">Error response from daemon: Unknown instruction: RUNCMD</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker build -t test/myapp .</span><br><span class="line">Sending build context to Docker daemon 2.048 kB</span><br><span class="line">Error response from daemon: Unknown instruction: RUNCMD</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="history">Docker history 命令</h3>
 
@@ -831,7 +831,7 @@
 </blockquote>
 <p><strong>实例</strong></p>
 <p>查看docker系统信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker info</span></span><br><span class="line">Containers: 12</span><br><span class="line">Images: 41</span><br><span class="line">Storage Driver: aufs</span><br><span class="line"> Root Dir: /var/lib/docker/aufs</span><br><span class="line"> Backing Filesystem: extfs</span><br><span class="line"> Dirs: 66</span><br><span class="line"> Dirperm1 Supported: false</span><br><span class="line">Execution Driver: native-0.2</span><br><span class="line">Logging Driver: json-file</span><br><span class="line">Kernel Version: 3.13.0-32-generic</span><br><span class="line">Operating System: Ubuntu 14.04.1 LTS</span><br><span class="line">CPUs: 1</span><br><span class="line">Total Memory: 1.954 GiB</span><br><span class="line">Name: iZ23mtq8bs1Z</span><br><span class="line">ID: M5N4:K6WN:PUNC:73ZN:AONJ:AUHL:KSYH:2JPI:CH3K:O4MK:6OCX:5OYW</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker info</span><br><span class="line">Containers: 12</span><br><span class="line">Images: 41</span><br><span class="line">Storage Driver: aufs</span><br><span class="line"> Root Dir: /var/lib/docker/aufs</span><br><span class="line"> Backing Filesystem: extfs</span><br><span class="line"> Dirs: 66</span><br><span class="line"> Dirperm1 Supported: false</span><br><span class="line">Execution Driver: native-0.2</span><br><span class="line">Logging Driver: json-file</span><br><span class="line">Kernel Version: 3.13.0-32-generic</span><br><span class="line">Operating System: Ubuntu 14.04.1 LTS</span><br><span class="line">CPUs: 1</span><br><span class="line">Total Memory: 1.954 GiB</span><br><span class="line">Name: iZ23mtq8bs1Z</span><br><span class="line">ID: M5N4:K6WN:PUNC:73ZN:AONJ:AUHL:KSYH:2JPI:CH3K:O4MK:6OCX:5OYW</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="version">Docker version 命令</h3>
 
@@ -846,7 +846,7 @@
 </ul>
 <p><strong>实例</strong></p>
 <p>显示 Docker 版本信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker version</span></span><br><span class="line">Client:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker version</span><br><span class="line">Client:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Docker</category>
@@ -2191,20 +2191,20 @@
   <entry>
     <title>树莓派3B+制作视频监控</title>
     <url>/2019/03/12/%E6%A0%91%E8%8E%93%E6%B4%BE3Bplus%E5%88%B6%E4%BD%9C%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7/</url>
-    <content><![CDATA[<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/logo.png" alt="logo"></p>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/logo.png" alt="logo"></p>
 <h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p>本人育有一毛，此猫调皮捣蛋，因此想要做个监控放在家里，在公司上班的时候看看它到底在家里捣什么鬼蛋！</p>
 <a id="more"></a>
 <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><blockquote>
 <p>环境：树莓派3B+<br>操作系统：树莓派3B+默认系统<br>摄像头：N年前买的一个USB摄像头（比树莓派官方好点）  </p>
 </blockquote>
 <h1 id="1-更新列表"><a href="#1-更新列表" class="headerlink" title="1.更新列表"></a>1.更新列表</h1><p>这一步可能有点慢，请耐心等待。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新软件列表</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新软件</span></span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> 更新软件列表</span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 更新软件</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
 <h1 id="2-开启摄像头"><a href="#2-开启摄像头" class="headerlink" title="2.开启摄像头"></a>2.开启摄像头</h1><p>执行如下命令，进入配置页面，开启摄像头。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/1.png" alt="raspiConfig1"><br><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/2.png" alt="raspiConfig2"></p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/1.png" alt="1"><br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/2.png" alt="2"></p>
 <p>选择: “是”  -&gt; “Back” -&gt; “Finish”</p>
 <p>重启一下树莓派</p>
-<h1 id="3-安装依赖库"><a href="#3-安装依赖库" class="headerlink" title="3.安装依赖库"></a>3.安装依赖库</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> JPEG支持库</span></span><br><span class="line">sudo apt-get install libjpeg8-dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载编译工具</span></span><br><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
+<h1 id="3-安装依赖库"><a href="#3-安装依赖库" class="headerlink" title="3.安装依赖库"></a>3.安装依赖库</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> JPEG支持库</span><br><span class="line">sudo apt-get install libjpeg8-dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>下载编译工具</span><br><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
 <h1 id="4-下载mjpg-streamer"><a href="#4-下载mjpg-streamer" class="headerlink" title="4.下载mjpg-streamer"></a>4.下载mjpg-streamer</h1><p>随意找个目录执行：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
 <p>以常见的<strong>Downloads</strong>目录为例：</p>
@@ -2214,7 +2214,7 @@
 <p>如果你的摄像头是普通USB摄像头，可以跳过。</p>
 <p>如果你的摄像头是官方的摄像头（RaspiCamera）那么请修改之：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:/ $ cd /home/pi/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/</span><br><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/ $ vi input_raspicam.c</span><br></pre></td></tr></table></figure>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/3.png" alt="input_raspicam"></p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/3.png" alt="3"></p>
 <h1 id="6-编译mjpg-streamer"><a href="#6-编译mjpg-streamer" class="headerlink" title="6.编译mjpg-streamer"></a>6.编译mjpg-streamer</h1><p>进入工程mjpg-streamer-experimental，进行完全编译。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental $ make clean all</span><br></pre></td></tr></table></figure>
 <h1 id="7-开启mjpg-streamer"><a href="#7-开启mjpg-streamer" class="headerlink" title="7.开启mjpg-streamer"></a>7.开启mjpg-streamer</h1><p>进入mjpg-streamer-experimental目录，使用一下指令启动摄像头。</p>
@@ -2227,8 +2227,8 @@
 </li>
 </ul>
 <h1 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h1><p>在浏览器里输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 静态图（拍照）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=snapshot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 动态图（视频监控）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=stream</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个兼容性好点</span></span><br><span class="line">http://&lt;IP&gt;：8080/javascript_stream.html</span><br></pre></td></tr></table></figure>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/cat.jpeg" alt="cat"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> 静态图（拍照）</span><br><span class="line">http://&lt;IP&gt;：8080/?action=snapshot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 动态图（视频监控）</span><br><span class="line">http://&lt;IP&gt;：8080/?action=stream</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 这个兼容性好点</span><br><span class="line">http://&lt;IP&gt;：8080/javascript_stream.html</span><br></pre></td></tr></table></figure>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/cat.jpeg" alt="cat"></p>
 <h1 id="9-问题"><a href="#9-问题" class="headerlink" title="9.问题"></a>9.问题</h1><p>有的同学可能在<strong>开启mjpg-streamer</strong>的时候会报错，可能是你USB摄像头用了树莓派专用摄像头RaspiCamera指令的指令启动造成的（我就是这样，哈哈哈）</p>
 ]]></content>
       <categories>
@@ -4128,7 +4128,7 @@
   <entry>
     <title>设置mac自带的vim语法高亮</title>
     <url>/2018/06/15/%E8%AE%BE%E7%BD%AEmac%E8%87%AA%E5%B8%A6%E7%9A%84vim%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE/</url>
-    <content><![CDATA[<h4 id="最终效果图大概是这个样子："><a href="#最终效果图大概是这个样子：" class="headerlink" title="最终效果图大概是这个样子："></a>最终效果图大概是这个样子：</h4><p><img src="https://pic.daihui.site/picgo/1.png" alt="1">  </p>
+    <content><![CDATA[<h4 id="最终效果图大概是这个样子："><a href="#最终效果图大概是这个样子：" class="headerlink" title="最终效果图大概是这个样子："></a>最终效果图大概是这个样子：</h4><p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/1.png" alt="1"></p>
 <a id="more"></a>
 <h4 id="设置vimrc"><a href="#设置vimrc" class="headerlink" title="设置vimrc"></a>设置vimrc</h4><p>vimrc文件是vim的环境设置文件。<br>整体的vim的设置是在 <strong>/etc/vimrc</strong> 文件中。<br>不建议修改/etc/vimrc 文件，每个用户可以在用户根目录中设置vim，新建<strong> ~/.vimrc</strong></p>
 <blockquote>
