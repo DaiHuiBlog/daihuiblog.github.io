@@ -1,241 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Axios基本使用说明</title>
-    <url>/2018/04/11/Axios%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
-    <content><![CDATA[<h1 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h1><p><a href="https://www.npmjs.org/package/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/axios.svg?style=flat-square" alt="npm version"></a><a href="https://travis-ci.org/axios/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/travis/axios/axios.svg?style=flat-square" alt="build status"></a><a href="https://coveralls.io/r/mzabriskie/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/coveralls/mzabriskie/axios.svg?style=flat-square" alt="code coverage"></a><a href="http://npm-stat.com/charts.html?package=axios" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/dm/axios.svg?style=flat-square" alt="npm downloads"></a><a href="https://gitter.im/mzabriskie/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/gitter/room/mzabriskie/axios.svg?style=flat-square" alt="gitter chat"></a><a href="https://www.codetriage.com/axios/axios" target="_blank" rel="noopener"><img src="https://www.codetriage.com/axios/axios/badges/users.svg" alt="code helpers"></a></p>
-<p>Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。</p>
-<a id="more"></a>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>从浏览器中创建 <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank" rel="noopener">XMLHttpRequests</a></li>
-<li>从 node.js 创建 <a href="http://nodejs.org/api/http.html" target="_blank" rel="noopener">http</a> 请求</li>
-<li>支持 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promise</a> API</li>
-<li>拦截请求和响应</li>
-<li>转换请求数据和响应数据</li>
-<li>取消请求</li>
-<li>自动转换 JSON 数据</li>
-<li>客户端支持防御 <a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener">XSRF</a></li>
-</ul>
-<h2 id="浏览器支持"><a href="#浏览器支持" class="headerlink" title="浏览器支持"></a>浏览器支持</h2><table>
-<thead>
-<tr>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome"></th>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox"></th>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari"></th>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera"></th>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge"></th>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Latest ✔</td>
-<td>Latest ✔</td>
-<td>Latest ✔</td>
-<td>Latest ✔</td>
-<td>Latest ✔</td>
-<td>8+ ✔</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><a href="https://saucelabs.com/u/axios" target="_blank" rel="noopener"><img src="https://saucelabs.com/open_sauce/build_matrix/axios.svg" alt="Browser Matrix"></a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用 npm:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install axios</span><br></pre></td></tr></table></figure>
-<p>使用 bower:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bower install axios</span><br></pre></td></tr></table></figure>
-<p>使用 cdn:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/axios/dist/axios.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>执行 <code>GET</code> 请求</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 为给定 ID 的 user 创建请求</span></span><br><span class="line">axios.get(<span class="string">'/user?ID=12345'</span>)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可选地，上面的请求可以这样做</span></span><br><span class="line">axios.get(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    params: &#123;</span><br><span class="line">      ID: <span class="number">12345</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 想使用异步/等待？将`async`关键字添加到外部函数/方法中。</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.get(<span class="string">'/user?ID=12345'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>注意:</strong> async/await是ECMAScript 2017的一部分，在Internet Explorer和旧版浏览器中不支持，因此请谨慎使用。</p>
-</blockquote>
-<p>执行 <code>POST</code> 请求</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.post(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-<p>执行多个并发请求</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserAccount</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserPermissions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345/permissions'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">axios.all([getUserAccount(), getUserPermissions()])</span><br><span class="line">  .then(axios.spread(<span class="function"><span class="keyword">function</span> (<span class="params">acct, perms</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//两个请求均已完成</span></span><br><span class="line">  &#125;));</span><br></pre></td></tr></table></figure>
-<h2 id="axios-API"><a href="#axios-API" class="headerlink" title="axios API"></a>axios API</h2><p>请求可以通过传递相关配置来完成 <code>axios</code>.</p>
-<p><strong>axios(config)</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 发送一个POST请求</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method: <span class="string">'post'</span>,</span><br><span class="line">  url: <span class="string">'/user/12345'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// GET请求远程图像</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method:<span class="string">'get'</span>,</span><br><span class="line">  url:<span class="string">'http://bit.ly/2mTM3nY'</span>,</span><br><span class="line">  responseType:<span class="string">'stream'</span></span><br><span class="line">&#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">  response.data.pipe(fs.createWriteStream(<span class="string">'ada_lovelace.jpg'</span>))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p><strong>axios(url[, config])</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 发送GET请求（默认方法）</span></span><br><span class="line">axios(<span class="string">'/user/12345'</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="请求方法别名"><a href="#请求方法别名" class="headerlink" title="请求方法别名"></a>请求方法别名</h2><p>为方便起见，为所有支持的请求方法提供了别名</p>
-<p><strong>axios.request(config)</strong><br><strong>axios.get(url[, config])</strong><br><strong>axios.delete(url[, config])</strong><br><strong>axios.head(url[, config])</strong><br><strong>axios.options(url[, config])</strong><br><strong>axios.post(url[, data[, config]])</strong><br><strong>axios.put(url[, data[, config]])</strong><br><strong>axios.patch(url[, data[, config]])</strong></p>
-<blockquote>
-<p>注意: 在使用别名方法时， url、method、data 这些属性都不必在配置中指定。</p>
-</blockquote>
-<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>处理并发请求的助手函数</p>
-<p><strong>axios.all(iterable)</strong><br><strong>axios.spread(callback)</strong></p>
-<h3 id="创建一个实例"><a href="#创建一个实例" class="headerlink" title="创建一个实例"></a>创建一个实例</h3><p>您可以使用自定义配置创建一个新的axios实例。</p>
-<p><strong>axios.create([config])</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line">  timeout: <span class="number">1000</span>,</span><br><span class="line">  headers: &#123;<span class="string">'X-Custom-Header'</span>: <span class="string">'foobar'</span>&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><p>以下是可用的实例方法。指定的配置将与实例的配置合并</p>
-<p><strong>axios#request(config)</strong><br><strong>axios#get(url[, config])</strong><br><strong>axios#delete(url[, config])</strong><br><strong>axios#head(url[, config])</strong><br><strong>axios#options(url[, config])</strong><br><strong>axios#post(url[, data[, config]])</strong><br><strong>axios#put(url[, data[, config]])</strong><br><strong>axios#patch(url[, data[, config]])</strong></p>
-<h2 id="请求配置"><a href="#请求配置" class="headerlink" title="请求配置"></a>请求配置</h2><p>这些是创建请求时可以用的配置选项。只有 <code>url</code> 是必需的。如果没有指定 <code>method</code>，请求将默认使用 <code>get</code> 方法。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// `url` 是用于请求的服务器 URL</span></span><br><span class="line">  url: <span class="string">'/user'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `method` 是创建请求时使用的方法</span></span><br><span class="line">  method: <span class="string">'get'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。</span></span><br><span class="line">  <span class="comment">// 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL</span></span><br><span class="line">  baseURL: <span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `transformRequest` 允许在向服务器发送前，修改请求数据</span></span><br><span class="line">  <span class="comment">// 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法</span></span><br><span class="line">  <span class="comment">// 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream</span></span><br><span class="line">  <span class="comment">// 您可以修改headers对象。</span></span><br><span class="line">  transformRequest: [<span class="function"><span class="keyword">function</span> (<span class="params">data, headers</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对 data 进行任意转换处理</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">  &#125;],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `transformResponse` 在传递给 then/catch 前，允许修改响应数据</span></span><br><span class="line">  transformResponse: [<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对 data 进行任意转换处理</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">  &#125;],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `headers` 是即将被发送的自定义请求头</span></span><br><span class="line">  headers: &#123;<span class="string">'X-Requested-With'</span>: <span class="string">'XMLHttpRequest'</span>&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `params`  是即将与请求一起发送的 URL 参数</span></span><br><span class="line">  <span class="comment">// 必须是一个普通对象(plain object)或 URLSearchParams 对象</span></span><br><span class="line">  params: &#123;</span><br><span class="line">    ID: <span class="number">12345</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `paramsSerializer` 是一个负责 `params` 序列化的函数</span></span><br><span class="line">  <span class="comment">// (例如： https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)</span></span><br><span class="line">  paramsSerializer: <span class="function"><span class="keyword">function</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Qs.stringify(params, &#123;<span class="attr">arrayFormat</span>: <span class="string">'brackets'</span>&#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `data` 是作为请求主体被发送的数据</span></span><br><span class="line">  <span class="comment">// 只适用于这些请求方法 'PUT', 'POST', 和 'PATCH'</span></span><br><span class="line">  <span class="comment">// 在没有设置 `transformRequest` 时，必须是以下类型之一：</span></span><br><span class="line">  <span class="comment">// - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams</span></span><br><span class="line">  <span class="comment">// - 浏览器专属： FormData, File, Blob</span></span><br><span class="line">  <span class="comment">// - Node专属: Stream, Buffer</span></span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)</span></span><br><span class="line">  <span class="comment">// 如果请求话费了超过 `timeout` 的时间，请求将被中断</span></span><br><span class="line">  timeout: <span class="number">1000</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `withCredentials` 表示跨域请求时是否需要使用凭证</span></span><br><span class="line">  withCredentials: <span class="literal">false</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `adapter` 允许自定义处理请求，以使测试更轻松</span></span><br><span class="line">  <span class="comment">// 返回一个 promise 并应用一个有效的响应</span></span><br><span class="line">  adapter: <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `auth` 表示应该使用 HTTP 基础验证，并提供凭据</span></span><br><span class="line">  <span class="comment">// 这将设置一个 `Authorization` 头，覆写掉现有的任意使用 `headers` 设置的自定义 `Authorization`头</span></span><br><span class="line">  auth: &#123;</span><br><span class="line">    username: <span class="string">'janedoe'</span>,</span><br><span class="line">    password: <span class="string">'s00pers3cret'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `responseType` 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'</span></span><br><span class="line">  responseType: <span class="string">'json'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `responseEncoding` 表示用于解码响应的编码</span></span><br><span class="line">  <span class="comment">// 注意：忽略'stream'或客户端请求的`responseType`</span></span><br><span class="line">  responseEncoding: <span class="string">'utf8'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称</span></span><br><span class="line">  xsrfCookieName: <span class="string">'XSRF-TOKEN'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `xsrfHeaderName` 是承载 xsrf token 的值的 HTTP 头的名称</span></span><br><span class="line">  xsrfHeaderName: <span class="string">'X-XSRF-TOKEN'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `onUploadProgress` 允许为上传处理进度事件</span></span><br><span class="line">  onUploadProgress: <span class="function"><span class="keyword">function</span> (<span class="params">progressEvent</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对原生进度事件的处理</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `onDownloadProgress` 允许为下载处理进度事件</span></span><br><span class="line">  onDownloadProgress: <span class="function"><span class="keyword">function</span> (<span class="params">progressEvent</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对原生进度事件的处理</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `maxContentLength` 定义允许的响应内容的最大尺寸</span></span><br><span class="line">  maxContentLength: <span class="number">2000</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `validateStatus` 定义对于给定的HTTP 响应状态码是 resolve 或 reject  promise 。</span></span><br><span class="line">  <span class="comment">// 如果 `validateStatus` 返回 `true` (或者设置为 `null` 或 `undefined`)，</span></span><br><span class="line">  <span class="comment">// promise 将被 resolve; 否则，promise 将被 rejecte</span></span><br><span class="line">  validateStatus: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>; <span class="comment">// 默认</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `maxRedirects` 定义在 node.js 中遵循的最大重定向数目</span></span><br><span class="line">  <span class="comment">// 如果设置为0，将不会 follow 任何重定向</span></span><br><span class="line">  maxRedirects: <span class="number">5</span>, <span class="comment">// default</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `socketPath` 定义了一个在Socket.js中使用的UNIX套接字。</span></span><br><span class="line">  <span class="comment">// 例如'/var/run/docker.sock'发送请求到docker守护进程。</span></span><br><span class="line">  <span class="comment">// 只能指定`socketPath`或`proxy`。</span></span><br><span class="line">  <span class="comment">// 如果两者都指定，则使用`socketPath`。</span></span><br><span class="line">  socketPath: <span class="literal">null</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `httpAgent` 和 `httpsAgent` 分别在 node.js 中用于定义在执行 http 和 https 时使用的自定义代理。允许像这样配置选项：</span></span><br><span class="line">  <span class="comment">// `keepAlive` 默认没有启用</span></span><br><span class="line">  httpAgent: <span class="keyword">new</span> http.Agent(&#123; <span class="attr">keepAlive</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">  httpsAgent: <span class="keyword">new</span> https.Agent(&#123; <span class="attr">keepAlive</span>: <span class="literal">true</span> &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 'proxy' 定义代理服务器的主机名称和端口</span></span><br><span class="line">  <span class="comment">// 使用'false'来禁用代理，忽略环境变量。</span></span><br><span class="line">  <span class="comment">// `auth` 表示 HTTP 基础验证应当用于连接代理，并提供凭据</span></span><br><span class="line">  <span class="comment">// 这将会设置一个 `Proxy-Authorization` 头，覆写掉已有的通过使用 `header` 设置的自定义 `Proxy-Authorization` 头。</span></span><br><span class="line">  proxy: &#123;</span><br><span class="line">    host: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">    port: <span class="number">9000</span>,</span><br><span class="line">    auth: &#123;</span><br><span class="line">      username: <span class="string">'mikeymike'</span>,</span><br><span class="line">      password: <span class="string">'rapunz3l'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `cancelToken` 指定用于取消请求的 cancel token</span></span><br><span class="line">  <span class="comment">// （查看后面的 Cancellation 这节了解更多）</span></span><br><span class="line">  cancelToken: <span class="keyword">new</span> CancelToken(<span class="function"><span class="keyword">function</span> (<span class="params">cancel</span>) </span>&#123;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="响应结构"><a href="#响应结构" class="headerlink" title="响应结构"></a>响应结构</h2><p>某个请求的响应包含以下信息</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// `data` 由服务器提供的响应</span></span><br><span class="line">  data: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `status` 来自服务器响应的 HTTP 状态码</span></span><br><span class="line">  status: <span class="number">200</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `statusText` 来自服务器响应的 HTTP 状态信息</span></span><br><span class="line">  statusText: <span class="string">'OK'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `headers` t服务器响应的头</span></span><br><span class="line">  <span class="comment">// 所有的 header 都是小写</span></span><br><span class="line">  headers: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `config` 是为请求提供给`axios`的配置</span></span><br><span class="line">  config: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `request` 是生成此响应的请求</span></span><br><span class="line">  <span class="comment">// 它是node.js中的最后一个ClientRequest实例和浏览器请求的XMLHttpRequest实例</span></span><br><span class="line">  request: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 <code>then</code> 时，你将接收下面这样的响应：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response.data);</span><br><span class="line">    <span class="built_in">console</span>.log(response.status);</span><br><span class="line">    <span class="built_in">console</span>.log(response.statusText);</span><br><span class="line">    <span class="built_in">console</span>.log(response.headers);</span><br><span class="line">    <span class="built_in">console</span>.log(response.config);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-<p>在使用 <code>catch</code> 时，或传递<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then" target="_blank" rel="noopener">rejection callback</a> 作为 <code>then</code> 的第二个参数时, 响应可以通过 <code>error</code> 对象可被使用，正如在<a href="#错误处理">错误处理</a> 这一节所讲.</p>
-<h2 id="配置的默认值-defaults"><a href="#配置的默认值-defaults" class="headerlink" title="配置的默认值/defaults"></a>配置的默认值/defaults</h2><p>你可以指定将被用在各个请求的配置默认值</p>
-<h3 id="全局axios默认值"><a href="#全局axios默认值" class="headerlink" title="全局axios默认值"></a>全局axios默认值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.defaults.baseURL = <span class="string">'https://api.example.com'</span>;</span><br><span class="line">axios.defaults.headers.common[<span class="string">'Authorization'</span>] = AUTH_TOKEN;</span><br><span class="line">axios.defaults.headers.post[<span class="string">'Content-Type'</span>] = <span class="string">'application/x-www-form-urlencoded'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="自定义实例默认值"><a href="#自定义实例默认值" class="headerlink" title="自定义实例默认值"></a>自定义实例默认值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建实例时设置配置的默认值</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">'https://api.example.com'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在实例已创建后修改默认值</span></span><br><span class="line">instance.defaults.headers.common[<span class="string">'Authorization'</span>] = AUTH_TOKEN;</span><br></pre></td></tr></table></figure>
-<h3 id="配置的优先顺序"><a href="#配置的优先顺序" class="headerlink" title="配置的优先顺序"></a>配置的优先顺序</h3><p>配置会以一个优先顺序进行合并。这个顺序是：在 <a href="https://github.com/axios/axios/blob/master/lib/defaults.js#L28" target="_blank" rel="noopener">lib/defaults.js</a>找到的库的默认值，然后是实例的 <code>defaults</code> 属性，最后是请求的 <code>config</code> 参数。后者将优先于前者。这里是一个例子：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用由库提供的配置的默认值来创建实例</span></span><br><span class="line"><span class="comment">// 此时超时配置的默认值是 `0`</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 覆写库的超时默认值</span></span><br><span class="line"><span class="comment">// 现在，在超时前，所有请求都会等待 2.5 秒</span></span><br><span class="line">instance.defaults.timeout = <span class="number">2500</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为已知需要花费很长时间的请求覆写超时设置</span></span><br><span class="line">instance.get(<span class="string">'/longRequest'</span>, &#123;</span><br><span class="line">  timeout: <span class="number">5000</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><p>在请求或响应被 <code>then</code> 或 <code>catch</code> 处理前拦截它们。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 添加请求拦截器</span></span><br><span class="line">axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 在发送请求之前做些什么</span></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对请求错误做些什么</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//  添加响应拦截器</span></span><br><span class="line">axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对响应数据做点什么</span></span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对响应错误做点什么</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-<p>如果你想在稍后移除拦截器，可以这样：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> myInterceptor = axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">/*...*/</span>&#125;);</span><br><span class="line">axios.interceptors.request.eject(myInterceptor);</span><br></pre></td></tr></table></figure>
-<p>可以为自定义 axios 实例添加拦截器</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.create();</span><br><span class="line">instance.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">/*...*/</span>&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (error.response) &#123;</span><br><span class="line">      <span class="comment">// 请求已发出，但服务器响应的状态码不在 2xx 范围内</span></span><br><span class="line">      <span class="built_in">console</span>.log(error.response.data);</span><br><span class="line">      <span class="built_in">console</span>.log(error.response.status);</span><br><span class="line">      <span class="built_in">console</span>.log(error.response.headers);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (error.request) &#123;</span><br><span class="line">      <span class="comment">// 请求被提出，但没有接收到响应</span></span><br><span class="line">      <span class="comment">// `error.request`是在浏览器中一个XMLHttpRequest的实例和node.js中http.ClientRequest的实例</span></span><br><span class="line">      <span class="built_in">console</span>.log(error.request);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 设置触发错误</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'Error'</span>, error.message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(error.config);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-<p>您可以使用 <code>validateStatus</code> 配置选项定义一个自定义 <code>HTTP</code> 状态码的错误范围。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  validateStatus: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> status &lt; <span class="number">500</span>; <span class="comment">// 仅当状态码大于或等于500时才拒绝</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="取消"><a href="#取消" class="headerlink" title="取消"></a>取消</h2><p>使用 <em>cancel token</em> 取消请求</p>
-<blockquote>
-<p>Axios 的 cancel token API 基于<a href="https://github.com/tc39/proposal-cancelable-promises" target="_blank" rel="noopener">cancelable promises proposal</a>，它还处于第一阶段。</p>
-</blockquote>
-<p>可以使用 <code>CancelToken.source</code> 工厂创建取消令牌，如下所示：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> CancelToken = axios.CancelToken;</span><br><span class="line"><span class="keyword">const</span> source = CancelToken.source();</span><br><span class="line"></span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  cancelToken: source.token</span><br><span class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">thrown</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (axios.isCancel(thrown)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Request canceled'</span>, thrown.message);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 处理错误</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">axios.post(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  name: <span class="string">'new name'</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">  cancelToken: source.token</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消请求（消息参数是可选的）</span></span><br><span class="line">source.cancel(<span class="string">'Operation canceled by the user.'</span>);</span><br></pre></td></tr></table></figure>
-<p>还可以通过传递一个 executor 函数到 <code>CancelToken</code> 的构造函数来创建 cancel token：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> CancelToken = axios.CancelToken;</span><br><span class="line"><span class="keyword">let</span> cancel;</span><br><span class="line"></span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  cancelToken: <span class="keyword">new</span> CancelToken(<span class="function"><span class="keyword">function</span> <span class="title">executor</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// executor 函数接收一个 cancel 函数作为参数</span></span><br><span class="line">    cancel = c;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消请求</span></span><br><span class="line">cancel();</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意: 可以使用同一个 cancel token 取消多个请求</p>
-</blockquote>
-<h2 id="使用-application-x-www-form-urlencoded-格式"><a href="#使用-application-x-www-form-urlencoded-格式" class="headerlink" title="使用 application/x-www-form-urlencoded 格式"></a>使用 application/x-www-form-urlencoded 格式</h2><p>默认情况下，axios将JavaScript对象序列化为JSON。要以<code>application/x-www-form-urlencoded</code> 格式发送数据，您可以使用以下选项之一。</p>
-<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>在浏览器中，您可以使用以下<a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener"><code>URLSearchParams</code></a> API:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> params = <span class="keyword">new</span> URLSearchParams();</span><br><span class="line">params.append(<span class="string">'param1'</span>, <span class="string">'value1'</span>);</span><br><span class="line">params.append(<span class="string">'param2'</span>, <span class="string">'value2'</span>);</span><br><span class="line">axios.post(<span class="string">'/foo'</span>, params);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>请注意， <code>URLSearchParams</code> 并非所有浏览器都支持(请参阅 <a href="http://www.caniuse.com/#feat=urlsearchparams" target="_blank" rel="noopener">caniuse.com</a>), 但可以使用 <a href="https://github.com/WebReflection/url-search-params" target="_blank" rel="noopener">polyfill</a>(请确保填充全局环境)。<br>或者，您可以使用<a href="https://github.com/ljharb/qs" target="_blank" rel="noopener"><code>qs</code></a> 库对数据进行编码：</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> qs = <span class="built_in">require</span>(<span class="string">'qs'</span>);</span><br><span class="line">axios.post(<span class="string">'/foo'</span>, qs.stringify(&#123; <span class="string">'bar'</span>: <span class="number">123</span> &#125;));</span><br></pre></td></tr></table></figure>
-<p>或者以另一种方式（ES6），</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">'qs'</span>;</span><br><span class="line"><span class="keyword">const</span> data = &#123; <span class="string">'bar'</span>: <span class="number">123</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  method: <span class="string">'POST'</span>,</span><br><span class="line">  headers: &#123; <span class="string">'content-type'</span>: <span class="string">'application/x-www-form-urlencoded'</span> &#125;,</span><br><span class="line">  data: qs.stringify(data),</span><br><span class="line">  url,</span><br><span class="line">&#125;;</span><br><span class="line">axios(options);</span><br></pre></td></tr></table></figure>
-<h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>在node.js中，您可以<a href="https://nodejs.org/api/querystring.html" target="_blank" rel="noopener"><code>querystring</code></a>按如下方式使用模块：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">'querystring'</span>);</span><br><span class="line">axios.post(<span class="string">'http://something.com/'</span>, querystring.stringify(&#123; <span class="attr">foo</span>: <span class="string">'bar'</span> &#125;));</span><br></pre></td></tr></table></figure>
-<p>您也可以使用该<a href="https://github.com/ljharb/qs" target="_blank" rel="noopener"><code>qs</code></a>库.</p>
-<h2 id="Semver"><a href="#Semver" class="headerlink" title="Semver"></a>Semver</h2><p>在axios达到<code>1.0</code> 发布之前，将通过新的次要版本发布重大更改。例如 <code>0.5.1</code>, 和 <code>0.5.4</code>将具有相同的API, 但 <code>0.6.0</code> 会有重大更改。</p>
-<h2 id="承诺"><a href="#承诺" class="headerlink" title="承诺"></a>承诺</h2><p>aaxios依赖于原生ES6 Promise实现的<a href="http://caniuse.com/promises" target="_blank" rel="noopener">支持</a>。如果您的环境不支持ES6 Promise，则可以<a href="https://github.com/jakearchibald/es6-promise" target="_blank" rel="noopener">polyfill</a>。</p>
-<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p>axios包括<a href="http://typescriptlang.org" target="_blank" rel="noopener">TypeScript</a>定义。<br><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>;</span><br><span class="line">axios.get(<span class="string">'/user?ID=12345'</span>);</span><br></pre></td></tr></table></figure></p>
-<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
-<li><a href="https://github.com/axios/axios/blob/master/CHANGELOG.md" target="_blank" rel="noopener">更新日志</a></li>
-<li><a href="https://github.com/axios/axios/blob/master/UPGRADE_GUIDE.md" target="_blank" rel="noopener">升级指南</a></li>
-<li><a href="https://github.com/axios/axios/blob/master/ECOSYSTEM.md" target="_blank" rel="noopener">生态系统</a></li>
-<li><a href="https://github.com/axios/axios/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener">C参与指南</a></li>
-<li><a href="https://github.com/axios/axios/blob/master/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">行为守则</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>翻译</category>
-        <category>README</category>
-      </categories>
-      <tags>
-        <tag>axios</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Eclipse下JSP中使用UEditor（以富文本编辑器为例）</title>
-    <url>/2017/02/20/Eclipse%E4%B8%8BJSP%E4%B8%AD%E4%BD%BF%E7%94%A8UEditor(%E4%BB%A5%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%BA%E4%BE%8B)/</url>
-    <content><![CDATA[<h3 id="1-下载UEditor"><a href="#1-下载UEditor" class="headerlink" title="1.下载UEditor"></a>1.下载UEditor</h3><p><a href="http://ueditor.baidu.com/website/download.html" target="_blank" rel="noopener">http://ueditor.baidu.com/website/download.html</a>     </p>
-<a id="more"></a>
-<p>版本如下：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/1.png" alt="avatar">      </p>
-<h3 id="2-解压，简单暴力地将-ueditor1-4-3-utf8-jsp-jsp-lib目录下的文件拷贝到项目的-WEB-INF-lib目录下"><a href="#2-解压，简单暴力地将-ueditor1-4-3-utf8-jsp-jsp-lib目录下的文件拷贝到项目的-WEB-INF-lib目录下" class="headerlink" title="2.解压，简单暴力地将\ueditor1_4_3-utf8-jsp\jsp\lib目录下的文件拷贝到项目的/WEB-INF/lib目录下"></a>2.解压，简单暴力地将<strong><em>\ueditor1_4_3-utf8-jsp\jsp\lib</em></strong>目录下的文件拷贝到项目的<strong><em>/WEB-INF/lib</em></strong>目录下</h3><p>如图所示：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/2.png" alt="avatar"><br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/3.png" alt="avatar"></p>
-<h3 id="3-将除index-html文件外的文件拷贝到项目中，例如："><a href="#3-将除index-html文件外的文件拷贝到项目中，例如：" class="headerlink" title="3.将除index.html文件外的文件拷贝到项目中，例如："></a>3.将除index.html文件外的文件拷贝到项目中，例如：</h3><p><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/4.png" alt="avatar">      </p>
-<h3 id="4-在要使用富文本编辑器的页面引入脚本："><a href="#4-在要使用富文本编辑器的页面引入脚本：" class="headerlink" title="4.在要使用富文本编辑器的页面引入脚本："></a>4.在要使用富文本编辑器的页面引入脚本：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/ueditor.config.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/ueditor.all.min.js&quot;&gt; &lt;/script&gt;</span><br><span class="line">&lt;!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败--&gt;</span><br><span class="line">&lt;!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文--&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/lang/zh-cn/zh-cn.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>如图：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/5.png" alt="avatar">      </p>
-<h3 id="5-在需要用富文本编辑器的区域添加以下脚本："><a href="#5-在需要用富文本编辑器的区域添加以下脚本：" class="headerlink" title="5.在需要用富文本编辑器的区域添加以下脚本："></a>5.在需要用富文本编辑器的区域添加以下脚本：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script id=&quot;editor&quot; type=&quot;text/plain&quot; style=&quot;width:486px;height:300px;&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>如图：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/6.png" alt="avatar">        </p>
-<h3 id="6-在页面最下端写以下javascript脚本："><a href="#6-在页面最下端写以下javascript脚本：" class="headerlink" title="6.在页面最下端写以下javascript脚本："></a>6.在页面最下端写以下javascript脚本：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;   </span><br><span class="line">    //实例化编辑器    </span><br><span class="line">    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor(&apos;editor&apos;)就能拿到相关的实例</span><br><span class="line">    var ue = UE.getEditor(&apos;editor&apos;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>如图：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/7.png" alt="avatar">      </p>
-<h3 id="7-添加提交按钮的js脚本，用来提交内容"><a href="#7-添加提交按钮的js脚本，用来提交内容" class="headerlink" title="7.添加提交按钮的js脚本，用来提交内容"></a>7.添加提交按钮的js脚本，用来提交内容</h3><p><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/8.png" alt="avatar"><br>脚本文件：<img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/9.png" alt="avatar"><br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/10.png" alt="avatar"><br>代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function check_post_msg_valid()&#123;      </span><br><span class="line">          if(false==UE.getEditor(&apos;editor&apos;).hasContents())&#123;      </span><br><span class="line">               alert(&apos;请输入内容！&apos;);       </span><br><span class="line">               return false;        </span><br><span class="line">          &#125;           </span><br><span class="line">     document.getElementById(&quot;msg&quot;).value=UE.getEditor(&apos;editor&apos;).getContent();        </span><br><span class="line">     document.forms[0].submit();        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="8-其他："><a href="#8-其他：" class="headerlink" title="8.其他："></a>8.其他：</h3><p><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/11.png" alt="avatar">       </p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>UEditor</tag>
-        <tag>富文本编辑器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop伪分布式搭建-(1)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-1/</url>
-    <content><![CDATA[<h3 id="配置虚拟机子网网段-hostonly模式时"><a href="#配置虚拟机子网网段-hostonly模式时" class="headerlink" title="配置虚拟机子网网段(hostonly模式时)"></a>配置虚拟机子网网段(hostonly模式时)</h3><ul>
-<li>配置网段  <blockquote>
-<p>点击VMware快捷方式，右键打开文件所在位置 -&gt; 双击vmnetcfg.exe -&gt; VMnet1 host-only -&gt;<br>修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&gt; apply -&gt; ok</p>
-</blockquote>
-</li>
-</ul>
-<a id="more"></a>
-<ul>
-<li><p>设置本地机器IP  </p>
-<blockquote>
-<p>回到windows –&gt; 打开网络和共享中心 -&gt; 更改适配器设置 -&gt; 右键VMnet1 -&gt; 属性 -&gt; 双击IPv4 -&gt;<br>设置windows的IP：192.168.8.100 子网掩码：255.255.255.0 -&gt; 点击确定</p>
-</blockquote>
-</li>
-<li><p>设置为hostonly模式  </p>
-<blockquote>
-<p>在虚拟软件上 –My Computer -&gt; 选中虚拟机 -&gt; 右键 -&gt; settings -&gt; network adapter -&gt; host only -&gt; ok   </p>
-</blockquote>
-</li>
-<li><p>另:桥接模式    </p>
-<blockquote>
-<p>桥接模式直接将本地机器的当前正在使用的网卡(无线/非无线网卡)IP改为静态IP即可.设置windows的IP：192.168.8.100 子网掩 码：255.255.255.0 -&gt; 网关:192.168.1.1 -&gt; 若为无线网卡,设置前先查看路由分配的DNS是多少,直接照着填进来就行.-&gt;<br>点击确定</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h3><blockquote>
-<p>vim /etc/sysconfig/network</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NETWORKING=yes</span><br><span class="line">HOSTNAME=dh01 #随便设置一个名字</span><br></pre></td></tr></table></figure>
-<h3 id="修改虚拟机IP-这里是centos7"><a href="#修改虚拟机IP-这里是centos7" class="headerlink" title="修改虚拟机IP(这里是centos7)"></a>修改虚拟机IP(这里是centos7)</h3><p>两种方式：  </p>
-<ul>
-<li><p>第一种：通过Linux图形界面进行修改（推荐）</p>
-<blockquote>
-<p>进入Linux图形界面 -&gt; 右键点击右上方的两个小电脑 -&gt;<br>点击Edit connections -&gt; 选中当前网络System eth0 -&gt;<br>点击edit按钮 -&gt; 选择IPv4 -&gt; method选择为manual -&gt;<br>点击add按钮 -&gt;添加IP：192.168.8.88<br>子网掩码：255.255.255.0 网关：192.168.8.1 -&gt; apply</p>
-</blockquote>
-</li>
-<li><p>第二种：修改配置文件方式   </p>
-<blockquote>
-<p>vim /etc/sysconfig/network-scripts/ifcfg-eth0 (不一定一定是ifcfg-eth0)</p>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DEVICE=&quot;eth0&quot;</span><br><span class="line">BOOTPROTO=&quot;static&quot;               #修改</span><br><span class="line">HWADDR=&quot;00:0C:29:3C:BF:E7&quot;</span><br><span class="line">IPV6INIT=&quot;yes&quot;</span><br><span class="line">NM_CONTROLLED=&quot;yes&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">UUID=&quot;ce22eeca-ecde-4536-8cc2-ef0dc36d4a8c&quot;</span><br><span class="line">IPADDR=&quot;192.168.8.88&quot;               #修改</span><br><span class="line">NETMASK=&quot;255.255.255.0&quot;           #修改</span><br><span class="line">GATEWAY=&quot;192.168.8.1&quot;               #修改</span><br></pre></td></tr></table></figure>
-<h3 id="修改主机名和IP的映射关系"><a href="#修改主机名和IP的映射关系" class="headerlink" title="修改主机名和IP的映射关系"></a>修改主机名和IP的映射关系</h3><blockquote>
-<p>vim /etc/hosts</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">192.168.8.88 dh01</span><br></pre></td></tr></table></figure>
-<h3 id="关闭防火墙-以下为centos7以前命令-centos7"><a href="#关闭防火墙-以下为centos7以前命令-centos7" class="headerlink" title="关闭防火墙(以下为centos7以前命令,centos7)"></a>关闭防火墙(以下为centos7以前命令,centos7)</h3><blockquote>
-<p>#查看防火墙状态<br>service iptables status</p>
-<p>#关闭防火墙<br>service iptables stop</p>
-<p>#查看防火墙开机启动状态<br>chkconfig iptables –list</p>
-<p>#关闭防火墙开机启动<br>chkconfig iptables off    </p>
-</blockquote>
-<p>CentOS 7.0默认使用的是firewall作为防火墙  </p>
-<blockquote>
-<p>systemctl start firewalld.service    #启动firewall<br>systemctl stop firewalld.service    #停止firewall<br>systemctl disable firewalld.service    #禁止firewall开机启动  </p>
-</blockquote>
-<p>也可以改成使用iptables：systemctl start iptables.service</p>
-<h3 id="重启Linux"><a href="#重启Linux" class="headerlink" title="重启Linux"></a>重启Linux</h3><blockquote>
-<p>reboot</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>大数据</category>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>集群</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git简明指南</title>
     <url>/2018/04/24/Git%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/</url>
     <content><![CDATA[<p><img src="https://DaiHuiBlog.github.io/images/posts/Git简明指南/3.jpg" alt="image1"></p>
@@ -398,7 +163,7 @@
 <p>使用镜像 nginx:latest，以后台模式启动一个容器,将容器的 80 端口映射到主机的 80 端口,主机的目录 /data 映射到容器的 /data。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -p 80:80 -v /data:/data -d nginx:latest</span><br></pre></td></tr></table></figure>
 <p>绑定容器的 8080 端口，并将其映射到本地主机 127.0.0.1 的 80 端口上。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -p 127.0.0.1:80:8080/tcp ubuntu bash</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker run -p 127.0.0.1:80:8080/tcp ubuntu bash</span><br></pre></td></tr></table></figure>
 <p>使用镜像nginx:latest以交互模式启动一个容器,在容器内执行/bin/bash命令。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">runoob@runoob:~$ docker run -it nginx:latest /bin/bash</span><br><span class="line">root@b8573233d675:/#</span><br></pre></td></tr></table></figure>
 <hr>
@@ -512,10 +277,10 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">runoob@runoob:~$ docker exec -i -t  mynginx /bin/bash</span><br><span class="line">root@b1a0703e41e7:/#</span><br></pre></td></tr></table></figure>
 <p>也可以通过<code>docker ps -a</code> 命令查看已经在运行的容器，然后使用容器 ID 进入容器。</p>
 <p>查看已经在运行的容器 ID：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker ps -a </span></span><br><span class="line">...</span><br><span class="line">9df70f9a0714     openjdk        "/usercode/script.sh…" </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> docker ps -a </span><br><span class="line">...</span><br><span class="line">9df70f9a0714     openjdk        "/usercode/script.sh…" </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>第一列的 9df70f9a0714 就是容器 ID</p>
 <p>通过 exec 命令对指定的容器执行 bash:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker <span class="built_in">exec</span> -it 9df70f9a0714 /bin/bash</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> docker exec -it 9df70f9a0714 /bin/bash</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="rqcz">容器操作</h2>
 
@@ -896,9 +661,9 @@
 <p>使用URL github.com/creack/docker-firefox 的 Dockerfile 创建镜像。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker build github.com/creack/docker-firefox</span><br></pre></td></tr></table></figure>
 <p>也可以通过 -f Dockerfile 文件的位置：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker build -f /path/to/a/Dockerfile .</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker build -f /path/to/a/Dockerfile .</span><br></pre></td></tr></table></figure>
 <p>在 Docker 守护进程执行 Dockerfile 中的指令前，首先会对 Dockerfile 进行语法检查，有语法错误时会返回：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker build -t <span class="built_in">test</span>/myapp .</span></span><br><span class="line">Sending build context to Docker daemon 2.048 kB</span><br><span class="line">Error response from daemon: Unknown instruction: RUNCMD</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker build -t test/myapp .</span><br><span class="line">Sending build context to Docker daemon 2.048 kB</span><br><span class="line">Error response from daemon: Unknown instruction: RUNCMD</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="history">Docker history 命令</h3>
 
@@ -959,7 +724,7 @@
 </blockquote>
 <p><strong>实例</strong></p>
 <p>查看docker系统信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker info</span></span><br><span class="line">Containers: 12</span><br><span class="line">Images: 41</span><br><span class="line">Storage Driver: aufs</span><br><span class="line"> Root Dir: /var/lib/docker/aufs</span><br><span class="line"> Backing Filesystem: extfs</span><br><span class="line"> Dirs: 66</span><br><span class="line"> Dirperm1 Supported: false</span><br><span class="line">Execution Driver: native-0.2</span><br><span class="line">Logging Driver: json-file</span><br><span class="line">Kernel Version: 3.13.0-32-generic</span><br><span class="line">Operating System: Ubuntu 14.04.1 LTS</span><br><span class="line">CPUs: 1</span><br><span class="line">Total Memory: 1.954 GiB</span><br><span class="line">Name: iZ23mtq8bs1Z</span><br><span class="line">ID: M5N4:K6WN:PUNC:73ZN:AONJ:AUHL:KSYH:2JPI:CH3K:O4MK:6OCX:5OYW</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker info</span><br><span class="line">Containers: 12</span><br><span class="line">Images: 41</span><br><span class="line">Storage Driver: aufs</span><br><span class="line"> Root Dir: /var/lib/docker/aufs</span><br><span class="line"> Backing Filesystem: extfs</span><br><span class="line"> Dirs: 66</span><br><span class="line"> Dirperm1 Supported: false</span><br><span class="line">Execution Driver: native-0.2</span><br><span class="line">Logging Driver: json-file</span><br><span class="line">Kernel Version: 3.13.0-32-generic</span><br><span class="line">Operating System: Ubuntu 14.04.1 LTS</span><br><span class="line">CPUs: 1</span><br><span class="line">Total Memory: 1.954 GiB</span><br><span class="line">Name: iZ23mtq8bs1Z</span><br><span class="line">ID: M5N4:K6WN:PUNC:73ZN:AONJ:AUHL:KSYH:2JPI:CH3K:O4MK:6OCX:5OYW</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="version">Docker version 命令</h3>
 
@@ -974,7 +739,7 @@
 </ul>
 <p><strong>实例</strong></p>
 <p>显示 Docker 版本信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker version</span></span><br><span class="line">Client:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker version</span><br><span class="line">Client:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Docker</category>
@@ -985,41 +750,29 @@
       </tags>
   </entry>
   <entry>
-    <title>Hadoop伪分布式搭建-(2)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
-    <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
-<li>从Windows上传jdk到虚拟机  <blockquote>
-<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
-</blockquote>
-</li>
-</ul>
+    <title>Eclipse下JSP中使用UEditor（以富文本编辑器为例）</title>
+    <url>/2017/02/20/Eclipse%E4%B8%8BJSP%E4%B8%AD%E4%BD%BF%E7%94%A8UEditor(%E4%BB%A5%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%BA%E4%BE%8B)/</url>
+    <content><![CDATA[<h3 id="1-下载UEditor"><a href="#1-下载UEditor" class="headerlink" title="1.下载UEditor"></a>1.下载UEditor</h3><p><a href="http://ueditor.baidu.com/website/download.html" target="_blank" rel="noopener">http://ueditor.baidu.com/website/download.html</a>     </p>
 <a id="more"></a>
-<ul>
-<li><p>解压jdk   </p>
-<blockquote>
-<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
-</blockquote>
-</li>
-<li><p>将java添加到环境变量中  </p>
-<blockquote>
-<p>vim /etc/profile  </p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>刷新配置   </p>
-<blockquote>
-<p>source /etc/profile</p>
-</blockquote>
-</li>
-</ul>
+<p>版本如下：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/1.png" alt="avatar">      </p>
+<h3 id="2-解压，简单暴力地将-ueditor1-4-3-utf8-jsp-jsp-lib目录下的文件拷贝到项目的-WEB-INF-lib目录下"><a href="#2-解压，简单暴力地将-ueditor1-4-3-utf8-jsp-jsp-lib目录下的文件拷贝到项目的-WEB-INF-lib目录下" class="headerlink" title="2.解压，简单暴力地将\ueditor1_4_3-utf8-jsp\jsp\lib目录下的文件拷贝到项目的/WEB-INF/lib目录下"></a>2.解压，简单暴力地将<strong><em>\ueditor1_4_3-utf8-jsp\jsp\lib</em></strong>目录下的文件拷贝到项目的<strong><em>/WEB-INF/lib</em></strong>目录下</h3><p>如图所示：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/2.png" alt="avatar"><br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/3.png" alt="avatar"></p>
+<h3 id="3-将除index-html文件外的文件拷贝到项目中，例如："><a href="#3-将除index-html文件外的文件拷贝到项目中，例如：" class="headerlink" title="3.将除index.html文件外的文件拷贝到项目中，例如："></a>3.将除index.html文件外的文件拷贝到项目中，例如：</h3><p><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/4.png" alt="avatar">      </p>
+<h3 id="4-在要使用富文本编辑器的页面引入脚本："><a href="#4-在要使用富文本编辑器的页面引入脚本：" class="headerlink" title="4.在要使用富文本编辑器的页面引入脚本："></a>4.在要使用富文本编辑器的页面引入脚本：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/ueditor.config.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/ueditor.all.min.js&quot;&gt; &lt;/script&gt;</span><br><span class="line">&lt;!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败--&gt;</span><br><span class="line">&lt;!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文--&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; src=&quot;&lt;%=path%&gt;/js/ueditor/lang/zh-cn/zh-cn.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>如图：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/5.png" alt="avatar">      </p>
+<h3 id="5-在需要用富文本编辑器的区域添加以下脚本："><a href="#5-在需要用富文本编辑器的区域添加以下脚本：" class="headerlink" title="5.在需要用富文本编辑器的区域添加以下脚本："></a>5.在需要用富文本编辑器的区域添加以下脚本：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script id=&quot;editor&quot; type=&quot;text/plain&quot; style=&quot;width:486px;height:300px;&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>如图：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/6.png" alt="avatar">        </p>
+<h3 id="6-在页面最下端写以下javascript脚本："><a href="#6-在页面最下端写以下javascript脚本：" class="headerlink" title="6.在页面最下端写以下javascript脚本："></a>6.在页面最下端写以下javascript脚本：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;   </span><br><span class="line">    //实例化编辑器    </span><br><span class="line">    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor(&apos;editor&apos;)就能拿到相关的实例</span><br><span class="line">    var ue = UE.getEditor(&apos;editor&apos;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>如图：<br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/7.png" alt="avatar">      </p>
+<h3 id="7-添加提交按钮的js脚本，用来提交内容"><a href="#7-添加提交按钮的js脚本，用来提交内容" class="headerlink" title="7.添加提交按钮的js脚本，用来提交内容"></a>7.添加提交按钮的js脚本，用来提交内容</h3><p><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/8.png" alt="avatar"><br>脚本文件：<img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/9.png" alt="avatar"><br><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/10.png" alt="avatar"><br>代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function check_post_msg_valid()&#123;      </span><br><span class="line">          if(false==UE.getEditor(&apos;editor&apos;).hasContents())&#123;      </span><br><span class="line">               alert(&apos;请输入内容！&apos;);       </span><br><span class="line">               return false;        </span><br><span class="line">          &#125;           </span><br><span class="line">     document.getElementById(&quot;msg&quot;).value=UE.getEditor(&apos;editor&apos;).getContent();        </span><br><span class="line">     document.forms[0].submit();        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="8-其他："><a href="#8-其他：" class="headerlink" title="8.其他："></a>8.其他：</h3><p><img src="https://DaiHuiBlog.github.io/images/posts/Eclipse下JSP中使用UEditor/11.png" alt="avatar">       </p>
 ]]></content>
       <categories>
-        <category>大数据</category>
-        <category>Hadoop</category>
+        <category>Java</category>
+        <category>其他</category>
       </categories>
       <tags>
-        <tag>Hadoop</tag>
-        <tag>集群</tag>
+        <tag>UEditor</tag>
+        <tag>富文本编辑器</tag>
       </tags>
   </entry>
   <entry>
@@ -1147,7 +900,7 @@
 <p>然后打开同目录中的 components.styl 文件, 找个顺眼的位置添加一句    </p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@import &quot;gitment&quot;</span><br></pre></td></tr></table></figure>
 <h3 id="添加-Gitment-插件"><a href="#添加-Gitment-插件" class="headerlink" title="添加 Gitment 插件"></a>添加 Gitment 插件</h3><p>打开 <strong>/next/layout/_partials/comments.swig</strong> 文件, 在最后一个 <em>elseif</em> 代码块下面添加 Gitment 的内容.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 前面的略... ...</span></span><br><span class="line">&#123;% elseif theme.changyan.appid and theme.changyan.appkey %&#125;</span><br><span class="line"> &lt;div id=<span class="string">"SOHUCS"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#123;% elseif theme.gitment.enable %&#125;</span><br><span class="line"> &lt;div onclick=<span class="string">"showGitment()"</span> id=<span class="string">"gitment_title"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"gitment_title"</span>&gt;显示 Gitment 评论&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"> &lt;div id="container" style="display:none"&gt;&lt;/</span>div&gt;</span><br><span class="line"> &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://imsun.github.io/gitment/style/default.css"</span>&gt;</span><br><span class="line"> &lt;script src=<span class="string">"https://imsun.github.io/gitment/dist/gitment.browser.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"> &lt;script&gt;</span><br><span class="line"> <span class="keyword">const</span> myTheme = &#123;</span><br><span class="line">   render(state, instance) &#123;</span><br><span class="line">     <span class="keyword">const</span> container = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">     container.lang = <span class="string">"en-US"</span>;</span><br><span class="line">     container.className = <span class="string">'gitment-container gitment-root-container'</span>;</span><br><span class="line">     container.appendChild(instance.renderHeader(state, instance));</span><br><span class="line">     container.appendChild(instance.renderEditor(state, instance));</span><br><span class="line">     container.appendChild(instance.renderComments(state, instance));</span><br><span class="line">     container.appendChild(instance.renderFooter(state, instance));</span><br><span class="line">     <span class="keyword">return</span> container;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">showGitment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   $(<span class="string">"#gitment_title"</span>).attr(<span class="string">"style"</span>, <span class="string">"display:none"</span>);</span><br><span class="line">   $(<span class="string">"#container"</span>).attr(<span class="string">"style"</span>, <span class="string">""</span>).addClass(<span class="string">"gitment_container"</span>);</span><br><span class="line">   <span class="keyword">var</span> gitment = <span class="keyword">new</span> Gitment(&#123;</span><br><span class="line">     id: <span class="built_in">decodeURI</span>(<span class="built_in">window</span>.location.pathname),</span><br><span class="line">     theme: myTheme,</span><br><span class="line">     owner: <span class="string">'&#123;&#123; theme.gitment.owner &#125;&#125;'</span>,</span><br><span class="line">     repo: <span class="string">'&#123;&#123; theme.gitment.repo &#125;&#125;'</span>,</span><br><span class="line">     oauth: &#123;</span><br><span class="line">       client_id: <span class="string">'&#123;&#123; theme.gitment.client_id &#125;&#125;'</span>,</span><br><span class="line">       client_secret: <span class="string">'&#123;&#123; theme.gitment.client_secret &#125;&#125;'</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   gitment.render(<span class="string">'container'</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 前面的略... ...</span></span><br><span class="line">&#123;% elseif theme.changyan.appid and theme.changyan.appkey %&#125;</span><br><span class="line"> &lt;div id=<span class="string">"SOHUCS"</span>&gt;&lt;/div&gt;</span><br><span class="line">&#123;% elseif theme.gitment.enable %&#125;</span><br><span class="line"> &lt;div onclick=<span class="string">"showGitment()"</span> id=<span class="string">"gitment_title"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"gitment_title"</span>&gt;显示 Gitment 评论&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"> &lt;div id="container" style="display:none"&gt;&lt;/</span>div&gt;</span><br><span class="line"> &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://imsun.github.io/gitment/style/default.css"</span>&gt;</span><br><span class="line"> &lt;script src=<span class="string">"https://imsun.github.io/gitment/dist/gitment.browser.js"</span>&gt;&lt;/script&gt;</span><br><span class="line"> &lt;script&gt;</span><br><span class="line"> <span class="keyword">const</span> myTheme = &#123;</span><br><span class="line">   render(state, instance) &#123;</span><br><span class="line">     <span class="keyword">const</span> container = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">     container.lang = <span class="string">"en-US"</span>;</span><br><span class="line">     container.className = <span class="string">'gitment-container gitment-root-container'</span>;</span><br><span class="line">     container.appendChild(instance.renderHeader(state, instance));</span><br><span class="line">     container.appendChild(instance.renderEditor(state, instance));</span><br><span class="line">     container.appendChild(instance.renderComments(state, instance));</span><br><span class="line">     container.appendChild(instance.renderFooter(state, instance));</span><br><span class="line">     <span class="keyword">return</span> container;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">showGitment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   $(<span class="string">"#gitment_title"</span>).attr(<span class="string">"style"</span>, <span class="string">"display:none"</span>);</span><br><span class="line">   $(<span class="string">"#container"</span>).attr(<span class="string">"style"</span>, <span class="string">""</span>).addClass(<span class="string">"gitment_container"</span>);</span><br><span class="line">   <span class="keyword">var</span> gitment = <span class="keyword">new</span> Gitment(&#123;</span><br><span class="line">     id: <span class="built_in">decodeURI</span>(<span class="built_in">window</span>.location.pathname),</span><br><span class="line">     theme: myTheme,</span><br><span class="line">     owner: <span class="string">'&#123;&#123; theme.gitment.owner &#125;&#125;'</span>,</span><br><span class="line">     repo: <span class="string">'&#123;&#123; theme.gitment.repo &#125;&#125;'</span>,</span><br><span class="line">     oauth: &#123;</span><br><span class="line">       client_id: <span class="string">'&#123;&#123; theme.gitment.client_id &#125;&#125;'</span>,</span><br><span class="line">       client_secret: <span class="string">'&#123;&#123; theme.gitment.client_secret &#125;&#125;'</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   gitment.render(<span class="string">'container'</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
 <p>然后打开 NexT 主题的_config.yml 文件，在评论相关设置的区域添加下面的代码，并根据 Gitment 文档说明来添加相应的值</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Gitment comments</span></span><br><span class="line"><span class="attr">gitment:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  owner:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  client_id:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  client_secret:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  lazy:</span> <span class="literal">true</span>  <span class="comment">#lazy属性为是否直接显示评论模块，true会显示”显示评论”按钮，false会直接显示</span></span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -1160,6 +913,142 @@
       <tags>
         <tag>Hexo</tag>
         <tag>Gitment</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Axios基本使用说明</title>
+    <url>/2018/04/11/Axios%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<h1 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h1><p><a href="https://www.npmjs.org/package/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/axios.svg?style=flat-square" alt="npm version"></a><a href="https://travis-ci.org/axios/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/travis/axios/axios.svg?style=flat-square" alt="build status"></a><a href="https://coveralls.io/r/mzabriskie/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/coveralls/mzabriskie/axios.svg?style=flat-square" alt="code coverage"></a><a href="http://npm-stat.com/charts.html?package=axios" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/dm/axios.svg?style=flat-square" alt="npm downloads"></a><a href="https://gitter.im/mzabriskie/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/gitter/room/mzabriskie/axios.svg?style=flat-square" alt="gitter chat"></a><a href="https://www.codetriage.com/axios/axios" target="_blank" rel="noopener"><img src="https://www.codetriage.com/axios/axios/badges/users.svg" alt="code helpers"></a></p>
+<p>Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。</p>
+<a id="more"></a>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>从浏览器中创建 <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank" rel="noopener">XMLHttpRequests</a></li>
+<li>从 node.js 创建 <a href="http://nodejs.org/api/http.html" target="_blank" rel="noopener">http</a> 请求</li>
+<li>支持 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promise</a> API</li>
+<li>拦截请求和响应</li>
+<li>转换请求数据和响应数据</li>
+<li>取消请求</li>
+<li>自动转换 JSON 数据</li>
+<li>客户端支持防御 <a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener">XSRF</a></li>
+</ul>
+<h2 id="浏览器支持"><a href="#浏览器支持" class="headerlink" title="浏览器支持"></a>浏览器支持</h2><table>
+<thead>
+<tr>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>8+ ✔</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://saucelabs.com/u/axios" target="_blank" rel="noopener"><img src="https://saucelabs.com/open_sauce/build_matrix/axios.svg" alt="Browser Matrix"></a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用 npm:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install axios</span><br></pre></td></tr></table></figure>
+<p>使用 bower:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bower install axios</span><br></pre></td></tr></table></figure>
+<p>使用 cdn:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/axios/dist/axios.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>执行 <code>GET</code> 请求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 为给定 ID 的 user 创建请求</span></span><br><span class="line">axios.get(<span class="string">'/user?ID=12345'</span>)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可选地，上面的请求可以这样做</span></span><br><span class="line">axios.get(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    params: &#123;</span><br><span class="line">      ID: <span class="number">12345</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 想使用异步/等待？将`async`关键字添加到外部函数/方法中。</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.get(<span class="string">'/user?ID=12345'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意:</strong> async/await是ECMAScript 2017的一部分，在Internet Explorer和旧版浏览器中不支持，因此请谨慎使用。</p>
+</blockquote>
+<p>执行 <code>POST</code> 请求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.post(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>执行多个并发请求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserAccount</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserPermissions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345/permissions'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">axios.all([getUserAccount(), getUserPermissions()])</span><br><span class="line">  .then(axios.spread(<span class="function"><span class="keyword">function</span> (<span class="params">acct, perms</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//两个请求均已完成</span></span><br><span class="line">  &#125;));</span><br></pre></td></tr></table></figure>
+<h2 id="axios-API"><a href="#axios-API" class="headerlink" title="axios API"></a>axios API</h2><p>请求可以通过传递相关配置来完成 <code>axios</code>.</p>
+<p><strong>axios(config)</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 发送一个POST请求</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method: <span class="string">'post'</span>,</span><br><span class="line">  url: <span class="string">'/user/12345'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// GET请求远程图像</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method:<span class="string">'get'</span>,</span><br><span class="line">  url:<span class="string">'http://bit.ly/2mTM3nY'</span>,</span><br><span class="line">  responseType:<span class="string">'stream'</span></span><br><span class="line">&#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">  response.data.pipe(fs.createWriteStream(<span class="string">'ada_lovelace.jpg'</span>))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>axios(url[, config])</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 发送GET请求（默认方法）</span></span><br><span class="line">axios(<span class="string">'/user/12345'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="请求方法别名"><a href="#请求方法别名" class="headerlink" title="请求方法别名"></a>请求方法别名</h2><p>为方便起见，为所有支持的请求方法提供了别名</p>
+<p><strong>axios.request(config)</strong><br><strong>axios.get(url[, config])</strong><br><strong>axios.delete(url[, config])</strong><br><strong>axios.head(url[, config])</strong><br><strong>axios.options(url[, config])</strong><br><strong>axios.post(url[, data[, config]])</strong><br><strong>axios.put(url[, data[, config]])</strong><br><strong>axios.patch(url[, data[, config]])</strong></p>
+<blockquote>
+<p>注意: 在使用别名方法时， url、method、data 这些属性都不必在配置中指定。</p>
+</blockquote>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>处理并发请求的助手函数</p>
+<p><strong>axios.all(iterable)</strong><br><strong>axios.spread(callback)</strong></p>
+<h3 id="创建一个实例"><a href="#创建一个实例" class="headerlink" title="创建一个实例"></a>创建一个实例</h3><p>您可以使用自定义配置创建一个新的axios实例。</p>
+<p><strong>axios.create([config])</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line">  timeout: <span class="number">1000</span>,</span><br><span class="line">  headers: &#123;<span class="string">'X-Custom-Header'</span>: <span class="string">'foobar'</span>&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><p>以下是可用的实例方法。指定的配置将与实例的配置合并</p>
+<p><strong>axios#request(config)</strong><br><strong>axios#get(url[, config])</strong><br><strong>axios#delete(url[, config])</strong><br><strong>axios#head(url[, config])</strong><br><strong>axios#options(url[, config])</strong><br><strong>axios#post(url[, data[, config]])</strong><br><strong>axios#put(url[, data[, config]])</strong><br><strong>axios#patch(url[, data[, config]])</strong></p>
+<h2 id="请求配置"><a href="#请求配置" class="headerlink" title="请求配置"></a>请求配置</h2><p>这些是创建请求时可以用的配置选项。只有 <code>url</code> 是必需的。如果没有指定 <code>method</code>，请求将默认使用 <code>get</code> 方法。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// `url` 是用于请求的服务器 URL</span></span><br><span class="line">  url: <span class="string">'/user'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `method` 是创建请求时使用的方法</span></span><br><span class="line">  method: <span class="string">'get'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。</span></span><br><span class="line">  <span class="comment">// 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL</span></span><br><span class="line">  baseURL: <span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `transformRequest` 允许在向服务器发送前，修改请求数据</span></span><br><span class="line">  <span class="comment">// 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法</span></span><br><span class="line">  <span class="comment">// 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream</span></span><br><span class="line">  <span class="comment">// 您可以修改headers对象。</span></span><br><span class="line">  transformRequest: [<span class="function"><span class="keyword">function</span> (<span class="params">data, headers</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对 data 进行任意转换处理</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">  &#125;],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `transformResponse` 在传递给 then/catch 前，允许修改响应数据</span></span><br><span class="line">  transformResponse: [<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对 data 进行任意转换处理</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">  &#125;],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `headers` 是即将被发送的自定义请求头</span></span><br><span class="line">  headers: &#123;<span class="string">'X-Requested-With'</span>: <span class="string">'XMLHttpRequest'</span>&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `params`  是即将与请求一起发送的 URL 参数</span></span><br><span class="line">  <span class="comment">// 必须是一个普通对象(plain object)或 URLSearchParams 对象</span></span><br><span class="line">  params: &#123;</span><br><span class="line">    ID: <span class="number">12345</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `paramsSerializer` 是一个负责 `params` 序列化的函数</span></span><br><span class="line">  <span class="comment">// (例如： https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)</span></span><br><span class="line">  paramsSerializer: <span class="function"><span class="keyword">function</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Qs.stringify(params, &#123;<span class="attr">arrayFormat</span>: <span class="string">'brackets'</span>&#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `data` 是作为请求主体被发送的数据</span></span><br><span class="line">  <span class="comment">// 只适用于这些请求方法 'PUT', 'POST', 和 'PATCH'</span></span><br><span class="line">  <span class="comment">// 在没有设置 `transformRequest` 时，必须是以下类型之一：</span></span><br><span class="line">  <span class="comment">// - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams</span></span><br><span class="line">  <span class="comment">// - 浏览器专属： FormData, File, Blob</span></span><br><span class="line">  <span class="comment">// - Node专属: Stream, Buffer</span></span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)</span></span><br><span class="line">  <span class="comment">// 如果请求话费了超过 `timeout` 的时间，请求将被中断</span></span><br><span class="line">  timeout: <span class="number">1000</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `withCredentials` 表示跨域请求时是否需要使用凭证</span></span><br><span class="line">  withCredentials: <span class="literal">false</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `adapter` 允许自定义处理请求，以使测试更轻松</span></span><br><span class="line">  <span class="comment">// 返回一个 promise 并应用一个有效的响应</span></span><br><span class="line">  adapter: <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `auth` 表示应该使用 HTTP 基础验证，并提供凭据</span></span><br><span class="line">  <span class="comment">// 这将设置一个 `Authorization` 头，覆写掉现有的任意使用 `headers` 设置的自定义 `Authorization`头</span></span><br><span class="line">  auth: &#123;</span><br><span class="line">    username: <span class="string">'janedoe'</span>,</span><br><span class="line">    password: <span class="string">'s00pers3cret'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `responseType` 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'</span></span><br><span class="line">  responseType: <span class="string">'json'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `responseEncoding` 表示用于解码响应的编码</span></span><br><span class="line">  <span class="comment">// 注意：忽略'stream'或客户端请求的`responseType`</span></span><br><span class="line">  responseEncoding: <span class="string">'utf8'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称</span></span><br><span class="line">  xsrfCookieName: <span class="string">'XSRF-TOKEN'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `xsrfHeaderName` 是承载 xsrf token 的值的 HTTP 头的名称</span></span><br><span class="line">  xsrfHeaderName: <span class="string">'X-XSRF-TOKEN'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `onUploadProgress` 允许为上传处理进度事件</span></span><br><span class="line">  onUploadProgress: <span class="function"><span class="keyword">function</span> (<span class="params">progressEvent</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对原生进度事件的处理</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `onDownloadProgress` 允许为下载处理进度事件</span></span><br><span class="line">  onDownloadProgress: <span class="function"><span class="keyword">function</span> (<span class="params">progressEvent</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对原生进度事件的处理</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `maxContentLength` 定义允许的响应内容的最大尺寸</span></span><br><span class="line">  maxContentLength: <span class="number">2000</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `validateStatus` 定义对于给定的HTTP 响应状态码是 resolve 或 reject  promise 。</span></span><br><span class="line">  <span class="comment">// 如果 `validateStatus` 返回 `true` (或者设置为 `null` 或 `undefined`)，</span></span><br><span class="line">  <span class="comment">// promise 将被 resolve; 否则，promise 将被 rejecte</span></span><br><span class="line">  validateStatus: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>; <span class="comment">// 默认</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `maxRedirects` 定义在 node.js 中遵循的最大重定向数目</span></span><br><span class="line">  <span class="comment">// 如果设置为0，将不会 follow 任何重定向</span></span><br><span class="line">  maxRedirects: <span class="number">5</span>, <span class="comment">// default</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `socketPath` 定义了一个在Socket.js中使用的UNIX套接字。</span></span><br><span class="line">  <span class="comment">// 例如'/var/run/docker.sock'发送请求到docker守护进程。</span></span><br><span class="line">  <span class="comment">// 只能指定`socketPath`或`proxy`。</span></span><br><span class="line">  <span class="comment">// 如果两者都指定，则使用`socketPath`。</span></span><br><span class="line">  socketPath: <span class="literal">null</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `httpAgent` 和 `httpsAgent` 分别在 node.js 中用于定义在执行 http 和 https 时使用的自定义代理。允许像这样配置选项：</span></span><br><span class="line">  <span class="comment">// `keepAlive` 默认没有启用</span></span><br><span class="line">  httpAgent: <span class="keyword">new</span> http.Agent(&#123; <span class="attr">keepAlive</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">  httpsAgent: <span class="keyword">new</span> https.Agent(&#123; <span class="attr">keepAlive</span>: <span class="literal">true</span> &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 'proxy' 定义代理服务器的主机名称和端口</span></span><br><span class="line">  <span class="comment">// 使用'false'来禁用代理，忽略环境变量。</span></span><br><span class="line">  <span class="comment">// `auth` 表示 HTTP 基础验证应当用于连接代理，并提供凭据</span></span><br><span class="line">  <span class="comment">// 这将会设置一个 `Proxy-Authorization` 头，覆写掉已有的通过使用 `header` 设置的自定义 `Proxy-Authorization` 头。</span></span><br><span class="line">  proxy: &#123;</span><br><span class="line">    host: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">    port: <span class="number">9000</span>,</span><br><span class="line">    auth: &#123;</span><br><span class="line">      username: <span class="string">'mikeymike'</span>,</span><br><span class="line">      password: <span class="string">'rapunz3l'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `cancelToken` 指定用于取消请求的 cancel token</span></span><br><span class="line">  <span class="comment">// （查看后面的 Cancellation 这节了解更多）</span></span><br><span class="line">  cancelToken: <span class="keyword">new</span> CancelToken(<span class="function"><span class="keyword">function</span> (<span class="params">cancel</span>) </span>&#123;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="响应结构"><a href="#响应结构" class="headerlink" title="响应结构"></a>响应结构</h2><p>某个请求的响应包含以下信息</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// `data` 由服务器提供的响应</span></span><br><span class="line">  data: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `status` 来自服务器响应的 HTTP 状态码</span></span><br><span class="line">  status: <span class="number">200</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `statusText` 来自服务器响应的 HTTP 状态信息</span></span><br><span class="line">  statusText: <span class="string">'OK'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `headers` t服务器响应的头</span></span><br><span class="line">  <span class="comment">// 所有的 header 都是小写</span></span><br><span class="line">  headers: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `config` 是为请求提供给`axios`的配置</span></span><br><span class="line">  config: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `request` 是生成此响应的请求</span></span><br><span class="line">  <span class="comment">// 它是node.js中的最后一个ClientRequest实例和浏览器请求的XMLHttpRequest实例</span></span><br><span class="line">  request: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>then</code> 时，你将接收下面这样的响应：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response.data);</span><br><span class="line">    <span class="built_in">console</span>.log(response.status);</span><br><span class="line">    <span class="built_in">console</span>.log(response.statusText);</span><br><span class="line">    <span class="built_in">console</span>.log(response.headers);</span><br><span class="line">    <span class="built_in">console</span>.log(response.config);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>在使用 <code>catch</code> 时，或传递<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then" target="_blank" rel="noopener">rejection callback</a> 作为 <code>then</code> 的第二个参数时, 响应可以通过 <code>error</code> 对象可被使用，正如在<a href="#错误处理">错误处理</a> 这一节所讲.</p>
+<h2 id="配置的默认值-defaults"><a href="#配置的默认值-defaults" class="headerlink" title="配置的默认值/defaults"></a>配置的默认值/defaults</h2><p>你可以指定将被用在各个请求的配置默认值</p>
+<h3 id="全局axios默认值"><a href="#全局axios默认值" class="headerlink" title="全局axios默认值"></a>全局axios默认值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.defaults.baseURL = <span class="string">'https://api.example.com'</span>;</span><br><span class="line">axios.defaults.headers.common[<span class="string">'Authorization'</span>] = AUTH_TOKEN;</span><br><span class="line">axios.defaults.headers.post[<span class="string">'Content-Type'</span>] = <span class="string">'application/x-www-form-urlencoded'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="自定义实例默认值"><a href="#自定义实例默认值" class="headerlink" title="自定义实例默认值"></a>自定义实例默认值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建实例时设置配置的默认值</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">'https://api.example.com'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在实例已创建后修改默认值</span></span><br><span class="line">instance.defaults.headers.common[<span class="string">'Authorization'</span>] = AUTH_TOKEN;</span><br></pre></td></tr></table></figure>
+<h3 id="配置的优先顺序"><a href="#配置的优先顺序" class="headerlink" title="配置的优先顺序"></a>配置的优先顺序</h3><p>配置会以一个优先顺序进行合并。这个顺序是：在 <a href="https://github.com/axios/axios/blob/master/lib/defaults.js#L28" target="_blank" rel="noopener">lib/defaults.js</a>找到的库的默认值，然后是实例的 <code>defaults</code> 属性，最后是请求的 <code>config</code> 参数。后者将优先于前者。这里是一个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用由库提供的配置的默认值来创建实例</span></span><br><span class="line"><span class="comment">// 此时超时配置的默认值是 `0`</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 覆写库的超时默认值</span></span><br><span class="line"><span class="comment">// 现在，在超时前，所有请求都会等待 2.5 秒</span></span><br><span class="line">instance.defaults.timeout = <span class="number">2500</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为已知需要花费很长时间的请求覆写超时设置</span></span><br><span class="line">instance.get(<span class="string">'/longRequest'</span>, &#123;</span><br><span class="line">  timeout: <span class="number">5000</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><p>在请求或响应被 <code>then</code> 或 <code>catch</code> 处理前拦截它们。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 添加请求拦截器</span></span><br><span class="line">axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 在发送请求之前做些什么</span></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对请求错误做些什么</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//  添加响应拦截器</span></span><br><span class="line">axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对响应数据做点什么</span></span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对响应错误做点什么</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>如果你想在稍后移除拦截器，可以这样：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> myInterceptor = axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">/*...*/</span>&#125;);</span><br><span class="line">axios.interceptors.request.eject(myInterceptor);</span><br></pre></td></tr></table></figure>
+<p>可以为自定义 axios 实例添加拦截器</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.create();</span><br><span class="line">instance.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">/*...*/</span>&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (error.response) &#123;</span><br><span class="line">      <span class="comment">// 请求已发出，但服务器响应的状态码不在 2xx 范围内</span></span><br><span class="line">      <span class="built_in">console</span>.log(error.response.data);</span><br><span class="line">      <span class="built_in">console</span>.log(error.response.status);</span><br><span class="line">      <span class="built_in">console</span>.log(error.response.headers);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (error.request) &#123;</span><br><span class="line">      <span class="comment">// 请求被提出，但没有接收到响应</span></span><br><span class="line">      <span class="comment">// `error.request`是在浏览器中一个XMLHttpRequest的实例和node.js中http.ClientRequest的实例</span></span><br><span class="line">      <span class="built_in">console</span>.log(error.request);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 设置触发错误</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'Error'</span>, error.message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(error.config);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>您可以使用 <code>validateStatus</code> 配置选项定义一个自定义 <code>HTTP</code> 状态码的错误范围。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  validateStatus: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> status &lt; <span class="number">500</span>; <span class="comment">// 仅当状态码大于或等于500时才拒绝</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="取消"><a href="#取消" class="headerlink" title="取消"></a>取消</h2><p>使用 <em>cancel token</em> 取消请求</p>
+<blockquote>
+<p>Axios 的 cancel token API 基于<a href="https://github.com/tc39/proposal-cancelable-promises" target="_blank" rel="noopener">cancelable promises proposal</a>，它还处于第一阶段。</p>
+</blockquote>
+<p>可以使用 <code>CancelToken.source</code> 工厂创建取消令牌，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> CancelToken = axios.CancelToken;</span><br><span class="line"><span class="keyword">const</span> source = CancelToken.source();</span><br><span class="line"></span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  cancelToken: source.token</span><br><span class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">thrown</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (axios.isCancel(thrown)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Request canceled'</span>, thrown.message);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 处理错误</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">axios.post(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  name: <span class="string">'new name'</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">  cancelToken: source.token</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消请求（消息参数是可选的）</span></span><br><span class="line">source.cancel(<span class="string">'Operation canceled by the user.'</span>);</span><br></pre></td></tr></table></figure>
+<p>还可以通过传递一个 executor 函数到 <code>CancelToken</code> 的构造函数来创建 cancel token：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> CancelToken = axios.CancelToken;</span><br><span class="line"><span class="keyword">let</span> cancel;</span><br><span class="line"></span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  cancelToken: <span class="keyword">new</span> CancelToken(<span class="function"><span class="keyword">function</span> <span class="title">executor</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// executor 函数接收一个 cancel 函数作为参数</span></span><br><span class="line">    cancel = c;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消请求</span></span><br><span class="line">cancel();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意: 可以使用同一个 cancel token 取消多个请求</p>
+</blockquote>
+<h2 id="使用-application-x-www-form-urlencoded-格式"><a href="#使用-application-x-www-form-urlencoded-格式" class="headerlink" title="使用 application/x-www-form-urlencoded 格式"></a>使用 application/x-www-form-urlencoded 格式</h2><p>默认情况下，axios将JavaScript对象序列化为JSON。要以<code>application/x-www-form-urlencoded</code> 格式发送数据，您可以使用以下选项之一。</p>
+<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>在浏览器中，您可以使用以下<a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener"><code>URLSearchParams</code></a> API:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> params = <span class="keyword">new</span> URLSearchParams();</span><br><span class="line">params.append(<span class="string">'param1'</span>, <span class="string">'value1'</span>);</span><br><span class="line">params.append(<span class="string">'param2'</span>, <span class="string">'value2'</span>);</span><br><span class="line">axios.post(<span class="string">'/foo'</span>, params);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>请注意， <code>URLSearchParams</code> 并非所有浏览器都支持(请参阅 <a href="http://www.caniuse.com/#feat=urlsearchparams" target="_blank" rel="noopener">caniuse.com</a>), 但可以使用 <a href="https://github.com/WebReflection/url-search-params" target="_blank" rel="noopener">polyfill</a>(请确保填充全局环境)。<br>或者，您可以使用<a href="https://github.com/ljharb/qs" target="_blank" rel="noopener"><code>qs</code></a> 库对数据进行编码：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> qs = <span class="built_in">require</span>(<span class="string">'qs'</span>);</span><br><span class="line">axios.post(<span class="string">'/foo'</span>, qs.stringify(&#123; <span class="string">'bar'</span>: <span class="number">123</span> &#125;));</span><br></pre></td></tr></table></figure>
+<p>或者以另一种方式（ES6），</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">'qs'</span>;</span><br><span class="line"><span class="keyword">const</span> data = &#123; <span class="string">'bar'</span>: <span class="number">123</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  method: <span class="string">'POST'</span>,</span><br><span class="line">  headers: &#123; <span class="string">'content-type'</span>: <span class="string">'application/x-www-form-urlencoded'</span> &#125;,</span><br><span class="line">  data: qs.stringify(data),</span><br><span class="line">  url,</span><br><span class="line">&#125;;</span><br><span class="line">axios(options);</span><br></pre></td></tr></table></figure>
+<h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>在node.js中，您可以<a href="https://nodejs.org/api/querystring.html" target="_blank" rel="noopener"><code>querystring</code></a>按如下方式使用模块：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">'querystring'</span>);</span><br><span class="line">axios.post(<span class="string">'http://something.com/'</span>, querystring.stringify(&#123; <span class="attr">foo</span>: <span class="string">'bar'</span> &#125;));</span><br></pre></td></tr></table></figure>
+<p>您也可以使用该<a href="https://github.com/ljharb/qs" target="_blank" rel="noopener"><code>qs</code></a>库.</p>
+<h2 id="Semver"><a href="#Semver" class="headerlink" title="Semver"></a>Semver</h2><p>在axios达到<code>1.0</code> 发布之前，将通过新的次要版本发布重大更改。例如 <code>0.5.1</code>, 和 <code>0.5.4</code>将具有相同的API, 但 <code>0.6.0</code> 会有重大更改。</p>
+<h2 id="承诺"><a href="#承诺" class="headerlink" title="承诺"></a>承诺</h2><p>aaxios依赖于原生ES6 Promise实现的<a href="http://caniuse.com/promises" target="_blank" rel="noopener">支持</a>。如果您的环境不支持ES6 Promise，则可以<a href="https://github.com/jakearchibald/es6-promise" target="_blank" rel="noopener">polyfill</a>。</p>
+<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p>axios包括<a href="http://typescriptlang.org" target="_blank" rel="noopener">TypeScript</a>定义。<br><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>;</span><br><span class="line">axios.get(<span class="string">'/user?ID=12345'</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
+<li><a href="https://github.com/axios/axios/blob/master/CHANGELOG.md" target="_blank" rel="noopener">更新日志</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/UPGRADE_GUIDE.md" target="_blank" rel="noopener">升级指南</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/ECOSYSTEM.md" target="_blank" rel="noopener">生态系统</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener">C参与指南</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">行为守则</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>翻译</category>
+        <category>README</category>
+      </categories>
+      <tags>
+        <tag>axios</tag>
       </tags>
   </entry>
   <entry>
@@ -1580,23 +1469,76 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac下删除launchpad还有残留图标的应用</title>
-    <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
-    <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
-<h2 id="打开launchpad"><a href="#打开launchpad" class="headerlink" title="打开launchpad"></a>打开launchpad</h2><p>下列三个放都可以打开launchpad  </p>
-<ol>
-<li>fn + F4（F1-F12是正常使用情况）  </li>
-<li>F4（F1-F12使用需要借助fn键使用）  </li>
-<li>四个指头抓一下  </li>
-</ol>
-<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h4 id="1-长按control-option-command，看到图标抖动"><a href="#1-长按control-option-command，看到图标抖动" class="headerlink" title="1. 长按control+option+command，看到图标抖动"></a>1. 长按control+option+command，看到图标抖动</h4><h4 id="2-单击待删除图标，图标中心出现白色问号"><a href="#2-单击待删除图标，图标中心出现白色问号" class="headerlink" title="2. 单击待删除图标，图标中心出现白色问号"></a>2. 单击待删除图标，图标中心出现白色问号</h4><h4 id="3-松开按住的三个快捷键（control-option-command）"><a href="#3-松开按住的三个快捷键（control-option-command）" class="headerlink" title="3. 松开按住的三个快捷键（control+option+command）"></a>3. 松开按住的三个快捷键（control+option+command）</h4><h4 id="4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"><a href="#4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除" class="headerlink" title="4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"></a>4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除</h4>]]></content>
+    <title>Hadoop伪分布式搭建-(1)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-1/</url>
+    <content><![CDATA[<h3 id="配置虚拟机子网网段-hostonly模式时"><a href="#配置虚拟机子网网段-hostonly模式时" class="headerlink" title="配置虚拟机子网网段(hostonly模式时)"></a>配置虚拟机子网网段(hostonly模式时)</h3><ul>
+<li>配置网段  <blockquote>
+<p>点击VMware快捷方式，右键打开文件所在位置 -&gt; 双击vmnetcfg.exe -&gt; VMnet1 host-only -&gt;<br>修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&gt; apply -&gt; ok</p>
+</blockquote>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>设置本地机器IP  </p>
+<blockquote>
+<p>回到windows –&gt; 打开网络和共享中心 -&gt; 更改适配器设置 -&gt; 右键VMnet1 -&gt; 属性 -&gt; 双击IPv4 -&gt;<br>设置windows的IP：192.168.8.100 子网掩码：255.255.255.0 -&gt; 点击确定</p>
+</blockquote>
+</li>
+<li><p>设置为hostonly模式  </p>
+<blockquote>
+<p>在虚拟软件上 –My Computer -&gt; 选中虚拟机 -&gt; 右键 -&gt; settings -&gt; network adapter -&gt; host only -&gt; ok   </p>
+</blockquote>
+</li>
+<li><p>另:桥接模式    </p>
+<blockquote>
+<p>桥接模式直接将本地机器的当前正在使用的网卡(无线/非无线网卡)IP改为静态IP即可.设置windows的IP：192.168.8.100 子网掩 码：255.255.255.0 -&gt; 网关:192.168.1.1 -&gt; 若为无线网卡,设置前先查看路由分配的DNS是多少,直接照着填进来就行.-&gt;<br>点击确定</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h3><blockquote>
+<p>vim /etc/sysconfig/network</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NETWORKING=yes</span><br><span class="line">HOSTNAME=dh01 #随便设置一个名字</span><br></pre></td></tr></table></figure>
+<h3 id="修改虚拟机IP-这里是centos7"><a href="#修改虚拟机IP-这里是centos7" class="headerlink" title="修改虚拟机IP(这里是centos7)"></a>修改虚拟机IP(这里是centos7)</h3><p>两种方式：  </p>
+<ul>
+<li><p>第一种：通过Linux图形界面进行修改（推荐）</p>
+<blockquote>
+<p>进入Linux图形界面 -&gt; 右键点击右上方的两个小电脑 -&gt;<br>点击Edit connections -&gt; 选中当前网络System eth0 -&gt;<br>点击edit按钮 -&gt; 选择IPv4 -&gt; method选择为manual -&gt;<br>点击add按钮 -&gt;添加IP：192.168.8.88<br>子网掩码：255.255.255.0 网关：192.168.8.1 -&gt; apply</p>
+</blockquote>
+</li>
+<li><p>第二种：修改配置文件方式   </p>
+<blockquote>
+<p>vim /etc/sysconfig/network-scripts/ifcfg-eth0 (不一定一定是ifcfg-eth0)</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DEVICE=&quot;eth0&quot;</span><br><span class="line">BOOTPROTO=&quot;static&quot;               #修改</span><br><span class="line">HWADDR=&quot;00:0C:29:3C:BF:E7&quot;</span><br><span class="line">IPV6INIT=&quot;yes&quot;</span><br><span class="line">NM_CONTROLLED=&quot;yes&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">UUID=&quot;ce22eeca-ecde-4536-8cc2-ef0dc36d4a8c&quot;</span><br><span class="line">IPADDR=&quot;192.168.8.88&quot;               #修改</span><br><span class="line">NETMASK=&quot;255.255.255.0&quot;           #修改</span><br><span class="line">GATEWAY=&quot;192.168.8.1&quot;               #修改</span><br></pre></td></tr></table></figure>
+<h3 id="修改主机名和IP的映射关系"><a href="#修改主机名和IP的映射关系" class="headerlink" title="修改主机名和IP的映射关系"></a>修改主机名和IP的映射关系</h3><blockquote>
+<p>vim /etc/hosts</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">192.168.8.88 dh01</span><br></pre></td></tr></table></figure>
+<h3 id="关闭防火墙-以下为centos7以前命令-centos7"><a href="#关闭防火墙-以下为centos7以前命令-centos7" class="headerlink" title="关闭防火墙(以下为centos7以前命令,centos7)"></a>关闭防火墙(以下为centos7以前命令,centos7)</h3><blockquote>
+<p>#查看防火墙状态<br>service iptables status</p>
+<p>#关闭防火墙<br>service iptables stop</p>
+<p>#查看防火墙开机启动状态<br>chkconfig iptables –list</p>
+<p>#关闭防火墙开机启动<br>chkconfig iptables off    </p>
+</blockquote>
+<p>CentOS 7.0默认使用的是firewall作为防火墙  </p>
+<blockquote>
+<p>systemctl start firewalld.service    #启动firewall<br>systemctl stop firewalld.service    #停止firewall<br>systemctl disable firewalld.service    #禁止firewall开机启动  </p>
+</blockquote>
+<p>也可以改成使用iptables：systemctl start iptables.service</p>
+<h3 id="重启Linux"><a href="#重启Linux" class="headerlink" title="重启Linux"></a>重启Linux</h3><blockquote>
+<p>reboot</p>
+</blockquote>
+]]></content>
       <categories>
-        <category>OS</category>
-        <category>Mac</category>
+        <category>大数据</category>
+        <category>Hadoop</category>
       </categories>
       <tags>
-        <tag>Mac删除</tag>
-        <tag>launchpad</tag>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
       </tags>
   </entry>
   <entry>
@@ -1704,6 +1646,44 @@
       </tags>
   </entry>
   <entry>
+    <title>Hadoop伪分布式搭建-(2)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
+    <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
+<li>从Windows上传jdk到虚拟机  <blockquote>
+<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
+</blockquote>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>解压jdk   </p>
+<blockquote>
+<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
+</blockquote>
+</li>
+<li><p>将java添加到环境变量中  </p>
+<blockquote>
+<p>vim /etc/profile  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>刷新配置   </p>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>大数据</category>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac下安装mysql5.7完整步骤及问题整理</title>
     <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
     <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
@@ -1722,77 +1702,6 @@
       <tags>
         <tag>Mac安装Mysql</tag>
         <tag>Mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac安装软件时提示已损坏的解决方法</title>
-    <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：<br><img src="https://DaiHuiBlog.github.io/images/posts/Mac安装软件时提示已损坏的解决方法/1.png" alt="已损坏">  </p>
-<a id="more"></a>
-<p>这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。</p>
-<h2 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h2><p>打开终端，在终端中输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure></p>
-<p>输入密码，回车。搞定<br><img src="https://DaiHuiBlog.github.io/images/posts/Mac安装软件时提示已损坏的解决方法/2.png" alt="已损坏">  </p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac</tag>
-        <tag>文件损坏</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
-    <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<ol>
-<li><p>首先下载 .Net Framework 3.5.</p>
-</li>
-<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
-<a id="more"></a>
-<blockquote>
-<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
-</blockquote>
-</li>
-</ol>
-<p>其他:</p>
-<ul>
-<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
-<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Framework3.5无法安装</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac远程连接谷歌云VM实例</title>
-    <url>/2019/02/19/Mac%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%B0%B7%E6%AD%8C%E4%BA%91VM%E5%AE%9E%E4%BE%8B/</url>
-    <content><![CDATA[<p>一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了<br>官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话）</p>
-<a id="more"></a>
-<h2 id="第一步-生成密钥对"><a href="#第一步-生成密钥对" class="headerlink" title="第一步:生成密钥对"></a>第一步:生成密钥对</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -f ~/.ssh/秘钥名称 -C "邮箱"</span><br></pre></td></tr></table></figure>
-<p>这样就在主目录下的.ssh目录中生成了两个文件“秘钥名称”和“秘钥名称.pub”。“秘钥名称”中保存的是私钥，”秘钥名称.pub“中保存的是公钥。</p>
-<h2 id="第二步-添加公钥"><a href="#第二步-添加公钥" class="headerlink" title="第二步:添加公钥"></a>第二步:添加公钥</h2><p>拷贝公钥到剪切板:<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pbcopy &lt; 秘钥名称.pub</span><br></pre></td></tr></table></figure></p>
-<p>在GPC导航菜单中找到”元数据“连接，选择”SSH秘钥“选项卡-&gt;点击”修改“按钮-&gt;”添加一项“，粘贴公钥，保存，就添加完成了。</p>
-<h2 id="第三步-测试"><a href="#第三步-测试" class="headerlink" title="第三步:测试"></a>第三步:测试</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -i ~/.ssh/秘钥名称 用户名@VM外部IP</span><br></pre></td></tr></table></figure>
-<ul>
-<li>用户名，在第二部添加公钥时，粘贴之后会在第一列出现你的用户名</li>
-</ul>
-<p>如果没问题的话你已经进入到VM实例终端了</p>
-<p>同样的方式gitlab和GitHub也是支持的</p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac</tag>
-        <tag>GCP</tag>
-        <tag>谷歌云</tag>
       </tags>
   </entry>
   <entry>
@@ -1877,45 +1786,76 @@
       </tags>
   </entry>
   <entry>
-    <title>win2008R2磁盘脱机和写入保护解决办法</title>
-    <url>/2018/10/22/win2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
-    <content><![CDATA[<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/1.png" alt="磁盘脱机"></p>
+    <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
+    <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<ol>
+<li><p>首先下载 .Net Framework 3.5.</p>
+</li>
+<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
 <a id="more"></a>
-<ol>
-<li><p>打开cmd命令行，输入：<strong>diskpart</strong>，进入diskpart工具</p>
+<blockquote>
+<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
+</blockquote>
 </li>
-<li><p>输入：<strong>list disk</strong>，查看到所有磁盘</p>
-</li>
 </ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/2.png" alt="listdisk1"></p>
-<ol>
-<li>找到脱机的磁盘，输入：<strong>select disk 1</strong></li>
-</ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/3.png" alt="selectDisk"></p>
-<ol>
-<li>接着输入：<strong>online disk</strong></li>
-</ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/4.png" alt="onlineDisk"></p>
-<ol>
-<li>查看此时磁盘联机状态</li>
-</ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/5.png" alt="listdisk2"></p>
-<ol>
-<li>清除只读属性，输入：<strong>attribute disk clear readonly</strong></li>
-</ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/6.png" alt="attributeDiskClearReadonly"></p>
-<ol>
-<li>查看此时的清盘情况，输入：<strong>attribute disk</strong></li>
-</ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/7.png" alt="attributeDisk"></p>
+<p>其他:</p>
+<ul>
+<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
+<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
+</ul>
 ]]></content>
       <categories>
         <category>OS</category>
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>Windows磁盘脱机</tag>
-        <tag>写入保护</tag>
+        <tag>Framework3.5无法安装</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac下删除launchpad还有残留图标的应用</title>
+    <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
+<h2 id="打开launchpad"><a href="#打开launchpad" class="headerlink" title="打开launchpad"></a>打开launchpad</h2><p>下列三个放都可以打开launchpad  </p>
+<ol>
+<li>fn + F4（F1-F12是正常使用情况）  </li>
+<li>F4（F1-F12使用需要借助fn键使用）  </li>
+<li>四个指头抓一下  </li>
+</ol>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h4 id="1-长按control-option-command，看到图标抖动"><a href="#1-长按control-option-command，看到图标抖动" class="headerlink" title="1. 长按control+option+command，看到图标抖动"></a>1. 长按control+option+command，看到图标抖动</h4><h4 id="2-单击待删除图标，图标中心出现白色问号"><a href="#2-单击待删除图标，图标中心出现白色问号" class="headerlink" title="2. 单击待删除图标，图标中心出现白色问号"></a>2. 单击待删除图标，图标中心出现白色问号</h4><h4 id="3-松开按住的三个快捷键（control-option-command）"><a href="#3-松开按住的三个快捷键（control-option-command）" class="headerlink" title="3. 松开按住的三个快捷键（control+option+command）"></a>3. 松开按住的三个快捷键（control+option+command）</h4><h4 id="4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"><a href="#4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除" class="headerlink" title="4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"></a>4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除</h4>]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac删除</tag>
+        <tag>launchpad</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac远程连接谷歌云VM实例</title>
+    <url>/2019/02/19/Mac%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%B0%B7%E6%AD%8C%E4%BA%91VM%E5%AE%9E%E4%BE%8B/</url>
+    <content><![CDATA[<p>一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了<br>官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话）</p>
+<a id="more"></a>
+<h2 id="第一步-生成密钥对"><a href="#第一步-生成密钥对" class="headerlink" title="第一步:生成密钥对"></a>第一步:生成密钥对</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -f ~/.ssh/秘钥名称 -C "邮箱"</span><br></pre></td></tr></table></figure>
+<p>这样就在主目录下的.ssh目录中生成了两个文件“秘钥名称”和“秘钥名称.pub”。“秘钥名称”中保存的是私钥，”秘钥名称.pub“中保存的是公钥。</p>
+<h2 id="第二步-添加公钥"><a href="#第二步-添加公钥" class="headerlink" title="第二步:添加公钥"></a>第二步:添加公钥</h2><p>拷贝公钥到剪切板:<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pbcopy &lt; 秘钥名称.pub</span><br></pre></td></tr></table></figure></p>
+<p>在GPC导航菜单中找到”元数据“连接，选择”SSH秘钥“选项卡-&gt;点击”修改“按钮-&gt;”添加一项“，粘贴公钥，保存，就添加完成了。</p>
+<h2 id="第三步-测试"><a href="#第三步-测试" class="headerlink" title="第三步:测试"></a>第三步:测试</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -i ~/.ssh/秘钥名称 用户名@VM外部IP</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用户名，在第二部添加公钥时，粘贴之后会在第一列出现你的用户名</li>
+</ul>
+<p>如果没问题的话你已经进入到VM实例终端了</p>
+<p>同样的方式gitlab和GitHub也是支持的</p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>GCP</tag>
+        <tag>谷歌云</tag>
       </tags>
   </entry>
   <entry>
@@ -2071,6 +2011,144 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac安装软件时提示已损坏的解决方法</title>
+    <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：<br><img src="https://DaiHuiBlog.github.io/images/posts/Mac安装软件时提示已损坏的解决方法/1.png" alt="已损坏">  </p>
+<a id="more"></a>
+<p>这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。</p>
+<h2 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h2><p>打开终端，在终端中输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure></p>
+<p>输入密码，回车。搞定<br><img src="https://DaiHuiBlog.github.io/images/posts/Mac安装软件时提示已损坏的解决方法/2.png" alt="已损坏">  </p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>文件损坏</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>win2008R2磁盘脱机和写入保护解决办法</title>
+    <url>/2018/10/22/win2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <content><![CDATA[<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/1.png" alt="磁盘脱机"></p>
+<a id="more"></a>
+<ol>
+<li><p>打开cmd命令行，输入：<strong>diskpart</strong>，进入diskpart工具</p>
+</li>
+<li><p>输入：<strong>list disk</strong>，查看到所有磁盘</p>
+</li>
+</ol>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/2.png" alt="listdisk1"></p>
+<ol>
+<li>找到脱机的磁盘，输入：<strong>select disk 1</strong></li>
+</ol>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/3.png" alt="selectDisk"></p>
+<ol>
+<li>接着输入：<strong>online disk</strong></li>
+</ol>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/4.png" alt="onlineDisk"></p>
+<ol>
+<li>查看此时磁盘联机状态</li>
+</ol>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/5.png" alt="listdisk2"></p>
+<ol>
+<li>清除只读属性，输入：<strong>attribute disk clear readonly</strong></li>
+</ol>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/6.png" alt="attributeDiskClearReadonly"></p>
+<ol>
+<li>查看此时的清盘情况，输入：<strong>attribute disk</strong></li>
+</ol>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/7.png" alt="attributeDisk"></p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Windows磁盘脱机</tag>
+        <tag>写入保护</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树莓派3B+制作视频监控</title>
+    <url>/2019/03/12/%E6%A0%91%E8%8E%93%E6%B4%BE3Bplus%E5%88%B6%E4%BD%9C%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7/</url>
+    <content><![CDATA[<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/logo.png" alt="logo"></p>
+<h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p>本人育有一毛，此猫调皮捣蛋，因此想要做个监控放在家里，在公司上班的时候看看它到底在家里捣什么鬼蛋！</p>
+<a id="more"></a>
+<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><blockquote>
+<p>环境：树莓派3B+<br>操作系统：树莓派3B+默认系统<br>摄像头：N年前买的一个USB摄像头（比树莓派官方好点）  </p>
+</blockquote>
+<h1 id="1-更新列表"><a href="#1-更新列表" class="headerlink" title="1.更新列表"></a>1.更新列表</h1><p>这一步可能有点慢，请耐心等待。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新软件列表</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新软件</span></span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+<h1 id="2-开启摄像头"><a href="#2-开启摄像头" class="headerlink" title="2.开启摄像头"></a>2.开启摄像头</h1><p>执行如下命令，进入配置页面，开启摄像头。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/1.png" alt="raspiConfig1"><br><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/2.png" alt="raspiConfig2"></p>
+<p>选择: “是”  -&gt; “Back” -&gt; “Finish”</p>
+<p>重启一下树莓派</p>
+<h1 id="3-安装依赖库"><a href="#3-安装依赖库" class="headerlink" title="3.安装依赖库"></a>3.安装依赖库</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> JPEG支持库</span></span><br><span class="line">sudo apt-get install libjpeg8-dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载编译工具</span></span><br><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
+<h1 id="4-下载mjpg-streamer"><a href="#4-下载mjpg-streamer" class="headerlink" title="4.下载mjpg-streamer"></a>4.下载mjpg-streamer</h1><p>随意找个目录执行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
+<p>以常见的<strong>Downloads</strong>目录为例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cd Downloads/</span><br><span class="line">pi@raspberrypi:~ $ git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
+<h1 id="5-编辑源文件（非必须）"><a href="#5-编辑源文件（非必须）" class="headerlink" title="5.编辑源文件（非必须）"></a>5.编辑源文件（非必须）</h1><p>网上有教程基本都编辑<strong>plugins/input_raspicam/input_raspicam.c</strong>源码里的几个参数（fps、width和height）<br>，这个文件是对应官方的摄像头（RaspiCamera）。</p>
+<p>我这里用的是自己的普通USB摄像头，所以这个文件可以不用修改。</p>
+<p>如果你的摄像头是普通USB摄像头，可以跳过。</p>
+<p>如果你的摄像头是官方的摄像头（RaspiCamera）那么请修改之：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:/ $ cd /home/pi/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/</span><br><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/ $ vi input_raspicam.c</span><br></pre></td></tr></table></figure>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/3.png" alt="input_raspicam"></p>
+<h1 id="6-编译mjpg-streamer"><a href="#6-编译mjpg-streamer" class="headerlink" title="6.编译mjpg-streamer"></a>6.编译mjpg-streamer</h1><p>进入工程mjpg-streamer-experimental，进行完全编译。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental $ make clean all</span><br></pre></td></tr></table></figure>
+<h1 id="7-开启mjpg-streamer"><a href="#7-开启mjpg-streamer" class="headerlink" title="7.开启mjpg-streamer"></a>7.开启mjpg-streamer</h1><p>进入mjpg-streamer-experimental目录，使用一下指令启动摄像头。</p>
+<ul>
+<li><p>启动普通USB摄像头指令：</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_uvc.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动树莓派专用摄像头RaspiCamera指令：</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_raspicam.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h1><p>在浏览器里输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 静态图（拍照）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=snapshot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 动态图（视频监控）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=stream</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个兼容性好点</span></span><br><span class="line">http://&lt;IP&gt;：8080/javascript_stream.html</span><br></pre></td></tr></table></figure>
+<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/cat.jpeg" alt="cat"></p>
+<h1 id="9-问题"><a href="#9-问题" class="headerlink" title="9.问题"></a>9.问题</h1><p>有的同学可能在<strong>开启mjpg-streamer</strong>的时候会报错，可能是你USB摄像头用了树莓派专用摄像头RaspiCamera指令的指令启动造成的（我就是这样，哈哈哈）</p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Raspberry</category>
+      </categories>
+      <tags>
+        <tag>树莓派</tag>
+        <tag>监控</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虚拟机Linux的root或普通用户密码忘记找回</title>
+    <url>/2018/07/31/%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E/</url>
+    <content><![CDATA[<h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
+<li>进入GRUB界面后，有几秒钟时间给你。进入GRUB出现：<br> Red Hat Enterprise Linux Server (2.6.18-8.e15xen) <a id="more"></a></li>
+<li>倒计时结束前，键入e出现：<br>root（hd0,0）<br>kernel /xen.gz-2.6.28-8.e15<br>module /vmlinux-2.6.18.e15xen ro root=/dev/VolGroup00/LogVo100 rhgb quiet<br>module /initrd-2.6.18-8.e15xen.img<br>上下键移到quiet那一行，按e进入，加上 linux single或者1即可，回车</li>
+<li>按b后进入重启模式，一定注意出现：<br> Starting udev:<br> 在后面输入boot回车</li>
+<li>之后出现命令行：<br> sh-3.2#</li>
+<li>输入passwd，回车即可修改root密码，输入两次密码</li>
+<li>完成之后reboot即可重启。</li>
+</ol>
+<h1 id="普通用户密码忘记了，比较简单"><a href="#普通用户密码忘记了，比较简单" class="headerlink" title="普通用户密码忘记了，比较简单"></a>普通用户密码忘记了，比较简单</h1><ol>
+<li>在root账户下，打开/etc/shadow (不是passwd文件，因为密码实际上经过加密后放在了“影子口令”文件shadow中了。passwd文件每个用户均可见，但是shadow只有root可以见)。</li>
+<li>找到普通用户名cicikasa，然后删除第二个域即可，域之间用“:”隔开的，如下：<br>cicikasa:TdkakkkYUukkjkjk:14672:0:99999:7:::<br>上述红色部分就是经过加密的密码，删除即可</li>
+<li>在普通用户下，输入passwd即可输入新密码</li>
+</ol>
+<h1 id="如果想修改VMware的bios"><a href="#如果想修改VMware的bios" class="headerlink" title="如果想修改VMware的bios"></a>如果想修改VMware的bios</h1><p>在VMWare中将BIOS设成光驱启动:<br>启动时(点击启动虚拟机按钮),按F2 ,进入BIOS 设置,找到 BOOT—把CDROM光驱，移动到最上面即可。根据提示进行设置，一般按“-”号进行设置。<br>注意：启动时，点了启动虚拟机按钮后一定要在点一下窗口（或者Ctrl +G），然后快按F2。否则，窗口没激活，F2是不起作用的.</p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>密码找回</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何超过大多数人</title>
     <url>/2019/07/22/%E5%A6%82%E4%BD%95%E8%B6%85%E8%BF%87%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%BA%BA/</url>
     <content><![CDATA[<p><img src="https://DaiHuiBlog.github.io/images/posts/如何超过大多数人/1.png" alt="如何超过大多数人"></p>
@@ -2190,430 +2268,1552 @@
       </tags>
   </entry>
   <entry>
-    <title>树莓派3B+制作视频监控</title>
-    <url>/2019/03/12/%E6%A0%91%E8%8E%93%E6%B4%BE3Bplus%E5%88%B6%E4%BD%9C%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7/</url>
-    <content><![CDATA[<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/logo.png" alt="logo"></p>
-<h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p>本人育有一毛，此猫调皮捣蛋，因此想要做个监控放在家里，在公司上班的时候看看它到底在家里捣什么鬼蛋！</p>
-<a id="more"></a>
-<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><blockquote>
-<p>环境：树莓派3B+<br>操作系统：树莓派3B+默认系统<br>摄像头：N年前买的一个USB摄像头（比树莓派官方好点）  </p>
-</blockquote>
-<h1 id="1-更新列表"><a href="#1-更新列表" class="headerlink" title="1.更新列表"></a>1.更新列表</h1><p>这一步可能有点慢，请耐心等待。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新软件列表</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新软件</span></span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
-<h1 id="2-开启摄像头"><a href="#2-开启摄像头" class="headerlink" title="2.开启摄像头"></a>2.开启摄像头</h1><p>执行如下命令，进入配置页面，开启摄像头。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/1.png" alt="raspiConfig1"><br><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/2.png" alt="raspiConfig2"></p>
-<p>选择: “是”  -&gt; “Back” -&gt; “Finish”</p>
-<p>重启一下树莓派</p>
-<h1 id="3-安装依赖库"><a href="#3-安装依赖库" class="headerlink" title="3.安装依赖库"></a>3.安装依赖库</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> JPEG支持库</span></span><br><span class="line">sudo apt-get install libjpeg8-dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载编译工具</span></span><br><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
-<h1 id="4-下载mjpg-streamer"><a href="#4-下载mjpg-streamer" class="headerlink" title="4.下载mjpg-streamer"></a>4.下载mjpg-streamer</h1><p>随意找个目录执行：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
-<p>以常见的<strong>Downloads</strong>目录为例：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cd Downloads/</span><br><span class="line">pi@raspberrypi:~ $ git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
-<h1 id="5-编辑源文件（非必须）"><a href="#5-编辑源文件（非必须）" class="headerlink" title="5.编辑源文件（非必须）"></a>5.编辑源文件（非必须）</h1><p>网上有教程基本都编辑<strong>plugins/input_raspicam/input_raspicam.c</strong>源码里的几个参数（fps、width和height）<br>，这个文件是对应官方的摄像头（RaspiCamera）。</p>
-<p>我这里用的是自己的普通USB摄像头，所以这个文件可以不用修改。</p>
-<p>如果你的摄像头是普通USB摄像头，可以跳过。</p>
-<p>如果你的摄像头是官方的摄像头（RaspiCamera）那么请修改之：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:/ $ cd /home/pi/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/</span><br><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/ $ vi input_raspicam.c</span><br></pre></td></tr></table></figure>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/3.png" alt="input_raspicam"></p>
-<h1 id="6-编译mjpg-streamer"><a href="#6-编译mjpg-streamer" class="headerlink" title="6.编译mjpg-streamer"></a>6.编译mjpg-streamer</h1><p>进入工程mjpg-streamer-experimental，进行完全编译。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental $ make clean all</span><br></pre></td></tr></table></figure>
-<h1 id="7-开启mjpg-streamer"><a href="#7-开启mjpg-streamer" class="headerlink" title="7.开启mjpg-streamer"></a>7.开启mjpg-streamer</h1><p>进入mjpg-streamer-experimental目录，使用一下指令启动摄像头。</p>
-<ul>
-<li><p>启动普通USB摄像头指令：</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_uvc.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动树莓派专用摄像头RaspiCamera指令：</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_raspicam.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h1><p>在浏览器里输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 静态图（拍照）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=snapshot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 动态图（视频监控）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=stream</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个兼容性好点</span></span><br><span class="line">http://&lt;IP&gt;：8080/javascript_stream.html</span><br></pre></td></tr></table></figure>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/树莓派3B+制作视频监控/cat.jpeg" alt="cat"></p>
-<h1 id="9-问题"><a href="#9-问题" class="headerlink" title="9.问题"></a>9.问题</h1><p>有的同学可能在<strong>开启mjpg-streamer</strong>的时候会报错，可能是你USB摄像头用了树莓派专用摄像头RaspiCamera指令的指令启动造成的（我就是这样，哈哈哈）</p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Raspberry</category>
-      </categories>
-      <tags>
-        <tag>树莓派</tag>
-        <tag>监控</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>程序员工作中常见的英语词汇</title>
     <url>/2019/06/20/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%B7%A5%E4%BD%9C%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%87/</url>
     <content><![CDATA[<p><img src="https://DaiHuiBlog.github.io/images/posts/程序员工作中常见的英语词汇/1.jpg" alt="words"></p>
 <a id="more"></a>
-<h1 id="程序员工作中常见的英语词汇"><a href="#程序员工作中常见的英语词汇" class="headerlink" title="程序员工作中常见的英语词汇"></a>程序员工作中常见的英语词汇</h1><p>本列表中的单词是英语类计算机书籍、文档、文章中高频常见的技术词汇，最终目的是希望程序员集合自身的英语基础，在掌握列表中的词汇后，可以无障碍阅读英语技术文章和文档。</p>
+<h2 id="程序员工作中常见的英语词汇"><a href="#程序员工作中常见的英语词汇" class="headerlink" title="程序员工作中常见的英语词汇"></a>程序员工作中常见的英语词汇</h2><p>本列表中的单词是英语类计算机书籍、文档、文章中高频常见的技术词汇，最终目的是希望程序员集合自身的英语基础，在掌握列表中的词汇后，可以无障碍阅读英语技术文章和文档。</p>
 <blockquote>
-<p>本文内容来自Wei-Xia的项目<a href="https://github.com/Wei-Xia/most-frequent-technology-english-words" target="_blank" rel="noopener">most-frequent-technology-english-words</a>，并加了一些音标</p>
+<p>本文内容来自Wei-Xia的项目<a href="https://github.com/Wei-Xia/most-frequent-technology-english-words" target="_blank" rel="noopener">most-frequent-technology-english-words</a></p>
 </blockquote>
-<blockquote>
-<p>文末是网上搜集的资料</p>
-</blockquote>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><table>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h3 id="形容词"><a href="#形容词" class="headerlink" title="形容词"></a>形容词</h3><table>
 <thead>
 <tr>
 <th>单词</th>
+<th>翻译</th>
 <th>词性</th>
-<th>意思</th>
-<th>音标</th>
+<th>美式发音</th>
+<th>实例应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accordion</td>
+<td>可折叠的，褶叠的</td>
+<td>形容词</td>
+<td>/əˈkɔːrdiən/</td>
+<td>设计中可以通过点击按钮将内容折叠或展开</td>
+</tr>
+<tr>
+<td>agile</td>
+<td>敏捷、灵活的</td>
+<td>形容词</td>
+<td>/ˈædʒl/</td>
+</tr>
+<tr>
+<td>agnostic</td>
+<td>不可知论的</td>
+<td>形容词</td>
+<td>/æɡˈnɑːstɪk/</td>
+<td>常用于 language agnostic，即和语言无关。</td>
+</tr>
+<tr>
+<td>arbitrary</td>
+<td>任意的</td>
+<td>形容词</td>
+<td>/ˈɑːrbɪtreri/</td>
+</tr>
+<tr>
+<td>asynchronous</td>
+<td>异步的</td>
+<td>形容词</td>
+<td>/eɪˈsɪŋkrənəs/</td>
+</tr>
+<tr>
+<td>comprehensive</td>
+<td>综合的，广泛的</td>
+<td>形容词</td>
+<td>/ˌkɑːmprɪˈhensɪv/</td>
+</tr>
+<tr>
+<td>concrete</td>
+<td>具体的、有形的</td>
+<td>形容词</td>
+<td>/ˈkɑːnkriːt/</td>
+</tr>
+<tr>
+<td>concurrent</td>
+<td>并发的，同时发生的</td>
+<td>形容词</td>
+<td>/kənˈkɜːrənt/</td>
+</tr>
+<tr>
+<td>consultative</td>
+<td>咨询的</td>
+<td>形容词</td>
+<td>/kənˈsʌltətɪv/</td>
+</tr>
+<tr>
+<td>cost-effective</td>
+<td>有成本效益的，合算的</td>
+<td>形容词</td>
+<td>/ˌkɔːst ɪˈfektɪv/</td>
+</tr>
+<tr>
+<td>cost-efficient</td>
+<td>有成本效益的，合算的</td>
+<td>形容词</td>
+<td>/ˈkɔstiˈfiʃənt/</td>
+</tr>
+<tr>
+<td>critical</td>
+<td>关键的，重要的，批评的</td>
+<td>形容词</td>
+<td>/ˈkrɪtɪkl/</td>
+</tr>
+<tr>
+<td>crucial</td>
+<td>重要的，决定性的</td>
+<td>形容词</td>
+<td>/ˈkruːʃl/</td>
+</tr>
+<tr>
+<td>customized</td>
+<td>定制的，个性化的</td>
+<td>形容词</td>
+<td>/ˈkʌstəmaɪzd/</td>
+</tr>
+<tr>
+<td>declarative</td>
+<td>声明式</td>
+<td>形容词</td>
+<td>/dɪˌkler.ə.t̬ɪv/</td>
+</tr>
+<tr>
+<td>dedicated</td>
+<td>专属的</td>
+<td>形容词</td>
+<td>/ˈdedɪkeɪtɪd/</td>
+</tr>
+<tr>
+<td>deprecated</td>
+<td>弃用的</td>
+<td>形容词</td>
+<td>/ˈdɛprəˌketɪd/</td>
+</tr>
+<tr>
+<td>diversified</td>
+<td>多样化的</td>
+<td>形容词</td>
+<td>/daɪˈvɜrsɪfaɪd/</td>
+</tr>
+<tr>
+<td>elastic</td>
+<td>灵活有弹性的</td>
+<td>形容词</td>
+<td>/ɪˈlæstɪk/</td>
+<td>AWS Elastic Compute Cloud (EC2) 有「弹性、伸缩性」的特点</td>
+</tr>
+<tr>
+<td>ephemeral</td>
+<td>短暂性的</td>
+<td>形容词</td>
+<td>/ɪˈfemərəl/</td>
+<td>explicit</td>
+<td>明确清楚的</td>
+<td>形容词</td>
+<td>/ɪkˈsplɪsɪt/</td>
+</tr>
+<tr>
+<td>granular</td>
+<td>颗粒的</td>
+<td>形容词</td>
+<td>/ˈɡrænjələr/</td>
+</tr>
+<tr>
+<td>heterogeneous</td>
+<td>由很多种类组成的，混杂的，各种各样的</td>
+<td>形容词</td>
+<td>/ˌhetərəˈdʒiːniəs/</td>
+</tr>
+<tr>
+<td>hierarchical</td>
+<td>分层的</td>
+<td>形容词</td>
+<td>/ˌhaɪəˈrɑːrkɪkl/</td>
+</tr>
+<tr>
+<td>immutable</td>
+<td>不变的</td>
+<td>形容词</td>
+<td>/ɪˈmjuːtəbl/</td>
+</tr>
+<tr>
+<td>imperative</td>
+<td>命令式</td>
+<td>形容词</td>
+<td>/ɪmˈper.ə.t̬ɪv/</td>
+</tr>
+<tr>
+<td>implicit</td>
+<td>含蓄的、含糊不清的</td>
+<td>形容词</td>
+<td>/ɪmˈplɪs.ɪt/</td>
+<td>浅显好过隐晦(Explicit is better than implicit)</td>
+</tr>
+<tr>
+<td>incentive</td>
+<td>激励的，刺激的</td>
+<td>形容词</td>
+<td>/ɪnˈsentɪv/</td>
+</tr>
+<tr>
+<td>indecisive</td>
+<td>犹豫不决的</td>
+<td>形容词</td>
+<td>/ˌindi’saisiv/</td>
+</tr>
+<tr>
+<td>intermittent</td>
+<td>间歇的</td>
+<td>形容词</td>
+<td>/ˌɪntərˈmɪtənt/</td>
+</tr>
+<tr>
+<td>intrusive</td>
+<td>侵入式的</td>
+<td>形容词</td>
+<td>/ɪnˈtruːsɪv/</td>
+</tr>
+<tr>
+<td>intuitive</td>
+<td>直觉的</td>
+<td>形容词</td>
+<td>/ɪnˈtuːɪtɪv/</td>
+<td>5</td>
+</tr>
+<tr>
+<td>mature</td>
+<td>成熟的</td>
+<td>形容词</td>
+<td>/məˈtʃʊr/</td>
+</tr>
+<tr>
+<td>mediocre</td>
+<td>普通的，平凡的</td>
+<td>形容词</td>
+<td>/ˌmiːdiˈoʊkər/</td>
+</tr>
+<tr>
+<td>miscellaneous</td>
+<td>混杂、各式各样的</td>
+<td>形容词</td>
+<td>/ˌmɪsəˈleɪniəs/</td>
+</tr>
+<tr>
+<td>mutable</td>
+<td>可变的</td>
+<td>形容词</td>
+<td>/ˈmjuːtəbl/</td>
+</tr>
+<tr>
+<td>on-premise</td>
+<td>预置的</td>
+<td>形容词</td>
+<td>/ɑːnˈpremɪs/</td>
+</tr>
+<tr>
+<td>permanent</td>
+<td>永久的</td>
+<td>形容词</td>
+<td>/ˈpɜːrmənənt/</td>
+</tr>
+<tr>
+<td>permissive</td>
+<td>宽容的</td>
+<td>形容词</td>
+<td>/pərˈmɪsɪv/</td>
+</tr>
+<tr>
+<td>rapid</td>
+<td>迅速的、飞快的</td>
+<td>形容词</td>
+<td>/ˈræpɪd/</td>
+</tr>
+<tr>
+<td>redacted</td>
+<td>经过编辑的</td>
+<td>形容词</td>
+<td>/rəˈdakt/</td>
+</tr>
+<tr>
+<td>resilient</td>
+<td>有弹力的、能恢复的</td>
+<td>形容词</td>
+<td>/rɪˈzɪliənt/</td>
+</tr>
+<tr>
+<td>respective</td>
+<td>分别的，各自的</td>
+<td>形容词</td>
+<td>/rɪˈspektɪv/</td>
+</tr>
+<tr>
+<td>retrospective</td>
+<td>追溯的、回顾的、复盘的</td>
+<td>形容词</td>
+<td>/ˌretrəˈspektɪv/</td>
+</tr>
+<tr>
+<td>robust</td>
+<td>强健的，顽健的</td>
+<td>形容词</td>
+<td>/roʊˈbʌst/</td>
+</tr>
+<tr>
+<td>seamless</td>
+<td>无缝的</td>
+<td>形容词</td>
+<td>/ˈsiːmləs/</td>
+</tr>
+<tr>
+<td>semantic</td>
+<td>语义的</td>
+<td>形容词</td>
+<td>/sɪˈm</td>
+</tr>
+<tr>
+<td>semantic</td>
+<td>语义的</td>
+<td>形容词</td>
+<td>/sɪˈmæntɪk/</td>
+</tr>
+<tr>
+<td>significant</td>
+<td>重大的，有意义的</td>
+<td>形容词</td>
+<td>/sɪɡˈnɪfɪkənt/</td>
+</tr>
+<tr>
+<td>sophisticated</td>
+<td>复杂的、富有经验的</td>
+<td>形容词</td>
+<td>/səˈfɪstɪkeɪtɪd/</td>
+</tr>
+<tr>
+<td>standalone</td>
+<td>单独的</td>
+<td>形容词</td>
+<td>/ˈstændəˌləun/</td>
+</tr>
+<tr>
+<td>subsequent</td>
+<td>随后的、之后的</td>
+<td>形容词</td>
+<td>/ˈsʌbsɪkwənt/</td>
+</tr>
+<tr>
+<td>substantial</td>
+<td>实质的</td>
+<td>形容词</td>
+<td>/səbˈstænʃl/</td>
+</tr>
+<tr>
+<td>subtle</td>
+<td>微小（但重要）的，微妙的</td>
+<td>形容词</td>
+<td>/ˈsʌt̬.əl/</td>
+</tr>
+<tr>
+<td>sustainable</td>
+<td>可持续的</td>
+<td>形容词</td>
+<td>/səˈsteɪnəbl/</td>
+</tr>
+<tr>
+<td>symmetric</td>
+<td>对称的</td>
+<td>形容词</td>
+<td>/sɪ’mɛtrɪk/</td>
+</tr>
+<tr>
+<td>synchronous</td>
+<td>同步的</td>
+<td>形容词</td>
+<td>/ˈsɪŋkrənəs/</td>
+</tr>
+<tr>
+<td>thrilled</td>
+<td>非常兴奋的</td>
+<td>形容词</td>
+<td>/θrɪld/</td>
+</tr>
+<tr>
+<td>underlying</td>
+<td>在下面的，潜在的，深层的</td>
+<td>形容词</td>
+<td>/ˌʌndərˈlaɪɪŋ/</td>
+</tr>
+</tbody>
+</table>
+<h3 id="动词"><a href="#动词" class="headerlink" title="动词"></a>动词</h3><table>
+<thead>
+<tr>
+<th>单词</th>
+<th>翻译</th>
+<th>词性</th>
+<th>美式发音</th>
+<th>实例应用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>aggregate</td>
-<td>verb</td>
-<td>聚合</td>
-<td>英 [‘ægrɪgət; (for v.) ˈægrɪgeɪt] 美 [‘æɡrɪɡət; (for v.) æɡrɪˌɡet]</td>
+<td>聚合，整合</td>
+<td>动词</td>
+<td>/ˈæɡrɪɡət/</td>
+<td>将多条信息聚合到一起，比如聚合类的新闻客户端</td>
 </tr>
 <tr>
-<td>aggregation</td>
-<td>noun</td>
-<td>聚合</td>
-<td>英 [,æɡrɪ’ɡeɪʃən] 美 [,ægrɪ’geʃən]</td>
+<td>allocate</td>
+<td>分配</td>
+<td>动词</td>
+<td>/ˈæləkeɪt/</td>
 </tr>
 <tr>
 <td>analyze</td>
-<td>verb</td>
 <td>分析</td>
-<td>英 [‘ænə,laɪz] 美 [‘ænə,laɪz]</td>
-</tr>
-<tr>
-<td>architecture</td>
-<td>noun</td>
-<td>架构</td>
-<td>英 [‘ɑːkɪtektʃə] 美 [‘ɑrkə’tɛktʃɚ]</td>
-</tr>
-<tr>
-<td>asynchronous</td>
-<td>adjective</td>
-<td>异步的</td>
-<td>英 [ə’sɪŋkrənəs; eɪ-] 美 [e’sɪŋkrənəs]</td>
-</tr>
-<tr>
-<td>capacity</td>
-<td>noun</td>
-<td>能力、容量</td>
-<td>英 [kə’pæsɪtɪ] 美 [kə’pæsəti]</td>
-</tr>
-<tr>
-<td>caveats</td>
-<td>noun</td>
-<td>注意事项</td>
-<td>单数：英 [‘kævɪæt; ‘keɪ-] 美 [‘kævɪæt; ‘ke-]</td>
-</tr>
-<tr>
-<td>complexity</td>
-<td>noun</td>
-<td>复杂性</td>
-<td>英 [kəm’pleksətɪ] 美 [kəm’plɛksəti]</td>
+<td>动词</td>
+<td>/ˈænəlaɪz/</td>
+<td>capture</td>
+<td>捕捉、抓取</td>
+<td>动词</td>
+<td>/ˈkæptʃər/</td>
 </tr>
 <tr>
 <td>concatenate</td>
-<td>verb</td>
 <td>连接</td>
-<td>英 [kən’kætɪneɪt] 美 [kɑn’kætə,net]</td>
-</tr>
-<tr>
-<td>concurrent</td>
-<td>adjective</td>
-<td>并发的</td>
-<td>英 [kən’kʌr(ə)nt] 美 [kən’kɝənt]</td>
-</tr>
-<tr>
-<td>consumption</td>
-<td>noun</td>
-<td>消耗</td>
-<td>英 [kən’sʌm(p)ʃ(ə)n] 美 [kən’sʌmpʃən]</td>
+<td>动词</td>
+<td>/kɑnˈkætəˌnet/</td>
+<td>decouple</td>
+<td>解耦，使分离</td>
+<td>动词</td>
+<td>/diːˈkʌpl/</td>
 </tr>
 <tr>
 <td>differentiate</td>
-<td>verb</td>
-<td>区别</td>
-<td>英 [,dɪfə’renʃɪeɪt] 美 [,dɪfə’rɛnʃɪet]</td>
+<td>区分</td>
+<td>动词</td>
+<td>/ˌdɪfəˈrenʃieɪt/</td>
 </tr>
 <tr>
-<td>efficiency</td>
-<td>noun</td>
-<td>效率</td>
-<td>英 [ɪ’fɪʃ(ə)nsɪ] 美 [ɪˈfɪʃənsɪ]</td>
-</tr>
-<tr>
-<td>elastic</td>
-<td>adjective</td>
-<td>灵活有弹性的</td>
-<td>英 [ɪ’læstɪk] 美 [ɪ’læstɪk]</td>
+<td>embrace</td>
+<td>拥抱、接受</td>
+<td>动词</td>
+<td>/ɪmˈbreɪs/</td>
+<td>拥抱某种技术</td>
 </tr>
 <tr>
 <td>encapsulate</td>
-<td>verb</td>
 <td>压缩、封装</td>
-<td>英 [ɪn’kæpsjʊleɪt; en-] 美 [ɪn’kæpsjə’let]</td>
+<td>动词</td>
+<td>/ɪnˈkæpsjuleɪt/</td>
 </tr>
 <tr>
-<td>expenditure</td>
-<td>noun</td>
-<td>支出，经费</td>
-<td>英 [ɪk’spendɪtʃə; ek-] 美 [ɪk’spɛndɪtʃɚ]</td>
+<td>escalate</td>
+<td>升级</td>
+<td>动词</td>
+<td>/ˈeskəleɪt/</td>
 </tr>
 <tr>
-<td>explicit</td>
-<td>adjective</td>
-<td>明确清楚的</td>
-<td>英 [ɪk’splɪsɪt; ek-] 美 [ɪk’splɪsɪt]</td>
+<td>impersonate</td>
+<td>扮演，模仿</td>
+<td>动词</td>
+<td>/ɪmˈpɜːrsəneɪt/</td>
 </tr>
 <tr>
-<td>failover</td>
-<td>noun</td>
-<td>故障切换</td>
-<td>英 美 [feil’əuvər]</td>
+<td>introspect</td>
+<td>自解析，自省</td>
+<td>动词</td>
+<td>/ˌɪntrə’spɛkt/</td>
+<td>常用于身份认证过程中，对token 进行自解析。</td>
 </tr>
 <tr>
-<td>hierarchical</td>
-<td>adjective</td>
-<td>分层的</td>
-<td>英 [haɪə’rɑːkɪk(ə)l] 美 [,haɪə’rɑrkɪkl]</td>
+<td>leverage</td>
+<td>借用、利用</td>
+<td>动词</td>
+<td>/ˈlevərɪdʒ/</td>
 </tr>
 <tr>
-<td>incident</td>
-<td>noun</td>
-<td>事故</td>
-<td>英 [‘ɪnsɪd(ə)nt] 美 [‘ɪnsɪdənt]</td>
+<td>marry</td>
+<td>结合、联合</td>
+<td>动词</td>
+<td>/ˈmæri/</td>
 </tr>
 <tr>
-<td>inexplicit</td>
-<td>adjective</td>
-<td>含糊不清的</td>
-<td>英 [ɪnɪk’splɪsɪt; ɪnek-] 美 [ɪnɪk’splɪsɪt; ɪnek-]</td>
+<td>mitigate</td>
+<td>减轻，缓和</td>
+<td>动词</td>
+<td>/ˈmɪtɪɡeɪt/</td>
 </tr>
 <tr>
-<td>infrastructure</td>
-<td>noun</td>
-<td>基础结构</td>
-<td>英 [‘ɪnfrəstrʌktʃə] 美 [‘ɪnfrə’strʌktʃɚ]</td>
-</tr>
-<tr>
-<td>intrusive</td>
-<td>adjective</td>
-<td>侵入式的</td>
-<td>英 [ɪn’truːsɪv] 美 [ɪn’trusɪv]</td>
-</tr>
-<tr>
-<td>intuitive</td>
-<td>adjective</td>
-<td>直觉的</td>
-<td>英 [ɪn’tjuːɪtɪv] 美 [ɪn’tuɪtɪv]</td>
-</tr>
-<tr>
-<td>latency</td>
-<td>noun</td>
-<td>延迟</td>
-<td>英 [‘leɪtənsɪ] 美 [‘letnsi]</td>
-</tr>
-<tr>
-<td>mechanism</td>
-<td>noun</td>
-<td>机制</td>
-<td>英 [‘mek(ə)nɪz(ə)m] 美 [‘mɛkənɪzəm]</td>
-</tr>
-<tr>
-<td>metrics</td>
-<td>noun</td>
-<td>度量指标</td>
-<td>英 [‘metrɪks] 美 [‘mɛtrɪks]</td>
-</tr>
-<tr>
-<td>miscellaneous</td>
-<td>adjective</td>
-<td>混杂、各式各样的</td>
-<td>英 [,mɪsə’leɪnɪəs] 美 [‘mɪsə’lenɪəs]</td>
-</tr>
-<tr>
-<td>notation</td>
-<td>noun</td>
-<td>注释、标注</td>
-<td>英 [nəʊ’teɪʃ(ə)n] 美 [noʊˈteɪʃən]</td>
-</tr>
-<tr>
-<td>optimization</td>
-<td>noun</td>
-<td>优化</td>
-<td>英 [,ɒptɪmaɪ’zeɪʃən] 美 [,ɑptəmɪ’zeʃən]</td>
+<td>monetize</td>
+<td>货币化</td>
+<td>动词</td>
+<td>/ˈmɑːnɪtaɪz/</td>
+<td>将产品货币化，通过产品赚钱</td>
 </tr>
 <tr>
 <td>optimize</td>
-<td>verb</td>
 <td>优化</td>
-<td>英 [‘ɒptɪmaɪz] 美 [‘ɑptɪmaɪz]</td>
-</tr>
-<tr>
-<td>polyfill</td>
-<td>noun</td>
-<td>填充物</td>
-<td></td>
+<td>动词</td>
+<td>/ˈɑːptɪmaɪz/</td>
 </tr>
 <tr>
 <td>populate</td>
-<td>verb</td>
 <td>输入数据</td>
-<td>英 [‘pɒpjʊleɪt] 美 [‘pɑpjulet]</td>
+<td>动词</td>
+<td>/ˈpɑːpjuleɪt/</td>
 </tr>
 <tr>
-<td>privilege</td>
-<td>noun</td>
-<td>特权</td>
-<td>英 [ˈprɪvəlɪdʒ] 美 [ˈprɪvəlɪdʒ]</td>
+<td>ratify</td>
+<td>批准，认可</td>
+<td>动词</td>
+<td>/ˈrætɪfaɪ/</td>
 </tr>
 <tr>
-<td>protocol</td>
-<td>noun</td>
-<td>协议</td>
-<td>英 [‘prəʊtəkɒl] 美 [‘protə’kɔl]</td>
+<td>reconcile</td>
+<td>调停，调解，顺从</td>
+<td>动词</td>
+<td>/ˈrekənsaɪl/</td>
 </tr>
 <tr>
-<td>provision</td>
-<td>noun</td>
-<td>规定、条款</td>
-<td>英 [prə’vɪʒ(ə)n] 美 [prə’vɪʒn]</td>
-</tr>
-<tr>
-<td>redundancy</td>
-<td>noun</td>
-<td>冗余</td>
-<td>英 [rɪ’dʌnd(ə)nsɪ] 美 [rɪ’dʌndənsi]</td>
-</tr>
-<tr>
-<td>reliability</td>
-<td>noun</td>
-<td>可靠性</td>
-<td>英 [rɪ,laɪə’bɪlətɪ] 美 [rɪ,laɪə’bɪləti]</td>
-</tr>
-<tr>
-<td>resilience</td>
-<td>noun</td>
-<td>回弹性</td>
-<td>英 [rɪ’zɪlɪəns] 美 [rɪˈzɪliəns]</td>
+<td>rectify</td>
+<td>改正，修正，纠正</td>
+<td>动词</td>
+<td>/ˈrektɪfaɪ/</td>
 </tr>
 <tr>
 <td>retain</td>
-<td>verb</td>
 <td>保持</td>
-<td>英 [rɪ’teɪn] 美 [rɪ’ten]</td>
+<td>动词</td>
+<td>/rɪˈteɪn/</td>
 </tr>
 <tr>
-<td>robust</td>
-<td>adjective</td>
-<td>强健的</td>
-<td>英 [rə(ʊ)’bʌst] 美 [ro’bʌst]</td>
+<td>revisit</td>
+<td>再访，再议</td>
+<td>动词</td>
+<td>/ˌriːˈvɪzɪt/</td>
 </tr>
 <tr>
-<td>roll off</td>
-<td>verb</td>
-<td>渐渐地退出</td>
-<td>-</td>
-</tr>
-<tr>
-<td>scalability</td>
-<td>noun</td>
-<td>可扩展性</td>
-<td>英 美 [,skeilə’biliti]</td>
-</tr>
-<tr>
-<td>scenarios</td>
-<td>noun</td>
-<td>场景</td>
-<td>英 美 [sɪ’nɛrɪ,o]</td>
-</tr>
-<tr>
-<td>scope</td>
-<td>noun</td>
-<td>范围</td>
-<td>英 [skəʊp] 美 [skop]</td>
-</tr>
-<tr>
-<td>simultaneously</td>
-<td>adverb</td>
-<td>同时地</td>
-<td>英 [,sɪml’teɪnɪəslɪ] 美 [saɪməl’tenɪəsli]</td>
-</tr>
-<tr>
-<td>subsidiary</td>
-<td>noun</td>
-<td>子公司</td>
-<td>英 [səb’sɪdɪərɪ] 美 [səb’sɪdɪɛri]</td>
-</tr>
-<tr>
-<td>sustainable</td>
-<td>adjective</td>
-<td>可持续的</td>
-<td>英 [sə’steɪnəb(ə)l] 美 [sə’stenəbl]</td>
-</tr>
-<tr>
-<td>takeaway</td>
-<td>noun</td>
-<td>收获、学到什么</td>
-<td>英 [‘teɪkəweɪ] 美 [‘tekə’we]</td>
-</tr>
-<tr>
-<td>threshold</td>
-<td>noun</td>
-<td>阈值</td>
-<td>英 [‘θreʃəʊld; ‘θreʃ,həʊld] 美 [‘θrɛʃhold]</td>
-</tr>
-<tr>
-<td>thrilled</td>
-<td>adjective</td>
-<td>非常兴奋的</td>
-<td>英 [θrɪld] 美 [θrɪld]</td>
-</tr>
-<tr>
-<td>throughput</td>
-<td>noun</td>
-<td>吞吐量</td>
-<td>英 [‘θruːpʊt] 美 [‘θrʊ’pʊt]</td>
-</tr>
-<tr>
-<td>tilde</td>
-<td>noun</td>
-<td>波浪号～</td>
-<td>英 [‘tɪldə] 美 [‘tɪldə]</td>
-</tr>
-<tr>
-<td>tolerance</td>
-<td>noun</td>
-<td>容忍</td>
-<td>英 [‘tɒl(ə)r(ə)ns] 美 [‘tɑlərəns]</td>
-</tr>
-<tr>
-<td>traceability</td>
-<td>noun</td>
-<td>可追溯性</td>
-<td>英 [,treɪsə’bɪlətɪ] 美 [,tresə’bɪləti]</td>
+<td>streamline</td>
+<td>使现代化、流线，使合理化</td>
+<td>动词</td>
+<td>/ˈstriːmlaɪn/</td>
 </tr>
 <tr>
 <td>undertake</td>
-<td>verb</td>
 <td>承担</td>
-<td>英 [ʌndə’teɪk] 美 [,ʌndɚ’tek]</td>
+<td>动词</td>
+<td>/ˌʌndərˈteɪk/</td>
 </tr>
 <tr>
-<td>utilization</td>
-<td>noun</td>
-<td>利用，使用</td>
-<td>英 [,juːtɪlaɪ’zeɪʃən] 美 [ˌjuːtəlaɪ’zeɪʃn]</td>
+<td>debug</td>
+<td>调试</td>
+<td>动词</td>
+<td>/ˈdiːbʌɡ/</td>
 </tr>
 <tr>
-<td>workaround</td>
-<td>noun</td>
-<td>解决方案</td>
-<td>英 美 [‘wə:kə,raund]</td>
+<td>implement</td>
+<td>实现，执行</td>
+<td>动词</td>
+<td>/ˈɪmplɪment/</td>
+<td>一个类对一个接口的实现</td>
+</tr>
+<tr>
+<td>inherit</td>
+<td>继承</td>
+<td>动词</td>
+<td>/ɪnˈherɪt/</td>
 </tr>
 </tbody>
 </table>
-<h2 id="其他网站"><a href="#其他网站" class="headerlink" title="其他网站"></a>其他网站</h2><p><a href="https://www.51test.net/show/9115284.html" target="_blank" rel="noopener">程序员常用英语词汇</a></p>
+<h3 id="名词"><a href="#名词" class="headerlink" title="名词"></a>名词</h3><table>
+<thead>
+<tr>
+<th>单词</th>
+<th>翻译</th>
+<th>词性</th>
+<th>美式发音</th>
+<th>实例应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aggregation</td>
+<td>聚合</td>
+<td>名词</td>
+<td>/ˌæɡrɪˈɡeɪʃn/</td>
+</tr>
+<tr>
+<td>agility</td>
+<td>敏捷，灵活</td>
+<td>名词</td>
+<td>/əˈdʒɪləti/</td>
+</tr>
+<tr>
+<td>amortization</td>
+<td>摊销</td>
+<td>名词</td>
+<td>/ˌæmərtəˈzeɪʃn/</td>
+</tr>
+<tr>
+<td>analogy</td>
+<td>类比，比喻</td>
+<td>名词</td>
+<td>/əˈnælədʒi/</td>
+</tr>
+<tr>
+<td>anomaly</td>
+<td>异常，反常事物</td>
+<td>名词</td>
+<td>/əˈnɑːməli/</td>
+</tr>
+<tr>
+<td>architecture</td>
+<td>架构</td>
+<td>名词</td>
+<td>/ˈɑːrkɪtektʃər/</td>
+</tr>
+<tr>
+<td>ascent</td>
+<td>上升，升序</td>
+<td>名词</td>
+<td>/əˈsent/</td>
+</tr>
+<tr>
+<td>aspect</td>
+<td>方面，方向</td>
+<td>名词</td>
+<td>/ˈæspekt/</td>
+</tr>
+<tr>
+<td>authentication</td>
+<td>身份验证</td>
+<td>名词</td>
+<td>/ɔːˌθentɪˈkeɪʃn/</td>
+</tr>
+<tr>
+<td>authorization</td>
+<td>授权，认可</td>
+<td>名词</td>
+<td>/ˌɔːθərəˈzeɪʃn/</td>
+</tr>
+<tr>
+<td>automation</td>
+<td>自动化</td>
+<td>名词</td>
+<td>/ˌɔːtəˈmeɪʃn/</td>
+</tr>
+<tr>
+<td>bandwidth</td>
+<td>带宽，多余时间（人力）</td>
+<td>名词</td>
+<td>/ˈbændwɪdθ/</td>
+<td>后者意思是咨询有没有足够的资源或时间来完成某件事情</td>
+</tr>
+<tr>
+<td>bogus</td>
+<td>假的，伪造</td>
+<td>名词</td>
+<td>/ˈboʊɡəs/</td>
+</tr>
+<tr>
+<td>bottleneck</td>
+<td>瓶颈</td>
+<td>名词</td>
+<td>/ˈbɑːtlnek/</td>
+</tr>
+<tr>
+<td>capacity</td>
+<td>能力、容量</td>
+<td>名词</td>
+<td>/kəˈpæsəti/</td>
+</tr>
+<tr>
+<td>caveats</td>
+<td>注意事项</td>
+<td>名词</td>
+<td>/ˈkæviæt/</td>
+</tr>
+<tr>
+<td>characteristic</td>
+<td>特征，特性</td>
+<td>名词</td>
+<td>/ˌkærəktəˈrɪstɪk/</td>
+</tr>
+<tr>
+<td>cluster</td>
+<td>集群</td>
+<td>名词</td>
+<td>/ˈklʌstər/</td>
+</tr>
+<tr>
+<td>complexity</td>
+<td>复杂性</td>
+<td>名词</td>
+<td>/kəmˈpleksəti/</td>
+</tr>
+<tr>
+<td>compliance</td>
+<td>合规</td>
+<td>名词</td>
+<td>/kəmˈplaɪəns/</td>
+</tr>
+<tr>
+<td>compromise</td>
+<td>泄漏，破解</td>
+<td>名词</td>
+<td>/ˈkɑːmprəmaɪz/</td>
+</tr>
+<tr>
+<td>confidentiality</td>
+<td>保密性</td>
+<td>名词</td>
+<td>/ˌkɑːnfɪˌdenʃiˈæləti/</td>
+</tr>
+<tr>
+<td>constant</td>
+<td>常数，恒量</td>
+<td>名词</td>
+<td>/ˈkɑːnstənt/</td>
+</tr>
+<tr>
+<td>constraint</td>
+<td>约束</td>
+<td>名词</td>
+<td>/kənˈstreɪnt/</td>
+</tr>
+<tr>
+<td>consumption</td>
+<td>消耗</td>
+<td>名词</td>
+<td>/kənˈsʌmpʃn/</td>
+</tr>
+<tr>
+<td>contrast</td>
+<td>对比</td>
+<td>名词</td>
+<td>/ˈkɑːntræst/</td>
+</tr>
+<tr>
+<td>degradation</td>
+<td>降级</td>
+<td>名词</td>
+<td>/ˌdeɡrəˈdeɪʃn/</td>
+</tr>
+<tr>
+<td>delivery</td>
+<td>交付</td>
+<td>名词</td>
+<td>/dɪˈlɪvəri/</td>
+</tr>
+<tr>
+<td>depreciation</td>
+<td>折旧，贬值</td>
+<td>名词</td>
+<td>/dɪˌpriːʃiˈeɪʃn/</td>
+</tr>
+<tr>
+<td>descent</td>
+<td>下降，降序</td>
+<td>名词</td>
+<td>/dɪˈsent/</td>
+</tr>
+<tr>
+<td>disclaimer</td>
+<td>免责声明</td>
+<td>名词</td>
+<td>/dɪˈskleɪ.mɚ/</td>
+</tr>
+<tr>
+<td>distinction</td>
+<td>区别、差别</td>
+<td>名词</td>
+<td>/dɪˈstɪŋkʃn/</td>
+</tr>
+<tr>
+<td>durability</td>
+<td>持久性，耐用性</td>
+<td>名词</td>
+<td>/ˌdʊrəˈbɪləti/</td>
+</tr>
+<tr>
+<td>efficiency</td>
+<td>效率</td>
+<td>名词</td>
+<td>/ɪˈfɪʃnsi/</td>
+</tr>
+<tr>
+<td>elasticity</td>
+<td>弹性，灵活性</td>
+<td>名词</td>
+<td>/ˌiːlæˈstɪsəti/</td>
+</tr>
+<tr>
+<td>encryption</td>
+<td>加密</td>
+<td>名词</td>
+<td>/ɪnˈkrɪpʃn/</td>
+</tr>
+<tr>
+<td>equivalent</td>
+<td>对等的人（或事物）；</td>
+<td>名词</td>
+<td>/ɪˈkwɪvələnt/</td>
+</tr>
+<tr>
+<td>evaluation</td>
+<td>评价，计算</td>
+<td>名词</td>
+<td>/ɪˌvæljuˈeɪʃn/</td>
+</tr>
+<tr>
+<td>evolution</td>
+<td>进化、演变</td>
+<td>名词</td>
+<td>/ˌevəˈluːʃn/</td>
+</tr>
+<tr>
+<td>expenditure</td>
+<td>支出，经费</td>
+<td>名词</td>
+<td>/ɪkˈspendɪtʃər/</td>
+</tr>
+<tr>
+<td>failback</td>
+<td>自动恢复</td>
+<td>名词</td>
+<td>/null/</td>
+<td>在簇（Data Cluster）网络系统中，由于某台服务器要进行维修，需要网络资源和服务暂时重定向到备用系统。在此之后将网络资源和服务器恢复为由原始主机提供的过程，称为自动恢复</td>
+</tr>
+<tr>
+<td>failover</td>
+<td>失效转移</td>
+<td>名词</td>
+<td>/feilˈəuvər/</td>
+<td>即当 A 无法为客户服务时，系统能够自动地切换，使 B 能够及时地顶上继续为客户提供服务，且客户感觉不到这个为他提供服务的对象已经更换</td>
+</tr>
+<tr>
+<td>federation</td>
+<td>联合授权</td>
+<td>名词</td>
+<td>/ˌfedəˈreɪʃn/</td>
+</tr>
+<tr>
+<td>glossary</td>
+<td>术语</td>
+<td>名词</td>
+<td>/ˈɡlɑːsəri/</td>
+</tr>
+<tr>
+<td>homebrew</td>
+<td>自制程序</td>
+<td>名词</td>
+<td>/ˌhoʊmˈbruː/</td>
+<td>开源的软件包管理系统，<a href="https://brew.sh/" target="_blank" rel="noopener">https://brew.sh/</a></td>
+</tr>
+<tr>
+<td>hypervisor</td>
+<td>虚拟机器监视器（VMM）</td>
+<td>名词</td>
+<td>/ˌhaipəˈvaizə/</td>
+</tr>
+<tr>
+<td>hypothesis</td>
+<td>假设</td>
+<td>名词</td>
+<td>/haɪˈpɑːθəsɪs/</td>
+</tr>
+<tr>
+<td>impact</td>
+<td>绩效，影响</td>
+<td>名词</td>
+<td>/ˈɪmpækt/</td>
+</tr>
+<tr>
+<td>impression</td>
+<td>曝光</td>
+<td>名词</td>
+<td>/ɪmˈpreʃn/</td>
+</tr>
+<tr>
+<td>inception</td>
+<td>起始，创立</td>
+<td>名词</td>
+<td>/ɪnˈsepʃn/</td>
+</tr>
+<tr>
+<td>incident</td>
+<td>事故</td>
+<td>名词</td>
+<td>/ˈɪnsɪdənt/</td>
+</tr>
+<tr>
+<td>infrastructure</td>
+<td>基础设施</td>
+<td>名词</td>
+<td>/ˈɪnfrəstrʌktʃər/</td>
+</tr>
+<tr>
+<td>initiative</td>
+<td>方案、倡议</td>
+<td>名词</td>
+<td>/ɪˈnɪʃətɪv/</td>
+</tr>
+<tr>
+<td>integration</td>
+<td>集成，整合</td>
+<td>名词</td>
+<td>/ˌɪntɪˈɡreɪʃn/</td>
+</tr>
+<tr>
+<td>integrity</td>
+<td>完整性</td>
+<td>名词</td>
+<td>/ɪnˈteɡrəti/</td>
+</tr>
+<tr>
+<td>interaction</td>
+<td>交互、相互影响、干涉</td>
+<td>名词</td>
+<td>/ˌɪntərˈækʃn/</td>
+</tr>
+<tr>
+<td>intervention</td>
+<td>介入、干涉</td>
+<td>名词</td>
+<td>/ˌɪntərˈvenʃn/</td>
+</tr>
+<tr>
+<td>latency</td>
+<td>延迟</td>
+<td>名词</td>
+<td>/ˈleɪtənsi/</td>
+</tr>
+<tr>
+<td>malware</td>
+<td>恶意软件</td>
+<td>名词</td>
+<td>/ˈmælwer/</td>
+</tr>
+<tr>
+<td>mechanism</td>
+<td>机制，原理</td>
+<td>名词</td>
+<td>/ˈmekənɪzəm/</td>
+</tr>
+<tr>
+<td>metrics</td>
+<td>数据指标</td>
+<td>名词</td>
+<td>/ˈmetrɪks/</td>
+</tr>
+<tr>
+<td>model</td>
+<td>模型</td>
+<td>名词</td>
+<td>/ˈmɑːdl/</td>
+</tr>
+<tr>
+<td>module</td>
+<td>模块</td>
+<td>名词</td>
+<td>/ˈmɑːdʒuːl/</td>
+</tr>
+<tr>
+<td>notation</td>
+<td>注释、标注</td>
+<td>名词</td>
+<td>/noʊˈteɪʃn/</td>
+</tr>
+<tr>
+<td>occasion</td>
+<td>场合、机会</td>
+<td>名词</td>
+<td>/əˈkeɪʒn/</td>
+</tr>
+<tr>
+<td>optimization</td>
+<td>优化</td>
+<td>名词</td>
+<td>/ˌɑptəmɪˈzeʃən/</td>
+</tr>
+<tr>
+<td>overhead</td>
+<td>额外开销，虚耗</td>
+<td>名词</td>
+<td>/ˌovɚˈhɛd/</td>
+<td>In  computer  science, overhead  is any combination of excess or indirect computation time, memory, bandwidth, or other resources that are required to perform a  specific task.</td>
+</tr>
+<tr>
+<td>oversight</td>
+<td>疏忽、失察</td>
+<td>名词</td>
+<td>/ˈoʊvərsaɪt/</td>
+</tr>
+<tr>
+<td>permutation</td>
+<td>排序</td>
+<td>名词</td>
+<td>/ˌpɜːrmjuˈteɪʃn/</td>
+</tr>
+<tr>
+<td>polyfill</td>
+<td>填充物</td>
+<td>名词</td>
+<td>/ˈpəʊliːfɪl/</td>
+<td>常指代 JavaScript 的特性，<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Polyfill" target="_blank" rel="noopener">MDN 说明</a></td>
+</tr>
+<tr>
+<td>post-mortem</td>
+<td>尸体解剖，事后反思（或剖析）</td>
+<td>名词</td>
+<td>/ˌpoʊst ˈmɔːrtəm/</td>
+</tr>
+<tr>
+<td>priority</td>
+<td>优先次序</td>
+<td>名词</td>
+<td>/praɪˈɔːrəti/</td>
+</tr>
+<tr>
+<td>privilege</td>
+<td>特权，优待</td>
+<td>名词</td>
+<td>/ˈprɪvəlɪdʒ/</td>
+</tr>
+<tr>
+<td>protocol</td>
+<td>协议</td>
+<td>名词</td>
+<td>/ˈproʊtəkɑːl/</td>
+</tr>
+<tr>
+<td>provision</td>
+<td>规定；预备；准备</td>
+<td>名词</td>
+<td>/prəˈvɪʒn/</td>
+<td>例如对UFS设备进行provision，分区、划分LUN等操作</td>
+</tr>
+<tr>
+<td>recursion</td>
+<td>递归</td>
+<td>名词</td>
+<td>/rɪˈkɜːrʒn/</td>
+</tr>
+<tr>
+<td>redundancy</td>
+<td>冗余，多余</td>
+<td>名词</td>
+<td>/rɪˈdʌndənsi/</td>
+</tr>
+<tr>
+<td>reliability</td>
+<td>可靠性</td>
+<td>名词</td>
+<td>/rɪˌlaɪəˈbɪləti/</td>
+</tr>
+<tr>
+<td>remediation</td>
+<td>补救，矫正</td>
+<td>名词</td>
+<td>/rɪˌmiːdiˈeɪʃn/</td>
+</tr>
+<tr>
+<td>replica</td>
+<td>复制物</td>
+<td>名词</td>
+<td>/ˈreplikə/</td>
+</tr>
+<tr>
+<td>resilience</td>
+<td>回弹性</td>
+<td>名词</td>
+<td>/rɪˈzɪliəns/</td>
+</tr>
+<tr>
+<td>restriction</td>
+<td>限制，约束</td>
+<td>名词</td>
+<td>/ri’strikʃən/</td>
+</tr>
+<tr>
+<td>scalability</td>
+<td>可扩展性</td>
+<td>名词</td>
+<td>/ˌskeɪləˈbɪləti/</td>
+</tr>
+<tr>
+<td>scenario</td>
+<td>场景</td>
+<td>名词</td>
+<td>/sɪˈnɛrɪˌo/</td>
+</tr>
+<tr>
+<td>scheduler</td>
+<td>时间调度程序</td>
+<td>名词</td>
+<td>/ˈskedʒuːlər/</td>
+</tr>
+<tr>
+<td>schema</td>
+<td>提要，纲要，架构</td>
+<td>名词</td>
+<td>/ˈskiːmə/</td>
+<td>多用于 database schema</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>范围，作用域</td>
+<td>名词</td>
+<td>/skoʊp/</td>
+</tr>
+<tr>
+<td>severity</td>
+<td>严重性</td>
+<td>名词</td>
+<td>/sɪˈverəti/</td>
+<td>用于表达事故的严重程度</td>
+</tr>
+<tr>
+<td>strength</td>
+<td>优势</td>
+<td>名词</td>
+<td>/streŋkθ/</td>
+</tr>
+<tr>
+<td>stroke</td>
+<td>笔画</td>
+<td>名词</td>
+<td>/stroʊk/</td>
+</tr>
+<tr>
+<td>subsidiary</td>
+<td>子公司</td>
+<td>名词</td>
+<td>/ˈsəbsɪdieri/</td>
+</tr>
+<tr>
+<td>takeaway</td>
+<td>收获、学到什么</td>
+<td>名词</td>
+<td>/ˈteɪkəweɪ/</td>
+</tr>
+<tr>
+<td>taxonomy</td>
+<td>分类</td>
+<td>名词</td>
+<td>/tækˈsɑːnəmi/</td>
+</tr>
+<tr>
+<td>tenancy</td>
+<td>租期</td>
+<td>名词</td>
+<td>/ˈtenənsi/</td>
+</tr>
+<tr>
+<td>tentative</td>
+<td>假设，试验</td>
+<td>名词</td>
+<td>/ˈtentətɪv/</td>
+</tr>
+<tr>
+<td>threshold</td>
+<td>阈值</td>
+<td>名词</td>
+<td>/ˈθreʃhoʊld/</td>
+</tr>
+<tr>
+<td>throughput</td>
+<td>吞吐量</td>
+<td>名词</td>
+<td>/ˈθruːpʊt/</td>
+</tr>
+<tr>
+<td>tolerance</td>
+<td>容忍</td>
+<td>名词</td>
+<td>/ˈtɑːlərəns/</td>
+</tr>
+<tr>
+<td>traceability</td>
+<td>可追溯性</td>
+<td>名词</td>
+<td>/ˌtresəˈbɪləti/</td>
+</tr>
+<tr>
+<td>trajectory</td>
+<td>轨道，轨迹</td>
+<td>名词</td>
+<td>/trəˈdʒektəri/</td>
+</tr>
+<tr>
+<td>traversal</td>
+<td>遍历</td>
+<td>名词</td>
+<td>/trəˈvərsəl/</td>
+</tr>
+<tr>
+<td>tweak</td>
+<td>扭，调整</td>
+<td>名词</td>
+<td>/twiːk/</td>
+</tr>
+<tr>
+<td>utilization</td>
+<td>利用，使用</td>
+<td>名词</td>
+<td>/ˌjuːtələˈzeɪʃn/</td>
+</tr>
+<tr>
+<td>vulnerability</td>
+<td>易损性，弱点</td>
+<td>名词</td>
+<td>/ˌvʌlnərəˈbɪləti/</td>
+</tr>
+<tr>
+<td>workaround</td>
+<td>变通方案</td>
+<td>名词</td>
+<td>/ˈwə:kə,raund/</td>
+<td>特指方案具有迂回性质</td>
+</tr>
+<tr>
+<td>database</td>
+<td>数据库</td>
+<td>名词</td>
+<td>/ˈdɑːtəbeɪs/</td>
+</tr>
+<tr>
+<td>expression</td>
+<td>表达式</td>
+<td>名词</td>
+<td>/ɪkˈspreʃn/</td>
+</tr>
+<tr>
+<td>permission</td>
+<td>权限</td>
+<td>名词</td>
+<td>/pəˈmɪʃn/</td>
+</tr>
+</tbody>
+</table>
+<h3 id="副词"><a href="#副词" class="headerlink" title="副词"></a>副词</h3><table>
+<thead>
+<tr>
+<th>单词</th>
+<th>翻译</th>
+<th>词性</th>
+<th>美式发音</th>
+<th>实例应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alphabetically</td>
+<td>按字母顺序排列地</td>
+<td>副词</td>
+<td>/ˌælfəˈbetɪkli/</td>
+</tr>
+<tr>
+<td>discretely</td>
+<td>离散地，分离地</td>
+<td>副词</td>
+<td>/dɪˈskriːtli/</td>
+</tr>
+<tr>
+<td>furthermore</td>
+<td>此外，而且</td>
+<td>副词</td>
+<td>/ˌfɜːrðərˈmɔːr/</td>
+</tr>
+<tr>
+<td>manually</td>
+<td>手动地</td>
+<td>副词</td>
+<td>/ˈmænjuəli/</td>
+</tr>
+<tr>
+<td>periodically</td>
+<td>定期地，周期性地</td>
+<td>副词</td>
+<td>/ˌpɪriˈɑːdɪkli/</td>
+</tr>
+<tr>
+<td>simultaneously</td>
+<td>同时地</td>
+<td>副词</td>
+<td>/ˌsaɪmlˈteɪniəsli/</td>
+</tr>
+</tbody>
+</table>
+<h3 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h3><table>
+<thead>
+<tr>
+<th>单词</th>
+<th>翻译</th>
+<th>词性</th>
+<th>美式发音</th>
+<th>实例应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ampersand</td>
+<td>和</td>
+<td>符号</td>
+<td>/ˈæmpərsænd/</td>
+<td>&amp;</td>
+</tr>
+<tr>
+<td>angle brackets</td>
+<td>尖括号</td>
+<td>符号</td>
+<td>/null/</td>
+<td>&lt; &gt;</td>
+</tr>
+<tr>
+<td>asterisk</td>
+<td>星号</td>
+<td>符号</td>
+<td>/ˈæstərɪsk/</td>
+<td>*</td>
+</tr>
+<tr>
+<td>at</td>
+<td>邮件符号</td>
+<td>符号</td>
+<td>/æt/</td>
+<td>@</td>
+<td>backslash</td>
+<td>反斜线符号</td>
+<td>/ˈbækslæʃ/</td>
+<td>\</td>
+</tr>
+<tr>
+<td>caret</td>
+<td>折音号</td>
+<td>符号</td>
+<td>/ˈkærət/</td>
+<td>^</td>
+</tr>
+<tr>
+<td>colon</td>
+<td>冒号</td>
+<td>符号</td>
+<td>/ˈkoʊlən/</td>
+<td>:</td>
+</tr>
+<tr>
+<td>comma</td>
+<td>逗号</td>
+<td>符号</td>
+<td>/ˈkɑːmə/</td>
+<td>,</td>
+</tr>
+<tr>
+<td>curly brackets</td>
+<td>花括号</td>
+<td>符号</td>
+<td>/null/</td>
+<td>{ }</td>
+</tr>
+<tr>
+<td>dash</td>
+<td>破折号</td>
+<td>符号</td>
+<td>/dæʃ/</td>
+<td>—</td>
+</tr>
+<tr>
+<td>dollar sign</td>
+<td>美元符号</td>
+<td>符号</td>
+<td>/null/</td>
+<td>$</td>
+</tr>
+<tr>
+<td>double quotation mark</td>
+<td>双引号</td>
+<td>符号</td>
+<td>/null/</td>
+<td>“</td>
+</tr>
+<tr>
+<td>downwards arrow</td>
+<td>向下箭头</td>
+<td>符号</td>
+<td>/null/</td>
+<td>↓</td>
+</tr>
+<tr>
+<td>ellipsis</td>
+<td>省略号</td>
+<td>符号</td>
+<td>/ɪˈlɪpsɪs/</td>
+<td>…</td>
+</tr>
+<tr>
+<td>equal</td>
+<td>等于号</td>
+<td>符号</td>
+<td>/ˈiːkwəl/</td>
+<td>=</td>
+</tr>
+<tr>
+<td>exclamation mark</td>
+<td>惊叹号，感叹号</td>
+<td>符号</td>
+<td>/ˌekskləˈmeɪʃn/</td>
+<td>!</td>
+</tr>
+<tr>
+<td>greater than</td>
+<td>大于号</td>
+<td>符号</td>
+<td>/null/</td>
+<td>&gt;</td>
+</tr>
+<tr>
+<td>hash</td>
+<td>井号</td>
+<td>符号</td>
+<td>/hæʃ/</td>
+<td>#</td>
+</tr>
+<tr>
+<td>hyphen</td>
+<td>连字符</td>
+<td>符号</td>
+<td>/ˈhaɪfn/</td>
+<td>-</td>
+</tr>
+<tr>
+<td>left arrow</td>
+<td>向左箭头</td>
+<td>符号</td>
+<td>/null/</td>
+<td>←</td>
+</tr>
+<tr>
+<td>less than</td>
+<td>小于号</td>
+<td>符号</td>
+<td>/null/</td>
+<td>&lt;</td>
+</tr>
+<tr>
+<td>minus</td>
+<td>减号</td>
+<td>符号</td>
+<td>/ˈmaɪnəs/</td>
+<td>-</td>
+</tr>
+<tr>
+<td>parenthesis</td>
+<td>圆括号</td>
+<td>符号</td>
+<td>/pəˈrenθəsɪs/</td>
+<td>( )</td>
+</tr>
+<tr>
+<td>percent</td>
+<td>百分号</td>
+<td>符号</td>
+<td>/pərˈsent/</td>
+<td>%</td>
+</tr>
+<tr>
+<td>period</td>
+<td>句号</td>
+<td>符号</td>
+<td>/ˈpɪriəd/</td>
+<td>.</td>
+</tr>
+<tr>
+<td>plus</td>
+<td>加号</td>
+<td>符号</td>
+<td>/plʌs/</td>
+<td>+</td>
+</tr>
+<tr>
+<td>question mark</td>
+<td>问号</td>
+<td>符号</td>
+<td>/ˈkwestʃən/</td>
+<td>?</td>
+</tr>
+<tr>
+<td>right arrow</td>
+<td>向右箭头</td>
+<td>符号</td>
+<td>/null/</td>
+<td>→</td>
+</tr>
+<tr>
+<td>section</td>
+<td>分节号</td>
+<td>符号</td>
+<td>/ˈsekʃn/</td>
+<td>§</td>
+</tr>
+<tr>
+<td>semicolon</td>
+<td>分号</td>
+<td>符号</td>
+<td>/ˈsemikoʊlən/</td>
+<td>;</td>
+</tr>
+<tr>
+<td>single quotation mark</td>
+<td>单引号</td>
+<td>符号</td>
+<td>/null/</td>
+<td>‘</td>
+</tr>
+<tr>
+<td>slash</td>
+<td>斜线号</td>
+<td>符号</td>
+<td>/slæʃ/</td>
+<td>／</td>
+</tr>
+<tr>
+<td>square brackets</td>
+<td>方括号</td>
+<td>符号</td>
+<td>/null/</td>
+<td>[</td>
+<td>]</td>
+</tr>
+<tr>
+<td>tilde</td>
+<td>波浪号</td>
+<td>符号</td>
+<td>/ˈtɪldə/</td>
+<td>～</td>
+</tr>
+<tr>
+<td>underscore</td>
+<td>下划线</td>
+<td>符号</td>
+<td>/ˌʌndərˈskɔːr/</td>
+<td>_</td>
+</tr>
+<tr>
+<td>upwards arrow</td>
+<td>向上箭头</td>
+<td>符号</td>
+<td>/null/</td>
+<td>↑</td>
+</tr>
+</tbody>
+</table>
+<h3 id="词组"><a href="#词组" class="headerlink" title="词组"></a>词组</h3><p>单词 | 翻译 | 词性 | 美式发音 | 实例应用 |<br>| — | — | — | — | — |<br>| catastrophic failover | 灾难性故障转移 | 词组 | /null/ |<br>| data sovereignty | 数据主权 | 词组 | /null/ | 数据主权指的是在该国或地区采集的数据应当归属于当地政府且需服从当地法律法规 |<br>| dead letter queue | 死信队列 | 词组 | /null/ | 在队列服务中，那些无法发送的信息将被送至死信队列 |<br>| faceted search | 分面搜索 | 词组 | /null/ |<br>| false positive | 假阳性 | 词组 | /null/ | 当你真的没有的时候，别人却说你有。 |<br>| fault tolerance | | 词组 | /null/ |<br>| magnetic storage | 磁储存 | 词组 | /null/ |<br>| roll off | TBD | 词组 | /null/ |<br>| roll out | TBD | 词组 | /null/ |<br>| strangler pattern | 绞杀者模式 | 词组 | /null/ | 通过将特定的功能片断逐渐取代为新的应用程序和服务，逐步迁移旧系统。 随着旧系统的功能被替换，新系统最终将取代旧系| 统的所有功能，抑制旧系统并使其停用。 |<br>| under the hood | 引擎罩下，比喻内幕、原理 | 词组 | /null/ | Beneath the surface; in its internal workings |<br>| vice versa | 反之亦然 | 词组 | /ˌvaisi’və:sə/ |</p>
+<h3 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h3><p>单词 | 翻译 | 词性 | 美式发音 | 实例应用 |<br>| — | — | — | — | — |<br>| CLI | 命令行界面 | 缩写 | /null/ | Command Line Interface |<br>| GUI | 图形用户界面 | 缩写 | /null/ | Graphical User Interface |<br>| UUID / GUID | 全局唯一标识符 | 缩写 | /null/ | Globally Unique Identifier |<br>| SIT | 系统整合测试 | 缩写 | /null/ | System Integration Testing |<br>| UAT | 用户验收测试 | 缩写 | /null/ | User Acceptance Testing |<br>| BIOS | 基本输入输出系统 | 缩写 | /null/ | Basic Input Output System |<br>| DOM | 文档对象模型 | 缩写 | /null/ | Document Object Model |<br>| HTML | 超文本标记语言 | 缩写 | /null/ | HyperText Markup Language |</p>
+<h3 id="其他网站"><a href="#其他网站" class="headerlink" title="其他网站"></a>其他网站</h3><p><a href="https://www.51test.net/show/9115284.html" target="_blank" rel="noopener">程序员常用英语词汇</a></p>
 ]]></content>
       <categories>
         <category>转载</category>
@@ -2621,32 +3821,6 @@
       <tags>
         <tag>英语词汇</tag>
         <tag>程序员</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虚拟机Linux的root或普通用户密码忘记找回</title>
-    <url>/2018/07/31/%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E/</url>
-    <content><![CDATA[<h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
-<li>进入GRUB界面后，有几秒钟时间给你。进入GRUB出现：<br> Red Hat Enterprise Linux Server (2.6.18-8.e15xen) <a id="more"></a></li>
-<li>倒计时结束前，键入e出现：<br>root（hd0,0）<br>kernel /xen.gz-2.6.28-8.e15<br>module /vmlinux-2.6.18.e15xen ro root=/dev/VolGroup00/LogVo100 rhgb quiet<br>module /initrd-2.6.18-8.e15xen.img<br>上下键移到quiet那一行，按e进入，加上 linux single或者1即可，回车</li>
-<li>按b后进入重启模式，一定注意出现：<br> Starting udev:<br> 在后面输入boot回车</li>
-<li>之后出现命令行：<br> sh-3.2#</li>
-<li>输入passwd，回车即可修改root密码，输入两次密码</li>
-<li>完成之后reboot即可重启。</li>
-</ol>
-<h1 id="普通用户密码忘记了，比较简单"><a href="#普通用户密码忘记了，比较简单" class="headerlink" title="普通用户密码忘记了，比较简单"></a>普通用户密码忘记了，比较简单</h1><ol>
-<li>在root账户下，打开/etc/shadow (不是passwd文件，因为密码实际上经过加密后放在了“影子口令”文件shadow中了。passwd文件每个用户均可见，但是shadow只有root可以见)。</li>
-<li>找到普通用户名cicikasa，然后删除第二个域即可，域之间用“:”隔开的，如下：<br>cicikasa:TdkakkkYUukkjkjk:14672:0:99999:7:::<br>上述红色部分就是经过加密的密码，删除即可</li>
-<li>在普通用户下，输入passwd即可输入新密码</li>
-</ol>
-<h1 id="如果想修改VMware的bios"><a href="#如果想修改VMware的bios" class="headerlink" title="如果想修改VMware的bios"></a>如果想修改VMware的bios</h1><p>在VMWare中将BIOS设成光驱启动:<br>启动时(点击启动虚拟机按钮),按F2 ,进入BIOS 设置,找到 BOOT—把CDROM光驱，移动到最上面即可。根据提示进行设置，一般按“-”号进行设置。<br>注意：启动时，点了启动虚拟机按钮后一定要在点一下窗口（或者Ctrl +G），然后快按F2。否则，窗口没激活，F2是不起作用的.</p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>虚拟机</tag>
-        <tag>密码找回</tag>
       </tags>
   </entry>
   <entry>
