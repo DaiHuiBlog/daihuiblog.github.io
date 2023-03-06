@@ -114,7 +114,7 @@
 <meta property="og:site_name" content="Hui&#39;s Blog">
 <meta property="og:description" content="java.lang.NullPointerException(空指针异常) 调用了未经初始化的对象或者是不存在的对象  经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还需要对每个元素都进行初">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-05-26T12:03:03.024Z">
+<meta property="og:updated_time" content="2023-03-06T03:13:24.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java常见异常总结">
 <meta name="twitter:description" content="java.lang.NullPointerException(空指针异常) 调用了未经初始化的对象或者是不存在的对象  经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，依然是空的，所以还需要对每个元素都进行初">
@@ -498,7 +498,7 @@
 <p>数据类型转换异常</p>
 </blockquote>
 <p>当试图将对某个对象强制执行向下转型，但该对象又不可转换又不可转换为其子类的实例时将引发该异常，如下列代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object obj = new Integer(0);</span><br><span class="line">String str = obj;</span><br><span class="line">java.lang.FileNotFoundException</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">String str = obj;</span><br><span class="line">java.lang.FileNotFoundException</span><br></pre></td></tr></table></figure>
 </li>
 <li><h5 id="java-lang-FileNotFoundException"><a href="#java-lang-FileNotFoundException" class="headerlink" title="java.lang.FileNotFoundException"></a>java.lang.FileNotFoundException</h5><blockquote>
 <p>文件未找到异常</p>
@@ -509,7 +509,7 @@
 <p>数组存储异常</p>
 </blockquote>
 <p>当试图将类型不兼容类型的对象存入一个Object[]数组时将引发异常</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object[] obj = new String[3];</span><br><span class="line">obj[0] = new Integer(0);</span><br><span class="line">java.lang.NoSuchMethodException</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object[] obj = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line">obj[<span class="number">0</span>] = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">java.lang.NoSuchMethodException</span><br></pre></td></tr></table></figure>
 </li>
 <li><h5 id="java-lang-NoSuchMethodException"><a href="#java-lang-NoSuchMethodException" class="headerlink" title="java.lang.NoSuchMethodException"></a>java.lang.NoSuchMethodException</h5><blockquote>
 <p>方法不存在异常  </p>

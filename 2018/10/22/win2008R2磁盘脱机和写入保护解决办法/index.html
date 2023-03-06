@@ -112,17 +112,17 @@
 <meta property="og:url" content="https://daihuiblog.github.io/2018/10/22/win2008R2磁盘脱机和写入保护解决办法/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/1.png">
-<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/2.png">
-<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/3.png">
-<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/4.png">
-<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/5.png">
-<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/6.png">
-<meta property="og:image" content="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/7.png">
-<meta property="og:updated_time" content="2023-02-10T13:07:03.502Z">
+<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/1-2023-03-06-11-04-05.png">
+<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/2-2023-03-06-11-04-27.png">
+<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/3-2023-03-06-11-04-40.png">
+<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/4-2023-03-06-11-05-49.png">
+<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/5-2023-03-06-11-06-09.png">
+<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/6-2023-03-06-11-06-25.png">
+<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/7-2023-03-06-11-06-53.png">
+<meta property="og:updated_time" content="2023-03-06T03:09:09.441Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="win2008R2磁盘脱机和写入保护解决办法">
-<meta name="twitter:image" content="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/1.png">
+<meta name="twitter:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/1-2023-03-06-11-04-05.png">
 
 
 
@@ -462,35 +462,30 @@
       
 
       
-        <p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/1.png" alt="磁盘脱机"></p>
+        <p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/1-2023-03-06-11-04-05.png" alt="磁盘脱机"></p>
 <a id="more"></a>
 <ol>
-<li><p>打开cmd命令行，输入：<strong>diskpart</strong>，进入diskpart工具</p>
+<li><p>打开cmd命令行，输入：<code>diskpart</code>，进入diskpart工具</p>
 </li>
-<li><p>输入：<strong>list disk</strong>，查看到所有磁盘</p>
+<li><p>输入：<code>list disk</code>，查看到所有磁盘</p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/2-2023-03-06-11-04-27.png" alt="listdisk1"></p>
+</li>
+<li><p>找到脱机的磁盘，输入：<code>select disk 1</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/3-2023-03-06-11-04-40.png" alt="selectDisk"></p>
+</li>
+<li><p>接着输入：<code>online disk*</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/4-2023-03-06-11-05-49.png" alt="onlineDisk"></p>
+</li>
+<li><p>查看此时磁盘联机状态</p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/5-2023-03-06-11-06-09.png" alt="listdisk2"></p>
+</li>
+<li><p>清除只读属性，输入：<code>attribute disk clear readonly</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/6-2023-03-06-11-06-25.png" alt="attributeDiskClearReadonly"></p>
+</li>
+<li><p>查看此时的清盘情况，输入：<code>attribute disk</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/7-2023-03-06-11-06-53.png" alt="attributeDisk"></p>
 </li>
 </ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/2.png" alt="listdisk1"></p>
-<ol>
-<li>找到脱机的磁盘，输入：<strong>select disk 1</strong></li>
-</ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/3.png" alt="selectDisk"></p>
-<ol>
-<li>接着输入：<strong>online disk</strong></li>
-</ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/4.png" alt="onlineDisk"></p>
-<ol>
-<li>查看此时磁盘联机状态</li>
-</ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/5.png" alt="listdisk2"></p>
-<ol>
-<li>清除只读属性，输入：<strong>attribute disk clear readonly</strong></li>
-</ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/6.png" alt="attributeDiskClearReadonly"></p>
-<ol>
-<li>查看此时的清盘情况，输入：<strong>attribute disk</strong></li>
-</ol>
-<p><img src="https://DaiHuiBlog.github.io/images/posts/win2008R2磁盘脱机和写入保护解决办法/7.png" alt="attributeDisk"></p>
 
       
     </div>
