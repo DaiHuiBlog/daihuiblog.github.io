@@ -949,34 +949,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hadoop伪分布式搭建-(4)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-4/</url>
-    <content><![CDATA[<h3 id="生成ssh免登陆密钥"><a href="#生成ssh免登陆密钥" class="headerlink" title="生成ssh免登陆密钥"></a>生成ssh免登陆密钥</h3><ul>
-<li><p>进入到/dh/下的home目录(隐藏)  </p>
-<blockquote>
-<p>cd ~/.ssh<br>ssh-keygen -t rsa （一直回车）</p>
-</blockquote>
-</li>
-</ul>
-<a id="more"></a>
-<p>执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥）</p>
-<ul>
-<li>将公钥拷贝到要免登陆的机器上<blockquote>
-<p>ssh-copy-id -i localhost (ssh-copy-id -i 要免登陆的机器的IP)<br>或者<br>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys  </p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>大数据</category>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>集群</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hadoop伪分布式搭建-(1)</title>
     <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-1/</url>
     <content><![CDATA[<h3 id="配置虚拟机子网网段-hostonly模式时"><a href="#配置虚拟机子网网段-hostonly模式时" class="headerlink" title="配置虚拟机子网网段(hostonly模式时)"></a>配置虚拟机子网网段(hostonly模式时)</h3><ul>
@@ -1037,6 +1009,45 @@
 <p>也可以改成使用iptables：systemctl start iptables.service</p>
 <h3 id="重启Linux"><a href="#重启Linux" class="headerlink" title="重启Linux"></a>重启Linux</h3><blockquote>
 <p>reboot</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>大数据</category>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hadoop伪分布式搭建-(2)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
+    <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
+<li>从Windows上传jdk到虚拟机  </li>
+</ul>
+<blockquote>
+<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>解压jdk</li>
+</ul>
+<blockquote>
+<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
+</blockquote>
+<ul>
+<li>将java添加到环境变量中</li>
+</ul>
+<blockquote>
+<p>vim /etc/profile  </p>
+</blockquote>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+<ul>
+<li>刷新配置</li>
+</ul>
+<blockquote>
+<p>source /etc/profile</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -1123,34 +1134,23 @@
       </tags>
   </entry>
   <entry>
-    <title>Hadoop伪分布式搭建-(2)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
-    <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
-<li>从Windows上传jdk到虚拟机  </li>
-</ul>
+    <title>Hadoop伪分布式搭建-(4)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-4/</url>
+    <content><![CDATA[<h3 id="生成ssh免登陆密钥"><a href="#生成ssh免登陆密钥" class="headerlink" title="生成ssh免登陆密钥"></a>生成ssh免登陆密钥</h3><ul>
+<li><p>进入到/dh/下的home目录(隐藏)  </p>
 <blockquote>
-<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
+<p>cd ~/.ssh<br>ssh-keygen -t rsa （一直回车）</p>
 </blockquote>
+</li>
+</ul>
 <a id="more"></a>
+<p>执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥）</p>
 <ul>
-<li>解压jdk</li>
-</ul>
-<blockquote>
-<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
+<li>将公钥拷贝到要免登陆的机器上<blockquote>
+<p>ssh-copy-id -i localhost (ssh-copy-id -i 要免登陆的机器的IP)<br>或者<br>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys  </p>
 </blockquote>
-<ul>
-<li>将java添加到环境变量中</li>
+</li>
 </ul>
-<blockquote>
-<p>vim /etc/profile  </p>
-</blockquote>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
-<ul>
-<li>刷新配置</li>
-</ul>
-<blockquote>
-<p>source /etc/profile</p>
-</blockquote>
 ]]></content>
       <categories>
         <category>大数据</category>
@@ -1259,118 +1259,6 @@
       <tags>
         <tag>Mac</tag>
         <tag>录视频</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java常见异常总结</title>
-    <url>/2018/03/18/Java%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<ul>
-<li><h5 id="java-lang-NullPointerException-空指针异常"><a href="#java-lang-NullPointerException-空指针异常" class="headerlink" title="java.lang.NullPointerException(空指针异常)"></a>java.lang.NullPointerException(空指针异常)</h5><blockquote>
-<p>调用了未经初始化的对象或者是不存在的对象</p>
-</blockquote>
-<p>经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，<br>即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，<br>依然是空的，所以还需要对每个元素都进行初始化（如果要调用的话）。</p>
-<a id="more"></a>
-</li>
-<li><h5 id="java-lang-ClassNotFoundException"><a href="#java-lang-ClassNotFoundException" class="headerlink" title="java.lang.ClassNotFoundException　　"></a>java.lang.ClassNotFoundException　　</h5><blockquote>
-<p>指定的类不存在</p>
-</blockquote>
-<p> 这里主要考虑一下类的名称和路径是否正确即可，通常都是程序试图通过字符串来加载某个类时可能引发 异常<br> 比如：调用Class.forName();<br> 或者调用ClassLoad的finaSystemClass();或者LoadClass();</p>
-</li>
-<li><h5 id="java-lang-NumberFormatException"><a href="#java-lang-NumberFormatException" class="headerlink" title="java.lang.NumberFormatException"></a>java.lang.NumberFormatException</h5><blockquote>
-<p>字符串转换为数字异常</p>
-</blockquote>
-<p>当试图将一个String转换为指定的数字类型，而该字符串确不满足数字类型要求的格式时，抛出该异常.如现在讲字符型的数据“123456”转换为数值型数据时，是允许的。<br>但是如果字符型数据中包含了非数字型的字符，如123#56，此时转换为数值型时就会出现异常。系统就会捕捉到这个异常，并进行处理.</p>
-</li>
-<li><h5 id="java-lang-IndexOutOfBoundsException"><a href="#java-lang-IndexOutOfBoundsException" class="headerlink" title="java.lang.IndexOutOfBoundsException"></a>java.lang.IndexOutOfBoundsException</h5><blockquote>
-<p>数组下标越界异常</p>
-</blockquote>
-<p>查看调用的数组或者字符串的下标值是不是超出了数组的范围，一般来说，显示（即直接用常数当下标）调用不太容易出这样的错，但隐式（即用变量表示下标）调用就经常出错了，还有一种情况，是程序中定义的数组的长度是通过某些特定方法决定的，不是事先声明的，这个时候，最好先查看一下数组的length，以免出现这个异常。</p>
-</li>
-<li><h5 id="java-lang-IllegalArgumentException"><a href="#java-lang-IllegalArgumentException" class="headerlink" title="java.lang.IllegalArgumentException"></a>java.lang.IllegalArgumentException</h5><blockquote>
-<p>方法的参数错误</p>
-</blockquote>
-<p>比如g.setColor(int red,int green,int blue)这个方法中的三个值，如果有超过２５５的也会出现这个异常，因此一旦发现这个异常，我们要做的，就是赶紧去检查一下方法调用中的参数传递是不是出现了错误。</p>
-</li>
-<li><h5 id="java-lang-IllegalAccessException"><a href="#java-lang-IllegalAccessException" class="headerlink" title="java.lang.IllegalAccessException"></a>java.lang.IllegalAccessException</h5><blockquote>
-<p>没有访问权限</p>
-</blockquote>
-<p>当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常。对程序中用了Package的情况下要注意这个异常</p>
-</li>
-<li><h5 id="java-lang-ArithmeticException"><a href="#java-lang-ArithmeticException" class="headerlink" title="java.lang.ArithmeticException"></a>java.lang.ArithmeticException</h5><blockquote>
-<p>数学运算异常</p>
-</blockquote>
-<p>当算术运算中出现了除以零这样的运算就会出这样的异常。</p>
-</li>
-<li><h5 id="java-lang-ClassCastException"><a href="#java-lang-ClassCastException" class="headerlink" title="java.lang.ClassCastException"></a>java.lang.ClassCastException</h5><blockquote>
-<p>数据类型转换异常</p>
-</blockquote>
-<p>当试图将对某个对象强制执行向下转型，但该对象又不可转换又不可转换为其子类的实例时将引发该异常，如下列代码。</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">String str = obj;</span><br><span class="line">java.lang.FileNotFoundException</span><br></pre></td></tr></table></figure>
-</li>
-<li><h5 id="java-lang-FileNotFoundException"><a href="#java-lang-FileNotFoundException" class="headerlink" title="java.lang.FileNotFoundException"></a>java.lang.FileNotFoundException</h5><blockquote>
-<p>文件未找到异常</p>
-</blockquote>
-<p>当程序试图打开一个不存在的文件进行读写时将会引发该异常。该异常由FileInputStream,FileOutputStream,RandomAccessFile的构造器声明抛出<br>即使被操作的文件存在，但是由于某些原因不可访问，比如打开一个只读文件进行写入，这些构造方法仍然会引发异常</p>
-</li>
-<li><h5 id="java-lang-ArrayStoreException"><a href="#java-lang-ArrayStoreException" class="headerlink" title="java.lang.ArrayStoreException"></a>java.lang.ArrayStoreException</h5><blockquote>
-<p>数组存储异常</p>
-</blockquote>
-<p>当试图将类型不兼容类型的对象存入一个Object[]数组时将引发异常</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object[] obj = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line">obj[<span class="number">0</span>] = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">java.lang.NoSuchMethodException</span><br></pre></td></tr></table></figure>
-</li>
-<li><h5 id="java-lang-NoSuchMethodException"><a href="#java-lang-NoSuchMethodException" class="headerlink" title="java.lang.NoSuchMethodException"></a>java.lang.NoSuchMethodException</h5><blockquote>
-<p>方法不存在异常  </p>
-</blockquote>
-<p>当程序试图通过反射来创建对象，访问(修改或读取)某个方法，但是该方法不存在就会引发异常</p>
-</li>
-<li><h5 id="java-lang-NoSuchFiledException"><a href="#java-lang-NoSuchFiledException" class="headerlink" title="java.lang.NoSuchFiledException"></a>java.lang.NoSuchFiledException</h5><blockquote>
-<p>方法不存在异常</p>
-</blockquote>
-<p>当程序试图通过反射来创建对象，访问(修改或读取)某个filed，但是该filed不存在就会引发异常</p>
-</li>
-<li><h5 id="java-lang-EOFException"><a href="#java-lang-EOFException" class="headerlink" title="java.lang.EOFException"></a>java.lang.EOFException</h5><blockquote>
-<p>文件已结束异常</p>
-</blockquote>
-<p>当程序在输入的过程中遇到文件或流的结尾时，引发异常。因此该异常用于检查是否达到文件或流的结尾</p>
-</li>
-<li><h5 id="java-lang-InstantiationException"><a href="#java-lang-InstantiationException" class="headerlink" title="java.lang.InstantiationException"></a>java.lang.InstantiationException</h5><blockquote>
-<p>实例化异常</p>
-</blockquote>
-<p>当试图通过Class的newInstance()方法创建某个类的实例,但程序无法通过该构造器来创建该对象时引发<br>Class对象表示一个抽象类，接口，数组类，基本类型<br>该Class表示的类没有对应的构造器</p>
-</li>
-<li><h5 id="java-lang-InterruptedException"><a href="#java-lang-InterruptedException" class="headerlink" title="java.lang.InterruptedException"></a>java.lang.InterruptedException</h5><blockquote>
-<p>被中止异常</p>
-</blockquote>
-<p>当某个线程处于长时间的等待、休眠或其他暂停状态，而此时其他的线程通过Thread的interrupt方法终止该线程时抛出该异常。</p>
-</li>
-<li><h5 id="java-lang-CloneNotSupportedException"><a href="#java-lang-CloneNotSupportedException" class="headerlink" title="java.lang.CloneNotSupportedException"></a>java.lang.CloneNotSupportedException</h5><blockquote>
-<p>不支持克隆异常</p>
-</blockquote>
-<p>当没有实现Cloneable接口或者不支持克隆方法时,调用其clone()方法则抛出该异常。</p>
-</li>
-<li><h5 id="java-lang-OutOfMemoryException"><a href="#java-lang-OutOfMemoryException" class="headerlink" title="java.lang.OutOfMemoryException"></a>java.lang.OutOfMemoryException</h5><blockquote>
-<p>内存不足错误</p>
-</blockquote>
-<p>当可用内存不足以让Java虚拟机分配给一个对象时抛出该错误。</p>
-</li>
-<li><h5 id="java-lang-NoClassDefFoundException"><a href="#java-lang-NoClassDefFoundException" class="headerlink" title="java.lang.NoClassDefFoundException"></a>java.lang.NoClassDefFoundException</h5><blockquote>
-<p>未找到类定义错误</p>
-</blockquote>
-<p>当Java虚拟机或者类装载器试图实例化某个类，而找不到该类的定义时抛出该错误。</p>
-</li>
-<li><h5 id="违背安全原则异常：SecturityException"><a href="#违背安全原则异常：SecturityException" class="headerlink" title="违背安全原则异常：SecturityException"></a>违背安全原则异常：SecturityException</h5></li>
-<li><h5 id="操作数据库异常：SQLException"><a href="#操作数据库异常：SQLException" class="headerlink" title="操作数据库异常：SQLException"></a>操作数据库异常：SQLException</h5></li>
-<li><h5 id="输入输出异常：IOException"><a href="#输入输出异常：IOException" class="headerlink" title="输入输出异常：IOException"></a>输入输出异常：IOException</h5></li>
-<li><h5 id="通信异常：SocketException"><a href="#通信异常：SocketException" class="headerlink" title="通信异常：SocketException"></a>通信异常：SocketException</h5></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>异常</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>异常</tag>
       </tags>
   </entry>
   <entry>
@@ -1642,6 +1530,130 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac下利用GCP和v2ray搭建无限使用梯子</title>
+    <url>/2019/02/18/Mac%E4%B8%8B%E5%88%A9%E7%94%A8GCP%E5%92%8Cv2ray%E6%90%AD%E5%BB%BA%E6%97%A0%E9%99%90%E4%BD%BF%E7%94%A8%E6%A2%AF%E5%AD%90/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>妈妈再也不用为我担心没梯子用了</p>
+<a id="more"></a>
+<h2 id="新用户申请GCP-Google-Cloud-Platform"><a href="#新用户申请GCP-Google-Cloud-Platform" class="headerlink" title="新用户申请GCP(Google Cloud Platform)"></a><a href="https://cloud.google.com/free/?hl=zh-cn" target="_blank" rel="noopener">新用户申请GCP(Google Cloud Platform)</a></h2><ul>
+<li>这一步很蛋疼，需要先fq，所以小伙伴们可以先借同事或朋友的梯子注册一下来搞。总之，先注册上GCP</li>
+<li>进去之后按照步骤填写信息。在最后需要小伙伴填写一个信用卡号，用来验证和今后扣取费用（我们这里只需要验证，右边的提示也说不会自动扣费）</li>
+<li>关于信用卡，小伙伴们可以上<strong>某宝</strong>买一个，直接搜“<strong>虚拟信用卡</strong>”，大概在25元左右一个。一般来说店小二会给你提供包括：<strong>持卡人</strong>、<strong>卡号</strong>、<strong>卡有效期</strong>、<strong>CVV</strong>和<strong>账单地址</strong>等信息。这些信息在注册GCP时按照店小二给你发的如实填写即可。<em>注：地区最好和店小二发给你的保持一致</em>。</li>
+<li>假设到这里没问题的话，点击注册，你就会得到一个为期365天的试用期，里面有300刀。</li>
+</ul>
+<h2 id="创建MV实例"><a href="#创建MV实例" class="headerlink" title="创建MV实例"></a>创建MV实例</h2><ul>
+<li>进入 “导航菜单”-&gt;“Compute Engine”-&gt;”VM 实例”，选择“VM 实例”。首次进来可能需要初始化一下，初始化后点击“创建”来创建我们的VM；如果以前用过的话直接点击创建实例即可。</li>
+<li><p>进入到创建实例界面，按照步骤填写即可，这里给个建议：</p>
+<ul>
+<li><p>区域，最好选一个里你进的地方，比如香港，台湾，东京等地；机器类型</p>
+</li>
+<li><p>机器类型，选择<strong>微型</strong>即可，够用且便宜</p>
+</li>
+<li><p>启动磁盘，<strong>默认</strong>即可</p>
+</li>
+<li><p>防火墙，“<strong>允许HTTP流量</strong>”和“<strong>允许HTTPS流量</strong>”都勾上</p>
+</li>
+<li><p>展开防火墙管理，选择“网络”，并在“网络标记”处填入防火墙出入站规则名称，分别为“<strong>ruzhan</strong>”和”<strong>chuzhan</strong>“（咱们先填写，后面再创建）</p>
+</li>
+</ul>
+</li>
+<li><p>点击创建，完成MV创建</p>
+</li>
+</ul>
+<h2 id="安装v2ray"><a href="#安装v2ray" class="headerlink" title="安装v2ray"></a>安装v2ray</h2><ul>
+<li><p>点击新创建的实例的连接“<strong>SSH</strong>”，登入远程连接。登入后做一下几个准备操作：<br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac下利用GCP和v2ray搭建无限使用梯子/2-2023-03-06-11-01-59.png" alt="SSH"></p>
+<ul>
+<li><p>切换为管理员，<strong>sudo -i</strong></p>
+</li>
+<li><p>执行”date -R”查看当前时间和服务器是否一致（一般都不一致）</p>
+</li>
+<li><p>以服务器在<em>上海</em>的为例，执行一下命令将时间同步一下 “<strong>cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime</strong>“，执行后查看当前时间是否一致“<strong>date -R</strong>”，这个时候发现时间已经同步了</p>
+</li>
+<li><p>接下来开始安装v2ray，咱们直接执行官方提供的脚本命令”<strong>bash &lt;(curl -L -s <a href="https://install.direct/go.sh" target="_blank" rel="noopener">https://install.direct/go.sh</a>)</strong>“</p>
+</li>
+<li><p>等待安装完毕，配置v2ray的配置文件位置在”/etc/v2ray/config.json”，里面已经有一个官方默认配置好的配置，我们先把内容删除，都是基本vi操作。打开”vi /etc/v2ray/config.json“，按”dd“删除了第一行，后面的可以直接按”.”把剩下的内容删完。</p>
+</li>
+<li><p>此时咱们打开<a href="https://intmainreturn0.com/v2ray-config-gen/#" target="_blank" rel="noopener">v2ray配置生成器</a>，<strong>设置</strong>填写建议如下：</p>
+<ul>
+<li>服务种类：默认</li>
+<li>用户设置-&gt;用户uuid：多点几下</li>
+<li>用户设置-&gt;使用的alterID数量：随意，我填了101</li>
+<li>端口设置-&gt;端口号：随意，找一个不太会被占用的</li>
+</ul>
+</li>
+<li><p>点击<strong>服务端配置</strong>的<strong>复制配置</strong>，将该配置粘贴到”/etc/v2ray/config.json“，在删完内容的配置文件里按下”i”，直接command+v粘贴即可</p>
+</li>
+<li><p>依次按下 ”ESC“+”:wq“+回车，保存退出</p>
+</li>
+<li><p>重启v2ray服务，”<strong>sudo systemctl restart v2ray</strong>“</p>
+</li>
+<li><p>查看v2ray运行状态，”<strong>service v2ray status</strong>“，看到此时已经是”Active: active (running)“</p>
+</li>
+<li><p>到此MV基本配置完成，接下来配置两个出入站规则</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="出入站防火墙搭建"><a href="#出入站防火墙搭建" class="headerlink" title="出入站防火墙搭建"></a>出入站防火墙搭建</h2><ul>
+<li><p>进入 “导航菜单”-&gt;“VPC网络”-&gt;”防火墙规则”，点击”创建防火墙规则“，分别创建出站和入站规则，如下图：</p>
+</li>
+<li><p>出站规则  </p>
+</li>
+</ul>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac下利用GCP和v2ray搭建无限使用梯子/3-2023-03-06-11-02-25.png" alt="出站规则"></p>
+<ul>
+<li>入站规则</li>
+</ul>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac下利用GCP和v2ray搭建无限使用梯子/4-2023-03-06-11-02-40.png" alt="入站规则"></p>
+<ul>
+<li>回到MV实例，单击MV实例的名称，进入到MV实例详情页面，点击”<strong>修改</strong>“，如果在<strong>创建VM实例</strong>步骤没有配置”<strong>网络标记</strong>“选项，在这里把出入站规则名称填入其中，保存即可；因为在<strong>创建VM实例</strong>时已经把出入站名称填好了，这里就不用设置了</li>
+</ul>
+<h2 id="配置Mac端v2ray客户端配置信息"><a href="#配置Mac端v2ray客户端配置信息" class="headerlink" title="配置Mac端v2ray客户端配置信息"></a>配置Mac端v2ray客户端配置信息</h2><ul>
+<li><p>没有客户端的小伙伴可以<a href="https://github.com/Cenmrev/V2RayX" target="_blank" rel="noopener">自行下载</a>，Mac端可以用brew安装”<strong>brew cask install v2rayx</strong>“</p>
+</li>
+<li><p>安装完毕，打开软件配置。点击”Configure…“，配置可参考我的：</p>
+</li>
+</ul>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac下利用GCP和v2ray搭建无限使用梯子/5-2023-03-06-11-02-58.png" alt="Configure"></p>
+<ul>
+<li>配置完成，选择”Global Mode“，再点击”local core“，完成！剩下的你懂的</li>
+</ul>
+<h2 id="续命"><a href="#续命" class="headerlink" title="续命"></a>续命</h2><ul>
+<li>当你试用账号快到期的时候，进入“导航菜单”-&gt;“结算”-&gt;”显示信息面板“，将结算账号管理员删除，过个5、6分钟后再次申请试用账号即可，而且你的VM也还在</li>
+</ul>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac下利用GCP和v2ray搭建无限使用梯子/6-2023-03-06-11-03-11.png" alt="Configure"></p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>梯子</tag>
+        <tag>v2ray</tag>
+        <tag>GCP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac安装软件时提示已损坏的解决方法</title>
+    <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/1-2023-03-06-10-50-35.png" alt="已损坏"></p>
+<a id="more"></a>
+<p>这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>打开终端，在终端中输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
+<p>输入密码，回车。搞定<br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/2-2023-03-06-10-51-14.png" alt="2-2023-03-06-10-51-14"></p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>文件损坏</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac下安装mysql5.7完整步骤及问题整理</title>
     <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
     <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
@@ -1663,15 +1675,21 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac安装软件时提示已损坏的解决方法</title>
-    <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/1-2023-03-06-10-50-35.png" alt="已损坏"></p>
+    <title>Mac远程连接谷歌云VM实例</title>
+    <url>/2019/02/19/Mac%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%B0%B7%E6%AD%8C%E4%BA%91VM%E5%AE%9E%E4%BE%8B/</url>
+    <content><![CDATA[<p>一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了<br>官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话）</p>
 <a id="more"></a>
-<p>这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>打开终端，在终端中输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
-<p>输入密码，回车。搞定<br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/2-2023-03-06-10-51-14.png" alt="2-2023-03-06-10-51-14"></p>
+<h2 id="第一步-生成密钥对"><a href="#第一步-生成密钥对" class="headerlink" title="第一步:生成密钥对"></a>第一步:生成密钥对</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -f ~/.ssh/秘钥名称 -C "邮箱"</span><br></pre></td></tr></table></figure>
+<p>这样就在主目录下的.ssh目录中生成了两个文件“秘钥名称”和“秘钥名称.pub”。“秘钥名称”中保存的是私钥，”秘钥名称.pub“中保存的是公钥。</p>
+<h2 id="第二步-添加公钥"><a href="#第二步-添加公钥" class="headerlink" title="第二步:添加公钥"></a>第二步:添加公钥</h2><p>拷贝公钥到剪切板:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pbcopy &lt; 秘钥名称.pub</span><br></pre></td></tr></table></figure>
+<p>在GPC导航菜单中找到”元数据“连接，选择”SSH秘钥“选项卡-&gt;点击”修改“按钮-&gt;”添加一项“，粘贴公钥，保存，就添加完成了。</p>
+<h2 id="第三步-测试"><a href="#第三步-测试" class="headerlink" title="第三步:测试"></a>第三步:测试</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -i ~/.ssh/秘钥名称 用户名@VM外部IP</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用户名，在第二部添加公钥时，粘贴之后会在第一列出现你的用户名</li>
+</ul>
+<p>如果没问题的话你已经进入到VM实例终端了</p>
+<p>同样的方式gitlab和GitHub也是支持的</p>
 ]]></content>
       <categories>
         <category>OS</category>
@@ -1679,7 +1697,120 @@
       </categories>
       <tags>
         <tag>Mac</tag>
-        <tag>文件损坏</tag>
+        <tag>GCP</tag>
+        <tag>谷歌云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java常见异常总结</title>
+    <url>/2018/03/18/Java%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<ul>
+<li><h5 id="java-lang-NullPointerException-空指针异常"><a href="#java-lang-NullPointerException-空指针异常" class="headerlink" title="java.lang.NullPointerException(空指针异常)"></a>java.lang.NullPointerException(空指针异常)</h5><blockquote>
+<p>调用了未经初始化的对象或者是不存在的对象</p>
+</blockquote>
+<p>经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，<br>即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，<br>依然是空的，所以还需要对每个元素都进行初始化（如果要调用的话）。</p>
+<a id="more"></a>
+</li>
+<li><h5 id="java-lang-ClassNotFoundException"><a href="#java-lang-ClassNotFoundException" class="headerlink" title="java.lang.ClassNotFoundException　　"></a>java.lang.ClassNotFoundException　　</h5><blockquote>
+<p>指定的类不存在</p>
+</blockquote>
+<p> 这里主要考虑一下类的名称和路径是否正确即可，通常都是程序试图通过字符串来加载某个类时可能引发 异常<br> 比如：调用Class.forName();<br> 或者调用ClassLoad的finaSystemClass();或者LoadClass();</p>
+</li>
+<li><h5 id="java-lang-NumberFormatException"><a href="#java-lang-NumberFormatException" class="headerlink" title="java.lang.NumberFormatException"></a>java.lang.NumberFormatException</h5><blockquote>
+<p>字符串转换为数字异常</p>
+</blockquote>
+<p>当试图将一个String转换为指定的数字类型，而该字符串确不满足数字类型要求的格式时，抛出该异常.如现在讲字符型的数据“123456”转换为数值型数据时，是允许的。<br>但是如果字符型数据中包含了非数字型的字符，如123#56，此时转换为数值型时就会出现异常。系统就会捕捉到这个异常，并进行处理.</p>
+</li>
+<li><h5 id="java-lang-IndexOutOfBoundsException"><a href="#java-lang-IndexOutOfBoundsException" class="headerlink" title="java.lang.IndexOutOfBoundsException"></a>java.lang.IndexOutOfBoundsException</h5><blockquote>
+<p>数组下标越界异常</p>
+</blockquote>
+<p>查看调用的数组或者字符串的下标值是不是超出了数组的范围，一般来说，显示（即直接用常数当下标）调用不太容易出这样的错，但隐式（即用变量表示下标）调用就经常出错了，还有一种情况，是程序中定义的数组的长度是通过某些特定方法决定的，不是事先声明的，这个时候，最好先查看一下数组的length，以免出现这个异常。</p>
+</li>
+<li><h5 id="java-lang-IllegalArgumentException"><a href="#java-lang-IllegalArgumentException" class="headerlink" title="java.lang.IllegalArgumentException"></a>java.lang.IllegalArgumentException</h5><blockquote>
+<p>方法的参数错误</p>
+</blockquote>
+<p>比如g.setColor(int red,int green,int blue)这个方法中的三个值，如果有超过２５５的也会出现这个异常，因此一旦发现这个异常，我们要做的，就是赶紧去检查一下方法调用中的参数传递是不是出现了错误。</p>
+</li>
+<li><h5 id="java-lang-IllegalAccessException"><a href="#java-lang-IllegalAccessException" class="headerlink" title="java.lang.IllegalAccessException"></a>java.lang.IllegalAccessException</h5><blockquote>
+<p>没有访问权限</p>
+</blockquote>
+<p>当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常。对程序中用了Package的情况下要注意这个异常</p>
+</li>
+<li><h5 id="java-lang-ArithmeticException"><a href="#java-lang-ArithmeticException" class="headerlink" title="java.lang.ArithmeticException"></a>java.lang.ArithmeticException</h5><blockquote>
+<p>数学运算异常</p>
+</blockquote>
+<p>当算术运算中出现了除以零这样的运算就会出这样的异常。</p>
+</li>
+<li><h5 id="java-lang-ClassCastException"><a href="#java-lang-ClassCastException" class="headerlink" title="java.lang.ClassCastException"></a>java.lang.ClassCastException</h5><blockquote>
+<p>数据类型转换异常</p>
+</blockquote>
+<p>当试图将对某个对象强制执行向下转型，但该对象又不可转换又不可转换为其子类的实例时将引发该异常，如下列代码。</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">String str = obj;</span><br><span class="line">java.lang.FileNotFoundException</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="java-lang-FileNotFoundException"><a href="#java-lang-FileNotFoundException" class="headerlink" title="java.lang.FileNotFoundException"></a>java.lang.FileNotFoundException</h5><blockquote>
+<p>文件未找到异常</p>
+</blockquote>
+<p>当程序试图打开一个不存在的文件进行读写时将会引发该异常。该异常由FileInputStream,FileOutputStream,RandomAccessFile的构造器声明抛出<br>即使被操作的文件存在，但是由于某些原因不可访问，比如打开一个只读文件进行写入，这些构造方法仍然会引发异常</p>
+</li>
+<li><h5 id="java-lang-ArrayStoreException"><a href="#java-lang-ArrayStoreException" class="headerlink" title="java.lang.ArrayStoreException"></a>java.lang.ArrayStoreException</h5><blockquote>
+<p>数组存储异常</p>
+</blockquote>
+<p>当试图将类型不兼容类型的对象存入一个Object[]数组时将引发异常</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object[] obj = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line">obj[<span class="number">0</span>] = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">java.lang.NoSuchMethodException</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="java-lang-NoSuchMethodException"><a href="#java-lang-NoSuchMethodException" class="headerlink" title="java.lang.NoSuchMethodException"></a>java.lang.NoSuchMethodException</h5><blockquote>
+<p>方法不存在异常  </p>
+</blockquote>
+<p>当程序试图通过反射来创建对象，访问(修改或读取)某个方法，但是该方法不存在就会引发异常</p>
+</li>
+<li><h5 id="java-lang-NoSuchFiledException"><a href="#java-lang-NoSuchFiledException" class="headerlink" title="java.lang.NoSuchFiledException"></a>java.lang.NoSuchFiledException</h5><blockquote>
+<p>方法不存在异常</p>
+</blockquote>
+<p>当程序试图通过反射来创建对象，访问(修改或读取)某个filed，但是该filed不存在就会引发异常</p>
+</li>
+<li><h5 id="java-lang-EOFException"><a href="#java-lang-EOFException" class="headerlink" title="java.lang.EOFException"></a>java.lang.EOFException</h5><blockquote>
+<p>文件已结束异常</p>
+</blockquote>
+<p>当程序在输入的过程中遇到文件或流的结尾时，引发异常。因此该异常用于检查是否达到文件或流的结尾</p>
+</li>
+<li><h5 id="java-lang-InstantiationException"><a href="#java-lang-InstantiationException" class="headerlink" title="java.lang.InstantiationException"></a>java.lang.InstantiationException</h5><blockquote>
+<p>实例化异常</p>
+</blockquote>
+<p>当试图通过Class的newInstance()方法创建某个类的实例,但程序无法通过该构造器来创建该对象时引发<br>Class对象表示一个抽象类，接口，数组类，基本类型<br>该Class表示的类没有对应的构造器</p>
+</li>
+<li><h5 id="java-lang-InterruptedException"><a href="#java-lang-InterruptedException" class="headerlink" title="java.lang.InterruptedException"></a>java.lang.InterruptedException</h5><blockquote>
+<p>被中止异常</p>
+</blockquote>
+<p>当某个线程处于长时间的等待、休眠或其他暂停状态，而此时其他的线程通过Thread的interrupt方法终止该线程时抛出该异常。</p>
+</li>
+<li><h5 id="java-lang-CloneNotSupportedException"><a href="#java-lang-CloneNotSupportedException" class="headerlink" title="java.lang.CloneNotSupportedException"></a>java.lang.CloneNotSupportedException</h5><blockquote>
+<p>不支持克隆异常</p>
+</blockquote>
+<p>当没有实现Cloneable接口或者不支持克隆方法时,调用其clone()方法则抛出该异常。</p>
+</li>
+<li><h5 id="java-lang-OutOfMemoryException"><a href="#java-lang-OutOfMemoryException" class="headerlink" title="java.lang.OutOfMemoryException"></a>java.lang.OutOfMemoryException</h5><blockquote>
+<p>内存不足错误</p>
+</blockquote>
+<p>当可用内存不足以让Java虚拟机分配给一个对象时抛出该错误。</p>
+</li>
+<li><h5 id="java-lang-NoClassDefFoundException"><a href="#java-lang-NoClassDefFoundException" class="headerlink" title="java.lang.NoClassDefFoundException"></a>java.lang.NoClassDefFoundException</h5><blockquote>
+<p>未找到类定义错误</p>
+</blockquote>
+<p>当Java虚拟机或者类装载器试图实例化某个类，而找不到该类的定义时抛出该错误。</p>
+</li>
+<li><h5 id="违背安全原则异常：SecturityException"><a href="#违背安全原则异常：SecturityException" class="headerlink" title="违背安全原则异常：SecturityException"></a>违背安全原则异常：SecturityException</h5></li>
+<li><h5 id="操作数据库异常：SQLException"><a href="#操作数据库异常：SQLException" class="headerlink" title="操作数据库异常：SQLException"></a>操作数据库异常：SQLException</h5></li>
+<li><h5 id="输入输出异常：IOException"><a href="#输入输出异常：IOException" class="headerlink" title="输入输出异常：IOException"></a>输入输出异常：IOException</h5></li>
+<li><h5 id="通信异常：SocketException"><a href="#通信异常：SocketException" class="headerlink" title="通信异常：SocketException"></a>通信异常：SocketException</h5></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>异常</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>异常</tag>
       </tags>
   </entry>
   <entry>
@@ -1707,33 +1838,6 @@
       </categories>
       <tags>
         <tag>Framework3.5无法安装</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac远程连接谷歌云VM实例</title>
-    <url>/2019/02/19/Mac%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%B0%B7%E6%AD%8C%E4%BA%91VM%E5%AE%9E%E4%BE%8B/</url>
-    <content><![CDATA[<p>一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了<br>官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话）</p>
-<a id="more"></a>
-<h2 id="第一步-生成密钥对"><a href="#第一步-生成密钥对" class="headerlink" title="第一步:生成密钥对"></a>第一步:生成密钥对</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -f ~/.ssh/秘钥名称 -C "邮箱"</span><br></pre></td></tr></table></figure>
-<p>这样就在主目录下的.ssh目录中生成了两个文件“秘钥名称”和“秘钥名称.pub”。“秘钥名称”中保存的是私钥，”秘钥名称.pub“中保存的是公钥。</p>
-<h2 id="第二步-添加公钥"><a href="#第二步-添加公钥" class="headerlink" title="第二步:添加公钥"></a>第二步:添加公钥</h2><p>拷贝公钥到剪切板:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pbcopy &lt; 秘钥名称.pub</span><br></pre></td></tr></table></figure>
-<p>在GPC导航菜单中找到”元数据“连接，选择”SSH秘钥“选项卡-&gt;点击”修改“按钮-&gt;”添加一项“，粘贴公钥，保存，就添加完成了。</p>
-<h2 id="第三步-测试"><a href="#第三步-测试" class="headerlink" title="第三步:测试"></a>第三步:测试</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -i ~/.ssh/秘钥名称 用户名@VM外部IP</span><br></pre></td></tr></table></figure>
-<ul>
-<li>用户名，在第二部添加公钥时，粘贴之后会在第一列出现你的用户名</li>
-</ul>
-<p>如果没问题的话你已经进入到VM实例终端了</p>
-<p>同样的方式gitlab和GitHub也是支持的</p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac</tag>
-        <tag>谷歌云</tag>
-        <tag>GCP</tag>
       </tags>
   </entry>
   <entry>
@@ -2055,110 +2159,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac下利用GCP和v2ray搭建无限使用梯子</title>
-    <url>/2019/02/18/Mac%E4%B8%8B%E5%88%A9%E7%94%A8GCP%E5%92%8Cv2ray%E6%90%AD%E5%BB%BA%E6%97%A0%E9%99%90%E4%BD%BF%E7%94%A8%E6%A2%AF%E5%AD%90/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>妈妈再也不用为我担心没梯子用了</p>
-<a id="more"></a>
-<h2 id="新用户申请GCP-Google-Cloud-Platform"><a href="#新用户申请GCP-Google-Cloud-Platform" class="headerlink" title="新用户申请GCP(Google Cloud Platform)"></a><a href="https://cloud.google.com/free/?hl=zh-cn" target="_blank" rel="noopener">新用户申请GCP(Google Cloud Platform)</a></h2><ul>
-<li>这一步很蛋疼，需要先fq，所以小伙伴们可以先借同事或朋友的梯子注册一下来搞。总之，先注册上GCP</li>
-<li>进去之后按照步骤填写信息。在最后需要小伙伴填写一个信用卡号，用来验证和今后扣取费用（我们这里只需要验证，右边的提示也说不会自动扣费）</li>
-<li>关于信用卡，小伙伴们可以上<strong>某宝</strong>买一个，直接搜“<strong>虚拟信用卡</strong>”，大概在25元左右一个。一般来说店小二会给你提供包括：<strong>持卡人</strong>、<strong>卡号</strong>、<strong>卡有效期</strong>、<strong>CVV</strong>和<strong>账单地址</strong>等信息。这些信息在注册GCP时按照店小二给你发的如实填写即可。<em>注：地区最好和店小二发给你的保持一致</em>。</li>
-<li>假设到这里没问题的话，点击注册，你就会得到一个为期365天的试用期，里面有300刀。</li>
-</ul>
-<h2 id="创建MV实例"><a href="#创建MV实例" class="headerlink" title="创建MV实例"></a>创建MV实例</h2><ul>
-<li>进入 “导航菜单”-&gt;“Compute Engine”-&gt;”VM 实例”，选择“VM 实例”。首次进来可能需要初始化一下，初始化后点击“创建”来创建我们的VM；如果以前用过的话直接点击创建实例即可。</li>
-<li><p>进入到创建实例界面，按照步骤填写即可，这里给个建议：</p>
-<ul>
-<li><p>区域，最好选一个里你进的地方，比如香港，台湾，东京等地；机器类型</p>
-</li>
-<li><p>机器类型，选择<strong>微型</strong>即可，够用且便宜</p>
-</li>
-<li><p>启动磁盘，<strong>默认</strong>即可</p>
-</li>
-<li><p>防火墙，“<strong>允许HTTP流量</strong>”和“<strong>允许HTTPS流量</strong>”都勾上</p>
-</li>
-<li><p>展开防火墙管理，选择“网络”，并在“网络标记”处填入防火墙出入站规则名称，分别为“<strong>ruzhan</strong>”和”<strong>chuzhan</strong>“（咱们先填写，后面再创建）</p>
-</li>
-</ul>
-</li>
-<li><p>点击创建，完成MV创建</p>
-</li>
-</ul>
-<h2 id="安装v2ray"><a href="#安装v2ray" class="headerlink" title="安装v2ray"></a>安装v2ray</h2><ul>
-<li><p>点击新创建的实例的连接“<strong>SSH</strong>”，登入远程连接。登入后做一下几个准备操作：<br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac下利用GCP和v2ray搭建无限使用梯子/2-2023-03-06-11-01-59.png" alt="SSH"></p>
-<ul>
-<li><p>切换为管理员，<strong>sudo -i</strong></p>
-</li>
-<li><p>执行”date -R”查看当前时间和服务器是否一致（一般都不一致）</p>
-</li>
-<li><p>以服务器在<em>上海</em>的为例，执行一下命令将时间同步一下 “<strong>cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime</strong>“，执行后查看当前时间是否一致“<strong>date -R</strong>”，这个时候发现时间已经同步了</p>
-</li>
-<li><p>接下来开始安装v2ray，咱们直接执行官方提供的脚本命令”<strong>bash &lt;(curl -L -s <a href="https://install.direct/go.sh" target="_blank" rel="noopener">https://install.direct/go.sh</a>)</strong>“</p>
-</li>
-<li><p>等待安装完毕，配置v2ray的配置文件位置在”/etc/v2ray/config.json”，里面已经有一个官方默认配置好的配置，我们先把内容删除，都是基本vi操作。打开”vi /etc/v2ray/config.json“，按”dd“删除了第一行，后面的可以直接按”.”把剩下的内容删完。</p>
-</li>
-<li><p>此时咱们打开<a href="https://intmainreturn0.com/v2ray-config-gen/#" target="_blank" rel="noopener">v2ray配置生成器</a>，<strong>设置</strong>填写建议如下：</p>
-<ul>
-<li>服务种类：默认</li>
-<li>用户设置-&gt;用户uuid：多点几下</li>
-<li>用户设置-&gt;使用的alterID数量：随意，我填了101</li>
-<li>端口设置-&gt;端口号：随意，找一个不太会被占用的</li>
-</ul>
-</li>
-<li><p>点击<strong>服务端配置</strong>的<strong>复制配置</strong>，将该配置粘贴到”/etc/v2ray/config.json“，在删完内容的配置文件里按下”i”，直接command+v粘贴即可</p>
-</li>
-<li><p>依次按下 ”ESC“+”:wq“+回车，保存退出</p>
-</li>
-<li><p>重启v2ray服务，”<strong>sudo systemctl restart v2ray</strong>“</p>
-</li>
-<li><p>查看v2ray运行状态，”<strong>service v2ray status</strong>“，看到此时已经是”Active: active (running)“</p>
-</li>
-<li><p>到此MV基本配置完成，接下来配置两个出入站规则</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="出入站防火墙搭建"><a href="#出入站防火墙搭建" class="headerlink" title="出入站防火墙搭建"></a>出入站防火墙搭建</h2><ul>
-<li><p>进入 “导航菜单”-&gt;“VPC网络”-&gt;”防火墙规则”，点击”创建防火墙规则“，分别创建出站和入站规则，如下图：</p>
-</li>
-<li><p>出站规则  </p>
-</li>
-</ul>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac下利用GCP和v2ray搭建无限使用梯子/3-2023-03-06-11-02-25.png" alt="出站规则"></p>
-<ul>
-<li>入站规则</li>
-</ul>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac下利用GCP和v2ray搭建无限使用梯子/4-2023-03-06-11-02-40.png" alt="入站规则"></p>
-<ul>
-<li>回到MV实例，单击MV实例的名称，进入到MV实例详情页面，点击”<strong>修改</strong>“，如果在<strong>创建VM实例</strong>步骤没有配置”<strong>网络标记</strong>“选项，在这里把出入站规则名称填入其中，保存即可；因为在<strong>创建VM实例</strong>时已经把出入站名称填好了，这里就不用设置了</li>
-</ul>
-<h2 id="配置Mac端v2ray客户端配置信息"><a href="#配置Mac端v2ray客户端配置信息" class="headerlink" title="配置Mac端v2ray客户端配置信息"></a>配置Mac端v2ray客户端配置信息</h2><ul>
-<li><p>没有客户端的小伙伴可以<a href="https://github.com/Cenmrev/V2RayX" target="_blank" rel="noopener">自行下载</a>，Mac端可以用brew安装”<strong>brew cask install v2rayx</strong>“</p>
-</li>
-<li><p>安装完毕，打开软件配置。点击”Configure…“，配置可参考我的：</p>
-</li>
-</ul>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac下利用GCP和v2ray搭建无限使用梯子/5-2023-03-06-11-02-58.png" alt="Configure"></p>
-<ul>
-<li>配置完成，选择”Global Mode“，再点击”local core“，完成！剩下的你懂的</li>
-</ul>
-<h2 id="续命"><a href="#续命" class="headerlink" title="续命"></a>续命</h2><ul>
-<li>当你试用账号快到期的时候，进入“导航菜单”-&gt;“结算”-&gt;”显示信息面板“，将结算账号管理员删除，过个5、6分钟后再次申请试用账号即可，而且你的VM也还在</li>
-</ul>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac下利用GCP和v2ray搭建无限使用梯子/6-2023-03-06-11-03-11.png" alt="Configure"></p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac</tag>
-        <tag>GCP</tag>
-        <tag>梯子</tag>
-        <tag>v2ray</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>学不会的华为 IPD，其实是这样！</title>
     <url>/2022/12/21/%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E5%8D%8E%E4%B8%BA%20IPD%EF%BC%8C%E5%85%B6%E5%AE%9E%E6%98%AF%E8%BF%99%E6%A0%B7%EF%BC%81/</url>
     <content><![CDATA[<p>美国著名作家弗格森说了一句话 “谁也无法说服他人改变，因为我们每个人都守着一扇只能从内心开启的改变之门，不论动之以情或晓之以理，我们都不能替别人开门”。</p>
@@ -2311,6 +2311,83 @@
       </tags>
   </entry>
   <entry>
+    <title>树莓派3B+制作视频监控</title>
+    <url>/2019/03/12/%E6%A0%91%E8%8E%93%E6%B4%BE3Bplus%E5%88%B6%E4%BD%9C%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/logo-2023-03-06-09-53-34.png" alt="logo-2023-03-06-09-53-34"></p>
+<h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p>本人育有一毛，此猫调皮捣蛋，因此想要做个监控放在家里，在公司上班的时候看看它到底在家里捣什么鬼蛋！</p>
+<a id="more"></a>
+<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><blockquote>
+<p>环境：树莓派3B+<br>操作系统：树莓派3B+默认系统<br>摄像头：N年前买的一个USB摄像头（比树莓派官方好点）  </p>
+</blockquote>
+<h1 id="1-更新列表"><a href="#1-更新列表" class="headerlink" title="1.更新列表"></a>1.更新列表</h1><p>这一步可能有点慢，请耐心等待。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新软件列表</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新软件</span></span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+<h1 id="2-开启摄像头"><a href="#2-开启摄像头" class="headerlink" title="2.开启摄像头"></a>2.开启摄像头</h1><p>执行如下命令，进入配置页面，开启摄像头。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/1-2023-03-06-09-53-56.png" alt="1-2023-03-06-09-53-56"><br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/2-2023-03-06-09-54-04.png" alt="2-2023-03-06-09-54-04"><br>选择: “是”  -&gt; “Back” -&gt; “Finish”</p>
+<p>重启一下树莓派</p>
+<h1 id="3-安装依赖库"><a href="#3-安装依赖库" class="headerlink" title="3.安装依赖库"></a>3.安装依赖库</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> JPEG支持库</span></span><br><span class="line">sudo apt-get install libjpeg8-dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载编译工具</span></span><br><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
+<h1 id="4-下载mjpg-streamer"><a href="#4-下载mjpg-streamer" class="headerlink" title="4.下载mjpg-streamer"></a>4.下载mjpg-streamer</h1><p>随意找个目录执行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
+<p>以常见的<strong>Downloads</strong>目录为例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cd Downloads/</span><br><span class="line">pi@raspberrypi:~ $ git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
+<h1 id="5-编辑源文件（非必须）"><a href="#5-编辑源文件（非必须）" class="headerlink" title="5.编辑源文件（非必须）"></a>5.编辑源文件（非必须）</h1><p>网上有教程基本都编辑<strong>plugins/input_raspicam/input_raspicam.c</strong>源码里的几个参数（fps、width和height）<br>，这个文件是对应官方的摄像头（RaspiCamera）。</p>
+<p>我这里用的是自己的普通USB摄像头，所以这个文件可以不用修改。</p>
+<p>如果你的摄像头是普通USB摄像头，可以跳过。</p>
+<p>如果你的摄像头是官方的摄像头（RaspiCamera）那么请修改之：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:/ $ cd /home/pi/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/</span><br><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/ $ vi input_raspicam.c</span><br></pre></td></tr></table></figure>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/3-2023-03-06-09-54-21.png" alt="3-2023-03-06-09-54-21"></p>
+<h1 id="6-编译mjpg-streamer"><a href="#6-编译mjpg-streamer" class="headerlink" title="6.编译mjpg-streamer"></a>6.编译mjpg-streamer</h1><p>进入工程mjpg-streamer-experimental，进行完全编译。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental $ make clean all</span><br></pre></td></tr></table></figure>
+<h1 id="7-开启mjpg-streamer"><a href="#7-开启mjpg-streamer" class="headerlink" title="7.开启mjpg-streamer"></a>7.开启mjpg-streamer</h1><p>进入mjpg-streamer-experimental目录，使用一下指令启动摄像头。</p>
+<ul>
+<li><p>启动普通USB摄像头指令：</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_uvc.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动树莓派专用摄像头RaspiCamera指令：</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_raspicam.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h1><p>在浏览器里输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 静态图（拍照）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=snapshot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 动态图（视频监控）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=stream</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个兼容性好点</span></span><br><span class="line">http://&lt;IP&gt;：8080/javascript_stream.html</span><br></pre></td></tr></table></figure>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/cat-2023-03-06-09-54-35.jpeg" alt="cat-2023-03-06-09-54-35"></p>
+<h1 id="9-问题"><a href="#9-问题" class="headerlink" title="9.问题"></a>9.问题</h1><p>有的同学可能在<strong>开启mjpg-streamer</strong>的时候会报错，可能是你USB摄像头用了树莓派专用摄像头RaspiCamera指令的指令启动造成的（我就是这样，哈哈哈）</p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Raspberry</category>
+      </categories>
+      <tags>
+        <tag>树莓派</tag>
+        <tag>监控</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虚拟机Linux的root或普通用户密码忘记找回</title>
+    <url>/2018/07/31/%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E/</url>
+    <content><![CDATA[<h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
+<li>进入GRUB界面后，有几秒钟时间给你。进入GRUB出现：<br> Red Hat Enterprise Linux Server (2.6.18-8.e15xen) <a id="more"></a></li>
+<li>倒计时结束前，键入e出现：<br>root（hd0,0）<br>kernel /xen.gz-2.6.28-8.e15<br>module /vmlinux-2.6.18.e15xen ro root=/dev/VolGroup00/LogVo100 rhgb quiet<br>module /initrd-2.6.18-8.e15xen.img<br>上下键移到quiet那一行，按e进入，加上 linux single或者1即可，回车</li>
+<li>按b后进入重启模式，一定注意出现：<br> Starting udev:<br> 在后面输入boot回车</li>
+<li>之后出现命令行：<br> sh-3.2#</li>
+<li>输入passwd，回车即可修改root密码，输入两次密码</li>
+<li>完成之后reboot即可重启。</li>
+</ol>
+<h1 id="普通用户密码忘记了，比较简单"><a href="#普通用户密码忘记了，比较简单" class="headerlink" title="普通用户密码忘记了，比较简单"></a>普通用户密码忘记了，比较简单</h1><ol>
+<li>在root账户下，打开/etc/shadow (不是passwd文件，因为密码实际上经过加密后放在了“影子口令”文件shadow中了。passwd文件每个用户均可见，但是shadow只有root可以见)。</li>
+<li>找到普通用户名cicikasa，然后删除第二个域即可，域之间用“:”隔开的，如下：<br>cicikasa:TdkakkkYUukkjkjk:14672:0:99999:7:::<br>上述红色部分就是经过加密的密码，删除即可</li>
+<li>在普通用户下，输入passwd即可输入新密码</li>
+</ol>
+<h1 id="如果想修改VMware的bios"><a href="#如果想修改VMware的bios" class="headerlink" title="如果想修改VMware的bios"></a>如果想修改VMware的bios</h1><p>在VMWare中将BIOS设成光驱启动:<br>启动时(点击启动虚拟机按钮),按F2 ,进入BIOS 设置,找到 BOOT—把CDROM光驱，移动到最上面即可。根据提示进行设置，一般按“-”号进行设置。<br>注意：启动时，点了启动虚拟机按钮后一定要在点一下窗口（或者Ctrl +G），然后快按F2。否则，窗口没激活，F2是不起作用的.</p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>密码找回</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何超过大多数人</title>
     <url>/2019/07/22/%E5%A6%82%E4%BD%95%E8%B6%85%E8%BF%87%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%BA%BA/</url>
     <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/如何超过大多数人/1-2023-03-06-09-50-46.png" alt="1-2023-03-06-09-50-46"><br><a id="more"></a></p>
@@ -2429,151 +2506,47 @@
       </tags>
   </entry>
   <entry>
-    <title>树莓派3B+制作视频监控</title>
-    <url>/2019/03/12/%E6%A0%91%E8%8E%93%E6%B4%BE3Bplus%E5%88%B6%E4%BD%9C%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/logo-2023-03-06-09-53-34.png" alt="logo-2023-03-06-09-53-34"></p>
-<h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p>本人育有一毛，此猫调皮捣蛋，因此想要做个监控放在家里，在公司上班的时候看看它到底在家里捣什么鬼蛋！</p>
+    <title>艾默生的战略规划创新及其启示</title>
+    <url>/2023/03/03/%E8%89%BE%E9%BB%98%E7%94%9F%E7%9A%84%E6%88%98%E7%95%A5%E8%A7%84%E5%88%92%E5%88%9B%E6%96%B0%E5%8F%8A%E5%85%B6%E5%90%AF%E7%A4%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>&emsp;&emsp;本文对世界制造业取得卓越绩效的艾默生集团公司上世纪60年代以来的战略规划体系发展及其创新进行了案例研究。在对艾默生公司战略规划的发展过程、核心内容、组织流程和时间周期描述的基础上，分析了公司规划体系的“两栖型”内容创新、“一体化”组织创新和“独特性”的规划工具创新等特征，指出艾默生的战略规划体系的“三重创新”使企业战略在增长与赢利、前瞻与学习、制定与执行、普遍与独特等方面达到协调和统一，从而驱动了公司赢利的长期持续增长。最后对战略规划创新与竞争优势的关系、大中型企业的战略决策模式进行了讨论，并探讨了艾默生经验对中国大中型制造企业战略规划与战略管理体系建设的启示。</p>
+</blockquote>
 <a id="more"></a>
-<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><blockquote>
-<p>环境：树莓派3B+<br>操作系统：树莓派3B+默认系统<br>摄像头：N年前买的一个USB摄像头（比树莓派官方好点）  </p>
-</blockquote>
-<h1 id="1-更新列表"><a href="#1-更新列表" class="headerlink" title="1.更新列表"></a>1.更新列表</h1><p>这一步可能有点慢，请耐心等待。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新软件列表</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新软件</span></span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
-<h1 id="2-开启摄像头"><a href="#2-开启摄像头" class="headerlink" title="2.开启摄像头"></a>2.开启摄像头</h1><p>执行如下命令，进入配置页面，开启摄像头。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/1-2023-03-06-09-53-56.png" alt="1-2023-03-06-09-53-56"><br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/2-2023-03-06-09-54-04.png" alt="2-2023-03-06-09-54-04"><br>选择: “是”  -&gt; “Back” -&gt; “Finish”</p>
-<p>重启一下树莓派</p>
-<h1 id="3-安装依赖库"><a href="#3-安装依赖库" class="headerlink" title="3.安装依赖库"></a>3.安装依赖库</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> JPEG支持库</span></span><br><span class="line">sudo apt-get install libjpeg8-dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载编译工具</span></span><br><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
-<h1 id="4-下载mjpg-streamer"><a href="#4-下载mjpg-streamer" class="headerlink" title="4.下载mjpg-streamer"></a>4.下载mjpg-streamer</h1><p>随意找个目录执行：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
-<p>以常见的<strong>Downloads</strong>目录为例：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cd Downloads/</span><br><span class="line">pi@raspberrypi:~ $ git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
-<h1 id="5-编辑源文件（非必须）"><a href="#5-编辑源文件（非必须）" class="headerlink" title="5.编辑源文件（非必须）"></a>5.编辑源文件（非必须）</h1><p>网上有教程基本都编辑<strong>plugins/input_raspicam/input_raspicam.c</strong>源码里的几个参数（fps、width和height）<br>，这个文件是对应官方的摄像头（RaspiCamera）。</p>
-<p>我这里用的是自己的普通USB摄像头，所以这个文件可以不用修改。</p>
-<p>如果你的摄像头是普通USB摄像头，可以跳过。</p>
-<p>如果你的摄像头是官方的摄像头（RaspiCamera）那么请修改之：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:/ $ cd /home/pi/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/</span><br><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/ $ vi input_raspicam.c</span><br></pre></td></tr></table></figure>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/3-2023-03-06-09-54-21.png" alt="3-2023-03-06-09-54-21"></p>
-<h1 id="6-编译mjpg-streamer"><a href="#6-编译mjpg-streamer" class="headerlink" title="6.编译mjpg-streamer"></a>6.编译mjpg-streamer</h1><p>进入工程mjpg-streamer-experimental，进行完全编译。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental $ make clean all</span><br></pre></td></tr></table></figure>
-<h1 id="7-开启mjpg-streamer"><a href="#7-开启mjpg-streamer" class="headerlink" title="7.开启mjpg-streamer"></a>7.开启mjpg-streamer</h1><p>进入mjpg-streamer-experimental目录，使用一下指令启动摄像头。</p>
-<ul>
-<li><p>启动普通USB摄像头指令：</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_uvc.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动树莓派专用摄像头RaspiCamera指令：</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_raspicam.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h1><p>在浏览器里输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 静态图（拍照）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=snapshot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 动态图（视频监控）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=stream</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个兼容性好点</span></span><br><span class="line">http://&lt;IP&gt;：8080/javascript_stream.html</span><br></pre></td></tr></table></figure>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/cat-2023-03-06-09-54-35.jpeg" alt="cat-2023-03-06-09-54-35"></p>
-<h1 id="9-问题"><a href="#9-问题" class="headerlink" title="9.问题"></a>9.问题</h1><p>有的同学可能在<strong>开启mjpg-streamer</strong>的时候会报错，可能是你USB摄像头用了树莓派专用摄像头RaspiCamera指令的指令启动造成的（我就是这样，哈哈哈）</p>
+<p>&emsp;&emsp;作为世界制造业强势企业集团，艾默生近50年来的股东回报以年均16％的复合增长率持续增长，2008年的利润总额和股东权益回报率都居电气行业前列。在此期间，公司的战略规划体系的发展与创新对企业保持良好的赢利性和持续成长产生了重大的影响。本文希望通过对艾默生近50多年来的战略规划体系创新的深入分析，探讨其影响公司赢利持续增长的内在机制，进而对中国制造业的企业战略规划体系创新和战略管理体系建设以有益启示。</p>
+<h2 id="一、艾默生公司的战略规划体系：一个素描"><a href="#一、艾默生公司的战略规划体系：一个素描" class="headerlink" title="一、艾默生公司的战略规划体系：一个素描"></a>一、艾默生公司的战略规划体系：一个素描</h2><h3 id="1、子公司利润评估"><a href="#1、子公司利润评估" class="headerlink" title="1、子公司利润评估"></a>1、子公司利润评估</h3><p>&emsp;&emsp;一直以来，艾默生很强调利润计划。在20世纪90年代初，艾默生意识到增长的重要性。同时，由于国际制造业所处的高度竞争的环境，公司又需要可靠的利润预测。因此，艾默生决定为利润计划和增长计划分别举行会议。在每年春天开始作利润评估时，子公司管理层—子公司总裁及其高级管理人员将与总公司的“利润沙皇”举行会议，“利润沙皇”通常是是艾默生最高管理团队中的一位，主要职责是确保各个子公司和总公司作为一个整体实现年度目标利润。有关业务集团的高层管理人员也会列席会议，但是主角是子公司管理者。利润评估将审查前5年的历史、当前年份的现状以及未来5年的预测数据，因此，计划者用11年跨度的窗口评估其业务，并形成一个利润模型。在模型中，价格变化、通货膨胀因素以及生产率提高等都会被考虑到，纳入模型的还有成本减少和控制计划、固定成本的处理方法以及业务组合方面的变化。计划者在所有这些领域作的都是最为保守的假设，以确保不夸大自己的估计。在此情况下，要达成两位数的税前利润增长是非常具有挑战性的，这一方法使管理者去寻求和详细讨论特定的行动计划，以满足利润目标，这包括新产品的研发带来的溢价、新产品销售带来的拉动效应、整合采购带来的效益、必要的工作转移、工厂转向最优成本地区、业务外包和其他可以改善资产管理的行动。所有这些计划都是保证子公司在大风暴中继续发展和成功的基石。在完成利润评估之后，“利润沙皇”将准备一份备忘录供计划会议使用，计划会议是计划周期的下一个阶段，它是艾默生计划的核心，一般在几个月之后举行。</p>
+<h3 id="2、子公司计划会议"><a href="#2、子公司计划会议" class="headerlink" title="2、子公司计划会议"></a>2、子公司计划会议</h3><p>&emsp;&emsp;在通过“利润评估”之后，计划过程将转入子公司的“增长战略”阶段。出席这个1～2天会议的人员包括：子公司管理层、艾默生的CEO以及一些选定的公司领导。子公司计划会议的最终目的是确定为公司创造价值的最佳方法。子公司管理层将安排日程，准确说明如何创造价值。母公司并不要求提供指定形式的详细数据，不过，核心管理层希望观察到关于财务和竞争绩效—销售、利润、资本回报、市场规模、市场渗透能力和价格走势的有见地的讨论，以及关于客户和竞争对手的详细分析。与利润评估一样，增长计划评估时用11年作为时间跨度，对损益表和资产负债表展望未来5年，回顾过去5年。11年的窗口可以将投资与收益预测分散到一个较长期的观察视野之中。</p>
+<p>&emsp;&emsp;尽管计划会议是属于子公司总裁及其团队的事情，但是，艾默生总部也参与对话和准备工作，以帮助子公司经理们完善计划并取得好的计划效果。艾默生总部的小型战略计划部门承担着为子公司“挑错”和核对各种数据的工作，计划经理们对研究和分析的质量以及总体计划的一体化与一致性程度加以检查；对于各个市场、竞争者和工业领域变化的数据向子公司管理团队提出质询；母公司计划经理们会确保企业所面临的关键问题和挑战都在会议资料中得到了详细论述，并制定应对这些问题和挑战相应的行动措施。在这些准备工作中，子公司管理层将主导这一切，即计划者是将来的执行者。</p>
+<p>&emsp;&emsp;子公司计划会议的基调是对抗性的。子公司管理团队而不仅仅是子公司的总裁负有责任让艾默生的核心层信服：计划经过好的构思，而且有详尽的研究和严密的分析作支持。会议上要对一些假设和传统的思维表示质疑，并给出足够的时间来讨论每个重要问题。同时，会议将对前三至五个最重要的行动展开详细讨论，并对提供支持的因素及构成挑战的问题进行分析。会议讨论中母公司领导人有时候会故意不断从各个角度挑战子公司的观点，这并非是CEO或COO不赞同这一观点，只是他们希望子公司已经把各个方面都考虑清楚了。</p>
+<p>&emsp;&emsp;子公司计划会议的产出将是诸多为大家共同认可的行动和优先考虑事项。艾默生的CEO也会向各子公司总裁发出备忘录，文件中将就计划、行动、承诺以及其他任何重要问题扼要地进行总结。这封信将成为下一次计划会议议程的一部分，在控制循环所举行的会议上，信中的内容将被一一跟踪考察。这种计划备忘录的做法在艾默生内部得到广泛应用，每一位经理人在和团队评估过计划后，都会以一封电子邮件或备忘录的形式总结要点、承诺和行动方案，因此，这也是控制和跟进的重要方式。</p>
+<h3 id="3、战略评估：在业务集团层面制定计划"><a href="#3、战略评估：在业务集团层面制定计划" class="headerlink" title="3、战略评估：在业务集团层面制定计划"></a>3、战略评估：在业务集团层面制定计划</h3><p>&emsp;&emsp;业务集团计划并不仅仅是将子公司的计划汇总，艾默生也在业务集团层次制定计划，以便在发现子公司能力不足以应对某些机会的时候，能够在公司整体范围内进行整合，确保资源的充分利用。在这一更高层面，公司对于要寻求的机会进行选择和取舍，以决定哪些机会务必竭力获得，哪些业务必须支持，哪些业务需要降低重要性甚至需要退出。</p>
+<p>&emsp;&emsp;各个业务集团每年夏季都进行年度战略评估。这时，业务集团领导人、核心管理人员与CEO、总裁和其他公司领导将会见面，聚在一起评估和讨论重大的战略性经营挑战以及关键性行为。会议将精力集中在成长和营销战略，以建立和保持艾默生的行业领导地位。业务集团的领导人也要评估业务集团的财务前景。</p>
+<h3 id="4、总公司计划和全球高级管理者沟通会议"><a href="#4、总公司计划和全球高级管理者沟通会议" class="headerlink" title="4、总公司计划和全球高级管理者沟通会议"></a>4、总公司计划和全球高级管理者沟通会议</h3><p>&emsp;&emsp;子公司计划会议、利润评估和业务集团战略评估期间获得的信息，将成为艾默生每年秋天召开的公司规划会议(简称CPC)所需要的原始材料。出席CPC的是前300名总公司和子公司高层领导。各个子公司和业务集团是业务组合的一部分，对于其中的每一个部分，艾默生的管理层都在不断地衡量和评估其增长、赢利能力和现金流的趋势。在会议召开之前，CEO办公室要从子公司会议和战略评估之中找出关键性的主题，并将它们与宏观经济环境分析相应结合。然后，CEO办公室将这一信息整合成公司总计划：一个一体化的、有重点的关于公司目标以及实现公司目标的计划陈述。然后，将计划提交给CPC和区域性公司计划会议。</p>
+<p>&emsp;&emsp;每年初秋，在公司计划被汇总及被批准之后，公司计划会议基本上就成为一个向经理人员传达信息的载体。公司高层在会议上汇报公司所取得的成就，并通报下一年度的财务计划及今后5年的战略计划。在总公司计划会议之后，还将举行区域(欧洲/亚洲)公司计划会议，以便对该区域经理进行沟通和宣贯。与上述的计划周期相平行，公司主要通过三种正式制度来对运营和行动计划执行情况进行监控，一种是每年1次的财务评估，通常在每财年后半段举行；第二是每季度1次的总裁行政会议—每个子公司的CEO和CFO将会参加；其次是每月1次的总裁运营报告(POR)—即要由各个子公司递交给总裁会议和年度财务会议的月度报告，它是动态工具，每月都要更新预期的年度结果并与历史和目标进行比较。</p>
+<h2 id="二、艾默生战略规划体系“三重创新”分析"><a href="#二、艾默生战略规划体系“三重创新”分析" class="headerlink" title="二、艾默生战略规划体系“三重创新”分析"></a>二、艾默生战略规划体系“三重创新”分析</h2><p>&emsp;&emsp;战略规划的系统设计理论认为，战略规划系统可以从以下维度进行设计(斯坦纳，2001)：内容完整性与侧重点、时间尺度、分析深度与复杂性、流程、CEO的参与、直线管理者的角色、规划部门的角色、分析工具等。其中，前三项构成战略规划的内容体系，中间四项构成了规划的组织体系，最后一项构成了工具体系。本文从这三大方面分析艾默生战略规划体系的主要特点、创新及其影响(详见表1)。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031439612-2023-03-06-10-18-58.png" alt="202303031439612-2023-03-06-10-18-58"></p>
+<h3 id="1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡"><a href="#1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡" class="headerlink" title="1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡"></a>1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡</h3><p>&emsp;&emsp;艾默生战略规划体系在内容方面的创新，包括三个方面(表1中的①②③)：(1)以子公司为核心的增长计划和赢利评估的分立与并重；(2)赢利性评估中建立在细致、严苛预测基础上的行动方案；(3)跨度为11年的“瞻前顾后式”滚动计划。其中，第1条使得公司在关注公司赢利性的同时，很好地挖掘长期战略成长机会及行动方案，拓展公司的业务范围和能力疆域，避免了战略规划沦为“年度预算”或“运营项目”的倾向，防止了明茨伯格所谓的战略规划的“正式性谬误”—即由于过于关注正式性而忽略了“软性”的战略思考，促进了公司赢利基础上的持续增长。第二项创新则使赢利性评估建立在对近期最严苛的经营环境情景之上，部分避免了明茨伯格的战略规划的“可预测性谬误”；第三项创新是11年期的“瞻前顾后式”滚动性计划，它覆盖了制造业的投资波动周期，并且在战略学习(回顾过去5年)与前瞻性(展望未来5年)之间形成了平衡，使得战略规划过程成为一个持续的设计、学习、修正和改进的过程。本文把艾默生的“增长与赢利并重”(目标/内容)、“瞻前顾后型滚动计划”(时间尺度)称为战略规划内容的“两栖型创新”，并将其要素和相互关系概括如图1所示。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031439106-2023-03-06-10-19-21.png" alt="202303031439106-2023-03-06-10-19-21"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图1 艾默生的计划和控制周期</p>
+<h3 id="2、“一体化”组织创新：规划主体与执行者的统一及分工协作"><a href="#2、“一体化”组织创新：规划主体与执行者的统一及分工协作" class="headerlink" title="2、“一体化”组织创新：规划主体与执行者的统一及分工协作"></a>2、“一体化”组织创新：规划主体与执行者的统一及分工协作</h3><p>&emsp;&emsp;艾默生的规划流程/组织设计有两方面的创新(表1中④⑥⑦⑧)：(1)计划主体与实施者的统一。它主要体现在表一中的④和⑦上，这种以子公司的领导团队为主体的规划组织体系，使得子公司领导层能充分利用其业务信息、提高其承诺和战略执行的主动性，避免了明茨伯格所谓的战略规划制定与执行的“分离性谬误”；(2)规划中总公司CEO、公司规划部门和子公司管理者之间的分工协作。这主要体现在表1的⑥⑦⑧。在这个过程中，CEO、子公司经理、公司规划经理的各司其职与紧密协作是至关重要的。其中，艾默生的公司规划经理主要承担了以下角色：为子公司“挑错”和核对各种数据、对研究和分析的质量以及总体计划的一体化与一致性进行检查；对于各种市场、竞争者和工业领域变化的数据向子公司管理团队提出质询；确定企业所面临的关键问题和挑战，并制定应对这些问题和挑战相应的行动措施等。总公司的CEO在规划会议中对子公司计划提出各角度的质询，甚至故意引起激烈争论，以保证各种因素在决策中得到考虑。</p>
+<h3 id="3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”"><a href="#3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”" class="headerlink" title="3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”"></a>3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”</h3><p>&emsp;&emsp;艾默生在规划工具方面，也坚持从实际出发，在遵循一般规律的基础上，进行有针对性的“独特”的创新，这可以用“最佳成本制造商战略”和“利润瀑布分析”为例加以说明。1970年代，随着日本工业的兴起，艾默生率先意识到全面质量管理(TQM)的重要性，开始在所有子公司开展TQM管理。1980年初，艾默生意识到全球化激烈竞争将扩散到所有业务领域，因此，重新定义了一个新的“最佳成本制造商战略”来应付与日俱增的全球竞争—艾默生需要最佳成本，它不仅关注价格同时还关注客户所感受到的价值—即产品、服务和价格的最优组合而非简单的最低成本。这一模式顺应了国际竞争新趋势，符合一般竞争规律而又突破了竞争优势在低成本或差异化之间非此即彼的教条。根据这一原则，艾默生推动了大量子公司向低成本地区迁移和扩张，包括90年代中期在墨西哥的大规模建厂和90年代后期利用东欧的智力和工业资源的迅速扩张。</p>
+<p>&emsp;&emsp;另外的一个例子是“利润瀑布分析”。1990年代初期北美经济面临另一个衰退周期时，通过收购和剥离的效果已经不够显著了，艾默生便将首席运营官(COO)博杰思调离重要的运作管理岗位，委派他负责重振和改善利润增进过程—以尽快地找出问题和解决问题。博杰思带领团队花了一周时间尝试分析什么事情出了错。他们找回1987年的子公司计划会议记录，了解曾经预测在1992年底达到3.5％利润增长计划的组成内容，目的是为了弄清楚为什么会落后于计划。这项工作有几项重要的发现：与原计划相比，需求增长的下降、定价压力、材料成本的膨胀、工资成本的膨胀、医疗福利费用增长等是计划失效的主要因素。基于这个发现，在首席财务官高文和首席运营官博杰思的直接领导下，艾默生的团队编制了一个以Excel为基础的数据分析表，它能够为制定5年预测计划提供精确的基础。这一软件将销售数量、价格和成本组成部分(材料、计时劳工、薪酬和一般费用)结合起来，并在上一个5年计划的实际结果的条件下对预测进行估计。这一分析工具名为“利润瀑布”，它很快被用作一年期财务评估和5年期计划的基础。同时，为防止不现实的乐观预测，并驱使管理层彻底考虑强有力的行动以在艰难环境中改善利润率，艾默生的最高管理层坚持要求各个子公司就计划利润作最为保守的假设，子公司的总裁还必须为那些在过去的实际结果中经常出现但从来没有被预测到的不可预见的成本因素留出余地。保守的估计以及瀑布设计的严密促进经理们意识到更多、更强硬的降低成本和提高赢利行动的需要。事实表明，这一从实际出发的有针对性的赢利分析工具为艾默生在严酷竞争环境下长期保持较高赢利能力做出了重要贡献。</p>
+<h2 id="三、创新背后的理念和价值观"><a href="#三、创新背后的理念和价值观" class="headerlink" title="三、创新背后的理念和价值观"></a>三、创新背后的理念和价值观</h2><p>&emsp;&emsp;艾默生战略规划体系的创新，除了受公司“管理过程”六大要素的影响外，公司最高领导层的基本信念和价值观也是深层的影响因素。事实上，艾默生公司的最高领导层相当稳定，在过去60年间，只有三位CEO，其中，奈特从1973-2001年任CEO期间对于艾默生的“管理过程”做出了巨大的贡献。他系统地阐述了艾默生的“最优成本制造战略”，同时，完善并强化了公司商业竞争取胜的基本理念(奈特，戴尔，2007)，这些理念包括：(1)持续的高绩效；(2)寻觅为客户增加价值的新方法是致胜之道；(3)在关键市场中，艾默生必须是行业的领袖；(4)取得技术领先地位是取得市场领先地位的关键；(5)长期的成功需要整个组织的全心全意地投入；(6)主要的经理人员必须拥有自主权，从而发挥其最大潜力；(7)艾默生一贯通过员工来提高生产力。</p>
+<p>&emsp;&emsp;应该指出，正是基于这些基本理念和价值观以及对管理任务的共同理解，艾默生在实践中不断完善了公司“管理过程”体系，并实现了战略规划体系的不断创新。</p>
+<p>&emsp;&emsp;基于上述的分析，我们可以把艾默生战略规划在内容、组织、工具三方面的创新概括为战略规划设计的“三重创新”，并将其主要特征及其深层理念和价值观原因概括为图2的简略形式。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031440300-2023-03-06-10-19-48.png" alt="202303031440300-2023-03-06-10-19-48"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图2 艾默生战略规划的“两栖型”内容创新</p>
+<h2 id="四、讨论与启示"><a href="#四、讨论与启示" class="headerlink" title="四、讨论与启示"></a>四、讨论与启示</h2><h3 id="1、战略规划体系创新与竞争优势"><a href="#1、战略规划体系创新与竞争优势" class="headerlink" title="1、战略规划体系创新与竞争优势"></a>1、战略规划体系创新与竞争优势</h3><p>&emsp;&emsp;从艾默生的战略规划实践来看，明茨伯格对战略规划“三重谬误”的批评并非是不可避免的。艾默生通过增长计划与赢利评估分立、子公司管理层为核心和利润瀑布分析等方式，实现了战略规划的“三重创新”：即内容方面的“双栖型创新”、组织/流程的“一体化创新”和工具方面量身定做的“独特工具”创新，有效地避免“正式性谬误”、“分离性谬误”和“可预测性谬误”等问题，取得了较好的战略规划与实施绩效。这说明了战略规划体系设计中内容、组织和工具“三重创新”对竞争优势的重要性。Barney曾经认为，正式的战略规划(如经典的SWOT分析工具、业务组合管理等)由于其广泛传播而不具有稀缺性、难模仿性和难替代性，因此它不能成为持续竞争优势的来源。Powell也根据资源基础观指出，当战略规划作为一种生产要素在行业中能被广泛获得时，其带来的竞争优势将消失。本文的案例研究则表明，由于战略规划体系的系统性和复杂性，战略规划的内容、组织或工具的创新确实可以带给企业竞争优势，甚至形成一定时期内的持续竞争优势。结合Grant(2003)对世界八大石油巨头战略规划体系的系统分析，可以看出，利用正式战略规划并根据环境变化和企业情况对内容、组织和工具进行调整或创新，仍然是大中型制造业企业可以利用的一种重要战略管理工具，也是其获得竞争优势的一种可行途径。当然，从艾默生的经验看，其领导人在战略发展方向(如“最优成本生产商战略”)和完善战略规划制度方面(“利润瀑布分析”、“计划跟进及控制”)起到了至关重要的作用，因此，领导人的战略领导和战略规划不是非此即彼的替代关系，领导人全身心地参与到战略规划中进行指导和引导是产生竞争优势的一个非常重要的驱动因素。从这个角度看，明茨伯格对正式战略规划可能导致“分析取代综合性战略思维”的批评仍有一定的警示意义。此外，本案例也表明，战略规划体系创新需要企业内部权力结构和文化体系的支持。因此，如何在战略规划中更好地促进战略思维并协调思维与行动之间的关系，同时系统考虑战略规划创新的政治、文化支持因素，既是战略规划体系设计必须应对的一个挑战，也是进入21世纪后战略规划理论发展的一个重要方向。</p>
+<h3 id="2、大型企业战略决策模式的“混合化”趋势"><a href="#2、大型企业战略决策模式的“混合化”趋势" class="headerlink" title="2、大型企业战略决策模式的“混合化”趋势"></a>2、大型企业战略决策模式的“混合化”趋势</h3><p>&emsp;&emsp;在战略决策文献中，关于战略规划、企业家决策与自发/分散决策等战略决策类型及其作用的讨论一直很激烈。从国内外大型制造企业的实践看，一些企业选择了战略规划体系的创新或调整，如艾默生、联想、大石油公司等(Grant，2003；武亚军，2007)，另外一些企业如GE则“放弃”了传统的正式性很强的战略规划体系而转向以战略领导和分散决策为主的战略决策模式。从总体上看，这反映了一种动态环境下企业战略决策的“混合化”趋势—即正式战略规划与其他战略决策类型相结合。这一方面和企业国际化及竞争环境的快速变化有关，另一方面也与企业的管理基础、最高领导人的能力与管理风格有很大的关系。从大中型企业的战略决策方式看，正式战略规划是很普遍也很难逾越的决策方式。事实上，艾默生通过战略规划体系的创新，在战略领导、正式战略规划和一线业务领导人的分散决策之间形成了一种“综合协调”，进而取得了赢利的持续增长。从这个角度上看，艾默生的成功在于其以正式战略规划为主、辅以其他两种战略决策模式的成功。正如不少研究所揭示的那样，结合战略规划和其他两种模式的综合性战略决策模式将是动态复杂环境下大型制造企业战略决策的一种发展趋势。</p>
+<h3 id="3、对中国大中型本土制造企业的启示"><a href="#3、对中国大中型本土制造企业的启示" class="headerlink" title="3、对中国大中型本土制造企业的启示"></a>3、对中国大中型本土制造企业的启示</h3><p>&emsp;&emsp;如表2所示，对比艾默生的战略规划创新与中国本土著名制造业企业——联想的战略规划经验(武亚军，2007)，可以发现：两个企业在外部环境的动态性、内容创新、工具创新、组织创新等方面都有一定的相似性，例如，艾默生通过利润与增长计划分立来平衡赢利性和成长问题，而联想则通过三类业务组合配置(成长战略)和完善业务模式(竞争战略)来协调两者的关系；艾默生在1990年代初未达到预期目标后通过反思性的战略学习形成了“利润瀑布”分析工具和“严苛预测”原则，而联想在经过2000-2003年规划挫折后也通过反思性的战略学习形成了“战略路线精准化”和“业务模式创新”等战略原则。所不同的是，艾默生在战略规划的体系化、制度化上比联想更为成熟，这和前者经历了更长期的发展有很大关系。无论如何，对于中国的大中型制造企业来说，联想和艾默生的经验都有很强的借鉴意义：(1)企业从小到大、从创业到逐步成熟、从国内到国际化的发展过程中，需要结合企业的环境和自身条件，进行战略规划的内容、组织和工具“三重创新”，才能真正通过战略规划提高竞争力和实现持续增长；(2)战略规划的创新需要组织权力结构和核心价值观的支持，这是企业战略规划创新的制度与文化基础。事实上，这恰恰是很多中国大中型本土企业所欠缺和需要面对的挑战。艾默生公司和联想为中国大中型制造企业的战略规划树立了两个标杆，不过联想的战略规划体系仍处于系统化和完善之中，而艾默生则由于其长期发展而比较成熟和完善，这也增大了艾默生公司经验对中国大中型企业(包括联想在内)的借鉴价值。</p>
+<h2 id="五、结论与展望"><a href="#五、结论与展望" class="headerlink" title="五、结论与展望"></a>五、结论与展望</h2><p>&emsp;&emsp;艾默生案例清晰表明了战略规划体系设计和创新对大企业持续发展的重要性及其作用机制。艾默生公司在“管理过程”发展中有效地实现了战略规划体系的“三重创新”：即以“增长计划和赢利评估并重”及“瞻前顾后式”滚动计划为代表的“两栖型”内容创新、以子公司为主体又分工协作的“一体化”组织创新，以及以“最优成本制造”和“赢利瀑布分析”为代表的量身定做的“独特”工具创新。案例分析表明，基于“管理过程”及核心价值观上的战略规划体系创新，促进了艾默生公司在高层战略领导、正式战略规划和子公司领导层的主动性之间的合理平衡，实现了企业战略在增长与赢利、前瞻与学习、制定与执行、普遍与独特等方面的协调和统一，这是艾默生公司近50年来赢利性持续增长的重要驱动因素。可以认为，战略规划体系的“三重创新”是战略规划有效性的一个永恒主题，也是大中型企业在战略思维和行动之间保持有效连接的关键。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031440867-2023-03-06-10-21-31.png" alt="202303031440867-2023-03-06-10-21-31"></p>
+<p>&emsp;&emsp;战略规划体系创新需要核心价值观支撑。艾默生的战略规划创新过程说明了其“管理过程”和核心理念的重要性，“保持精简”、“重视计划”、“发挥经理人员的自主性”等基本理念都显著地影响了艾默生的战略规划设计与创新。从这个意义上，“精于心，简于形”可以说是艾默生的规划之道。也许，每个企业的战略规划体系设计模式和经验不能直接复制，但其成功背后的智慧完全可以学习和借鉴。艾默生集团公司的战略规划创新和规划之道，值得中国本土大中型制造企业仔细品味和借鉴。</p>
+<p><a href="http://59.252.42.34:6251/Qw/Paper/395094" target="_blank" rel="noopener">原文</a></p>
 ]]></content>
       <categories>
-        <category>OS</category>
-        <category>Raspberry</category>
+        <category>转载</category>
       </categories>
       <tags>
-        <tag>树莓派</tag>
-        <tag>监控</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虚拟机VirtualBox中挂载新硬盘</title>
-    <url>/2018/03/18/%E8%99%9A%E6%8B%9F%E6%9C%BAVirtualBox%E4%B8%AD%E6%8C%82%E8%BD%BD%E6%96%B0%E7%A1%AC%E7%9B%98/</url>
-    <content><![CDATA[<p>在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘：</p>
-<h5 id="添加新硬盘"><a href="#添加新硬盘" class="headerlink" title="添加新硬盘"></a>添加新硬盘</h5><blockquote>
-<p>设置 -&gt; Storage(存储) -&gt; SATA控制器-&gt;右击，选择”添加虚拟硬盘”<br>然后，根据需求创建合适的硬盘<br><a id="more"></a></p>
-</blockquote>
-<h5 id="重启虚拟机"><a href="#重启虚拟机" class="headerlink" title="重启虚拟机"></a>重启虚拟机</h5><p>  查看现有系统的磁盘空间</p>
-<blockquote>
-<p>sudo fdisk -l</p>
-</blockquote>
-<p>  可看到新加的虚拟硬盘，一般名为：Disk /dev/sdb</p>
-<h5 id="给新加的硬盘分区"><a href="#给新加的硬盘分区" class="headerlink" title="给新加的硬盘分区"></a>给新加的硬盘分区</h5><blockquote>
-<p>fdisk /dev/sdb  </p>
-</blockquote>
-<p>  键入m,可看到帮助信息</p>
-<blockquote>
-<p>command (m for help):m</p>
-</blockquote>
-<p>  增加新分区</p>
-<blockquote>
-<p>command (m for help):n  </p>
-</blockquote>
-<p>  选择基本分区，输入：p 建一个分区</p>
-<blockquote>
-<p>Partition number(1-4):  </p>
-</blockquote>
-<p>  回车</p>
-<blockquote>
-<p>First cylinder (1-15908,default 1):Enter</p>
-</blockquote>
-<p>  写入并退出</p>
-<blockquote>
-<p>command (m for help):w</p>
-</blockquote>
-<h5 id="格式化磁盘分区"><a href="#格式化磁盘分区" class="headerlink" title="格式化磁盘分区"></a>格式化磁盘分区</h5><p>  用ext4格式对/dev/sdb1进入格式化</p>
-<blockquote>
-<p>sudo mkfs.ext4 /dev/sdb1</p>
-</blockquote>
-<h5 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h5><p>  创建新的挂载点</p>
-<blockquote>
-<p>sudo mkdir /work</p>
-</blockquote>
-<p>  将新磁盘分区挂载到/work目录下</p>
-<blockquote>
-<p>sudo mount -t ext4 /dev/sdb1 /work</p>
-</blockquote>
-<p>  查看挂载</p>
-<blockquote>
-<p>df -h</p>
-</blockquote>
-<p>  可以看到新加的硬盘：/dev/sdb1</p>
-<h5 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h5><p>  修改文件</p>
-<blockquote>
-<p>sudo vim /etc/fstab</p>
-</blockquote>
-<p>  在最后一行加入：</p>
-<blockquote>
-<p>/dev/sdb1 /work ext4 errors=remount-ro 0 1</p>
-</blockquote>
-<p>  完成!</p>
-<hr>
-<h4 id="补充：为挂载点扩容"><a href="#补充：为挂载点扩容" class="headerlink" title="补充：为挂载点扩容"></a>补充：为挂载点扩容</h4><p>假设之前我们有一个挂载点为 <em>/mydata</em> ，但该 <em>/mydata</em> 已经写满，但依然想在 <em>/mydata</em> 下添加新的数据，这时可以使用软链接将 <em>/mydata</em> 软链接到一个新挂载的磁盘分区上以实现扩容。具体步骤如下。</p>
-<p><strong>1. 创建一个目录，以便稍后作为挂载点：</strong></p>
-<blockquote>
-<p>mkdir /newdata</p>
-</blockquote>
-<p><strong>2. 将 /dev/sdb1 分区挂载到 /newdata 下：</strong></p>
-<blockquote>
-<p>mount /dev/sdb1 /newdata</p>
-</blockquote>
-<p><strong>3. 新建 /mydata 到 /newdata 的软链接：</strong></p>
-<blockquote>
-<p>ln -s /newdata /mydata</p>
-</blockquote>
-<p>  此时在 /mydata 目录下会有一个软链接文件 <em>newdata</em> 指向 <em>/newdata/</em> ，即 <em>newdata-&gt; /newdata/</em> 。这样一来，只要我们向 <em>/mydata/newdata</em> 下写文件，实际就写入了 <em>/newdata/</em> 目录下，相当于我们为原 <em>/mydata</em> 挂载点新增加了一部分使用空间。  </p>
-<p>  也可以手动指定该软链接文件的名称：</p>
-<blockquote>
-<p>ln -s /newdata /mydata/customed_name</p>
-</blockquote>
-<p>  这样就有 /mydata/customed_name -&gt; /newdata  </p>
-<p>  <strong>注：</strong> 我们也可以利用软链接的这一用途，将比较大的日志文件链接到存储空间充足的磁盘分区的挂载点上。<br>  举例来说，如果 /opt/tomcat/logs/catalina.out 日志文件输入很多，占用空间很大，而 /opt 挂载点中所剩空间已经不多，存在溢出风险，通过下面两步就可以将该日志文件软链接到另一个磁盘分区的挂载点上：  </p>
-<blockquote>
-<p>touch /newdata/catalina_link.out<br>ln -sf /newdata/catalina_link.out /opt/tomcat/logs/catalina.out</p>
-</blockquote>
-<p>  <strong><em>这里还需要注意三点：</em></strong></p>
-<p>  一是必须先创建一个被链接的文件，否则软链接后失败；<br>  二是强制软链接会清空之前 /opt/tomcat/logs/catalina.out 日志文件中的全部内容清空；<br>  三是需要重启 tomcat 目录后才能继续向 /opt/tomcat/logs/catalina.out 写入。  </p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>虚拟机</tag>
-        <tag>Linux挂载硬盘</tag>
+        <tag>艾默生</tag>
+        <tag>企业管理研究</tag>
       </tags>
   </entry>
   <entry>
@@ -4295,73 +4268,100 @@
       </tags>
   </entry>
   <entry>
-    <title>虚拟机Linux的root或普通用户密码忘记找回</title>
-    <url>/2018/07/31/%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E/</url>
-    <content><![CDATA[<h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
-<li>进入GRUB界面后，有几秒钟时间给你。进入GRUB出现：<br> Red Hat Enterprise Linux Server (2.6.18-8.e15xen) <a id="more"></a></li>
-<li>倒计时结束前，键入e出现：<br>root（hd0,0）<br>kernel /xen.gz-2.6.28-8.e15<br>module /vmlinux-2.6.18.e15xen ro root=/dev/VolGroup00/LogVo100 rhgb quiet<br>module /initrd-2.6.18-8.e15xen.img<br>上下键移到quiet那一行，按e进入，加上 linux single或者1即可，回车</li>
-<li>按b后进入重启模式，一定注意出现：<br> Starting udev:<br> 在后面输入boot回车</li>
-<li>之后出现命令行：<br> sh-3.2#</li>
-<li>输入passwd，回车即可修改root密码，输入两次密码</li>
-<li>完成之后reboot即可重启。</li>
-</ol>
-<h1 id="普通用户密码忘记了，比较简单"><a href="#普通用户密码忘记了，比较简单" class="headerlink" title="普通用户密码忘记了，比较简单"></a>普通用户密码忘记了，比较简单</h1><ol>
-<li>在root账户下，打开/etc/shadow (不是passwd文件，因为密码实际上经过加密后放在了“影子口令”文件shadow中了。passwd文件每个用户均可见，但是shadow只有root可以见)。</li>
-<li>找到普通用户名cicikasa，然后删除第二个域即可，域之间用“:”隔开的，如下：<br>cicikasa:TdkakkkYUukkjkjk:14672:0:99999:7:::<br>上述红色部分就是经过加密的密码，删除即可</li>
-<li>在普通用户下，输入passwd即可输入新密码</li>
-</ol>
-<h1 id="如果想修改VMware的bios"><a href="#如果想修改VMware的bios" class="headerlink" title="如果想修改VMware的bios"></a>如果想修改VMware的bios</h1><p>在VMWare中将BIOS设成光驱启动:<br>启动时(点击启动虚拟机按钮),按F2 ,进入BIOS 设置,找到 BOOT—把CDROM光驱，移动到最上面即可。根据提示进行设置，一般按“-”号进行设置。<br>注意：启动时，点了启动虚拟机按钮后一定要在点一下窗口（或者Ctrl +G），然后快按F2。否则，窗口没激活，F2是不起作用的.</p>
+    <title>虚拟机VirtualBox中挂载新硬盘</title>
+    <url>/2018/03/18/%E8%99%9A%E6%8B%9F%E6%9C%BAVirtualBox%E4%B8%AD%E6%8C%82%E8%BD%BD%E6%96%B0%E7%A1%AC%E7%9B%98/</url>
+    <content><![CDATA[<p>在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘：</p>
+<h5 id="添加新硬盘"><a href="#添加新硬盘" class="headerlink" title="添加新硬盘"></a>添加新硬盘</h5><blockquote>
+<p>设置 -&gt; Storage(存储) -&gt; SATA控制器-&gt;右击，选择”添加虚拟硬盘”<br>然后，根据需求创建合适的硬盘<br><a id="more"></a></p>
+</blockquote>
+<h5 id="重启虚拟机"><a href="#重启虚拟机" class="headerlink" title="重启虚拟机"></a>重启虚拟机</h5><p>  查看现有系统的磁盘空间</p>
+<blockquote>
+<p>sudo fdisk -l</p>
+</blockquote>
+<p>  可看到新加的虚拟硬盘，一般名为：Disk /dev/sdb</p>
+<h5 id="给新加的硬盘分区"><a href="#给新加的硬盘分区" class="headerlink" title="给新加的硬盘分区"></a>给新加的硬盘分区</h5><blockquote>
+<p>fdisk /dev/sdb  </p>
+</blockquote>
+<p>  键入m,可看到帮助信息</p>
+<blockquote>
+<p>command (m for help):m</p>
+</blockquote>
+<p>  增加新分区</p>
+<blockquote>
+<p>command (m for help):n  </p>
+</blockquote>
+<p>  选择基本分区，输入：p 建一个分区</p>
+<blockquote>
+<p>Partition number(1-4):  </p>
+</blockquote>
+<p>  回车</p>
+<blockquote>
+<p>First cylinder (1-15908,default 1):Enter</p>
+</blockquote>
+<p>  写入并退出</p>
+<blockquote>
+<p>command (m for help):w</p>
+</blockquote>
+<h5 id="格式化磁盘分区"><a href="#格式化磁盘分区" class="headerlink" title="格式化磁盘分区"></a>格式化磁盘分区</h5><p>  用ext4格式对/dev/sdb1进入格式化</p>
+<blockquote>
+<p>sudo mkfs.ext4 /dev/sdb1</p>
+</blockquote>
+<h5 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h5><p>  创建新的挂载点</p>
+<blockquote>
+<p>sudo mkdir /work</p>
+</blockquote>
+<p>  将新磁盘分区挂载到/work目录下</p>
+<blockquote>
+<p>sudo mount -t ext4 /dev/sdb1 /work</p>
+</blockquote>
+<p>  查看挂载</p>
+<blockquote>
+<p>df -h</p>
+</blockquote>
+<p>  可以看到新加的硬盘：/dev/sdb1</p>
+<h5 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h5><p>  修改文件</p>
+<blockquote>
+<p>sudo vim /etc/fstab</p>
+</blockquote>
+<p>  在最后一行加入：</p>
+<blockquote>
+<p>/dev/sdb1 /work ext4 errors=remount-ro 0 1</p>
+</blockquote>
+<p>  完成!</p>
+<hr>
+<h4 id="补充：为挂载点扩容"><a href="#补充：为挂载点扩容" class="headerlink" title="补充：为挂载点扩容"></a>补充：为挂载点扩容</h4><p>假设之前我们有一个挂载点为 <em>/mydata</em> ，但该 <em>/mydata</em> 已经写满，但依然想在 <em>/mydata</em> 下添加新的数据，这时可以使用软链接将 <em>/mydata</em> 软链接到一个新挂载的磁盘分区上以实现扩容。具体步骤如下。</p>
+<p><strong>1. 创建一个目录，以便稍后作为挂载点：</strong></p>
+<blockquote>
+<p>mkdir /newdata</p>
+</blockquote>
+<p><strong>2. 将 /dev/sdb1 分区挂载到 /newdata 下：</strong></p>
+<blockquote>
+<p>mount /dev/sdb1 /newdata</p>
+</blockquote>
+<p><strong>3. 新建 /mydata 到 /newdata 的软链接：</strong></p>
+<blockquote>
+<p>ln -s /newdata /mydata</p>
+</blockquote>
+<p>  此时在 /mydata 目录下会有一个软链接文件 <em>newdata</em> 指向 <em>/newdata/</em> ，即 <em>newdata-&gt; /newdata/</em> 。这样一来，只要我们向 <em>/mydata/newdata</em> 下写文件，实际就写入了 <em>/newdata/</em> 目录下，相当于我们为原 <em>/mydata</em> 挂载点新增加了一部分使用空间。  </p>
+<p>  也可以手动指定该软链接文件的名称：</p>
+<blockquote>
+<p>ln -s /newdata /mydata/customed_name</p>
+</blockquote>
+<p>  这样就有 /mydata/customed_name -&gt; /newdata  </p>
+<p>  <strong>注：</strong> 我们也可以利用软链接的这一用途，将比较大的日志文件链接到存储空间充足的磁盘分区的挂载点上。<br>  举例来说，如果 /opt/tomcat/logs/catalina.out 日志文件输入很多，占用空间很大，而 /opt 挂载点中所剩空间已经不多，存在溢出风险，通过下面两步就可以将该日志文件软链接到另一个磁盘分区的挂载点上：  </p>
+<blockquote>
+<p>touch /newdata/catalina_link.out<br>ln -sf /newdata/catalina_link.out /opt/tomcat/logs/catalina.out</p>
+</blockquote>
+<p>  <strong><em>这里还需要注意三点：</em></strong></p>
+<p>  一是必须先创建一个被链接的文件，否则软链接后失败；<br>  二是强制软链接会清空之前 /opt/tomcat/logs/catalina.out 日志文件中的全部内容清空；<br>  三是需要重启 tomcat 目录后才能继续向 /opt/tomcat/logs/catalina.out 写入。  </p>
 ]]></content>
       <categories>
-        <category>转载</category>
+        <category>OS</category>
+        <category>Linux</category>
       </categories>
       <tags>
         <tag>虚拟机</tag>
-        <tag>密码找回</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>艾默生的战略规划创新及其启示</title>
-    <url>/2023/03/03/%E8%89%BE%E9%BB%98%E7%94%9F%E7%9A%84%E6%88%98%E7%95%A5%E8%A7%84%E5%88%92%E5%88%9B%E6%96%B0%E5%8F%8A%E5%85%B6%E5%90%AF%E7%A4%BA/</url>
-    <content><![CDATA[<blockquote>
-<p>&emsp;&emsp;本文对世界制造业取得卓越绩效的艾默生集团公司上世纪60年代以来的战略规划体系发展及其创新进行了案例研究。在对艾默生公司战略规划的发展过程、核心内容、组织流程和时间周期描述的基础上，分析了公司规划体系的“两栖型”内容创新、“一体化”组织创新和“独特性”的规划工具创新等特征，指出艾默生的战略规划体系的“三重创新”使企业战略在增长与赢利、前瞻与学习、制定与执行、普遍与独特等方面达到协调和统一，从而驱动了公司赢利的长期持续增长。最后对战略规划创新与竞争优势的关系、大中型企业的战略决策模式进行了讨论，并探讨了艾默生经验对中国大中型制造企业战略规划与战略管理体系建设的启示。</p>
-</blockquote>
-<a id="more"></a>
-<p>&emsp;&emsp;作为世界制造业强势企业集团，艾默生近50年来的股东回报以年均16％的复合增长率持续增长，2008年的利润总额和股东权益回报率都居电气行业前列。在此期间，公司的战略规划体系的发展与创新对企业保持良好的赢利性和持续成长产生了重大的影响。本文希望通过对艾默生近50多年来的战略规划体系创新的深入分析，探讨其影响公司赢利持续增长的内在机制，进而对中国制造业的企业战略规划体系创新和战略管理体系建设以有益启示。</p>
-<h2 id="一、艾默生公司的战略规划体系：一个素描"><a href="#一、艾默生公司的战略规划体系：一个素描" class="headerlink" title="一、艾默生公司的战略规划体系：一个素描"></a>一、艾默生公司的战略规划体系：一个素描</h2><h3 id="1、子公司利润评估"><a href="#1、子公司利润评估" class="headerlink" title="1、子公司利润评估"></a>1、子公司利润评估</h3><p>&emsp;&emsp;一直以来，艾默生很强调利润计划。在20世纪90年代初，艾默生意识到增长的重要性。同时，由于国际制造业所处的高度竞争的环境，公司又需要可靠的利润预测。因此，艾默生决定为利润计划和增长计划分别举行会议。在每年春天开始作利润评估时，子公司管理层—子公司总裁及其高级管理人员将与总公司的“利润沙皇”举行会议，“利润沙皇”通常是是艾默生最高管理团队中的一位，主要职责是确保各个子公司和总公司作为一个整体实现年度目标利润。有关业务集团的高层管理人员也会列席会议，但是主角是子公司管理者。利润评估将审查前5年的历史、当前年份的现状以及未来5年的预测数据，因此，计划者用11年跨度的窗口评估其业务，并形成一个利润模型。在模型中，价格变化、通货膨胀因素以及生产率提高等都会被考虑到，纳入模型的还有成本减少和控制计划、固定成本的处理方法以及业务组合方面的变化。计划者在所有这些领域作的都是最为保守的假设，以确保不夸大自己的估计。在此情况下，要达成两位数的税前利润增长是非常具有挑战性的，这一方法使管理者去寻求和详细讨论特定的行动计划，以满足利润目标，这包括新产品的研发带来的溢价、新产品销售带来的拉动效应、整合采购带来的效益、必要的工作转移、工厂转向最优成本地区、业务外包和其他可以改善资产管理的行动。所有这些计划都是保证子公司在大风暴中继续发展和成功的基石。在完成利润评估之后，“利润沙皇”将准备一份备忘录供计划会议使用，计划会议是计划周期的下一个阶段，它是艾默生计划的核心，一般在几个月之后举行。</p>
-<h3 id="2、子公司计划会议"><a href="#2、子公司计划会议" class="headerlink" title="2、子公司计划会议"></a>2、子公司计划会议</h3><p>&emsp;&emsp;在通过“利润评估”之后，计划过程将转入子公司的“增长战略”阶段。出席这个1～2天会议的人员包括：子公司管理层、艾默生的CEO以及一些选定的公司领导。子公司计划会议的最终目的是确定为公司创造价值的最佳方法。子公司管理层将安排日程，准确说明如何创造价值。母公司并不要求提供指定形式的详细数据，不过，核心管理层希望观察到关于财务和竞争绩效—销售、利润、资本回报、市场规模、市场渗透能力和价格走势的有见地的讨论，以及关于客户和竞争对手的详细分析。与利润评估一样，增长计划评估时用11年作为时间跨度，对损益表和资产负债表展望未来5年，回顾过去5年。11年的窗口可以将投资与收益预测分散到一个较长期的观察视野之中。</p>
-<p>&emsp;&emsp;尽管计划会议是属于子公司总裁及其团队的事情，但是，艾默生总部也参与对话和准备工作，以帮助子公司经理们完善计划并取得好的计划效果。艾默生总部的小型战略计划部门承担着为子公司“挑错”和核对各种数据的工作，计划经理们对研究和分析的质量以及总体计划的一体化与一致性程度加以检查；对于各个市场、竞争者和工业领域变化的数据向子公司管理团队提出质询；母公司计划经理们会确保企业所面临的关键问题和挑战都在会议资料中得到了详细论述，并制定应对这些问题和挑战相应的行动措施。在这些准备工作中，子公司管理层将主导这一切，即计划者是将来的执行者。</p>
-<p>&emsp;&emsp;子公司计划会议的基调是对抗性的。子公司管理团队而不仅仅是子公司的总裁负有责任让艾默生的核心层信服：计划经过好的构思，而且有详尽的研究和严密的分析作支持。会议上要对一些假设和传统的思维表示质疑，并给出足够的时间来讨论每个重要问题。同时，会议将对前三至五个最重要的行动展开详细讨论，并对提供支持的因素及构成挑战的问题进行分析。会议讨论中母公司领导人有时候会故意不断从各个角度挑战子公司的观点，这并非是CEO或COO不赞同这一观点，只是他们希望子公司已经把各个方面都考虑清楚了。</p>
-<p>&emsp;&emsp;子公司计划会议的产出将是诸多为大家共同认可的行动和优先考虑事项。艾默生的CEO也会向各子公司总裁发出备忘录，文件中将就计划、行动、承诺以及其他任何重要问题扼要地进行总结。这封信将成为下一次计划会议议程的一部分，在控制循环所举行的会议上，信中的内容将被一一跟踪考察。这种计划备忘录的做法在艾默生内部得到广泛应用，每一位经理人在和团队评估过计划后，都会以一封电子邮件或备忘录的形式总结要点、承诺和行动方案，因此，这也是控制和跟进的重要方式。</p>
-<h3 id="3、战略评估：在业务集团层面制定计划"><a href="#3、战略评估：在业务集团层面制定计划" class="headerlink" title="3、战略评估：在业务集团层面制定计划"></a>3、战略评估：在业务集团层面制定计划</h3><p>&emsp;&emsp;业务集团计划并不仅仅是将子公司的计划汇总，艾默生也在业务集团层次制定计划，以便在发现子公司能力不足以应对某些机会的时候，能够在公司整体范围内进行整合，确保资源的充分利用。在这一更高层面，公司对于要寻求的机会进行选择和取舍，以决定哪些机会务必竭力获得，哪些业务必须支持，哪些业务需要降低重要性甚至需要退出。</p>
-<p>&emsp;&emsp;各个业务集团每年夏季都进行年度战略评估。这时，业务集团领导人、核心管理人员与CEO、总裁和其他公司领导将会见面，聚在一起评估和讨论重大的战略性经营挑战以及关键性行为。会议将精力集中在成长和营销战略，以建立和保持艾默生的行业领导地位。业务集团的领导人也要评估业务集团的财务前景。</p>
-<h3 id="4、总公司计划和全球高级管理者沟通会议"><a href="#4、总公司计划和全球高级管理者沟通会议" class="headerlink" title="4、总公司计划和全球高级管理者沟通会议"></a>4、总公司计划和全球高级管理者沟通会议</h3><p>&emsp;&emsp;子公司计划会议、利润评估和业务集团战略评估期间获得的信息，将成为艾默生每年秋天召开的公司规划会议(简称CPC)所需要的原始材料。出席CPC的是前300名总公司和子公司高层领导。各个子公司和业务集团是业务组合的一部分，对于其中的每一个部分，艾默生的管理层都在不断地衡量和评估其增长、赢利能力和现金流的趋势。在会议召开之前，CEO办公室要从子公司会议和战略评估之中找出关键性的主题，并将它们与宏观经济环境分析相应结合。然后，CEO办公室将这一信息整合成公司总计划：一个一体化的、有重点的关于公司目标以及实现公司目标的计划陈述。然后，将计划提交给CPC和区域性公司计划会议。</p>
-<p>&emsp;&emsp;每年初秋，在公司计划被汇总及被批准之后，公司计划会议基本上就成为一个向经理人员传达信息的载体。公司高层在会议上汇报公司所取得的成就，并通报下一年度的财务计划及今后5年的战略计划。在总公司计划会议之后，还将举行区域(欧洲/亚洲)公司计划会议，以便对该区域经理进行沟通和宣贯。与上述的计划周期相平行，公司主要通过三种正式制度来对运营和行动计划执行情况进行监控，一种是每年1次的财务评估，通常在每财年后半段举行；第二是每季度1次的总裁行政会议—每个子公司的CEO和CFO将会参加；其次是每月1次的总裁运营报告(POR)—即要由各个子公司递交给总裁会议和年度财务会议的月度报告，它是动态工具，每月都要更新预期的年度结果并与历史和目标进行比较。</p>
-<h2 id="二、艾默生战略规划体系“三重创新”分析"><a href="#二、艾默生战略规划体系“三重创新”分析" class="headerlink" title="二、艾默生战略规划体系“三重创新”分析"></a>二、艾默生战略规划体系“三重创新”分析</h2><p>&emsp;&emsp;战略规划的系统设计理论认为，战略规划系统可以从以下维度进行设计(斯坦纳，2001)：内容完整性与侧重点、时间尺度、分析深度与复杂性、流程、CEO的参与、直线管理者的角色、规划部门的角色、分析工具等。其中，前三项构成战略规划的内容体系，中间四项构成了规划的组织体系，最后一项构成了工具体系。本文从这三大方面分析艾默生战略规划体系的主要特点、创新及其影响(详见表1)。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031439612-2023-03-06-10-18-58.png" alt="202303031439612-2023-03-06-10-18-58"></p>
-<h3 id="1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡"><a href="#1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡" class="headerlink" title="1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡"></a>1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡</h3><p>&emsp;&emsp;艾默生战略规划体系在内容方面的创新，包括三个方面(表1中的①②③)：(1)以子公司为核心的增长计划和赢利评估的分立与并重；(2)赢利性评估中建立在细致、严苛预测基础上的行动方案；(3)跨度为11年的“瞻前顾后式”滚动计划。其中，第1条使得公司在关注公司赢利性的同时，很好地挖掘长期战略成长机会及行动方案，拓展公司的业务范围和能力疆域，避免了战略规划沦为“年度预算”或“运营项目”的倾向，防止了明茨伯格所谓的战略规划的“正式性谬误”—即由于过于关注正式性而忽略了“软性”的战略思考，促进了公司赢利基础上的持续增长。第二项创新则使赢利性评估建立在对近期最严苛的经营环境情景之上，部分避免了明茨伯格的战略规划的“可预测性谬误”；第三项创新是11年期的“瞻前顾后式”滚动性计划，它覆盖了制造业的投资波动周期，并且在战略学习(回顾过去5年)与前瞻性(展望未来5年)之间形成了平衡，使得战略规划过程成为一个持续的设计、学习、修正和改进的过程。本文把艾默生的“增长与赢利并重”(目标/内容)、“瞻前顾后型滚动计划”(时间尺度)称为战略规划内容的“两栖型创新”，并将其要素和相互关系概括如图1所示。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031439106-2023-03-06-10-19-21.png" alt="202303031439106-2023-03-06-10-19-21"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图1 艾默生的计划和控制周期</p>
-<h3 id="2、“一体化”组织创新：规划主体与执行者的统一及分工协作"><a href="#2、“一体化”组织创新：规划主体与执行者的统一及分工协作" class="headerlink" title="2、“一体化”组织创新：规划主体与执行者的统一及分工协作"></a>2、“一体化”组织创新：规划主体与执行者的统一及分工协作</h3><p>&emsp;&emsp;艾默生的规划流程/组织设计有两方面的创新(表1中④⑥⑦⑧)：(1)计划主体与实施者的统一。它主要体现在表一中的④和⑦上，这种以子公司的领导团队为主体的规划组织体系，使得子公司领导层能充分利用其业务信息、提高其承诺和战略执行的主动性，避免了明茨伯格所谓的战略规划制定与执行的“分离性谬误”；(2)规划中总公司CEO、公司规划部门和子公司管理者之间的分工协作。这主要体现在表1的⑥⑦⑧。在这个过程中，CEO、子公司经理、公司规划经理的各司其职与紧密协作是至关重要的。其中，艾默生的公司规划经理主要承担了以下角色：为子公司“挑错”和核对各种数据、对研究和分析的质量以及总体计划的一体化与一致性进行检查；对于各种市场、竞争者和工业领域变化的数据向子公司管理团队提出质询；确定企业所面临的关键问题和挑战，并制定应对这些问题和挑战相应的行动措施等。总公司的CEO在规划会议中对子公司计划提出各角度的质询，甚至故意引起激烈争论，以保证各种因素在决策中得到考虑。</p>
-<h3 id="3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”"><a href="#3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”" class="headerlink" title="3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”"></a>3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”</h3><p>&emsp;&emsp;艾默生在规划工具方面，也坚持从实际出发，在遵循一般规律的基础上，进行有针对性的“独特”的创新，这可以用“最佳成本制造商战略”和“利润瀑布分析”为例加以说明。1970年代，随着日本工业的兴起，艾默生率先意识到全面质量管理(TQM)的重要性，开始在所有子公司开展TQM管理。1980年初，艾默生意识到全球化激烈竞争将扩散到所有业务领域，因此，重新定义了一个新的“最佳成本制造商战略”来应付与日俱增的全球竞争—艾默生需要最佳成本，它不仅关注价格同时还关注客户所感受到的价值—即产品、服务和价格的最优组合而非简单的最低成本。这一模式顺应了国际竞争新趋势，符合一般竞争规律而又突破了竞争优势在低成本或差异化之间非此即彼的教条。根据这一原则，艾默生推动了大量子公司向低成本地区迁移和扩张，包括90年代中期在墨西哥的大规模建厂和90年代后期利用东欧的智力和工业资源的迅速扩张。</p>
-<p>&emsp;&emsp;另外的一个例子是“利润瀑布分析”。1990年代初期北美经济面临另一个衰退周期时，通过收购和剥离的效果已经不够显著了，艾默生便将首席运营官(COO)博杰思调离重要的运作管理岗位，委派他负责重振和改善利润增进过程—以尽快地找出问题和解决问题。博杰思带领团队花了一周时间尝试分析什么事情出了错。他们找回1987年的子公司计划会议记录，了解曾经预测在1992年底达到3.5％利润增长计划的组成内容，目的是为了弄清楚为什么会落后于计划。这项工作有几项重要的发现：与原计划相比，需求增长的下降、定价压力、材料成本的膨胀、工资成本的膨胀、医疗福利费用增长等是计划失效的主要因素。基于这个发现，在首席财务官高文和首席运营官博杰思的直接领导下，艾默生的团队编制了一个以Excel为基础的数据分析表，它能够为制定5年预测计划提供精确的基础。这一软件将销售数量、价格和成本组成部分(材料、计时劳工、薪酬和一般费用)结合起来，并在上一个5年计划的实际结果的条件下对预测进行估计。这一分析工具名为“利润瀑布”，它很快被用作一年期财务评估和5年期计划的基础。同时，为防止不现实的乐观预测，并驱使管理层彻底考虑强有力的行动以在艰难环境中改善利润率，艾默生的最高管理层坚持要求各个子公司就计划利润作最为保守的假设，子公司的总裁还必须为那些在过去的实际结果中经常出现但从来没有被预测到的不可预见的成本因素留出余地。保守的估计以及瀑布设计的严密促进经理们意识到更多、更强硬的降低成本和提高赢利行动的需要。事实表明，这一从实际出发的有针对性的赢利分析工具为艾默生在严酷竞争环境下长期保持较高赢利能力做出了重要贡献。</p>
-<h2 id="三、创新背后的理念和价值观"><a href="#三、创新背后的理念和价值观" class="headerlink" title="三、创新背后的理念和价值观"></a>三、创新背后的理念和价值观</h2><p>&emsp;&emsp;艾默生战略规划体系的创新，除了受公司“管理过程”六大要素的影响外，公司最高领导层的基本信念和价值观也是深层的影响因素。事实上，艾默生公司的最高领导层相当稳定，在过去60年间，只有三位CEO，其中，奈特从1973-2001年任CEO期间对于艾默生的“管理过程”做出了巨大的贡献。他系统地阐述了艾默生的“最优成本制造战略”，同时，完善并强化了公司商业竞争取胜的基本理念(奈特，戴尔，2007)，这些理念包括：(1)持续的高绩效；(2)寻觅为客户增加价值的新方法是致胜之道；(3)在关键市场中，艾默生必须是行业的领袖；(4)取得技术领先地位是取得市场领先地位的关键；(5)长期的成功需要整个组织的全心全意地投入；(6)主要的经理人员必须拥有自主权，从而发挥其最大潜力；(7)艾默生一贯通过员工来提高生产力。</p>
-<p>&emsp;&emsp;应该指出，正是基于这些基本理念和价值观以及对管理任务的共同理解，艾默生在实践中不断完善了公司“管理过程”体系，并实现了战略规划体系的不断创新。</p>
-<p>&emsp;&emsp;基于上述的分析，我们可以把艾默生战略规划在内容、组织、工具三方面的创新概括为战略规划设计的“三重创新”，并将其主要特征及其深层理念和价值观原因概括为图2的简略形式。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031440300-2023-03-06-10-19-48.png" alt="202303031440300-2023-03-06-10-19-48"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图2 艾默生战略规划的“两栖型”内容创新</p>
-<h2 id="四、讨论与启示"><a href="#四、讨论与启示" class="headerlink" title="四、讨论与启示"></a>四、讨论与启示</h2><h3 id="1、战略规划体系创新与竞争优势"><a href="#1、战略规划体系创新与竞争优势" class="headerlink" title="1、战略规划体系创新与竞争优势"></a>1、战略规划体系创新与竞争优势</h3><p>&emsp;&emsp;从艾默生的战略规划实践来看，明茨伯格对战略规划“三重谬误”的批评并非是不可避免的。艾默生通过增长计划与赢利评估分立、子公司管理层为核心和利润瀑布分析等方式，实现了战略规划的“三重创新”：即内容方面的“双栖型创新”、组织/流程的“一体化创新”和工具方面量身定做的“独特工具”创新，有效地避免“正式性谬误”、“分离性谬误”和“可预测性谬误”等问题，取得了较好的战略规划与实施绩效。这说明了战略规划体系设计中内容、组织和工具“三重创新”对竞争优势的重要性。Barney曾经认为，正式的战略规划(如经典的SWOT分析工具、业务组合管理等)由于其广泛传播而不具有稀缺性、难模仿性和难替代性，因此它不能成为持续竞争优势的来源。Powell也根据资源基础观指出，当战略规划作为一种生产要素在行业中能被广泛获得时，其带来的竞争优势将消失。本文的案例研究则表明，由于战略规划体系的系统性和复杂性，战略规划的内容、组织或工具的创新确实可以带给企业竞争优势，甚至形成一定时期内的持续竞争优势。结合Grant(2003)对世界八大石油巨头战略规划体系的系统分析，可以看出，利用正式战略规划并根据环境变化和企业情况对内容、组织和工具进行调整或创新，仍然是大中型制造业企业可以利用的一种重要战略管理工具，也是其获得竞争优势的一种可行途径。当然，从艾默生的经验看，其领导人在战略发展方向(如“最优成本生产商战略”)和完善战略规划制度方面(“利润瀑布分析”、“计划跟进及控制”)起到了至关重要的作用，因此，领导人的战略领导和战略规划不是非此即彼的替代关系，领导人全身心地参与到战略规划中进行指导和引导是产生竞争优势的一个非常重要的驱动因素。从这个角度看，明茨伯格对正式战略规划可能导致“分析取代综合性战略思维”的批评仍有一定的警示意义。此外，本案例也表明，战略规划体系创新需要企业内部权力结构和文化体系的支持。因此，如何在战略规划中更好地促进战略思维并协调思维与行动之间的关系，同时系统考虑战略规划创新的政治、文化支持因素，既是战略规划体系设计必须应对的一个挑战，也是进入21世纪后战略规划理论发展的一个重要方向。</p>
-<h3 id="2、大型企业战略决策模式的“混合化”趋势"><a href="#2、大型企业战略决策模式的“混合化”趋势" class="headerlink" title="2、大型企业战略决策模式的“混合化”趋势"></a>2、大型企业战略决策模式的“混合化”趋势</h3><p>&emsp;&emsp;在战略决策文献中，关于战略规划、企业家决策与自发/分散决策等战略决策类型及其作用的讨论一直很激烈。从国内外大型制造企业的实践看，一些企业选择了战略规划体系的创新或调整，如艾默生、联想、大石油公司等(Grant，2003；武亚军，2007)，另外一些企业如GE则“放弃”了传统的正式性很强的战略规划体系而转向以战略领导和分散决策为主的战略决策模式。从总体上看，这反映了一种动态环境下企业战略决策的“混合化”趋势—即正式战略规划与其他战略决策类型相结合。这一方面和企业国际化及竞争环境的快速变化有关，另一方面也与企业的管理基础、最高领导人的能力与管理风格有很大的关系。从大中型企业的战略决策方式看，正式战略规划是很普遍也很难逾越的决策方式。事实上，艾默生通过战略规划体系的创新，在战略领导、正式战略规划和一线业务领导人的分散决策之间形成了一种“综合协调”，进而取得了赢利的持续增长。从这个角度上看，艾默生的成功在于其以正式战略规划为主、辅以其他两种战略决策模式的成功。正如不少研究所揭示的那样，结合战略规划和其他两种模式的综合性战略决策模式将是动态复杂环境下大型制造企业战略决策的一种发展趋势。</p>
-<h3 id="3、对中国大中型本土制造企业的启示"><a href="#3、对中国大中型本土制造企业的启示" class="headerlink" title="3、对中国大中型本土制造企业的启示"></a>3、对中国大中型本土制造企业的启示</h3><p>&emsp;&emsp;如表2所示，对比艾默生的战略规划创新与中国本土著名制造业企业——联想的战略规划经验(武亚军，2007)，可以发现：两个企业在外部环境的动态性、内容创新、工具创新、组织创新等方面都有一定的相似性，例如，艾默生通过利润与增长计划分立来平衡赢利性和成长问题，而联想则通过三类业务组合配置(成长战略)和完善业务模式(竞争战略)来协调两者的关系；艾默生在1990年代初未达到预期目标后通过反思性的战略学习形成了“利润瀑布”分析工具和“严苛预测”原则，而联想在经过2000-2003年规划挫折后也通过反思性的战略学习形成了“战略路线精准化”和“业务模式创新”等战略原则。所不同的是，艾默生在战略规划的体系化、制度化上比联想更为成熟，这和前者经历了更长期的发展有很大关系。无论如何，对于中国的大中型制造企业来说，联想和艾默生的经验都有很强的借鉴意义：(1)企业从小到大、从创业到逐步成熟、从国内到国际化的发展过程中，需要结合企业的环境和自身条件，进行战略规划的内容、组织和工具“三重创新”，才能真正通过战略规划提高竞争力和实现持续增长；(2)战略规划的创新需要组织权力结构和核心价值观的支持，这是企业战略规划创新的制度与文化基础。事实上，这恰恰是很多中国大中型本土企业所欠缺和需要面对的挑战。艾默生公司和联想为中国大中型制造企业的战略规划树立了两个标杆，不过联想的战略规划体系仍处于系统化和完善之中，而艾默生则由于其长期发展而比较成熟和完善，这也增大了艾默生公司经验对中国大中型企业(包括联想在内)的借鉴价值。</p>
-<h2 id="五、结论与展望"><a href="#五、结论与展望" class="headerlink" title="五、结论与展望"></a>五、结论与展望</h2><p>&emsp;&emsp;艾默生案例清晰表明了战略规划体系设计和创新对大企业持续发展的重要性及其作用机制。艾默生公司在“管理过程”发展中有效地实现了战略规划体系的“三重创新”：即以“增长计划和赢利评估并重”及“瞻前顾后式”滚动计划为代表的“两栖型”内容创新、以子公司为主体又分工协作的“一体化”组织创新，以及以“最优成本制造”和“赢利瀑布分析”为代表的量身定做的“独特”工具创新。案例分析表明，基于“管理过程”及核心价值观上的战略规划体系创新，促进了艾默生公司在高层战略领导、正式战略规划和子公司领导层的主动性之间的合理平衡，实现了企业战略在增长与赢利、前瞻与学习、制定与执行、普遍与独特等方面的协调和统一，这是艾默生公司近50年来赢利性持续增长的重要驱动因素。可以认为，战略规划体系的“三重创新”是战略规划有效性的一个永恒主题，也是大中型企业在战略思维和行动之间保持有效连接的关键。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031440867-2023-03-06-10-21-31.png" alt="202303031440867-2023-03-06-10-21-31"></p>
-<p>&emsp;&emsp;战略规划体系创新需要核心价值观支撑。艾默生的战略规划创新过程说明了其“管理过程”和核心理念的重要性，“保持精简”、“重视计划”、“发挥经理人员的自主性”等基本理念都显著地影响了艾默生的战略规划设计与创新。从这个意义上，“精于心，简于形”可以说是艾默生的规划之道。也许，每个企业的战略规划体系设计模式和经验不能直接复制，但其成功背后的智慧完全可以学习和借鉴。艾默生集团公司的战略规划创新和规划之道，值得中国本土大中型制造企业仔细品味和借鉴。</p>
-<p><a href="http://59.252.42.34:6251/Qw/Paper/395094" target="_blank" rel="noopener">原文</a></p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>艾默生</tag>
-        <tag>企业管理研究</tag>
+        <tag>Linux挂载硬盘</tag>
       </tags>
   </entry>
   <entry>
