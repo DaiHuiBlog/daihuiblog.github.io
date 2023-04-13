@@ -35,90 +35,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git简明指南</title>
-    <url>/2018/04/24/Git%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Git简明指南/3-2023-03-06-10-23-18.jpg" alt="3-2023-03-06-10-23-18"></p>
-<a id="more"></a>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="下载-git-OSX-版"><a href="#下载-git-OSX-版" class="headerlink" title="下载 git OSX 版"></a><a href="http://git-scm.com/download/mac" target="_blank" rel="noopener">下载 git OSX 版</a></h2><h2 id="下载-git-Windows-版"><a href="#下载-git-Windows-版" class="headerlink" title="下载 git Windows 版"></a><a href="http://git-for-windows.github.io/" target="_blank" rel="noopener">下载 git Windows 版</a></h2><h2 id="下载-git-Linux-版"><a href="#下载-git-Linux-版" class="headerlink" title="下载 git Linux 版"></a><a href="http://book.git-scm.com/2_installing_git.html" target="_blank" rel="noopener">下载 git Linux 版</a></h2><h1 id="创建新仓库"><a href="#创建新仓库" class="headerlink" title="创建新仓库"></a>创建新仓库</h1><p>创建新文件夹，打开，然后执行</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-<p>以创建新的 git 仓库。</p>
-<h1 id="检出仓库"><a href="#检出仓库" class="headerlink" title="检出仓库"></a>检出仓库</h1><p>执行如下命令以创建一个本地仓库的克隆版本：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone /path/to/repository</span><br></pre></td></tr></table></figure>
-<p>如果是远端服务器上的仓库，你的命令会是这个样子：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone username@host:/path/to/repository</span><br></pre></td></tr></table></figure>
-<h1 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h1><p>你的本地仓库由 git 维护的三棵“树”组成。<br>第一个是你的<code>工作目录</code>，它持有实际文件；<br>第二个是<code>暂存区（Index）</code>，它像个缓存区域，临时保存你的改动；<br>最后是 <code>HEAD</code>，它指向你最后一次提交的结果。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Git简明指南/1-2023-03-06-10-23-02.png" alt="1-2023-03-06-10-23-02"></p>
-<h1 id="添加和提交"><a href="#添加和提交" class="headerlink" title="添加和提交"></a>添加和提交</h1><p>你可以提出更改（把它们添加到暂存区），使用如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br><span class="line">git add *</span><br></pre></td></tr></table></figure>
-<p>这是 git 基本工作流程的第一步；使用如下命令以实际提交改动：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit -m "代码提交信息"</span><br></pre></td></tr></table></figure>
-<p>现在，你的改动已经提交到了<code>HEAD</code>，但是还没到你的远端仓库。</p>
-<h1 id="推送改动"><a href="#推送改动" class="headerlink" title="推送改动"></a>推送改动</h1><p>你的改动现在已经在本地仓库的 HEAD 中了。执行如下命令以将这些改动提交到远端仓库：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<p>可以把 master 换成你想要推送的任何分支。</p>
-<p>如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add origin &lt;server&gt;</span><br></pre></td></tr></table></figure>
-<p>如此你就能够将你的改动推送到所添加的服务器上去了。</p>
-<h1 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h1><p>分支是用来将特性开发绝缘开来的。在你创建仓库的时候，master 是“默认的”分支。在其他分支上进行开发，完成后再将它们合并到主分支上。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Git简明指南/2-2023-03-06-10-25-39.png" alt="2-2023-03-06-10-25-39"></p>
-<p>创建一个叫做“feature_x”的分支，并切换过去：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b feature_x</span><br></pre></td></tr></table></figure>
-<p>切换回主分支：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
-<p>再把新建的分支删掉：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d feature_x</span><br></pre></td></tr></table></figure>
-<p>除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push origin &lt;branch&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="更新与合并"><a href="#更新与合并" class="headerlink" title="更新与合并"></a>更新与合并</h1><p>要更新你的本地仓库至最新改动，执行：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
-<p>以在你的工作目录中 <em>获取（fetch）</em> 并 <em>合并（merge）</em> 远端的改动。<br>要合并其他分支到你的当前分支（例如 master），执行：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge &lt;branch&gt;</span><br></pre></td></tr></table></figure>
-<p>在这两种情况下，git 都会尝试去自动合并改动。遗憾的是，这可能并非每次都成功，并可能出现冲突（conflicts）。<br>这时候就需要你修改这些文件来手动合并这些冲突（conflicts）。改完之后，你需要执行如下命令以将它们标记为合并成功：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br></pre></td></tr></table></figure>
-<p>在合并改动之前，你可以使用如下命令预览差异：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff &lt;source_branch&gt; &lt;target_branch&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h1><p>为软件发布创建标签是推荐的。这个概念早已存在，在 SVN 中也有。你可以执行如下命令创建一个叫做 1.0.0 的标签：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git tag 1.0.0 1b2e1d63ff</span><br></pre></td></tr></table></figure>
-<p>1b2e1d63ff 是你想要标记的提交 ID 的前 10 位字符。可以使用下列命令获取提交 ID：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-<p>你也可以使用少一点的提交 ID 前几位，只要它的指向具有唯一性。</p>
-<h1 id="log"><a href="#log" class="headerlink" title="log"></a>log</h1><p>如果你想了解本地仓库的历史记录，最简单的命令就是使用:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-<p>你可以添加一些参数来修改他的输出，从而得到自己想要的结果。 只看某一个人的提交记录:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --author=bob</span><br></pre></td></tr></table></figure>
-<p>一个压缩后的每一条提交记录只占一行的输出:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --pretty=oneline</span><br></pre></td></tr></table></figure>
-<p>或者你想通过<strong>ASCII</strong>艺术的树形结构来展示所有的分支, 每个分支都标示了他的名字和标签:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --graph --oneline --decorate --all</span><br></pre></td></tr></table></figure>
-<p>看看哪些文件改变了:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --name-status</span><br></pre></td></tr></table></figure>
-<p>这些只是你可以使用的参数中很小的一部分。更多的信息，参考：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --help</span><br></pre></td></tr></table></figure>
-<h1 id="替换本地改动"><a href="#替换本地改动" class="headerlink" title="替换本地改动"></a>替换本地改动</h1><p>假如你操作失误（当然，这最好永远不要发生），你可以使用如下命令替换掉本地改动：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -- &lt;filename&gt;</span><br></pre></td></tr></table></figure>
-<p>此命令会使用<code>HEAD</code>中的最新内容替换掉你的工作目录中的文件。已添加到暂存区的改动以及新文件都不会受到影响。</p>
-<p>假如你想丢弃你在本地的所有改动与提交，可以到服务器上获取最新的版本历史，并将你本地主分支指向它：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch origin</span><br><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
-<h1 id="实用小贴士"><a href="#实用小贴士" class="headerlink" title="实用小贴士"></a>实用小贴士</h1><p>内建的图形化 git：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gitk</span><br></pre></td></tr></table></figure>
-<p>彩色的 git 输出：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config color.ui true</span><br></pre></td></tr></table></figure>
-<p>显示历史记录时，每个提交的信息只显示一行：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config format.pretty oneline</span><br></pre></td></tr></table></figure>
-<p>交互式添加文件到暂存区：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add -i</span><br></pre></td></tr></table></figure>
-<h1 id="链接与资源"><a href="#链接与资源" class="headerlink" title="链接与资源"></a>链接与资源</h1><h2 id="图形化客户端"><a href="#图形化客户端" class="headerlink" title="图形化客户端"></a>图形化客户端</h2><p><a href="http://gitx.laullon.com/" target="_blank" rel="noopener">GitX (L) (OSX, 开源软件)</a><br><a href="http://www.git-tower.com/" target="_blank" rel="noopener">Tower (OSX)</a><br><a href="http://www.sourcetreeapp.com/" target="_blank" rel="noopener">Source Tree (OSX, 免费)</a><br><a href="http://mac.github.com/" target="_blank" rel="noopener">GitHub for Mac (OSX, 免费)</a><br><a href="https://itunes.apple.com/gb/app/gitbox/id403388357?mt=12" target="_blank" rel="noopener">GitBox (OSX, App Store)</a>  </p>
-<h2 id="指南和手册"><a href="#指南和手册" class="headerlink" title="指南和手册"></a>指南和手册</h2><p><a href="http://book.git-scm.com/" target="_blank" rel="noopener">Git 社区参考书</a><br><a href="http://progit.org/book/" target="_blank" rel="noopener">专业 Git</a><br><a href="http://think-like-a-git.net/" target="_blank" rel="noopener">像 git 那样思考</a><br><a href="http://help.github.com/" target="_blank" rel="noopener">GitHub 帮助</a><br><a href="http://marklodato.github.io/visual-git-guide/index-zh-cn.html" target="_blank" rel="noopener">图解 Git</a>  </p>
-<p>git命令大全：<br><img src="https://DaiHuiBlog.github.io/images/posts/Git简明指南/4.jpg" alt="image2"></p>
-]]></content>
-      <categories>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Axios基本使用说明</title>
     <url>/2018/04/11/Axios%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
     <content><![CDATA[<h1 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h1><p><a href="https://www.npmjs.org/package/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/axios.svg?style=flat-square" alt="npm version"></a><a href="https://travis-ci.org/axios/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/travis/axios/axios.svg?style=flat-square" alt="build status"></a><a href="https://coveralls.io/r/mzabriskie/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/coveralls/mzabriskie/axios.svg?style=flat-square" alt="code coverage"></a><a href="http://npm-stat.com/charts.html?package=axios" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/dm/axios.svg?style=flat-square" alt="npm downloads"></a><a href="https://gitter.im/mzabriskie/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/gitter/room/mzabriskie/axios.svg?style=flat-square" alt="gitter chat"></a><a href="https://www.codetriage.com/axios/axios" target="_blank" rel="noopener"><img src="https://www.codetriage.com/axios/axios/badges/users.svg" alt="code helpers"></a></p>
@@ -949,6 +865,90 @@
       </tags>
   </entry>
   <entry>
+    <title>Git简明指南</title>
+    <url>/2018/04/24/Git%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Git简明指南/3-2023-03-06-10-23-18.jpg" alt="3-2023-03-06-10-23-18"></p>
+<a id="more"></a>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="下载-git-OSX-版"><a href="#下载-git-OSX-版" class="headerlink" title="下载 git OSX 版"></a><a href="http://git-scm.com/download/mac" target="_blank" rel="noopener">下载 git OSX 版</a></h2><h2 id="下载-git-Windows-版"><a href="#下载-git-Windows-版" class="headerlink" title="下载 git Windows 版"></a><a href="http://git-for-windows.github.io/" target="_blank" rel="noopener">下载 git Windows 版</a></h2><h2 id="下载-git-Linux-版"><a href="#下载-git-Linux-版" class="headerlink" title="下载 git Linux 版"></a><a href="http://book.git-scm.com/2_installing_git.html" target="_blank" rel="noopener">下载 git Linux 版</a></h2><h1 id="创建新仓库"><a href="#创建新仓库" class="headerlink" title="创建新仓库"></a>创建新仓库</h1><p>创建新文件夹，打开，然后执行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>以创建新的 git 仓库。</p>
+<h1 id="检出仓库"><a href="#检出仓库" class="headerlink" title="检出仓库"></a>检出仓库</h1><p>执行如下命令以创建一个本地仓库的克隆版本：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone /path/to/repository</span><br></pre></td></tr></table></figure>
+<p>如果是远端服务器上的仓库，你的命令会是这个样子：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone username@host:/path/to/repository</span><br></pre></td></tr></table></figure>
+<h1 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h1><p>你的本地仓库由 git 维护的三棵“树”组成。<br>第一个是你的<code>工作目录</code>，它持有实际文件；<br>第二个是<code>暂存区（Index）</code>，它像个缓存区域，临时保存你的改动；<br>最后是 <code>HEAD</code>，它指向你最后一次提交的结果。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Git简明指南/1-2023-03-06-10-23-02.png" alt="1-2023-03-06-10-23-02"></p>
+<h1 id="添加和提交"><a href="#添加和提交" class="headerlink" title="添加和提交"></a>添加和提交</h1><p>你可以提出更改（把它们添加到暂存区），使用如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br><span class="line">git add *</span><br></pre></td></tr></table></figure>
+<p>这是 git 基本工作流程的第一步；使用如下命令以实际提交改动：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit -m "代码提交信息"</span><br></pre></td></tr></table></figure>
+<p>现在，你的改动已经提交到了<code>HEAD</code>，但是还没到你的远端仓库。</p>
+<h1 id="推送改动"><a href="#推送改动" class="headerlink" title="推送改动"></a>推送改动</h1><p>你的改动现在已经在本地仓库的 HEAD 中了。执行如下命令以将这些改动提交到远端仓库：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<p>可以把 master 换成你想要推送的任何分支。</p>
+<p>如果你还没有克隆现有仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add origin &lt;server&gt;</span><br></pre></td></tr></table></figure>
+<p>如此你就能够将你的改动推送到所添加的服务器上去了。</p>
+<h1 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h1><p>分支是用来将特性开发绝缘开来的。在你创建仓库的时候，master 是“默认的”分支。在其他分支上进行开发，完成后再将它们合并到主分支上。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Git简明指南/2-2023-03-06-10-25-39.png" alt="2-2023-03-06-10-25-39"></p>
+<p>创建一个叫做“feature_x”的分支，并切换过去：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -b feature_x</span><br></pre></td></tr></table></figure>
+<p>切换回主分支：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
+<p>再把新建的分支删掉：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d feature_x</span><br></pre></td></tr></table></figure>
+<p>除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push origin &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="更新与合并"><a href="#更新与合并" class="headerlink" title="更新与合并"></a>更新与合并</h1><p>要更新你的本地仓库至最新改动，执行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<p>以在你的工作目录中 <em>获取（fetch）</em> 并 <em>合并（merge）</em> 远端的改动。<br>要合并其他分支到你的当前分支（例如 master），执行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+<p>在这两种情况下，git 都会尝试去自动合并改动。遗憾的是，这可能并非每次都成功，并可能出现冲突（conflicts）。<br>这时候就需要你修改这些文件来手动合并这些冲突（conflicts）。改完之后，你需要执行如下命令以将它们标记为合并成功：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+<p>在合并改动之前，你可以使用如下命令预览差异：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff &lt;source_branch&gt; &lt;target_branch&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h1><p>为软件发布创建标签是推荐的。这个概念早已存在，在 SVN 中也有。你可以执行如下命令创建一个叫做 1.0.0 的标签：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git tag 1.0.0 1b2e1d63ff</span><br></pre></td></tr></table></figure>
+<p>1b2e1d63ff 是你想要标记的提交 ID 的前 10 位字符。可以使用下列命令获取提交 ID：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<p>你也可以使用少一点的提交 ID 前几位，只要它的指向具有唯一性。</p>
+<h1 id="log"><a href="#log" class="headerlink" title="log"></a>log</h1><p>如果你想了解本地仓库的历史记录，最简单的命令就是使用:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<p>你可以添加一些参数来修改他的输出，从而得到自己想要的结果。 只看某一个人的提交记录:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --author=bob</span><br></pre></td></tr></table></figure>
+<p>一个压缩后的每一条提交记录只占一行的输出:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --pretty=oneline</span><br></pre></td></tr></table></figure>
+<p>或者你想通过<strong>ASCII</strong>艺术的树形结构来展示所有的分支, 每个分支都标示了他的名字和标签:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --graph --oneline --decorate --all</span><br></pre></td></tr></table></figure>
+<p>看看哪些文件改变了:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --name-status</span><br></pre></td></tr></table></figure>
+<p>这些只是你可以使用的参数中很小的一部分。更多的信息，参考：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log --help</span><br></pre></td></tr></table></figure>
+<h1 id="替换本地改动"><a href="#替换本地改动" class="headerlink" title="替换本地改动"></a>替换本地改动</h1><p>假如你操作失误（当然，这最好永远不要发生），你可以使用如下命令替换掉本地改动：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout -- &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+<p>此命令会使用<code>HEAD</code>中的最新内容替换掉你的工作目录中的文件。已添加到暂存区的改动以及新文件都不会受到影响。</p>
+<p>假如你想丢弃你在本地的所有改动与提交，可以到服务器上获取最新的版本历史，并将你本地主分支指向它：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch origin</span><br><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
+<h1 id="实用小贴士"><a href="#实用小贴士" class="headerlink" title="实用小贴士"></a>实用小贴士</h1><p>内建的图形化 git：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gitk</span><br></pre></td></tr></table></figure>
+<p>彩色的 git 输出：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config color.ui true</span><br></pre></td></tr></table></figure>
+<p>显示历史记录时，每个提交的信息只显示一行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config format.pretty oneline</span><br></pre></td></tr></table></figure>
+<p>交互式添加文件到暂存区：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add -i</span><br></pre></td></tr></table></figure>
+<h1 id="链接与资源"><a href="#链接与资源" class="headerlink" title="链接与资源"></a>链接与资源</h1><h2 id="图形化客户端"><a href="#图形化客户端" class="headerlink" title="图形化客户端"></a>图形化客户端</h2><p><a href="http://gitx.laullon.com/" target="_blank" rel="noopener">GitX (L) (OSX, 开源软件)</a><br><a href="http://www.git-tower.com/" target="_blank" rel="noopener">Tower (OSX)</a><br><a href="http://www.sourcetreeapp.com/" target="_blank" rel="noopener">Source Tree (OSX, 免费)</a><br><a href="http://mac.github.com/" target="_blank" rel="noopener">GitHub for Mac (OSX, 免费)</a><br><a href="https://itunes.apple.com/gb/app/gitbox/id403388357?mt=12" target="_blank" rel="noopener">GitBox (OSX, App Store)</a>  </p>
+<h2 id="指南和手册"><a href="#指南和手册" class="headerlink" title="指南和手册"></a>指南和手册</h2><p><a href="http://book.git-scm.com/" target="_blank" rel="noopener">Git 社区参考书</a><br><a href="http://progit.org/book/" target="_blank" rel="noopener">专业 Git</a><br><a href="http://think-like-a-git.net/" target="_blank" rel="noopener">像 git 那样思考</a><br><a href="http://help.github.com/" target="_blank" rel="noopener">GitHub 帮助</a><br><a href="http://marklodato.github.io/visual-git-guide/index-zh-cn.html" target="_blank" rel="noopener">图解 Git</a>  </p>
+<p>git命令大全：<br><img src="https://DaiHuiBlog.github.io/images/posts/Git简明指南/4.jpg" alt="image2"></p>
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hadoop伪分布式搭建-(1)</title>
     <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-1/</url>
     <content><![CDATA[<h3 id="配置虚拟机子网网段-hostonly模式时"><a href="#配置虚拟机子网网段-hostonly模式时" class="headerlink" title="配置虚拟机子网网段(hostonly模式时)"></a>配置虚拟机子网网段(hostonly模式时)</h3><ul>
@@ -1204,64 +1204,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac上用QuickTimePlayer和Soundflower插件录制完美视频</title>
-    <url>/2019/04/10/Mac%E4%B8%8A%E7%94%A8QuickTimePlayer%E5%92%8CSoundflower%E6%8F%92%E4%BB%B6%E5%BD%95%E5%88%B6%E5%AE%8C%E7%BE%8E%E8%A7%86%E9%A2%91/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/0-2023-03-06-10-51-48.png" alt="0-2023-03-06-10-51-48"></p>
-<a id="more"></a>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MacOS自带的QuickTime Player录制视频的时候默认是不会有内部视频里的音频的，默认情况下除非你开到最大声，然后通过内置的麦克风“听到”，又录进到视频。这是很傻X的。<br>今天整理了一下可以录制到音视频的两个方法：</p>
-<blockquote>
-<ol>
-<li>录制只有屏内音频视频的方法  </li>
-<li>录制有屏内音频和屏外声音视频的方法</li>
-</ol>
-</blockquote>
-<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><blockquote>
-<p>软件： Soundflower 小插件<br>操作系统：macOS<br>其他：一个聪明的脑袋  </p>
-</blockquote>
-<h2 id="1-下载Soundflower并安装"><a href="#1-下载Soundflower并安装" class="headerlink" title="1. 下载Soundflower并安装"></a>1. 下载<a href="https://github.com/mattingalls/Soundflower/releases" target="_blank" rel="noopener">Soundflower</a>并安装</h2><p>点击上面这个链接，进入GitHub选择下载<code>Soundflower-2.0b2.dmg</code>(版本可能不一样)</p>
-<p>下载完成后，无脑安装，再次期间可能会提示<code>提示来自身份不明的开发者</code>，这个时候不要慌，打开系统偏好设置-&gt;安全性与隐私，选择“仍要打开”（此时我们在“通用”选项卡）</p>
-<p>在这里我们顺便检查一下，QuickTime Player的麦克风权限。打开系统偏好设置-&gt;安全性与隐私-&gt;选择“隐私”选项卡，选择左侧的“麦克风”选项，看右侧的“QuickTime Player”有没有勾上对勾，没有的话把它勾上</p>
-<p>到这里Soundflower基本就算安装好了，接下来开始设置</p>
-<h2 id="2-设置"><a href="#2-设置" class="headerlink" title="2. 设置"></a>2. 设置</h2><p>设置我们需要打开<code>音频 MIDI 设置</code>这个Mac自带的软件：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/1-2023-03-06-10-52-10.png" alt="音频MIDI设置"></p>
-<h3 id="2-1-创建多输出设备并设置"><a href="#2-1-创建多输出设备并设置" class="headerlink" title="2.1 创建多输出设备并设置"></a>2.1 创建<code>多输出设备</code>并设置</h3><p>点击左下角“+”，选择“创建多输出设备”，按如图所示设置：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/2-2023-03-06-10-52-30.png" alt="创建多输出设备"></p>
-<h3 id="2-2-创建只有屏内音频的配置（创建聚集设备）"><a href="#2-2-创建只有屏内音频的配置（创建聚集设备）" class="headerlink" title="2.2 创建只有屏内音频的配置（创建聚集设备）"></a>2.2 创建<code>只有屏内音频</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/3-2023-03-06-10-52-55.png" alt="只有屏内音频"></p>
-<h3 id="2-3-创建屏内音频和屏外声音的配置（创建聚集设备）"><a href="#2-3-创建屏内音频和屏外声音的配置（创建聚集设备）" class="headerlink" title="2.3 创建屏内音频和屏外声音的配置（创建聚集设备）"></a>2.3 创建<code>屏内音频和屏外声音</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/4-2023-03-06-10-53-13.png" alt="屏内音频和屏外声音"></p>
-<h2 id="3-录制"><a href="#3-录制" class="headerlink" title="3. 录制"></a>3. 录制</h2><p>录制时因为分为两种不同的方式，所以在录制是设置稍有不同，我大致总结如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.录制只有内部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器输出：</span><br><span class="line">        多输出设备   ✔️</span><br><span class="line"></span><br><span class="line">2.录制有内外部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内外部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器：</span><br><span class="line">        多输出设备（内外声音结合很好，效果好） ✔️</span><br><span class="line">        内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）  </span><br><span class="line">        刚才建的两个选项（自己听不到声音，但是录完屏后视频内有声音）</span><br></pre></td></tr></table></figure>
-<p>看不懂的同学请往下看</p>
-<h3 id="3-1-录制只有屏内音频视频的方法"><a href="#3-1-录制只有屏内音频视频的方法" class="headerlink" title="3.1 录制只有屏内音频视频的方法"></a>3.1 录制只有屏内音频视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/5-2023-03-06-10-53-47.png" alt="录屏专用-内部音频"></p>
-<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-54-10.png" alt="多输出设备1"></p>
-<p>如果没有小喇叭可以打开系统偏好设置-&gt;声音-&gt;选择输出选项卡，选中“多输出设备”。最后把“在菜单栏中显示音量”选中即可，方便以后使用</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/7-2023-03-06-10-54-29.png" alt="多输出设备2"></p>
-<p>至此，点击开始，录制你的视频吧</p>
-<h3 id="3-2-录制有屏内音频和屏外声音视频的方法"><a href="#3-2-录制有屏内音频和屏外声音视频的方法" class="headerlink" title="3.2 录制有屏内音频和屏外声音视频的方法"></a>3.2 录制有屏内音频和屏外声音视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内外部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/8-2023-03-06-10-54-57.png" alt="录屏专用-内外部音频"></p>
-<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-55-31.png" alt="多输出设备3"></p>
-<p>剩下的其他选项：</p>
-<blockquote>
-<p>内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）<br>刚才建的两个选项(录屏专用-内部音频/录屏专用-内外部音频)，自己听不到声音，但是录完屏后视频内有声音（感觉这个适合用来夜深人静的时候录~）</p>
-</blockquote>
-<p>至此，点击开始，录制你的视频吧</p>
-<h2 id="4-补充"><a href="#4-补充" class="headerlink" title="4. 补充"></a>4. 补充</h2><p>如果同学你机器上装有 <code>homebrew</code> 和 <code>homebrew cask</code>，可以直接用如下命令安装Soundflower：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install soundflower</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac</tag>
-        <tag>录视频</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java8中的StreamsAPI详解</title>
     <url>/2018/09/30/Java8%E4%B8%AD%E7%9A%84StreamsAPI%E8%AF%A6%E8%A7%A3/</url>
     <content><![CDATA[<h1 id="Java-8-中的-Streams-API-详解"><a href="#Java-8-中的-Streams-API-详解" class="headerlink" title="Java 8 中的 Streams API 详解"></a>Java 8 中的 Streams API 详解</h1><h2 id="为什么需要-Stream"><a href="#为什么需要-Stream" class="headerlink" title="为什么需要 Stream"></a>为什么需要 Stream</h2><p>Stream 作为 Java 8 的一大亮点，它与 java.io 包里的 InputStream 和 OutputStream 是完全不同的概念。它也不同于 StAX 对 XML 解析的 Stream，也不是 Amazon Kinesis 对大数据实时处理的 Stream。Java 8 中的 Stream 是对集合（Collection）对象功能的增强，它专注于对集合对象进行各种非常便利、高效的聚合操作（aggregate operation），或者大批量数据操作 (bulk data     operation)。</p>
@@ -1510,6 +1452,176 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac上用QuickTimePlayer和Soundflower插件录制完美视频</title>
+    <url>/2019/04/10/Mac%E4%B8%8A%E7%94%A8QuickTimePlayer%E5%92%8CSoundflower%E6%8F%92%E4%BB%B6%E5%BD%95%E5%88%B6%E5%AE%8C%E7%BE%8E%E8%A7%86%E9%A2%91/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/0-2023-03-06-10-51-48.png" alt="0-2023-03-06-10-51-48"></p>
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MacOS自带的QuickTime Player录制视频的时候默认是不会有内部视频里的音频的，默认情况下除非你开到最大声，然后通过内置的麦克风“听到”，又录进到视频。这是很傻X的。<br>今天整理了一下可以录制到音视频的两个方法：</p>
+<blockquote>
+<ol>
+<li>录制只有屏内音频视频的方法  </li>
+<li>录制有屏内音频和屏外声音视频的方法</li>
+</ol>
+</blockquote>
+<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><blockquote>
+<p>软件： Soundflower 小插件<br>操作系统：macOS<br>其他：一个聪明的脑袋  </p>
+</blockquote>
+<h2 id="1-下载Soundflower并安装"><a href="#1-下载Soundflower并安装" class="headerlink" title="1. 下载Soundflower并安装"></a>1. 下载<a href="https://github.com/mattingalls/Soundflower/releases" target="_blank" rel="noopener">Soundflower</a>并安装</h2><p>点击上面这个链接，进入GitHub选择下载<code>Soundflower-2.0b2.dmg</code>(版本可能不一样)</p>
+<p>下载完成后，无脑安装，再次期间可能会提示<code>提示来自身份不明的开发者</code>，这个时候不要慌，打开系统偏好设置-&gt;安全性与隐私，选择“仍要打开”（此时我们在“通用”选项卡）</p>
+<p>在这里我们顺便检查一下，QuickTime Player的麦克风权限。打开系统偏好设置-&gt;安全性与隐私-&gt;选择“隐私”选项卡，选择左侧的“麦克风”选项，看右侧的“QuickTime Player”有没有勾上对勾，没有的话把它勾上</p>
+<p>到这里Soundflower基本就算安装好了，接下来开始设置</p>
+<h2 id="2-设置"><a href="#2-设置" class="headerlink" title="2. 设置"></a>2. 设置</h2><p>设置我们需要打开<code>音频 MIDI 设置</code>这个Mac自带的软件：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/1-2023-03-06-10-52-10.png" alt="音频MIDI设置"></p>
+<h3 id="2-1-创建多输出设备并设置"><a href="#2-1-创建多输出设备并设置" class="headerlink" title="2.1 创建多输出设备并设置"></a>2.1 创建<code>多输出设备</code>并设置</h3><p>点击左下角“+”，选择“创建多输出设备”，按如图所示设置：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/2-2023-03-06-10-52-30.png" alt="创建多输出设备"></p>
+<h3 id="2-2-创建只有屏内音频的配置（创建聚集设备）"><a href="#2-2-创建只有屏内音频的配置（创建聚集设备）" class="headerlink" title="2.2 创建只有屏内音频的配置（创建聚集设备）"></a>2.2 创建<code>只有屏内音频</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/3-2023-03-06-10-52-55.png" alt="只有屏内音频"></p>
+<h3 id="2-3-创建屏内音频和屏外声音的配置（创建聚集设备）"><a href="#2-3-创建屏内音频和屏外声音的配置（创建聚集设备）" class="headerlink" title="2.3 创建屏内音频和屏外声音的配置（创建聚集设备）"></a>2.3 创建<code>屏内音频和屏外声音</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/4-2023-03-06-10-53-13.png" alt="屏内音频和屏外声音"></p>
+<h2 id="3-录制"><a href="#3-录制" class="headerlink" title="3. 录制"></a>3. 录制</h2><p>录制时因为分为两种不同的方式，所以在录制是设置稍有不同，我大致总结如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.录制只有内部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器输出：</span><br><span class="line">        多输出设备   ✔️</span><br><span class="line"></span><br><span class="line">2.录制有内外部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内外部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器：</span><br><span class="line">        多输出设备（内外声音结合很好，效果好） ✔️</span><br><span class="line">        内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）  </span><br><span class="line">        刚才建的两个选项（自己听不到声音，但是录完屏后视频内有声音）</span><br></pre></td></tr></table></figure>
+<p>看不懂的同学请往下看</p>
+<h3 id="3-1-录制只有屏内音频视频的方法"><a href="#3-1-录制只有屏内音频视频的方法" class="headerlink" title="3.1 录制只有屏内音频视频的方法"></a>3.1 录制只有屏内音频视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/5-2023-03-06-10-53-47.png" alt="录屏专用-内部音频"></p>
+<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-54-10.png" alt="多输出设备1"></p>
+<p>如果没有小喇叭可以打开系统偏好设置-&gt;声音-&gt;选择输出选项卡，选中“多输出设备”。最后把“在菜单栏中显示音量”选中即可，方便以后使用</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/7-2023-03-06-10-54-29.png" alt="多输出设备2"></p>
+<p>至此，点击开始，录制你的视频吧</p>
+<h3 id="3-2-录制有屏内音频和屏外声音视频的方法"><a href="#3-2-录制有屏内音频和屏外声音视频的方法" class="headerlink" title="3.2 录制有屏内音频和屏外声音视频的方法"></a>3.2 录制有屏内音频和屏外声音视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内外部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/8-2023-03-06-10-54-57.png" alt="录屏专用-内外部音频"></p>
+<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-55-31.png" alt="多输出设备3"></p>
+<p>剩下的其他选项：</p>
+<blockquote>
+<p>内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）<br>刚才建的两个选项(录屏专用-内部音频/录屏专用-内外部音频)，自己听不到声音，但是录完屏后视频内有声音（感觉这个适合用来夜深人静的时候录~）</p>
+</blockquote>
+<p>至此，点击开始，录制你的视频吧</p>
+<h2 id="4-补充"><a href="#4-补充" class="headerlink" title="4. 补充"></a>4. 补充</h2><p>如果同学你机器上装有 <code>homebrew</code> 和 <code>homebrew cask</code>，可以直接用如下命令安装Soundflower：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install soundflower</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>录视频</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java常见异常总结</title>
+    <url>/2018/03/18/Java%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<ul>
+<li><h5 id="java-lang-NullPointerException-空指针异常"><a href="#java-lang-NullPointerException-空指针异常" class="headerlink" title="java.lang.NullPointerException(空指针异常)"></a>java.lang.NullPointerException(空指针异常)</h5><blockquote>
+<p>调用了未经初始化的对象或者是不存在的对象</p>
+</blockquote>
+<p>经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，<br>即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，<br>依然是空的，所以还需要对每个元素都进行初始化（如果要调用的话）。</p>
+<a id="more"></a>
+</li>
+<li><h5 id="java-lang-ClassNotFoundException"><a href="#java-lang-ClassNotFoundException" class="headerlink" title="java.lang.ClassNotFoundException　　"></a>java.lang.ClassNotFoundException　　</h5><blockquote>
+<p>指定的类不存在</p>
+</blockquote>
+<p> 这里主要考虑一下类的名称和路径是否正确即可，通常都是程序试图通过字符串来加载某个类时可能引发 异常<br> 比如：调用Class.forName();<br> 或者调用ClassLoad的finaSystemClass();或者LoadClass();</p>
+</li>
+<li><h5 id="java-lang-NumberFormatException"><a href="#java-lang-NumberFormatException" class="headerlink" title="java.lang.NumberFormatException"></a>java.lang.NumberFormatException</h5><blockquote>
+<p>字符串转换为数字异常</p>
+</blockquote>
+<p>当试图将一个String转换为指定的数字类型，而该字符串确不满足数字类型要求的格式时，抛出该异常.如现在讲字符型的数据“123456”转换为数值型数据时，是允许的。<br>但是如果字符型数据中包含了非数字型的字符，如123#56，此时转换为数值型时就会出现异常。系统就会捕捉到这个异常，并进行处理.</p>
+</li>
+<li><h5 id="java-lang-IndexOutOfBoundsException"><a href="#java-lang-IndexOutOfBoundsException" class="headerlink" title="java.lang.IndexOutOfBoundsException"></a>java.lang.IndexOutOfBoundsException</h5><blockquote>
+<p>数组下标越界异常</p>
+</blockquote>
+<p>查看调用的数组或者字符串的下标值是不是超出了数组的范围，一般来说，显示（即直接用常数当下标）调用不太容易出这样的错，但隐式（即用变量表示下标）调用就经常出错了，还有一种情况，是程序中定义的数组的长度是通过某些特定方法决定的，不是事先声明的，这个时候，最好先查看一下数组的length，以免出现这个异常。</p>
+</li>
+<li><h5 id="java-lang-IllegalArgumentException"><a href="#java-lang-IllegalArgumentException" class="headerlink" title="java.lang.IllegalArgumentException"></a>java.lang.IllegalArgumentException</h5><blockquote>
+<p>方法的参数错误</p>
+</blockquote>
+<p>比如g.setColor(int red,int green,int blue)这个方法中的三个值，如果有超过２５５的也会出现这个异常，因此一旦发现这个异常，我们要做的，就是赶紧去检查一下方法调用中的参数传递是不是出现了错误。</p>
+</li>
+<li><h5 id="java-lang-IllegalAccessException"><a href="#java-lang-IllegalAccessException" class="headerlink" title="java.lang.IllegalAccessException"></a>java.lang.IllegalAccessException</h5><blockquote>
+<p>没有访问权限</p>
+</blockquote>
+<p>当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常。对程序中用了Package的情况下要注意这个异常</p>
+</li>
+<li><h5 id="java-lang-ArithmeticException"><a href="#java-lang-ArithmeticException" class="headerlink" title="java.lang.ArithmeticException"></a>java.lang.ArithmeticException</h5><blockquote>
+<p>数学运算异常</p>
+</blockquote>
+<p>当算术运算中出现了除以零这样的运算就会出这样的异常。</p>
+</li>
+<li><h5 id="java-lang-ClassCastException"><a href="#java-lang-ClassCastException" class="headerlink" title="java.lang.ClassCastException"></a>java.lang.ClassCastException</h5><blockquote>
+<p>数据类型转换异常</p>
+</blockquote>
+<p>当试图将对某个对象强制执行向下转型，但该对象又不可转换又不可转换为其子类的实例时将引发该异常，如下列代码。</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">String str = obj;</span><br><span class="line">java.lang.FileNotFoundException</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="java-lang-FileNotFoundException"><a href="#java-lang-FileNotFoundException" class="headerlink" title="java.lang.FileNotFoundException"></a>java.lang.FileNotFoundException</h5><blockquote>
+<p>文件未找到异常</p>
+</blockquote>
+<p>当程序试图打开一个不存在的文件进行读写时将会引发该异常。该异常由FileInputStream,FileOutputStream,RandomAccessFile的构造器声明抛出<br>即使被操作的文件存在，但是由于某些原因不可访问，比如打开一个只读文件进行写入，这些构造方法仍然会引发异常</p>
+</li>
+<li><h5 id="java-lang-ArrayStoreException"><a href="#java-lang-ArrayStoreException" class="headerlink" title="java.lang.ArrayStoreException"></a>java.lang.ArrayStoreException</h5><blockquote>
+<p>数组存储异常</p>
+</blockquote>
+<p>当试图将类型不兼容类型的对象存入一个Object[]数组时将引发异常</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object[] obj = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line">obj[<span class="number">0</span>] = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">java.lang.NoSuchMethodException</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="java-lang-NoSuchMethodException"><a href="#java-lang-NoSuchMethodException" class="headerlink" title="java.lang.NoSuchMethodException"></a>java.lang.NoSuchMethodException</h5><blockquote>
+<p>方法不存在异常  </p>
+</blockquote>
+<p>当程序试图通过反射来创建对象，访问(修改或读取)某个方法，但是该方法不存在就会引发异常</p>
+</li>
+<li><h5 id="java-lang-NoSuchFiledException"><a href="#java-lang-NoSuchFiledException" class="headerlink" title="java.lang.NoSuchFiledException"></a>java.lang.NoSuchFiledException</h5><blockquote>
+<p>方法不存在异常</p>
+</blockquote>
+<p>当程序试图通过反射来创建对象，访问(修改或读取)某个filed，但是该filed不存在就会引发异常</p>
+</li>
+<li><h5 id="java-lang-EOFException"><a href="#java-lang-EOFException" class="headerlink" title="java.lang.EOFException"></a>java.lang.EOFException</h5><blockquote>
+<p>文件已结束异常</p>
+</blockquote>
+<p>当程序在输入的过程中遇到文件或流的结尾时，引发异常。因此该异常用于检查是否达到文件或流的结尾</p>
+</li>
+<li><h5 id="java-lang-InstantiationException"><a href="#java-lang-InstantiationException" class="headerlink" title="java.lang.InstantiationException"></a>java.lang.InstantiationException</h5><blockquote>
+<p>实例化异常</p>
+</blockquote>
+<p>当试图通过Class的newInstance()方法创建某个类的实例,但程序无法通过该构造器来创建该对象时引发<br>Class对象表示一个抽象类，接口，数组类，基本类型<br>该Class表示的类没有对应的构造器</p>
+</li>
+<li><h5 id="java-lang-InterruptedException"><a href="#java-lang-InterruptedException" class="headerlink" title="java.lang.InterruptedException"></a>java.lang.InterruptedException</h5><blockquote>
+<p>被中止异常</p>
+</blockquote>
+<p>当某个线程处于长时间的等待、休眠或其他暂停状态，而此时其他的线程通过Thread的interrupt方法终止该线程时抛出该异常。</p>
+</li>
+<li><h5 id="java-lang-CloneNotSupportedException"><a href="#java-lang-CloneNotSupportedException" class="headerlink" title="java.lang.CloneNotSupportedException"></a>java.lang.CloneNotSupportedException</h5><blockquote>
+<p>不支持克隆异常</p>
+</blockquote>
+<p>当没有实现Cloneable接口或者不支持克隆方法时,调用其clone()方法则抛出该异常。</p>
+</li>
+<li><h5 id="java-lang-OutOfMemoryException"><a href="#java-lang-OutOfMemoryException" class="headerlink" title="java.lang.OutOfMemoryException"></a>java.lang.OutOfMemoryException</h5><blockquote>
+<p>内存不足错误</p>
+</blockquote>
+<p>当可用内存不足以让Java虚拟机分配给一个对象时抛出该错误。</p>
+</li>
+<li><h5 id="java-lang-NoClassDefFoundException"><a href="#java-lang-NoClassDefFoundException" class="headerlink" title="java.lang.NoClassDefFoundException"></a>java.lang.NoClassDefFoundException</h5><blockquote>
+<p>未找到类定义错误</p>
+</blockquote>
+<p>当Java虚拟机或者类装载器试图实例化某个类，而找不到该类的定义时抛出该错误。</p>
+</li>
+<li><h5 id="违背安全原则异常：SecturityException"><a href="#违背安全原则异常：SecturityException" class="headerlink" title="违背安全原则异常：SecturityException"></a>违背安全原则异常：SecturityException</h5></li>
+<li><h5 id="操作数据库异常：SQLException"><a href="#操作数据库异常：SQLException" class="headerlink" title="操作数据库异常：SQLException"></a>操作数据库异常：SQLException</h5></li>
+<li><h5 id="输入输出异常：IOException"><a href="#输入输出异常：IOException" class="headerlink" title="输入输出异常：IOException"></a>输入输出异常：IOException</h5></li>
+<li><h5 id="通信异常：SocketException"><a href="#通信异常：SocketException" class="headerlink" title="通信异常：SocketException"></a>通信异常：SocketException</h5></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>异常</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>异常</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac下删除launchpad还有残留图标的应用</title>
     <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
     <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
@@ -1527,6 +1639,27 @@
       <tags>
         <tag>Mac删除</tag>
         <tag>launchpad</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac下安装mysql5.7完整步骤及问题整理</title>
+    <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
+<p><a href="http://www.jb51.net/article/103841.htm" target="_blank" rel="noopener">Mac下安装mysql5.7完整步骤</a></p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><ul>
+<li><p>“MAC下安装Mysql找不到my.cnf配置文件的问题”，参考：<br><a href="http://blog.csdn.net/jyongchong/article/details/77862819" target="_blank" rel="noopener">MAC 安装MySQL的my.cnf配置文件</a></p>
+</li>
+<li><p>“Warning: World-writable config file ‘/etc/my.cnf’ is ignored”，参考：<br><a href="http://blog.csdn.net/xeay123/article/details/44127951" target="_blank" rel="noopener">World-writable</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac安装Mysql</tag>
+        <tag>Mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -1654,27 +1787,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac下安装mysql5.7完整步骤及问题整理</title>
-    <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
-    <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
-<p><a href="http://www.jb51.net/article/103841.htm" target="_blank" rel="noopener">Mac下安装mysql5.7完整步骤</a></p>
-<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><ul>
-<li><p>“MAC下安装Mysql找不到my.cnf配置文件的问题”，参考：<br><a href="http://blog.csdn.net/jyongchong/article/details/77862819" target="_blank" rel="noopener">MAC 安装MySQL的my.cnf配置文件</a></p>
-</li>
-<li><p>“Warning: World-writable config file ‘/etc/my.cnf’ is ignored”，参考：<br><a href="http://blog.csdn.net/xeay123/article/details/44127951" target="_blank" rel="noopener">World-writable</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac安装Mysql</tag>
-        <tag>Mysql</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac远程连接谷歌云VM实例</title>
     <url>/2019/02/19/Mac%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%B0%B7%E6%AD%8C%E4%BA%91VM%E5%AE%9E%E4%BE%8B/</url>
     <content><![CDATA[<p>一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了<br>官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话）</p>
@@ -1699,145 +1811,6 @@
         <tag>Mac</tag>
         <tag>GCP</tag>
         <tag>谷歌云</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java常见异常总结</title>
-    <url>/2018/03/18/Java%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<ul>
-<li><h5 id="java-lang-NullPointerException-空指针异常"><a href="#java-lang-NullPointerException-空指针异常" class="headerlink" title="java.lang.NullPointerException(空指针异常)"></a>java.lang.NullPointerException(空指针异常)</h5><blockquote>
-<p>调用了未经初始化的对象或者是不存在的对象</p>
-</blockquote>
-<p>经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，<br>即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，<br>依然是空的，所以还需要对每个元素都进行初始化（如果要调用的话）。</p>
-<a id="more"></a>
-</li>
-<li><h5 id="java-lang-ClassNotFoundException"><a href="#java-lang-ClassNotFoundException" class="headerlink" title="java.lang.ClassNotFoundException　　"></a>java.lang.ClassNotFoundException　　</h5><blockquote>
-<p>指定的类不存在</p>
-</blockquote>
-<p> 这里主要考虑一下类的名称和路径是否正确即可，通常都是程序试图通过字符串来加载某个类时可能引发 异常<br> 比如：调用Class.forName();<br> 或者调用ClassLoad的finaSystemClass();或者LoadClass();</p>
-</li>
-<li><h5 id="java-lang-NumberFormatException"><a href="#java-lang-NumberFormatException" class="headerlink" title="java.lang.NumberFormatException"></a>java.lang.NumberFormatException</h5><blockquote>
-<p>字符串转换为数字异常</p>
-</blockquote>
-<p>当试图将一个String转换为指定的数字类型，而该字符串确不满足数字类型要求的格式时，抛出该异常.如现在讲字符型的数据“123456”转换为数值型数据时，是允许的。<br>但是如果字符型数据中包含了非数字型的字符，如123#56，此时转换为数值型时就会出现异常。系统就会捕捉到这个异常，并进行处理.</p>
-</li>
-<li><h5 id="java-lang-IndexOutOfBoundsException"><a href="#java-lang-IndexOutOfBoundsException" class="headerlink" title="java.lang.IndexOutOfBoundsException"></a>java.lang.IndexOutOfBoundsException</h5><blockquote>
-<p>数组下标越界异常</p>
-</blockquote>
-<p>查看调用的数组或者字符串的下标值是不是超出了数组的范围，一般来说，显示（即直接用常数当下标）调用不太容易出这样的错，但隐式（即用变量表示下标）调用就经常出错了，还有一种情况，是程序中定义的数组的长度是通过某些特定方法决定的，不是事先声明的，这个时候，最好先查看一下数组的length，以免出现这个异常。</p>
-</li>
-<li><h5 id="java-lang-IllegalArgumentException"><a href="#java-lang-IllegalArgumentException" class="headerlink" title="java.lang.IllegalArgumentException"></a>java.lang.IllegalArgumentException</h5><blockquote>
-<p>方法的参数错误</p>
-</blockquote>
-<p>比如g.setColor(int red,int green,int blue)这个方法中的三个值，如果有超过２５５的也会出现这个异常，因此一旦发现这个异常，我们要做的，就是赶紧去检查一下方法调用中的参数传递是不是出现了错误。</p>
-</li>
-<li><h5 id="java-lang-IllegalAccessException"><a href="#java-lang-IllegalAccessException" class="headerlink" title="java.lang.IllegalAccessException"></a>java.lang.IllegalAccessException</h5><blockquote>
-<p>没有访问权限</p>
-</blockquote>
-<p>当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常。对程序中用了Package的情况下要注意这个异常</p>
-</li>
-<li><h5 id="java-lang-ArithmeticException"><a href="#java-lang-ArithmeticException" class="headerlink" title="java.lang.ArithmeticException"></a>java.lang.ArithmeticException</h5><blockquote>
-<p>数学运算异常</p>
-</blockquote>
-<p>当算术运算中出现了除以零这样的运算就会出这样的异常。</p>
-</li>
-<li><h5 id="java-lang-ClassCastException"><a href="#java-lang-ClassCastException" class="headerlink" title="java.lang.ClassCastException"></a>java.lang.ClassCastException</h5><blockquote>
-<p>数据类型转换异常</p>
-</blockquote>
-<p>当试图将对某个对象强制执行向下转型，但该对象又不可转换又不可转换为其子类的实例时将引发该异常，如下列代码。</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">String str = obj;</span><br><span class="line">java.lang.FileNotFoundException</span><br></pre></td></tr></table></figure>
-</li>
-<li><h5 id="java-lang-FileNotFoundException"><a href="#java-lang-FileNotFoundException" class="headerlink" title="java.lang.FileNotFoundException"></a>java.lang.FileNotFoundException</h5><blockquote>
-<p>文件未找到异常</p>
-</blockquote>
-<p>当程序试图打开一个不存在的文件进行读写时将会引发该异常。该异常由FileInputStream,FileOutputStream,RandomAccessFile的构造器声明抛出<br>即使被操作的文件存在，但是由于某些原因不可访问，比如打开一个只读文件进行写入，这些构造方法仍然会引发异常</p>
-</li>
-<li><h5 id="java-lang-ArrayStoreException"><a href="#java-lang-ArrayStoreException" class="headerlink" title="java.lang.ArrayStoreException"></a>java.lang.ArrayStoreException</h5><blockquote>
-<p>数组存储异常</p>
-</blockquote>
-<p>当试图将类型不兼容类型的对象存入一个Object[]数组时将引发异常</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object[] obj = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line">obj[<span class="number">0</span>] = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">java.lang.NoSuchMethodException</span><br></pre></td></tr></table></figure>
-</li>
-<li><h5 id="java-lang-NoSuchMethodException"><a href="#java-lang-NoSuchMethodException" class="headerlink" title="java.lang.NoSuchMethodException"></a>java.lang.NoSuchMethodException</h5><blockquote>
-<p>方法不存在异常  </p>
-</blockquote>
-<p>当程序试图通过反射来创建对象，访问(修改或读取)某个方法，但是该方法不存在就会引发异常</p>
-</li>
-<li><h5 id="java-lang-NoSuchFiledException"><a href="#java-lang-NoSuchFiledException" class="headerlink" title="java.lang.NoSuchFiledException"></a>java.lang.NoSuchFiledException</h5><blockquote>
-<p>方法不存在异常</p>
-</blockquote>
-<p>当程序试图通过反射来创建对象，访问(修改或读取)某个filed，但是该filed不存在就会引发异常</p>
-</li>
-<li><h5 id="java-lang-EOFException"><a href="#java-lang-EOFException" class="headerlink" title="java.lang.EOFException"></a>java.lang.EOFException</h5><blockquote>
-<p>文件已结束异常</p>
-</blockquote>
-<p>当程序在输入的过程中遇到文件或流的结尾时，引发异常。因此该异常用于检查是否达到文件或流的结尾</p>
-</li>
-<li><h5 id="java-lang-InstantiationException"><a href="#java-lang-InstantiationException" class="headerlink" title="java.lang.InstantiationException"></a>java.lang.InstantiationException</h5><blockquote>
-<p>实例化异常</p>
-</blockquote>
-<p>当试图通过Class的newInstance()方法创建某个类的实例,但程序无法通过该构造器来创建该对象时引发<br>Class对象表示一个抽象类，接口，数组类，基本类型<br>该Class表示的类没有对应的构造器</p>
-</li>
-<li><h5 id="java-lang-InterruptedException"><a href="#java-lang-InterruptedException" class="headerlink" title="java.lang.InterruptedException"></a>java.lang.InterruptedException</h5><blockquote>
-<p>被中止异常</p>
-</blockquote>
-<p>当某个线程处于长时间的等待、休眠或其他暂停状态，而此时其他的线程通过Thread的interrupt方法终止该线程时抛出该异常。</p>
-</li>
-<li><h5 id="java-lang-CloneNotSupportedException"><a href="#java-lang-CloneNotSupportedException" class="headerlink" title="java.lang.CloneNotSupportedException"></a>java.lang.CloneNotSupportedException</h5><blockquote>
-<p>不支持克隆异常</p>
-</blockquote>
-<p>当没有实现Cloneable接口或者不支持克隆方法时,调用其clone()方法则抛出该异常。</p>
-</li>
-<li><h5 id="java-lang-OutOfMemoryException"><a href="#java-lang-OutOfMemoryException" class="headerlink" title="java.lang.OutOfMemoryException"></a>java.lang.OutOfMemoryException</h5><blockquote>
-<p>内存不足错误</p>
-</blockquote>
-<p>当可用内存不足以让Java虚拟机分配给一个对象时抛出该错误。</p>
-</li>
-<li><h5 id="java-lang-NoClassDefFoundException"><a href="#java-lang-NoClassDefFoundException" class="headerlink" title="java.lang.NoClassDefFoundException"></a>java.lang.NoClassDefFoundException</h5><blockquote>
-<p>未找到类定义错误</p>
-</blockquote>
-<p>当Java虚拟机或者类装载器试图实例化某个类，而找不到该类的定义时抛出该错误。</p>
-</li>
-<li><h5 id="违背安全原则异常：SecturityException"><a href="#违背安全原则异常：SecturityException" class="headerlink" title="违背安全原则异常：SecturityException"></a>违背安全原则异常：SecturityException</h5></li>
-<li><h5 id="操作数据库异常：SQLException"><a href="#操作数据库异常：SQLException" class="headerlink" title="操作数据库异常：SQLException"></a>操作数据库异常：SQLException</h5></li>
-<li><h5 id="输入输出异常：IOException"><a href="#输入输出异常：IOException" class="headerlink" title="输入输出异常：IOException"></a>输入输出异常：IOException</h5></li>
-<li><h5 id="通信异常：SocketException"><a href="#通信异常：SocketException" class="headerlink" title="通信异常：SocketException"></a>通信异常：SocketException</h5></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>异常</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>异常</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
-    <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<ol>
-<li><p>首先下载 .Net Framework 3.5.</p>
-</li>
-<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
-<a id="more"></a>
-<blockquote>
-<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
-</blockquote>
-</li>
-</ol>
-<p>其他:</p>
-<ul>
-<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
-<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Framework3.5无法安装</tag>
       </tags>
   </entry>
   <entry>
@@ -1919,6 +1892,84 @@
       </tags>
   </entry>
   <entry>
+    <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
+    <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<ol>
+<li><p>首先下载 .Net Framework 3.5.</p>
+</li>
+<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
+<a id="more"></a>
+<blockquote>
+<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
+</blockquote>
+</li>
+</ol>
+<p>其他:</p>
+<ul>
+<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
+<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Framework3.5无法安装</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>树莓派3B+制作视频监控</title>
+    <url>/2019/03/12/%E6%A0%91%E8%8E%93%E6%B4%BE3Bplus%E5%88%B6%E4%BD%9C%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/logo-2023-03-06-09-53-34.png" alt="logo-2023-03-06-09-53-34"></p>
+<h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p>本人育有一毛，此猫调皮捣蛋，因此想要做个监控放在家里，在公司上班的时候看看它到底在家里捣什么鬼蛋！</p>
+<a id="more"></a>
+<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><blockquote>
+<p>环境：树莓派3B+<br>操作系统：树莓派3B+默认系统<br>摄像头：N年前买的一个USB摄像头（比树莓派官方好点）  </p>
+</blockquote>
+<h1 id="1-更新列表"><a href="#1-更新列表" class="headerlink" title="1.更新列表"></a>1.更新列表</h1><p>这一步可能有点慢，请耐心等待。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新软件列表</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新软件</span></span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+<h1 id="2-开启摄像头"><a href="#2-开启摄像头" class="headerlink" title="2.开启摄像头"></a>2.开启摄像头</h1><p>执行如下命令，进入配置页面，开启摄像头。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/1-2023-03-06-09-53-56.png" alt="1-2023-03-06-09-53-56"><br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/2-2023-03-06-09-54-04.png" alt="2-2023-03-06-09-54-04"><br>选择: “是”  -&gt; “Back” -&gt; “Finish”</p>
+<p>重启一下树莓派</p>
+<h1 id="3-安装依赖库"><a href="#3-安装依赖库" class="headerlink" title="3.安装依赖库"></a>3.安装依赖库</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> JPEG支持库</span></span><br><span class="line">sudo apt-get install libjpeg8-dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载编译工具</span></span><br><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
+<h1 id="4-下载mjpg-streamer"><a href="#4-下载mjpg-streamer" class="headerlink" title="4.下载mjpg-streamer"></a>4.下载mjpg-streamer</h1><p>随意找个目录执行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
+<p>以常见的<strong>Downloads</strong>目录为例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cd Downloads/</span><br><span class="line">pi@raspberrypi:~ $ git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
+<h1 id="5-编辑源文件（非必须）"><a href="#5-编辑源文件（非必须）" class="headerlink" title="5.编辑源文件（非必须）"></a>5.编辑源文件（非必须）</h1><p>网上有教程基本都编辑<strong>plugins/input_raspicam/input_raspicam.c</strong>源码里的几个参数（fps、width和height）<br>，这个文件是对应官方的摄像头（RaspiCamera）。</p>
+<p>我这里用的是自己的普通USB摄像头，所以这个文件可以不用修改。</p>
+<p>如果你的摄像头是普通USB摄像头，可以跳过。</p>
+<p>如果你的摄像头是官方的摄像头（RaspiCamera）那么请修改之：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:/ $ cd /home/pi/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/</span><br><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/ $ vi input_raspicam.c</span><br></pre></td></tr></table></figure>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/3-2023-03-06-09-54-21.png" alt="3-2023-03-06-09-54-21"></p>
+<h1 id="6-编译mjpg-streamer"><a href="#6-编译mjpg-streamer" class="headerlink" title="6.编译mjpg-streamer"></a>6.编译mjpg-streamer</h1><p>进入工程mjpg-streamer-experimental，进行完全编译。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental $ make clean all</span><br></pre></td></tr></table></figure>
+<h1 id="7-开启mjpg-streamer"><a href="#7-开启mjpg-streamer" class="headerlink" title="7.开启mjpg-streamer"></a>7.开启mjpg-streamer</h1><p>进入mjpg-streamer-experimental目录，使用一下指令启动摄像头。</p>
+<ul>
+<li><p>启动普通USB摄像头指令：</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_uvc.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动树莓派专用摄像头RaspiCamera指令：</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_raspicam.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h1><p>在浏览器里输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 静态图（拍照）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=snapshot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 动态图（视频监控）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=stream</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个兼容性好点</span></span><br><span class="line">http://&lt;IP&gt;：8080/javascript_stream.html</span><br></pre></td></tr></table></figure>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/cat-2023-03-06-09-54-35.jpeg" alt="cat-2023-03-06-09-54-35"></p>
+<h1 id="9-问题"><a href="#9-问题" class="headerlink" title="9.问题"></a>9.问题</h1><p>有的同学可能在<strong>开启mjpg-streamer</strong>的时候会报错，可能是你USB摄像头用了树莓派专用摄像头RaspiCamera指令的指令启动造成的（我就是这样，哈哈哈）</p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Raspberry</category>
+      </categories>
+      <tags>
+        <tag>树莓派</tag>
+        <tag>监控</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>win2008R2磁盘脱机和写入保护解决办法</title>
     <url>/2018/10/22/win2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
     <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/1-2023-03-06-11-04-05.png" alt="磁盘脱机"></p>
@@ -1953,6 +2004,373 @@
       <tags>
         <tag>Windows磁盘脱机</tag>
         <tag>写入保护</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何超过大多数人</title>
+    <url>/2019/07/22/%E5%A6%82%E4%BD%95%E8%B6%85%E8%BF%87%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%BA%BA/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/如何超过大多数人/1-2023-03-06-09-50-46.png" alt="1-2023-03-06-09-50-46"><br><a id="more"></a></p>
+<p>当你看到这篇文章的标题，你一定对这篇文章产生了巨大的5兴趣，因为你的潜意识在告诉你，这是一本人生的 “武林秘籍”，而且还是左耳朵写的，一定有干货满满，只要读完，一定可以练就神功并找到超过大多数人的快车道和捷径…… 然而…… 当你看到我这样开篇时，你一定会觉得我马上就要有个转折，告诉你这是不可能的，一切都需要付出和努力…… 然而，你错了，这篇文章还真就是一篇“秘籍”，只要你把这些“秘籍” 用起来，你就一定可以超过大多数人。而且，这篇文章只有我这个 “人生导师” 可以写得好。毕竟，我的生命过到了十六进制 2B 的年纪，踏入这个社会已超过 20 年，舍我其谁呢？！</p>
+<p>P.S. 这篇文章借鉴于《<a href="https://coolshell.cn/articles/4758.html" target="_blank" rel="noopener">如何写出无法维护的代码</a>》一文的风格…… 嘿嘿</p>
+<blockquote>
+<h4 id="相关技巧和最佳实践"><a href="#相关技巧和最佳实践" class="headerlink" title="相关技巧和最佳实践"></a>相关技巧和最佳实践</h4></blockquote>
+<p>要超过别人其实还是比较简单的，尤其在今天的中国，更是简单。因为，你只看看中国的互联网，你就会发现，他们基本上全部都是在消费大众，让大众变得更为地愚蠢和傻瓜。<strong>所以，在今天的中国，你基本上不用做什么，只需要不使用中国互联网，你就很自然地超过大多数人了</strong>。当然，如果你还想跟他们彻底拉开，甩他们几个身位，把别人打到底层，下面的这些 “技巧” 你要多多了解一下。</p>
+<p>在信息获取上，你要不断地向大众鼓吹下面的这些事：</p>
+<ul>
+<li><p>让大家都用百度搜索引擎查找信息，订阅微信公众号或是到知乎上学习知识…… 要做到这一步，你就需要把 “百度一下” 挂在嘴边，然后要经常在群或朋友圈中转发微信公众号的文章，并且转发知乎里的各种 “如何看待……” 这样的文章，让他们爱上八卦，爱上转发，爱上碎片。</p>
+</li>
+<li><p>让大家到微博或是知识星球上粉一些大咖，密切关注他们的言论和动向…… 是的，告诉大家，大咖的任何想法一言一行都可以在微博、朋友圈或是知识星球上获得，让大家相信，你的成长和大咖的见闻和闲扯非常有关系，你跟牛人在一个圈子里你也会变牛。</p>
+</li>
+<li><p>把今日头条和抖音这样的 APP 推荐给大家…… 你只需要让你有朋友成功地安装这两个 APP，他们就会花大量的时间在上面，而不能自拔，要让他们安装其实还是很容易的，你要不信你就装一个试玩一会看看（嘿嘿嘿）。</p>
+</li>
+<li><p>让大家热爱八卦，八卦并不一定是明星的八卦，还可以是你身边的人，比如，公司的同事，自己的同学，职场见闻，社会热点，争议话题，…… 这些东西总有一些东西会让人心态有很多微妙的变化，甚至花大量的时间去搜索和阅读大量的观点，以及花大量时间与人辩论争论，这个过程会让人上瘾，让人欲罢不能，然而这些事却和自己没有半毛钱关系。你要做的事就是转发其中一些 SB 或是很极端的观点，造成大家的一睦讨论后，就早早离场……</p>
+</li>
+<li><p>利用爱国主义，让大家觉得不用学英文，不要出国，不要翻墙，咱们已经是强国了…… 这点其实还是很容易做到的，因为学习是比较逆人性的，所以，只要你鼓吹那些英文无用论，出国活得更惨，国家和民族都变得很强大，就算自己过得很底层，也有大国人民的感觉。</p>
+</li>
+</ul>
+<p>然后，在知识学习和技能训练上，让他们不得要领并产生幻觉</p>
+<ul>
+<li><p>让他们混淆认识和知识，以为开阔认知就是学习，让他们有学习和成长的幻觉……</p>
+</li>
+<li><p>培养他们要学会使用碎片时间学习。等他们习惯利用碎片时间吃快餐后，他们就会失去精读一本书的耐性……</p>
+</li>
+<li><p>不断地给他们各种各样 “有价值的学习资料”，让他们抓不住重点，成为一个微信公众号或电子书 “收藏家”……</p>
+</li>
+<li><p>让他们看一些枯燥无味的基础知识和硬核知识，这样让他们只会用 “死记硬背” 的方式来学习，甚至直接让他们失去信心，直接放弃……</p>
+</li>
+<li><p>玩具手枪是易用的，重武器是难以操控的，多给他们一些玩具，这样他们就会对玩具玩地得心应手，觉得玩玩具就是自己的专业……</p>
+</li>
+<li><p>让他们喜欢直接得到答案的工作和学习方式，成为一个伸手党，从此学习再也不思考……</p>
+</li>
+<li><p>告诉他们东西做出来就好了，不要追求做漂亮，做优雅，这样他们就会慢慢地变成劳动密集型……</p>
+</li>
+<li><p>让他们觉得自己已经很努力了，剩下的就是运气，并说服他们去‘及时行乐’，然后再也找不到高阶和高效率学习的感觉……</p>
+</li>
+<li><p>让他们觉得 “读完书”、“读过书” 就行了，不需要对书中的东西进行思考，进行总结，或是实践，只要囫囵吞枣尽快读完就等同于学好了……</p>
+</li>
+</ul>
+<p>最后，在认知和格局上，彻底打垮他们，让他们变成韭菜。</p>
+<ul>
+<li><p>让他们不要看到大的形势，只看到眼前的一亩三分地，做好一个井底之蛙。其实这很简单，比如，你不要让他们看到整个计算机互联网技术改变人类社会的趋势，你要多让他看到，从事这一行业的人有多苦逼，然后再说一下其它行业或职业有多好……</p>
+</li>
+<li><p>宣扬一夜暴富以及快速挣钱的案例，最好让他们进入 “赌博类” 或是 “传销类” 的地方，比如：股市、数字货币…… 要让他们相信各种财富神话，相信他们就是那个幸运儿，他们也可以成为巴菲特，可以成为马云……</p>
+</li>
+<li><p>告诉他们，一些看上去很难的事都是有捷径的，比如：21 天就能学会机器学习，用区块链就能颠覆以及重构整个世界等等……</p>
+</li>
+<li><p>多跟他们讲一些小人物的励志的故事，这样让他们相信，不需要学习高级知识，不需要掌握高级技能，只需要用低等的知识和低级的技能，再加上持续不断拼命重复现有的工作，终有一天就会成功……</p>
+</li>
+<li><p>多让他们跟别人比较，人比人不会气死人，但是会让人变得浮躁，变得心急，变得焦虑，当一个人没有办法控制自己的情绪，没有办法让自己静下心来，人会失去耐性和坚持，开始好大喜欢功，开始装逼，开始歪门邪道剑走偏锋……</p>
+</li>
+<li><p>让他们到体制内的一些非常稳定的地方工作，这样他们拥有不思进取、怕承担责任、害怕犯错、喜欢偷懒、得过且过的素质……</p>
+</li>
+<li><p>让他们到体制外的那些喜欢拼命喜欢加班的地方工作，告诉他们爱拼才会赢，努力加班是一种福报，青春就是用来拼的，让他们喜欢上使蛮力的感觉……</p>
+</li>
+<li><p>告诉他们你的行业太累太辛苦，干不到 30 岁。让他们早点转行，不要耽误人生和青春……</p>
+</li>
+<li><p>当他们要做决定的时候，一定要让他们更多的关注自己会失去的东西，而不是会得到的东西。培养他们患得患失心态，让他们认识不到事物真正的价值，失去判断能力……（比如：让他们觉得跟对人拍领导的马屁忠于公司比自我的成长更有价值）</p>
+</li>
+<li><p>告诉他们，你现有的技能和知识不用更新，就能过好一辈子，新出来的东西没有生命力的…… 这样他们就会像我们再也不学习的父辈一样很快就会被时代所抛弃……</p>
+</li>
+<li><p>每个人都喜欢在一些自己做不到的事上找理由，这种能力不教就会，比如，事情太多没有时间，因为工作上没有用到，等等，你要做的就是帮他们为他们做不到的事找各种非常合理的理由，比如：没事的，一切都是最好的安排；你得不到的那个事没什么意思；你没有面好主要原因是那个面试官问的问题都是可以上网查得到的知识，而不没有问到你真正的能力上；这些东西学了不用很快会忘了，等有了环境再学也不迟……</p>
+</li>
+</ul>
+<p><strong>最后友情提示一下，上述的这些 “最佳实践” 你要小心，是所谓，贩毒的人从来不吸毒，开赌场的人从来不赌博！所以，你要小心别自己也掉进去了！这就是 “欲练神功，必先自宫” 的道理。</strong></p>
+<blockquote>
+<h4 id="相关原理和思维模型"><a href="#相关原理和思维模型" class="headerlink" title="相关原理和思维模型"></a>相关原理和思维模型</h4></blockquote>
+<p>对于上面的这些技巧还有很多很多，你自己也可以发明或是找到很多。所以，我来讲讲这其中的一些原理。</p>
+<p>一般来说，超过别人一般来说就是两个维度：</p>
+<ul>
+<li><p><strong>在认知、知识和技能上。</strong> 这是一个人赖以立足社会的能力（参看《<a href="https://coolshell.cn/articles/4235.html" target="_blank" rel="noopener">程序员的荒谬之言还是至理名言？</a>》和《<a href="https://coolshell.cn/articles/2250.html" target="_blank" rel="noopener">21 天教你学会 C++</a>》）</p>
+</li>
+<li><p><strong>在领导力上。</strong> 所谓领导力就是你跑在别人前面，你得要有比别人更好的能力更高的标准（参看《<a href="https://coolshell.cn/articles/17583.html" target="_blank" rel="noopener">技术人员发展之路</a>》）</p>
+</li>
+</ul>
+<p>首先，我们要明白，人的技能是从认识开始，然后通过学校、培训或是书本把 “零碎的认知” 转换成“系统的知识”，而有要把知识转换成技能，就需要训练和实践，这样才能完成从：认识 -&gt; 知识 -&gt; 技能 的转换。这个转换过程是需要耗费很多时间和精力的，而且其中还需要有强大的学习能力和动手能力，这条路径上有很多的“关卡”，每道关卡都会过滤掉一大部分人。比如：对于一些比较枯燥的硬核知识来说，90% 的人基本上就倒下来，不是因为他们没有智商，而是他们没有耐心。</p>
+<blockquote>
+<h4 id="认知"><a href="#认知" class="headerlink" title="认知"></a>认知</h4></blockquote>
+<p>要在认知上超过别人，就要在下面几个方面上做足功夫：</p>
+<p>1）<strong>信息渠道。</strong> 试想如果别人的信息源没有你的好，那么，这些看不见信息源的人，只能接触得到二手信息甚至三手信息，只能获得被别人解读过的信息，这些信息被三传两递后必定会有错误和失真，甚至会被传递信息的中间人 hack 其中的信息（也就是 “中间人攻击”），而这些找不出信息源的人，只能 “被人喂养”，于是，他们最终会被困在信息的底层，永世不得翻身。（比如：学习 C 语言，放着原作者 K&amp;R 的不用，硬要用错误百出谭浩强的书，能有什么好呢？）</p>
+<p>2）<strong>信息质量。</strong> 信息质量主要表现在两个方面，一个是信息中的燥音，另一个是信息中的质量等级，我们都知道，在大数据处理中有一句名言，叫 garbage in garbage out，你天天看的都是垃圾，你的思想和认识也只有垃圾。所以，如果你的信息质量并不好的话，你的认知也不会好，而且你还要花大量的时间来进行有价值信息的挖掘和处理。</p>
+<p>3）<strong>信息密度。</strong> 优质的信息，密度一般都很大，因为这种信息会逼着你去干这么几件事，a）搜索并学习其关联的知识，b）沉思和反省，c）亲手去推理、验证和实践…… 一般来说，经验性的文章会比知识性的文章会更有这样的功效。比如，类似于像 Effiective C++/Java，设计模式，Unix 编程艺术，算法导论等等这样的书就是属于这种密度很大的书，而像 Netflix 的官方 blog 和 AWS CTO 的 blog 等等地方也会经常有一些这样的文章。</p>
+<blockquote>
+<h4 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h4></blockquote>
+<p>要在知识上超过别人，你就需要在下面几个方面上做足功夫：</p>
+<p>1）<strong>知识树（图）。</strong> 任何知识，只在点上学习不够的，需要在面上学习，这叫系统地学习，这需要我们去总结并归纳知识树或知识图，一个知识面会有多个知识板块组成，一个板块又有各种知识点，一个知识点会导出另外的知识点，各种知识点又会交叉和依赖起来，学习就是要系统地学习整个知识树（图）。而我们都知道，<strong>对于一棵树来说，“根基” 是非常重要的，所以，学好基础知识也是非常重要的，对于一个陌生的地方，有一份地图是非常重要的，没有地图的你只会乱窜，只会迷路、练路、走冤枉路！</strong></p>
+<p>2）<strong>知识缘由。</strong> 任何知识都是有缘由的，了解一个知识的来龙去脉和前世今生，会让你对这个知识有非常强的掌握，而不再只是靠记忆去学习。靠记忆去学习是一件非常糟糕的事。而对于一些操作性的知识（不需要了解由来的），我把其叫操作知识，就像一些函数库一样，这样的知识只要学会查文档就好了。<strong>能够知其然，知其所以然的人自然会比识知识到表皮的人段位要高很多。</strong></p>
+<p>3）<strong>方法套路。</strong> 学习不是为了找到答案，而是找到方法。就像数学一样，你学的是方法，是解题思路，是套路，会用方程式解题的和不会用方程式解题的在解题效率上不可比较，而在微积分面前，其它的解题方法都变成了渣渣。你可以看到，掌握高级方法的人比别人的优势有多大，学习的目的就是为了掌握更为高级的方法和解题思路。</p>
+<blockquote>
+<h4 id="技能"><a href="#技能" class="headerlink" title="技能"></a>技能</h4></blockquote>
+<p>要在技能上超过别人，你就需要在下面几个方面做足功夫：</p>
+<p>1）<strong>精益求精。</strong> 如果你想拥有专业的技能，你要做不仅仅是拼命地重复一遍又一遍的训练，而是在每一次重复训练时你都要找到更好的方法，总结经验，让新的一遍能够更好，更漂亮，更有效率，否则，用相同的方法重复，那你只不过在搬砖罢了。</p>
+<p>2）<strong>让自己犯错。</strong> 犯错是有利于成长的，这是因为出错会让人反思，反思更好的方法，反思更完美的方案，总结教训，寻求更好更完美的过程，是技能升级的最好的方式。尤其是当你在出错后，被人鄙视，被人嘲笑后，你会有更大的动力提升自己，这样的动力才是进步的源动力。当然，千万不要同一个错误重复地犯！</p>
+<p>3）<strong>找高手切磋。</strong> 下过棋，打个球的人都知道，你要想提升自己的技艺，你必需找高手切磋，在和高手切磋的过程中你会感受到高手的技能和方法，有时候你会情不自禁地哇地一下，我靠，还可以这么玩！</p>
+<blockquote>
+<h4 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h4></blockquote>
+<p>最后一个是领导力，要有领导力或是影响力这个事并不容易，这跟你的野心有多大，好胜心有多强 ，你愿意付出多少很有关系，因为一个人的领导力跟他的标准很有关系，因为有领导力的人的标准比绝大多数人都要高。</p>
+<p>1）<strong>识别自己的特长和天赋。</strong> 首先，每个人 DNA 都可能或多或少都会有一些比大多数人 NB 的东西（当然，也可能没有），如果你有了，那么在你过去的人生中就一定会表现出来了，就是那种大家遇到这个事会来请教你的寻求你帮助的现象。那种，别人要非常努力，而且毫不费劲的事。一旦你有了这样的特长或天赋，那你就要大力地扩大你的领先优势，千万不要进到那些会限制你优势的地方。你是一条鱼，你就一定要把别人拉到水里来玩，绝对不要去陆地上跟别人拼，不断地在自己的特长和天赋上扩大自己的领先优势，彻底一骑绝尘。</p>
+<p>2）<strong>识别自己的兴趣和事业。</strong> 没有天赋也没有问题，还有兴趣点，都说兴趣是最好的老师，当年，Linus 就是在学校里对 minx 着迷了，于是整出个 Linux 来，这就是兴趣驱动出的东西，一般来说，兴趣驱动的事总是会比那些被动驱动的更好。但是，这里我想说明一下什么叫 “真∙兴趣”，真正的兴趣不是那种三天热度的东西，而是那种，你愿意为之付出一辈子的事，是那种无论有多大困难有多难受你都要死磕的事，这才是“真∙兴趣”，这也就是你的“野心” 和“好胜心”所在，其实上升到了你的事业。相信我，绝大多数人只有职业而没有事业的。</p>
+<p>3）<strong>建立高级的习惯和方法。</strong> 没有天赋没有野心，也还是可以跟别人拼习惯拼方法的，只要你有一些比较好的习惯和方法，那么你一样可以超过大多数人。对此，在习惯上你要做到比较大多数人更自律，更有计划性，更有目标性，比如，每年学习一门新的语言或技术，并可以参与相关的顶级开源项目，每个月训练一个类算法，掌握一种算法，每周阅读一篇英文论文，并把阅读笔记整理出来…… 自律的是非常可怕的。除此之外，你还需要在方法上超过别人，你需要满世界的找各种高级的方法，其中包括，思考的方法，学习的方法、时间管理的方法、沟通的方法这类软实力的，还有，解决问题的方法（trouble shooting 和 problem solving），设计的方法，工程的方法，代码的方法等等硬实力的，一开始照猫画虎，时间长了就可能会自己发明或推导新的方法。</p>
+<p>4）<strong>勤奋努力执着坚持。</strong> 如果上面三件事你都没有也没有能力，那还有最后一件事了，那就是勤奋努力了，就是所谓的 “一万小时定律” 了（参看《21 天教你学会 C++》中的十年学编程一节），我见过很多不聪明的人，悟性也不够（比如我就是一个），别人学一个东西，一个月就好了，而我需要 1 年甚至更长，但是很多东西都是死的，只要肯花时间就有一天你会搞懂的，耐不住我坚持十年二十年，聪明的人发明个飞机飞过去了，笨一点的人愚公移山也过得去，因为更多的人是懒人，我不用拼过聪明人，我只用拼过那些懒人就好了。</p>
+<p>好了，就这么多，如果哪天你变得消极和不自信，你要来读读我的这篇文章，子曰：温故而知新。</p>
+<p>（全文完）</p>
+<blockquote>
+<p>本文转自：<a href="https://coolshell.cn/" target="_blank" rel="noopener">CoolShell</a> 的<a href="https://coolshell.cn/articles/19464.html/comment-page-1#comments" target="_blank" rel="noopener">《如何超过大多数人》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>超过</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学不会的华为 IPD，其实是这样！</title>
+    <url>/2022/12/21/%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E5%8D%8E%E4%B8%BA%20IPD%EF%BC%8C%E5%85%B6%E5%AE%9E%E6%98%AF%E8%BF%99%E6%A0%B7%EF%BC%81/</url>
+    <content><![CDATA[<p>美国著名作家弗格森说了一句话 “谁也无法说服他人改变，因为我们每个人都守着一扇只能从内心开启的改变之门，不论动之以情或晓之以理，我们都不能替别人开门”。</p>
+<p>改变真的是由内而外的？不是！改变是由外而内，再由内而外的过程。只有当我们有信息输入，在新的信息下触发自身，只有触发自身的信息才能引发一场由内而外的改变。我们将用以下的文章内容来提供触发信息。</p>
+<a id="more"></a>
+<h4 id="一、让你的企业成为资产的思维"><a href="#一、让你的企业成为资产的思维" class="headerlink" title="一、让你的企业成为资产的思维"></a><strong>一、让你的企业成为资产的思维</strong></h4><p>企业经营的目标是要创造价值、利润，那么如何创造客户、并且持续不断的为客户创造价值、留住客户，是企业经营的法宝。产品无疑在企业与客户之间建立了一座桥梁。企业通过产品为客户创造价值。持续不断的高品质的产品输出，是一个企业持续立于不败之地的法宝。</p>
+<p>然而，一个企业要成长，就要未雨绸缪、不断变革，以保持持续的生命力。华为公司就是一家保持持续变革的伟大公司，持续管理变革的目标就是实现高效的流程化运作，确保端到端的自动优质交付，从而实现企业的自动化管道系统。</p>
+<p>今天我们向华为学习企业的变革之下的研发流程体系，其实是一个研发管道系统，在华为，这条管道叫做——IPD 体系。华为公司认为，研发不仅是研发部门的事，更是关系公司市场到产品变现的全流程。IPD 是企业实现产品商业化的管道系统，IPD 体系构建了产品从 idea 到产品变现的全流程。</p>
+<p>经营企业需要具备系统性的全局思维，将企业看做资产的思维，企业是不断创造价值的资产，需要融入经营者的经营思维、战略思维、管理思维、并赋予工具、流程和方法，让其实现自动化运行的系统。当然不是所有企业都可以看成资产，只有创造价值，创造利润的企业才能称为资产。</p>
+<p>作为经营者、管理者需要以经营资产的思维来经营企业。</p>
+<h4 id="二、IPD-的起源和发展"><a href="#二、IPD-的起源和发展" class="headerlink" title="二、IPD 的起源和发展"></a><strong>二、IPD 的起源和发展</strong></h4><p><strong>1、跨界的 IBM 领导者为何要建 IPD</strong></p>
+<p>IPD 起源于这家公司——IBM，一个世界级的巨无霸，全球最大的信息技术和业务解决方案公司，拥有 30 多万员工，业务遍及 160 多个国家和地区。2018 年《财富》世界 500 强排行榜发布，IBM 位列 92 位。</p>
+<p>那么就是这样一家世界级的公司，在 1991～1993 年间累计面临巨大的财务困境，三年间累计亏损达 162 亿美元，几乎是每天亏损掉 1480 万美元。93 年的 4 月 1 日，54 岁，路易斯 · 郭士纳临危受命，担任 IBM 的执行总裁。</p>
+<p>郭士纳的上任当时并不被人们看好，包含美国的媒体，人们不相信一个曾经以食品和烟草起家的公司老板，能够扭转 IBM 的困局。</p>
+<p>郭士纳就任后，做了三件事：</p>
+<p>第一件事：让 IBM 停止流血；郭士纳裁剪了 IBM 流血的部门和人员，半年内果断裁人 4.5 万。</p>
+<p>第二件事：重振大型机业务，拓展服务业范围，并带领 IBM 重新向 PC 市场发动攻击。</p>
+<p>第三件事：梳理公司流程体制，进行流程重构和再造工程。</p>
+<p>这第三件事情是与新班子花了近一年时间，研究如何对 IBM 进行 “再造工程”。IBM 组织团队进行分析，经过分析后，他们发现公司三个方面上远远落后于业界最佳——研发费用、研发浪费和产品上市时间。</p>
+<p>分析的结果：IBM 研发费用为销售收入的 12%，而业界最佳为 6%；　　研发损失费用为整个研发费用的 25%，而业界最佳仅为 3.3%；而在上市时间（指产品从概念产生到投放市场所需的时间）方面，36.5% 项目的上市时间是业界最佳的 1.25 倍，其余项目的上市时间多于业界最佳的 1.5-2 倍。</p>
+<p>为了重新获得市场竞争优势，IBM 提出了两个 50% 的目标，一是，将产品上市时间减少 50%，二是，在不影响产品开发结果的情况下，将研发费用减少 50% 的目标。</p>
+<p>为达成这个目标，IBM 公司应用了 PACE 的方法（Product And Cycle-time Excellence，产品及周期优化法）从流程重整和产品重整两个方面来达到缩短产品上市时间、提高产品利润的目标。</p>
+<p>时隔三年，1995 年，IBM 营收突破了 700 亿美元大关，IBM 的大型机业务也复活了。利润 60 亿美元。不得不说，IBM 公司流程重构在提升自身竞争力上发挥了巨大的作用。</p>
+<p>IBM 成为了全球率先应用 IPD 方法并取得成功实践的企业，这就是 IPD 的起源。</p>
+<p>美国著名的 PTRM 公司总结实施 IPD 后带来的好处是：</p>
+<p><img src="https://pic3.zhimg.com/v2-cbb22c372c41b100de7a85da06ff48f6_r.jpg" alt=""></p>
+<p>IPD 是集成产品开发的英文单词首字母，经过 IBM 公司实践的一套先进的、成熟的研发管理思想、模式和方法。</p>
+<p><strong>2、华为搭上 IPD 的快车</strong></p>
+<p>1997 年西方圣诞节前一周，任总重点考察了 IBM。圣诞节前夕美国各大企业都已经放假了，但 IBM 包括 CEO 郭士纳在内的高层领导均照常上班，并真诚而系统地向任正非介绍了他们的管理内涵。</p>
+<p>这次调研中整整一天时间，IBM 从产品预研到项目管理、从生产流程到项目寿命终结的投资评审做了详尽的介绍。为了强化任正非对 IPD 的认识，IBM 副总裁送给他一本哈佛大学出版的关于研发管理的著作，后来他发现朗讯、惠普等美国著名企业也都实施这样的研发模式。</p>
+<p>这次考察更加坚定了任正非对华为实施变革的坚定决心，华为要像 IBM 一样强大，不仅自己要以郭士纳为榜样，而且华为必须虔诚地拜 IBM 为师，不惜一切代价将其管理精髓移植到华为身上。</p>
+<p>1998 年 8 月初，华为与 IBM 中国区总裁周伟焜签订了金额 20 亿人民币的变革项目合作协议，当时 20 亿是华为当年全年的利润，可见任总的魄力非常人所能及也。</p>
+<p>这个项目包含了 IPD（集成产品开发）、ISC（集成供应链）、IT 系统重整、财务四统一等 8 个管理变革项目。这成为是华为历史上最重要的转折点，这个项目将华为带进了高速赛道。</p>
+<p>华为公司第一家引进和实施 IPD，也是受益最大的国内企业。从 98 年的 IPD1.0 到 2014 年的 IPD7.0, 华为不断升级优化。</p>
+<p>华为公司 1998 年启动 IPD 项目，分为关注、发明、推广 3 个阶段。根据 1998 年的计划，用两年多的时间就可以实现全面推广。</p>
+<p>华为在 2001 年华为颁布了《华为基本法》，基本法一个重要的方面是统一了公司变革的思想。</p>
+<p>经过了四年的梳理建设，IPD 在 2002 年在全公司推广使用。华为公司走上了与世界领先企业并肩同行的管理道路。</p>
+<h4 id="三、IPD-的核心思想"><a href="#三、IPD-的核心思想" class="headerlink" title="三、IPD 的核心思想"></a><strong>三、IPD 的核心思想</strong></h4><p><strong>1. 研发本质是研发是企业的一项投资</strong></p>
+<p>首先，IPD 认为研发是一项投资；因为这是一项投资决策，所以，需要对它进行有效的投资组合分析，在开发过程中，设置检查点，通过阶段性评审来决定项目是继续、暂停、终止还是改变方向。</p>
+<p><strong>IPD(Integrated product development 集成产品开发)，IPD 是一套先进的、成熟的研发管理思想、模式和方法。</strong></p>
+<p><strong>2. 基于市场的研发才是有效投资</strong></p>
+<p>IPD 强调，产品创新一定要是基于市场需求和竞争分析的创新，要准确地做正确的事情，要将正确定义产品概念、充分理解市场需求作为流程的第一步。</p>
+<p>在 IT 圈有个现象，一天公司其中一个人有个创意，然后召集人员参与讨论，之后，就规划出一个产品创意来，然后互相鼓励，觉得我们这个创意就是最牛逼的，我们是世界第一，没有人想到，只有我们想到。并且互相叮嘱，我们要保密哦，要充分注重信息安全，不能透露给外人。这样的产品规划，我们通常叫做意向创业；貌似具有非常强的执行力，立即组建团队，就卷起袖子加油干！立项、设计、开发、出样机、投生产。节奏很快，也很有魄力。恨不得 3 个月就能出产品，然后做营销、做销售。经历了千辛万苦，产品出来后，面向市场发布，结果无人问津。</p>
+<p>这里我们强调产品一定是基于市场需求的开发，一定要解决市场的问题和痛点，痒点都不行，必须是痛点。</p>
+<p>所以说，这种方式就不满足 IPD 的核心思想。我们说市场的端到端，是需求来源于市场，最终产品回归于市场。你都没有做充分的市场调研，怎么能够被市场所接受。</p>
+<p><strong>3. 如何穿越部门墙建立研发快车道</strong></p>
+<p>一个产品，尤其是以硬件为主的产品，设计产品的方方面面、结构、硬件、软件、工程、制造、采购、包装、市场推广等，是需要全部门协同配合的一个事情。所以必须要有跨部门的团队协作。</p>
+<p>采用跨部门的产品开发团队 (Product Development Team, 简称 PDT)，通过有效的沟通、协调以及决策，到达尽快将产品推向市场的目的。</p>
+<p>有的创业者，把这个事情想得太简单，完全没有搞清楚状况，拖几个人就开始干，在他们的理念中，出产品就是出样机，觉得样机出来了，产品就出来了，殊不知一个产品样机出来，仅仅只等效于产品开发过程只完成 40%，还有大量的工作要做。</p>
+<p>并且，在这种思想下，产品的是不完善的，是不具备量产化的，以样机为产品终结的思想，完全不会考虑到产品的后端需求。比如可测试性、可制造性、可服务性等 DFX 的需求。</p>
+<p>跨部门的团队，强调无缝沟通，强调把专业的团队串起来，为了一个共同的目标而努力。</p>
+<p>老罗有这么一句对自己的总结 “只有等到你掉到坑里的时候，你才刻骨铭心地意识到前辈们的忠告是如此的正确”。</p>
+<p>创业初期，老罗一直认为，除了乔布斯，锤子拥有世界上一流的工业设计团队。于是呢，我们看到，老罗开始打造工艺品，追求完美的产品设计。在产品转生产试制的时候，多次亲自在富士康的生产线跟线。在追求产品完美外观和软件体验细节的上面，忽略了产品的可实现性。后来老罗在一次产品发布会上深刻总结了做产品不是做艺术品，需要充分考虑产品的可制造性。其实老罗在 2012 年摩托罗拉大裁员的时候吸收了一大批摩托罗拉的技术专家。如果当时，他充分利用各类部门技术专家的优势，锤子 T1 手机就不会遭遇 “噩梦一般的三个月”。</p>
+<p><strong>4. 给新产品开发造一个发动机</strong></p>
+<p>IPD 同样也关注平台，平台化的开发带来了两大好处，铁打的银盘流水的兵，即使关键岗位的人员流动也不会对企业带来影响，平台让我们的开发成果得到积累和沉淀；另一方面，平台化的开发，支撑了我们新产品开发的速度。</p>
+<p><strong>5. 每个人都应该知道该干什么的方法</strong></p>
+<p>结构化的流程，所谓结构化，是指相互关联的工作要有一个框架结构，并要有一定的组织原则来支持它；每项工作都应清清楚楚地明确规定出来。所有与产品开发有关的人应该清楚他们所参与的是什么工作，用什么方法去完成。</p>
+<p>同时，有了结构化的流程，我们就不在受关键岗位、关键人才的限制。</p>
+<p>几年前，我就职过的一家公司，一个项目经理总览了一个产品系列的所有软硬件的全套技术和技术文件，以此为由，要求公司 CEO 给他加薪，CEO 最后不得不接受。当然，我们不希望这样的事情发生，同时我们也期望给公司员工带来更多的福利。可是这种情况在公司发展，对公司的发展，对员工的发展都是非常不利的。</p>
+<p><strong>6. 海陆空模式远比顺序模式强大</strong></p>
+<p><strong>异步开发模式</strong>，也称并行工程。通过严谨的计划、系统的设计、严格的流程控制，节点评审，把原来的许多后续活动提前进行，缩短产品上市时间。</p>
+<p>产品立项之后，总体方案评审通过，进入详细设计阶段，我们的动作就可以开始做了。</p>
+<p>产品的宣传资料可以出了，产品样机还没有出来，产品的市场预热推广已经开始了。这就是并行工程。那么我们通常情况下，我们敢不敢在样机还没有出来的时候有已经开始了产品的市场动作？敢不敢？</p>
+<p>我想很多企业是不敢的，产品没有出来就大量的投入营销，那么如果产品出不来怎么办呢？</p>
+<p>而在 IPD 的流程体系中，产品不会不出来，而且计划是产品不会不按照原定计划出来。</p>
+<p>一方面，IPD 强调的 “一次性把事情做好”；</p>
+<p>另外一方面，IPD 有系统的流程控制方法来保证产品开发如期完成。</p>
+<p><strong>重用性</strong> 尽量采用公共构建模块 (Common Building Block, 简称 CBB)，提高产品开发效率。</p>
+<p><strong>CBB</strong>，称为公共构建模块，这些模块，可以是软件的、可以是硬件的、可以是测试的、可以是生产的。有了这些模块，我们开发过程就聚焦在模块之外的其他需求进行，一方面减少了工作量。</p>
+<p>我在做手机的时候，我们曾做了一个 1.5 个月研发出一款手机并成功转量产的记录，就是充分应用了 CBB 的重用思想。</p>
+<p><strong>7. 中小企业也可以插上 IPD 的翅膀</strong></p>
+<p>第七个核心思想，阐述了 IPD 的灵活的，随着业务和技术的发展而变化的，可以全面应用，要可裁剪应用。因地制宜，随机应变。</p>
+<p>至今，华为的 IPD 还在不断的优化和升级，并且运用在了终端、无线、存储等各个产品线。</p>
+<p>而 IPD 最小的业务模式也同样适用于中小型企业。</p>
+<p>以上这七个横向的内容就是 IPD 的核心思想，IPD 的核心思想是 IPD 最重要管理精髓。</p>
+<p>当然除了横向的核心思想，IPD 还包含了纵向的核心内容：</p>
+<p>第一个内容，IPD 包含了 MM 市场管理流程，核心思想中强调了新产品开发是基于市场需求的开发，所以从市场到产品开发，一定需要一个市场管理流程来支撑。市场管理流程通过对市场的收集、分析、做出业务规划，输出产品开发任务书，作为产品开发的输入，是市场到开发的转化过程；</p>
+<p>第二个内容是 IPD 集成产品开发流程，这是我们实现产品开发落地的流程，怎样做出产品来，就是在这个流程中体现。后边的章节里我们会更详细的介绍。</p>
+<p>第三个内容技术开发流程，这个流程是实现企业的技术积累，核心竞争力的沉淀；</p>
+<p>第四个内容是项目管理流程，IPD 核心管理是基于项目管理来进行的，而项目管理是在管什么呢，是在管资源。</p>
+<p>第五个内容矩阵型组织结构，这是团队形式，核心思想中包含了跨部门团队，这个跨部门团队需要一个矩阵式的管理。</p>
+<p>第六个内容是：绩效与激励，从业务上来看着是一个支撑内容，为我们业务目标服务的。从管理上来看，这条非常重要，包含了企业文化、HR 的思想等。一句话，门朝哪里开，人就会从哪里走，就在这里来操作。我们的门要向着目标的方向打开。</p>
+<p>第七个内容 是管理优化与变革，这里强调了随着业务的发展，我们前面的这六点基于管理的内容要不断的优化升级，以更好的适配公司业务的发展。在华为公司，专门成立了管理优化部门，每年投入销售额的 3-5% 进行管理的优化变革。同时公司内部也有一个管理优化报，面向全公司发布。</p>
+<p>七横七纵，从概念上介绍了 IPD 的全貌，是 IPD 的精华所在，希望大家能够理解和运用它。</p>
+<h4 id="四、八个特征掌握-IPD"><a href="#四、八个特征掌握-IPD" class="headerlink" title="四、八个特征掌握 IPD"></a><strong>四、八个特征掌握 IPD</strong></h4><p><strong>1. IPD 的一套框架</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-557be7394adda907102507443972ce8a_r.jpg" alt=""></p>
+<p>从公司战略出发、收集市场信息、客户反馈、竞争信息、技术趋势、产品组合进入市场管理流程。通过市场管理流程的对信息的分析、转化为业务计划，输出产品规划的 charter（产品业务计划书）</p>
+<p>输入到产品开发流程，一部分输送给技术开发流程。通过产品开发流程和技术开发流程，实现对产品和技术的输出。</p>
+<p><strong>2. IPD 的两种评审模式 DCP 和 TR</strong></p>
+<p><img src="https://pic1.zhimg.com/v2-1b93002f94e2aded7cb220d1241c15b8_r.jpg" alt=""></p>
+<p>产品开发流程使用两种评审机制，一种是基于业务决策线的评审；另一种是基于技术线的决策评审。</p>
+<p>业务决策评审是集成产品开发管理团队（IPMT）管理产品投资的重要手段，在决策评审中，IPMT 始终站在投资商的角度来进行评审。</p>
+<p>业务决策评审包含了 charter 决策评审、概念决策评审、计划决策评审、验证决策评审、生命周期决策评审</p>
+<p>另外一种是技术决策评审，通过技术评审，帮助产品开发团队尽早发现产品开发中存在的问题和风险，及时采取相应的解决方案和行动计划，保证产品开发质量，减少浪费。</p>
+<p><strong>3. IPD 的三大业务流程</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-22db8a6eb8546a2cd01a4ebfafc16737_r.jpg" alt=""></p>
+<p><strong>4. IPD 的四大组织</strong>  </p>
+<p><img src="https://pic4.zhimg.com/v2-e9ee51a0800a6e6ddfac5209208838a7_r.jpg" alt=""></p>
+<p>（1）集成组合管理团队（IPMT）：产品投资决策和评审机构，负责制定公司总的使命愿景和战略方向，并对新产品线的产生进行决策。通常是一个高层跨部门团队，成员包括各个部门最高主管。</p>
+<p>（2）产品开发团队（PDT）：一个虚拟的组织，其成员在产品开发期间一起工作，由产品经理 / 项目经理组织，一般是产品经理 / 项目经理负责的矩阵组织结构。</p>
+<p>（3）产品生命周期管理团队（LMT）：在产品生命周期中，联合研发、制造、销售、使用、安全部门等各方面的资源，从根本上保证了产品在全生命周期中的管理能够高效、有序，并使产品保持低故障率。</p>
+<p>（4）技术开发团队（TMT）：利用从研究和试验获得的知识或技术，为产品开发提供新的工艺和系统而进行实质性的改进。</p>
+<p> <strong>5. IPD 的五个业务决策评审点</strong></p>
+<p><img src="https://pic2.zhimg.com/v2-dea016a73693563cde089ff9463e4259_r.jpg" alt=""></p>
+<p>（1）Charter：立项评审</p>
+<p>（2）CDCP(Concept?DCP)：概念决策评审</p>
+<p>（3）PDCP(Plan?DCP)：计划决策评审</p>
+<p>（4）ADCP(Availability?DCP)：可获得性决策评审</p>
+<p>（5）EDCP(EOL?DCP)：生命周期终止决策评审</p>
+<p><strong>6. IPD 的六个开发阶段</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-a9c7db1b072a48d9a4bde310d25b0252_r.jpg" alt=""></p>
+<p><strong>7. IPD 的七个技术评审点</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-cfb4bd36c41890aeb65d95f6ec329b9e_r.jpg" alt=""></p>
+<p>当然，IPD 流程中设置了很多机制来对这类问题的解决。比如说我们的研发质量规范、我们的代码规范、代码检视、单元测试、系统测试等等。</p>
+<p>IPD 的流程中为了最大限度的节省缺陷或问题流入后端造成了损失。就体现在前面介绍的两种评审机制，不论是基于业务的还会基于技术的评审，只要上一个评审点没有通过，就无法进入下一个评审点。这种机制有效的解决和平衡的我们新产品开发过程中的遇到的问题。</p>
+<p>每一个环节都有自己的客户，我们一定要清楚自己的客户是谁，我们是为谁在服务。IPD 强调下一道工序就是你的客户！</p>
+<h4 id="五、实施-IPD，你也可以"><a href="#五、实施-IPD，你也可以" class="headerlink" title="五、实施 IPD，你也可以"></a><strong>五、实施 IPD，你也可以</strong></h4><p><strong>1. 小组织也可以 IPD</strong></p>
+<p>重量级团队削弱了功能部门的影响力。事实：功能部门在 IPD 的执行与决策中都占据着关键的地位。但是角色发生了变化。就像在乐队的演奏中，每个人都有自己的角色。如果鼓手演奏的声音比其他人大，如果鼓手想控制整个音乐（即使鼓手的技能不够），虽然鼓手自己可能感觉很强大，但是整个音乐已经不和谐了，已经被破坏了。扪心自问，实事求是地考虑一下自己真正的权力来自哪里。功能部门在 IPD 中扮演着非常重要的角色，不过在 IPD 流程中以团队的形式进行运作很重要。如果没有本身优秀的强大功能部门，IPD 也无法发挥自己的作用。功能部门在许多方面都发挥着重要的作用，如对本部门员工技能的培养进行管理，制定功能部门策略，向 PDT 和 IPMT 做出并履行承诺，将本功能部门与其他部门及公司联合起来，加强本功能部门对承诺的执行。同样，IRB 和 EMT 已经签发了政策和指导来更好地支撑华为的重量级团队建设环境，包括激励，PBC 和资源池。可是每个团队成员仍然有责任充分参与团队工作，积极帮助团队实现目标。</p>
+<p>IPD 组织结构通常可以看成一个小公司。这就是为什么华为 18.8 万人的企业中，研发能够快速响应的一个重要原因。  </p>
+<p>误区一：<strong>IPD 是大公司的事情，我们是小公司，没有实施 IPD 的必要</strong></p>
+<p>IPD 本身是一种产品研发的最佳实践，强调研发要做正确的事情，体现市场驱动，把研发资源投入到最有价值的项目中，这些理念对中小企业同样有非常大的指导意义；尤其中小企业面临资源匮乏，一个项目的失败可能会导致整个公司的倒闭，这种状态下，更应该践行 IPD 的研发方法，确保项目的成功率，甚至要追求 120% 的成功率。 <strong>我们是项目化公司，IPD 是产品开发，所以不适合我们</strong></p>
+<p>IPD 本身是从商业角度分析产品和项目是否值得投资，即使项目化的公司，也需要追求项目的投入产出率，也需要时刻关注客户需求，尤其是国内项目化公司普遍面临缺乏平台、跨项目共享差、交付成本高的问题，IPD 的市场驱动、异步开发模式、项目决策分析都可以非常好地解决这些问题。所以项目化公司同样需要 IPD。<br><strong>IPD 实施推行需要非常高的成本，实施周期很长，我们目前没有能力搞。</strong></p>
+<p>大家有这种认识纯粹是 IBM、IPD 实施顾问忽悠的结果，把 IPD 忽悠的多么神圣、多么高档、如此之难，进而从客户手里多搂钱，把实施费用搞的奇贵，从而让客户感觉 IPD 是非常贵族化的东西，身份的象征。其实街边小餐馆都是按照 IPD 的思路运作的，在哪里开？市场客户决定 —（IPD 之市场驱动）；费用多少？竞争对比分析而定 — （IPD 之竞争分析）；每天早上要准备多少材料？历史销售情况 + 今天的销售预期决定 — （IPD 之预算管理）；提供哪些种类？制作周期太长的不做，因为客户没有时间等 — （IPD 之产品交付）；丰盛大餐的不做，因为厨师水平要求高，费用高 — （IPD 之项目研发费用）；每天晚上核算今天盈利、与历史对比 — （IPD 之衡量指标与对比分析）；客户喜欢的、利润高的种类放在菜单最上面 — （IPD 之投资组合分析）；所以 IPD 在中小企业同样适用，并且可以分步实施，实施难度、成本都是在可控范围之内。 <strong>还有诸多疑虑……</strong></p>
+<p>误区二：<strong>IPD 是要在速度与质量之间做出取舍？</strong></p>
+<p>误区三：<strong>IPD 影响决策的速度？</strong></p>
+<p>误区四：<strong>重量级团队削弱了功能部门的影响力？</strong></p>
+<p><strong>……</strong></p>
+<p><strong>2. 貌似缺失的质量控制缺是最有效的控制</strong></p>
+<p>IPD 是速度与质量相结合。技术评审点即使技术评审又是质量评审，质量管理被融入在 IPD 的流程和体系当中，潜移默化的，自然的服务于产品和控制产品质量。IPD 的目的是保证速度，但同时也要保证产品的高质量。IPD 不仅要使产品开发速度更快，而且还提供了一种规范，保证能够生产出高质量的产品。</p>
+<p><strong>3. 环环相扣，齿齿相连，一次性把事情做好</strong></p>
+<p><strong>环环相扣，齿齿相连</strong></p>
+<p>每个角色都处于 IPD 的一个环节，只有当上一个环节完成了，并且是按照产品质量要求完成了，才会流向下一个环节，正如流水生产线一样，只有上一个工序的工作完成了，且被检验为合格了才能流到下一个工序。也只有上一个工序完成时，下一个工序才能开始，一切都在项目计划的控制之中。每个工序都会对下一个工序产生影响。</p>
+<p><strong>一次性把事情做好！慢即是快。</strong></p>
+<p>从整个 IPD 的核心思想方面来说，所有的流程和关键的评审点都是围绕这个 “一次性把事情做好” 这句话来的，因为在研发当中，一次性把事情做好，效率才是最高的。比如原本计划下个月的进行新产品的试制，原材料已经准备好，生产计划已经按照出生产线为我们的试制产品做准备。如果产品试制不能如期进行，生产线的计划将被打乱。相关的人员安排可能临时不能调度，原计划的试制期间的生产资源就会造成浪费。</p>
+<p><strong>【结尾】</strong></p>
+<p>公司的战略是选择方向，就是解决做正确的事情，做与公司目标相匹配的事情。</p>
+<p>IPD(Integrated product development 集成产品开发) 是针对公司已经选择确定战略规划之下，正确的做公司规划的产品开发的事情，即使通常我们讲的正确的做事。</p>
+<p>只有做正确的事情和正确的做事，才能保障经营的不败。</p>
+<p>我想把一个复杂的系统，还原成一个常识的理解。只要我们理解和认识了 IPD，我们也同样可以穿上 IPD 之鞋，谁说灰姑娘就不能穿上漂亮的舞鞋跳舞呢？</p>
+<blockquote>
+<p>原文地址 <a href="https://zhuanlan.zhihu.com/p/392385187" target="_blank" rel="noopener">知乎</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>IPD</tag>
+        <tag>华为</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虚拟机VirtualBox中挂载新硬盘</title>
+    <url>/2018/03/18/%E8%99%9A%E6%8B%9F%E6%9C%BAVirtualBox%E4%B8%AD%E6%8C%82%E8%BD%BD%E6%96%B0%E7%A1%AC%E7%9B%98/</url>
+    <content><![CDATA[<p>在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘：</p>
+<h5 id="添加新硬盘"><a href="#添加新硬盘" class="headerlink" title="添加新硬盘"></a>添加新硬盘</h5><blockquote>
+<p>设置 -&gt; Storage(存储) -&gt; SATA控制器-&gt;右击，选择”添加虚拟硬盘”<br>然后，根据需求创建合适的硬盘<br><a id="more"></a></p>
+</blockquote>
+<h5 id="重启虚拟机"><a href="#重启虚拟机" class="headerlink" title="重启虚拟机"></a>重启虚拟机</h5><p>  查看现有系统的磁盘空间</p>
+<blockquote>
+<p>sudo fdisk -l</p>
+</blockquote>
+<p>  可看到新加的虚拟硬盘，一般名为：Disk /dev/sdb</p>
+<h5 id="给新加的硬盘分区"><a href="#给新加的硬盘分区" class="headerlink" title="给新加的硬盘分区"></a>给新加的硬盘分区</h5><blockquote>
+<p>fdisk /dev/sdb  </p>
+</blockquote>
+<p>  键入m,可看到帮助信息</p>
+<blockquote>
+<p>command (m for help):m</p>
+</blockquote>
+<p>  增加新分区</p>
+<blockquote>
+<p>command (m for help):n  </p>
+</blockquote>
+<p>  选择基本分区，输入：p 建一个分区</p>
+<blockquote>
+<p>Partition number(1-4):  </p>
+</blockquote>
+<p>  回车</p>
+<blockquote>
+<p>First cylinder (1-15908,default 1):Enter</p>
+</blockquote>
+<p>  写入并退出</p>
+<blockquote>
+<p>command (m for help):w</p>
+</blockquote>
+<h5 id="格式化磁盘分区"><a href="#格式化磁盘分区" class="headerlink" title="格式化磁盘分区"></a>格式化磁盘分区</h5><p>  用ext4格式对/dev/sdb1进入格式化</p>
+<blockquote>
+<p>sudo mkfs.ext4 /dev/sdb1</p>
+</blockquote>
+<h5 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h5><p>  创建新的挂载点</p>
+<blockquote>
+<p>sudo mkdir /work</p>
+</blockquote>
+<p>  将新磁盘分区挂载到/work目录下</p>
+<blockquote>
+<p>sudo mount -t ext4 /dev/sdb1 /work</p>
+</blockquote>
+<p>  查看挂载</p>
+<blockquote>
+<p>df -h</p>
+</blockquote>
+<p>  可以看到新加的硬盘：/dev/sdb1</p>
+<h5 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h5><p>  修改文件</p>
+<blockquote>
+<p>sudo vim /etc/fstab</p>
+</blockquote>
+<p>  在最后一行加入：</p>
+<blockquote>
+<p>/dev/sdb1 /work ext4 errors=remount-ro 0 1</p>
+</blockquote>
+<p>  完成!</p>
+<hr>
+<h4 id="补充：为挂载点扩容"><a href="#补充：为挂载点扩容" class="headerlink" title="补充：为挂载点扩容"></a>补充：为挂载点扩容</h4><p>假设之前我们有一个挂载点为 <em>/mydata</em> ，但该 <em>/mydata</em> 已经写满，但依然想在 <em>/mydata</em> 下添加新的数据，这时可以使用软链接将 <em>/mydata</em> 软链接到一个新挂载的磁盘分区上以实现扩容。具体步骤如下。</p>
+<p><strong>1. 创建一个目录，以便稍后作为挂载点：</strong></p>
+<blockquote>
+<p>mkdir /newdata</p>
+</blockquote>
+<p><strong>2. 将 /dev/sdb1 分区挂载到 /newdata 下：</strong></p>
+<blockquote>
+<p>mount /dev/sdb1 /newdata</p>
+</blockquote>
+<p><strong>3. 新建 /mydata 到 /newdata 的软链接：</strong></p>
+<blockquote>
+<p>ln -s /newdata /mydata</p>
+</blockquote>
+<p>  此时在 /mydata 目录下会有一个软链接文件 <em>newdata</em> 指向 <em>/newdata/</em> ，即 <em>newdata-&gt; /newdata/</em> 。这样一来，只要我们向 <em>/mydata/newdata</em> 下写文件，实际就写入了 <em>/newdata/</em> 目录下，相当于我们为原 <em>/mydata</em> 挂载点新增加了一部分使用空间。  </p>
+<p>  也可以手动指定该软链接文件的名称：</p>
+<blockquote>
+<p>ln -s /newdata /mydata/customed_name</p>
+</blockquote>
+<p>  这样就有 /mydata/customed_name -&gt; /newdata  </p>
+<p>  <strong>注：</strong> 我们也可以利用软链接的这一用途，将比较大的日志文件链接到存储空间充足的磁盘分区的挂载点上。<br>  举例来说，如果 /opt/tomcat/logs/catalina.out 日志文件输入很多，占用空间很大，而 /opt 挂载点中所剩空间已经不多，存在溢出风险，通过下面两步就可以将该日志文件软链接到另一个磁盘分区的挂载点上：  </p>
+<blockquote>
+<p>touch /newdata/catalina_link.out<br>ln -sf /newdata/catalina_link.out /opt/tomcat/logs/catalina.out</p>
+</blockquote>
+<p>  <strong><em>这里还需要注意三点：</em></strong></p>
+<p>  一是必须先创建一个被链接的文件，否则软链接后失败；<br>  二是强制软链接会清空之前 /opt/tomcat/logs/catalina.out 日志文件中的全部内容清空；<br>  三是需要重启 tomcat 目录后才能继续向 /opt/tomcat/logs/catalina.out 写入。  </p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>Linux挂载硬盘</tag>
       </tags>
   </entry>
   <entry>
@@ -2159,209 +2577,6 @@
       </tags>
   </entry>
   <entry>
-    <title>学不会的华为 IPD，其实是这样！</title>
-    <url>/2022/12/21/%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E5%8D%8E%E4%B8%BA%20IPD%EF%BC%8C%E5%85%B6%E5%AE%9E%E6%98%AF%E8%BF%99%E6%A0%B7%EF%BC%81/</url>
-    <content><![CDATA[<p>美国著名作家弗格森说了一句话 “谁也无法说服他人改变，因为我们每个人都守着一扇只能从内心开启的改变之门，不论动之以情或晓之以理，我们都不能替别人开门”。</p>
-<p>改变真的是由内而外的？不是！改变是由外而内，再由内而外的过程。只有当我们有信息输入，在新的信息下触发自身，只有触发自身的信息才能引发一场由内而外的改变。我们将用以下的文章内容来提供触发信息。</p>
-<a id="more"></a>
-<h4 id="一、让你的企业成为资产的思维"><a href="#一、让你的企业成为资产的思维" class="headerlink" title="一、让你的企业成为资产的思维"></a><strong>一、让你的企业成为资产的思维</strong></h4><p>企业经营的目标是要创造价值、利润，那么如何创造客户、并且持续不断的为客户创造价值、留住客户，是企业经营的法宝。产品无疑在企业与客户之间建立了一座桥梁。企业通过产品为客户创造价值。持续不断的高品质的产品输出，是一个企业持续立于不败之地的法宝。</p>
-<p>然而，一个企业要成长，就要未雨绸缪、不断变革，以保持持续的生命力。华为公司就是一家保持持续变革的伟大公司，持续管理变革的目标就是实现高效的流程化运作，确保端到端的自动优质交付，从而实现企业的自动化管道系统。</p>
-<p>今天我们向华为学习企业的变革之下的研发流程体系，其实是一个研发管道系统，在华为，这条管道叫做——IPD 体系。华为公司认为，研发不仅是研发部门的事，更是关系公司市场到产品变现的全流程。IPD 是企业实现产品商业化的管道系统，IPD 体系构建了产品从 idea 到产品变现的全流程。</p>
-<p>经营企业需要具备系统性的全局思维，将企业看做资产的思维，企业是不断创造价值的资产，需要融入经营者的经营思维、战略思维、管理思维、并赋予工具、流程和方法，让其实现自动化运行的系统。当然不是所有企业都可以看成资产，只有创造价值，创造利润的企业才能称为资产。</p>
-<p>作为经营者、管理者需要以经营资产的思维来经营企业。</p>
-<h4 id="二、IPD-的起源和发展"><a href="#二、IPD-的起源和发展" class="headerlink" title="二、IPD 的起源和发展"></a><strong>二、IPD 的起源和发展</strong></h4><p><strong>1、跨界的 IBM 领导者为何要建 IPD</strong></p>
-<p>IPD 起源于这家公司——IBM，一个世界级的巨无霸，全球最大的信息技术和业务解决方案公司，拥有 30 多万员工，业务遍及 160 多个国家和地区。2018 年《财富》世界 500 强排行榜发布，IBM 位列 92 位。</p>
-<p>那么就是这样一家世界级的公司，在 1991～1993 年间累计面临巨大的财务困境，三年间累计亏损达 162 亿美元，几乎是每天亏损掉 1480 万美元。93 年的 4 月 1 日，54 岁，路易斯 · 郭士纳临危受命，担任 IBM 的执行总裁。</p>
-<p>郭士纳的上任当时并不被人们看好，包含美国的媒体，人们不相信一个曾经以食品和烟草起家的公司老板，能够扭转 IBM 的困局。</p>
-<p>郭士纳就任后，做了三件事：</p>
-<p>第一件事：让 IBM 停止流血；郭士纳裁剪了 IBM 流血的部门和人员，半年内果断裁人 4.5 万。</p>
-<p>第二件事：重振大型机业务，拓展服务业范围，并带领 IBM 重新向 PC 市场发动攻击。</p>
-<p>第三件事：梳理公司流程体制，进行流程重构和再造工程。</p>
-<p>这第三件事情是与新班子花了近一年时间，研究如何对 IBM 进行 “再造工程”。IBM 组织团队进行分析，经过分析后，他们发现公司三个方面上远远落后于业界最佳——研发费用、研发浪费和产品上市时间。</p>
-<p>分析的结果：IBM 研发费用为销售收入的 12%，而业界最佳为 6%；　　研发损失费用为整个研发费用的 25%，而业界最佳仅为 3.3%；而在上市时间（指产品从概念产生到投放市场所需的时间）方面，36.5% 项目的上市时间是业界最佳的 1.25 倍，其余项目的上市时间多于业界最佳的 1.5-2 倍。</p>
-<p>为了重新获得市场竞争优势，IBM 提出了两个 50% 的目标，一是，将产品上市时间减少 50%，二是，在不影响产品开发结果的情况下，将研发费用减少 50% 的目标。</p>
-<p>为达成这个目标，IBM 公司应用了 PACE 的方法（Product And Cycle-time Excellence，产品及周期优化法）从流程重整和产品重整两个方面来达到缩短产品上市时间、提高产品利润的目标。</p>
-<p>时隔三年，1995 年，IBM 营收突破了 700 亿美元大关，IBM 的大型机业务也复活了。利润 60 亿美元。不得不说，IBM 公司流程重构在提升自身竞争力上发挥了巨大的作用。</p>
-<p>IBM 成为了全球率先应用 IPD 方法并取得成功实践的企业，这就是 IPD 的起源。</p>
-<p>美国著名的 PTRM 公司总结实施 IPD 后带来的好处是：</p>
-<p><img src="https://pic3.zhimg.com/v2-cbb22c372c41b100de7a85da06ff48f6_r.jpg" alt=""></p>
-<p>IPD 是集成产品开发的英文单词首字母，经过 IBM 公司实践的一套先进的、成熟的研发管理思想、模式和方法。</p>
-<p><strong>2、华为搭上 IPD 的快车</strong></p>
-<p>1997 年西方圣诞节前一周，任总重点考察了 IBM。圣诞节前夕美国各大企业都已经放假了，但 IBM 包括 CEO 郭士纳在内的高层领导均照常上班，并真诚而系统地向任正非介绍了他们的管理内涵。</p>
-<p>这次调研中整整一天时间，IBM 从产品预研到项目管理、从生产流程到项目寿命终结的投资评审做了详尽的介绍。为了强化任正非对 IPD 的认识，IBM 副总裁送给他一本哈佛大学出版的关于研发管理的著作，后来他发现朗讯、惠普等美国著名企业也都实施这样的研发模式。</p>
-<p>这次考察更加坚定了任正非对华为实施变革的坚定决心，华为要像 IBM 一样强大，不仅自己要以郭士纳为榜样，而且华为必须虔诚地拜 IBM 为师，不惜一切代价将其管理精髓移植到华为身上。</p>
-<p>1998 年 8 月初，华为与 IBM 中国区总裁周伟焜签订了金额 20 亿人民币的变革项目合作协议，当时 20 亿是华为当年全年的利润，可见任总的魄力非常人所能及也。</p>
-<p>这个项目包含了 IPD（集成产品开发）、ISC（集成供应链）、IT 系统重整、财务四统一等 8 个管理变革项目。这成为是华为历史上最重要的转折点，这个项目将华为带进了高速赛道。</p>
-<p>华为公司第一家引进和实施 IPD，也是受益最大的国内企业。从 98 年的 IPD1.0 到 2014 年的 IPD7.0, 华为不断升级优化。</p>
-<p>华为公司 1998 年启动 IPD 项目，分为关注、发明、推广 3 个阶段。根据 1998 年的计划，用两年多的时间就可以实现全面推广。</p>
-<p>华为在 2001 年华为颁布了《华为基本法》，基本法一个重要的方面是统一了公司变革的思想。</p>
-<p>经过了四年的梳理建设，IPD 在 2002 年在全公司推广使用。华为公司走上了与世界领先企业并肩同行的管理道路。</p>
-<h4 id="三、IPD-的核心思想"><a href="#三、IPD-的核心思想" class="headerlink" title="三、IPD 的核心思想"></a><strong>三、IPD 的核心思想</strong></h4><p><strong>1. 研发本质是研发是企业的一项投资</strong></p>
-<p>首先，IPD 认为研发是一项投资；因为这是一项投资决策，所以，需要对它进行有效的投资组合分析，在开发过程中，设置检查点，通过阶段性评审来决定项目是继续、暂停、终止还是改变方向。</p>
-<p><strong>IPD(Integrated product development 集成产品开发)，IPD 是一套先进的、成熟的研发管理思想、模式和方法。</strong></p>
-<p><strong>2. 基于市场的研发才是有效投资</strong></p>
-<p>IPD 强调，产品创新一定要是基于市场需求和竞争分析的创新，要准确地做正确的事情，要将正确定义产品概念、充分理解市场需求作为流程的第一步。</p>
-<p>在 IT 圈有个现象，一天公司其中一个人有个创意，然后召集人员参与讨论，之后，就规划出一个产品创意来，然后互相鼓励，觉得我们这个创意就是最牛逼的，我们是世界第一，没有人想到，只有我们想到。并且互相叮嘱，我们要保密哦，要充分注重信息安全，不能透露给外人。这样的产品规划，我们通常叫做意向创业；貌似具有非常强的执行力，立即组建团队，就卷起袖子加油干！立项、设计、开发、出样机、投生产。节奏很快，也很有魄力。恨不得 3 个月就能出产品，然后做营销、做销售。经历了千辛万苦，产品出来后，面向市场发布，结果无人问津。</p>
-<p>这里我们强调产品一定是基于市场需求的开发，一定要解决市场的问题和痛点，痒点都不行，必须是痛点。</p>
-<p>所以说，这种方式就不满足 IPD 的核心思想。我们说市场的端到端，是需求来源于市场，最终产品回归于市场。你都没有做充分的市场调研，怎么能够被市场所接受。</p>
-<p><strong>3. 如何穿越部门墙建立研发快车道</strong></p>
-<p>一个产品，尤其是以硬件为主的产品，设计产品的方方面面、结构、硬件、软件、工程、制造、采购、包装、市场推广等，是需要全部门协同配合的一个事情。所以必须要有跨部门的团队协作。</p>
-<p>采用跨部门的产品开发团队 (Product Development Team, 简称 PDT)，通过有效的沟通、协调以及决策，到达尽快将产品推向市场的目的。</p>
-<p>有的创业者，把这个事情想得太简单，完全没有搞清楚状况，拖几个人就开始干，在他们的理念中，出产品就是出样机，觉得样机出来了，产品就出来了，殊不知一个产品样机出来，仅仅只等效于产品开发过程只完成 40%，还有大量的工作要做。</p>
-<p>并且，在这种思想下，产品的是不完善的，是不具备量产化的，以样机为产品终结的思想，完全不会考虑到产品的后端需求。比如可测试性、可制造性、可服务性等 DFX 的需求。</p>
-<p>跨部门的团队，强调无缝沟通，强调把专业的团队串起来，为了一个共同的目标而努力。</p>
-<p>老罗有这么一句对自己的总结 “只有等到你掉到坑里的时候，你才刻骨铭心地意识到前辈们的忠告是如此的正确”。</p>
-<p>创业初期，老罗一直认为，除了乔布斯，锤子拥有世界上一流的工业设计团队。于是呢，我们看到，老罗开始打造工艺品，追求完美的产品设计。在产品转生产试制的时候，多次亲自在富士康的生产线跟线。在追求产品完美外观和软件体验细节的上面，忽略了产品的可实现性。后来老罗在一次产品发布会上深刻总结了做产品不是做艺术品，需要充分考虑产品的可制造性。其实老罗在 2012 年摩托罗拉大裁员的时候吸收了一大批摩托罗拉的技术专家。如果当时，他充分利用各类部门技术专家的优势，锤子 T1 手机就不会遭遇 “噩梦一般的三个月”。</p>
-<p><strong>4. 给新产品开发造一个发动机</strong></p>
-<p>IPD 同样也关注平台，平台化的开发带来了两大好处，铁打的银盘流水的兵，即使关键岗位的人员流动也不会对企业带来影响，平台让我们的开发成果得到积累和沉淀；另一方面，平台化的开发，支撑了我们新产品开发的速度。</p>
-<p><strong>5. 每个人都应该知道该干什么的方法</strong></p>
-<p>结构化的流程，所谓结构化，是指相互关联的工作要有一个框架结构，并要有一定的组织原则来支持它；每项工作都应清清楚楚地明确规定出来。所有与产品开发有关的人应该清楚他们所参与的是什么工作，用什么方法去完成。</p>
-<p>同时，有了结构化的流程，我们就不在受关键岗位、关键人才的限制。</p>
-<p>几年前，我就职过的一家公司，一个项目经理总览了一个产品系列的所有软硬件的全套技术和技术文件，以此为由，要求公司 CEO 给他加薪，CEO 最后不得不接受。当然，我们不希望这样的事情发生，同时我们也期望给公司员工带来更多的福利。可是这种情况在公司发展，对公司的发展，对员工的发展都是非常不利的。</p>
-<p><strong>6. 海陆空模式远比顺序模式强大</strong></p>
-<p><strong>异步开发模式</strong>，也称并行工程。通过严谨的计划、系统的设计、严格的流程控制，节点评审，把原来的许多后续活动提前进行，缩短产品上市时间。</p>
-<p>产品立项之后，总体方案评审通过，进入详细设计阶段，我们的动作就可以开始做了。</p>
-<p>产品的宣传资料可以出了，产品样机还没有出来，产品的市场预热推广已经开始了。这就是并行工程。那么我们通常情况下，我们敢不敢在样机还没有出来的时候有已经开始了产品的市场动作？敢不敢？</p>
-<p>我想很多企业是不敢的，产品没有出来就大量的投入营销，那么如果产品出不来怎么办呢？</p>
-<p>而在 IPD 的流程体系中，产品不会不出来，而且计划是产品不会不按照原定计划出来。</p>
-<p>一方面，IPD 强调的 “一次性把事情做好”；</p>
-<p>另外一方面，IPD 有系统的流程控制方法来保证产品开发如期完成。</p>
-<p><strong>重用性</strong> 尽量采用公共构建模块 (Common Building Block, 简称 CBB)，提高产品开发效率。</p>
-<p><strong>CBB</strong>，称为公共构建模块，这些模块，可以是软件的、可以是硬件的、可以是测试的、可以是生产的。有了这些模块，我们开发过程就聚焦在模块之外的其他需求进行，一方面减少了工作量。</p>
-<p>我在做手机的时候，我们曾做了一个 1.5 个月研发出一款手机并成功转量产的记录，就是充分应用了 CBB 的重用思想。</p>
-<p><strong>7. 中小企业也可以插上 IPD 的翅膀</strong></p>
-<p>第七个核心思想，阐述了 IPD 的灵活的，随着业务和技术的发展而变化的，可以全面应用，要可裁剪应用。因地制宜，随机应变。</p>
-<p>至今，华为的 IPD 还在不断的优化和升级，并且运用在了终端、无线、存储等各个产品线。</p>
-<p>而 IPD 最小的业务模式也同样适用于中小型企业。</p>
-<p>以上这七个横向的内容就是 IPD 的核心思想，IPD 的核心思想是 IPD 最重要管理精髓。</p>
-<p>当然除了横向的核心思想，IPD 还包含了纵向的核心内容：</p>
-<p>第一个内容，IPD 包含了 MM 市场管理流程，核心思想中强调了新产品开发是基于市场需求的开发，所以从市场到产品开发，一定需要一个市场管理流程来支撑。市场管理流程通过对市场的收集、分析、做出业务规划，输出产品开发任务书，作为产品开发的输入，是市场到开发的转化过程；</p>
-<p>第二个内容是 IPD 集成产品开发流程，这是我们实现产品开发落地的流程，怎样做出产品来，就是在这个流程中体现。后边的章节里我们会更详细的介绍。</p>
-<p>第三个内容技术开发流程，这个流程是实现企业的技术积累，核心竞争力的沉淀；</p>
-<p>第四个内容是项目管理流程，IPD 核心管理是基于项目管理来进行的，而项目管理是在管什么呢，是在管资源。</p>
-<p>第五个内容矩阵型组织结构，这是团队形式，核心思想中包含了跨部门团队，这个跨部门团队需要一个矩阵式的管理。</p>
-<p>第六个内容是：绩效与激励，从业务上来看着是一个支撑内容，为我们业务目标服务的。从管理上来看，这条非常重要，包含了企业文化、HR 的思想等。一句话，门朝哪里开，人就会从哪里走，就在这里来操作。我们的门要向着目标的方向打开。</p>
-<p>第七个内容 是管理优化与变革，这里强调了随着业务的发展，我们前面的这六点基于管理的内容要不断的优化升级，以更好的适配公司业务的发展。在华为公司，专门成立了管理优化部门，每年投入销售额的 3-5% 进行管理的优化变革。同时公司内部也有一个管理优化报，面向全公司发布。</p>
-<p>七横七纵，从概念上介绍了 IPD 的全貌，是 IPD 的精华所在，希望大家能够理解和运用它。</p>
-<h4 id="四、八个特征掌握-IPD"><a href="#四、八个特征掌握-IPD" class="headerlink" title="四、八个特征掌握 IPD"></a><strong>四、八个特征掌握 IPD</strong></h4><p><strong>1. IPD 的一套框架</strong></p>
-<p><img src="https://pic3.zhimg.com/v2-557be7394adda907102507443972ce8a_r.jpg" alt=""></p>
-<p>从公司战略出发、收集市场信息、客户反馈、竞争信息、技术趋势、产品组合进入市场管理流程。通过市场管理流程的对信息的分析、转化为业务计划，输出产品规划的 charter（产品业务计划书）</p>
-<p>输入到产品开发流程，一部分输送给技术开发流程。通过产品开发流程和技术开发流程，实现对产品和技术的输出。</p>
-<p><strong>2. IPD 的两种评审模式 DCP 和 TR</strong></p>
-<p><img src="https://pic1.zhimg.com/v2-1b93002f94e2aded7cb220d1241c15b8_r.jpg" alt=""></p>
-<p>产品开发流程使用两种评审机制，一种是基于业务决策线的评审；另一种是基于技术线的决策评审。</p>
-<p>业务决策评审是集成产品开发管理团队（IPMT）管理产品投资的重要手段，在决策评审中，IPMT 始终站在投资商的角度来进行评审。</p>
-<p>业务决策评审包含了 charter 决策评审、概念决策评审、计划决策评审、验证决策评审、生命周期决策评审</p>
-<p>另外一种是技术决策评审，通过技术评审，帮助产品开发团队尽早发现产品开发中存在的问题和风险，及时采取相应的解决方案和行动计划，保证产品开发质量，减少浪费。</p>
-<p><strong>3. IPD 的三大业务流程</strong></p>
-<p><img src="https://pic4.zhimg.com/v2-22db8a6eb8546a2cd01a4ebfafc16737_r.jpg" alt=""></p>
-<p><strong>4. IPD 的四大组织</strong>  </p>
-<p><img src="https://pic4.zhimg.com/v2-e9ee51a0800a6e6ddfac5209208838a7_r.jpg" alt=""></p>
-<p>（1）集成组合管理团队（IPMT）：产品投资决策和评审机构，负责制定公司总的使命愿景和战略方向，并对新产品线的产生进行决策。通常是一个高层跨部门团队，成员包括各个部门最高主管。</p>
-<p>（2）产品开发团队（PDT）：一个虚拟的组织，其成员在产品开发期间一起工作，由产品经理 / 项目经理组织，一般是产品经理 / 项目经理负责的矩阵组织结构。</p>
-<p>（3）产品生命周期管理团队（LMT）：在产品生命周期中，联合研发、制造、销售、使用、安全部门等各方面的资源，从根本上保证了产品在全生命周期中的管理能够高效、有序，并使产品保持低故障率。</p>
-<p>（4）技术开发团队（TMT）：利用从研究和试验获得的知识或技术，为产品开发提供新的工艺和系统而进行实质性的改进。</p>
-<p> <strong>5. IPD 的五个业务决策评审点</strong></p>
-<p><img src="https://pic2.zhimg.com/v2-dea016a73693563cde089ff9463e4259_r.jpg" alt=""></p>
-<p>（1）Charter：立项评审</p>
-<p>（2）CDCP(Concept?DCP)：概念决策评审</p>
-<p>（3）PDCP(Plan?DCP)：计划决策评审</p>
-<p>（4）ADCP(Availability?DCP)：可获得性决策评审</p>
-<p>（5）EDCP(EOL?DCP)：生命周期终止决策评审</p>
-<p><strong>6. IPD 的六个开发阶段</strong></p>
-<p><img src="https://pic3.zhimg.com/v2-a9c7db1b072a48d9a4bde310d25b0252_r.jpg" alt=""></p>
-<p><strong>7. IPD 的七个技术评审点</strong></p>
-<p><img src="https://pic3.zhimg.com/v2-cfb4bd36c41890aeb65d95f6ec329b9e_r.jpg" alt=""></p>
-<p>当然，IPD 流程中设置了很多机制来对这类问题的解决。比如说我们的研发质量规范、我们的代码规范、代码检视、单元测试、系统测试等等。</p>
-<p>IPD 的流程中为了最大限度的节省缺陷或问题流入后端造成了损失。就体现在前面介绍的两种评审机制，不论是基于业务的还会基于技术的评审，只要上一个评审点没有通过，就无法进入下一个评审点。这种机制有效的解决和平衡的我们新产品开发过程中的遇到的问题。</p>
-<p>每一个环节都有自己的客户，我们一定要清楚自己的客户是谁，我们是为谁在服务。IPD 强调下一道工序就是你的客户！</p>
-<h4 id="五、实施-IPD，你也可以"><a href="#五、实施-IPD，你也可以" class="headerlink" title="五、实施 IPD，你也可以"></a><strong>五、实施 IPD，你也可以</strong></h4><p><strong>1. 小组织也可以 IPD</strong></p>
-<p>重量级团队削弱了功能部门的影响力。事实：功能部门在 IPD 的执行与决策中都占据着关键的地位。但是角色发生了变化。就像在乐队的演奏中，每个人都有自己的角色。如果鼓手演奏的声音比其他人大，如果鼓手想控制整个音乐（即使鼓手的技能不够），虽然鼓手自己可能感觉很强大，但是整个音乐已经不和谐了，已经被破坏了。扪心自问，实事求是地考虑一下自己真正的权力来自哪里。功能部门在 IPD 中扮演着非常重要的角色，不过在 IPD 流程中以团队的形式进行运作很重要。如果没有本身优秀的强大功能部门，IPD 也无法发挥自己的作用。功能部门在许多方面都发挥着重要的作用，如对本部门员工技能的培养进行管理，制定功能部门策略，向 PDT 和 IPMT 做出并履行承诺，将本功能部门与其他部门及公司联合起来，加强本功能部门对承诺的执行。同样，IRB 和 EMT 已经签发了政策和指导来更好地支撑华为的重量级团队建设环境，包括激励，PBC 和资源池。可是每个团队成员仍然有责任充分参与团队工作，积极帮助团队实现目标。</p>
-<p>IPD 组织结构通常可以看成一个小公司。这就是为什么华为 18.8 万人的企业中，研发能够快速响应的一个重要原因。  </p>
-<p>误区一：<strong>IPD 是大公司的事情，我们是小公司，没有实施 IPD 的必要</strong></p>
-<p>IPD 本身是一种产品研发的最佳实践，强调研发要做正确的事情，体现市场驱动，把研发资源投入到最有价值的项目中，这些理念对中小企业同样有非常大的指导意义；尤其中小企业面临资源匮乏，一个项目的失败可能会导致整个公司的倒闭，这种状态下，更应该践行 IPD 的研发方法，确保项目的成功率，甚至要追求 120% 的成功率。 <strong>我们是项目化公司，IPD 是产品开发，所以不适合我们</strong></p>
-<p>IPD 本身是从商业角度分析产品和项目是否值得投资，即使项目化的公司，也需要追求项目的投入产出率，也需要时刻关注客户需求，尤其是国内项目化公司普遍面临缺乏平台、跨项目共享差、交付成本高的问题，IPD 的市场驱动、异步开发模式、项目决策分析都可以非常好地解决这些问题。所以项目化公司同样需要 IPD。<br><strong>IPD 实施推行需要非常高的成本，实施周期很长，我们目前没有能力搞。</strong></p>
-<p>大家有这种认识纯粹是 IBM、IPD 实施顾问忽悠的结果，把 IPD 忽悠的多么神圣、多么高档、如此之难，进而从客户手里多搂钱，把实施费用搞的奇贵，从而让客户感觉 IPD 是非常贵族化的东西，身份的象征。其实街边小餐馆都是按照 IPD 的思路运作的，在哪里开？市场客户决定 —（IPD 之市场驱动）；费用多少？竞争对比分析而定 — （IPD 之竞争分析）；每天早上要准备多少材料？历史销售情况 + 今天的销售预期决定 — （IPD 之预算管理）；提供哪些种类？制作周期太长的不做，因为客户没有时间等 — （IPD 之产品交付）；丰盛大餐的不做，因为厨师水平要求高，费用高 — （IPD 之项目研发费用）；每天晚上核算今天盈利、与历史对比 — （IPD 之衡量指标与对比分析）；客户喜欢的、利润高的种类放在菜单最上面 — （IPD 之投资组合分析）；所以 IPD 在中小企业同样适用，并且可以分步实施，实施难度、成本都是在可控范围之内。 <strong>还有诸多疑虑……</strong></p>
-<p>误区二：<strong>IPD 是要在速度与质量之间做出取舍？</strong></p>
-<p>误区三：<strong>IPD 影响决策的速度？</strong></p>
-<p>误区四：<strong>重量级团队削弱了功能部门的影响力？</strong></p>
-<p><strong>……</strong></p>
-<p><strong>2. 貌似缺失的质量控制缺是最有效的控制</strong></p>
-<p>IPD 是速度与质量相结合。技术评审点即使技术评审又是质量评审，质量管理被融入在 IPD 的流程和体系当中，潜移默化的，自然的服务于产品和控制产品质量。IPD 的目的是保证速度，但同时也要保证产品的高质量。IPD 不仅要使产品开发速度更快，而且还提供了一种规范，保证能够生产出高质量的产品。</p>
-<p><strong>3. 环环相扣，齿齿相连，一次性把事情做好</strong></p>
-<p><strong>环环相扣，齿齿相连</strong></p>
-<p>每个角色都处于 IPD 的一个环节，只有当上一个环节完成了，并且是按照产品质量要求完成了，才会流向下一个环节，正如流水生产线一样，只有上一个工序的工作完成了，且被检验为合格了才能流到下一个工序。也只有上一个工序完成时，下一个工序才能开始，一切都在项目计划的控制之中。每个工序都会对下一个工序产生影响。</p>
-<p><strong>一次性把事情做好！慢即是快。</strong></p>
-<p>从整个 IPD 的核心思想方面来说，所有的流程和关键的评审点都是围绕这个 “一次性把事情做好” 这句话来的，因为在研发当中，一次性把事情做好，效率才是最高的。比如原本计划下个月的进行新产品的试制，原材料已经准备好，生产计划已经按照出生产线为我们的试制产品做准备。如果产品试制不能如期进行，生产线的计划将被打乱。相关的人员安排可能临时不能调度，原计划的试制期间的生产资源就会造成浪费。</p>
-<p><strong>【结尾】</strong></p>
-<p>公司的战略是选择方向，就是解决做正确的事情，做与公司目标相匹配的事情。</p>
-<p>IPD(Integrated product development 集成产品开发) 是针对公司已经选择确定战略规划之下，正确的做公司规划的产品开发的事情，即使通常我们讲的正确的做事。</p>
-<p>只有做正确的事情和正确的做事，才能保障经营的不败。</p>
-<p>我想把一个复杂的系统，还原成一个常识的理解。只要我们理解和认识了 IPD，我们也同样可以穿上 IPD 之鞋，谁说灰姑娘就不能穿上漂亮的舞鞋跳舞呢？</p>
-<blockquote>
-<p>原文地址 <a href="https://zhuanlan.zhihu.com/p/392385187" target="_blank" rel="noopener">知乎</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>IPD</tag>
-        <tag>华为</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>树莓派3B+制作视频监控</title>
-    <url>/2019/03/12/%E6%A0%91%E8%8E%93%E6%B4%BE3Bplus%E5%88%B6%E4%BD%9C%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/logo-2023-03-06-09-53-34.png" alt="logo-2023-03-06-09-53-34"></p>
-<h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p>本人育有一毛，此猫调皮捣蛋，因此想要做个监控放在家里，在公司上班的时候看看它到底在家里捣什么鬼蛋！</p>
-<a id="more"></a>
-<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><blockquote>
-<p>环境：树莓派3B+<br>操作系统：树莓派3B+默认系统<br>摄像头：N年前买的一个USB摄像头（比树莓派官方好点）  </p>
-</blockquote>
-<h1 id="1-更新列表"><a href="#1-更新列表" class="headerlink" title="1.更新列表"></a>1.更新列表</h1><p>这一步可能有点慢，请耐心等待。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新软件列表</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新软件</span></span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
-<h1 id="2-开启摄像头"><a href="#2-开启摄像头" class="headerlink" title="2.开启摄像头"></a>2.开启摄像头</h1><p>执行如下命令，进入配置页面，开启摄像头。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/1-2023-03-06-09-53-56.png" alt="1-2023-03-06-09-53-56"><br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/2-2023-03-06-09-54-04.png" alt="2-2023-03-06-09-54-04"><br>选择: “是”  -&gt; “Back” -&gt; “Finish”</p>
-<p>重启一下树莓派</p>
-<h1 id="3-安装依赖库"><a href="#3-安装依赖库" class="headerlink" title="3.安装依赖库"></a>3.安装依赖库</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> JPEG支持库</span></span><br><span class="line">sudo apt-get install libjpeg8-dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载编译工具</span></span><br><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
-<h1 id="4-下载mjpg-streamer"><a href="#4-下载mjpg-streamer" class="headerlink" title="4.下载mjpg-streamer"></a>4.下载mjpg-streamer</h1><p>随意找个目录执行：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
-<p>以常见的<strong>Downloads</strong>目录为例：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cd Downloads/</span><br><span class="line">pi@raspberrypi:~ $ git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
-<h1 id="5-编辑源文件（非必须）"><a href="#5-编辑源文件（非必须）" class="headerlink" title="5.编辑源文件（非必须）"></a>5.编辑源文件（非必须）</h1><p>网上有教程基本都编辑<strong>plugins/input_raspicam/input_raspicam.c</strong>源码里的几个参数（fps、width和height）<br>，这个文件是对应官方的摄像头（RaspiCamera）。</p>
-<p>我这里用的是自己的普通USB摄像头，所以这个文件可以不用修改。</p>
-<p>如果你的摄像头是普通USB摄像头，可以跳过。</p>
-<p>如果你的摄像头是官方的摄像头（RaspiCamera）那么请修改之：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:/ $ cd /home/pi/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/</span><br><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/ $ vi input_raspicam.c</span><br></pre></td></tr></table></figure>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/3-2023-03-06-09-54-21.png" alt="3-2023-03-06-09-54-21"></p>
-<h1 id="6-编译mjpg-streamer"><a href="#6-编译mjpg-streamer" class="headerlink" title="6.编译mjpg-streamer"></a>6.编译mjpg-streamer</h1><p>进入工程mjpg-streamer-experimental，进行完全编译。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental $ make clean all</span><br></pre></td></tr></table></figure>
-<h1 id="7-开启mjpg-streamer"><a href="#7-开启mjpg-streamer" class="headerlink" title="7.开启mjpg-streamer"></a>7.开启mjpg-streamer</h1><p>进入mjpg-streamer-experimental目录，使用一下指令启动摄像头。</p>
-<ul>
-<li><p>启动普通USB摄像头指令：</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_uvc.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动树莓派专用摄像头RaspiCamera指令：</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_raspicam.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h1><p>在浏览器里输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 静态图（拍照）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=snapshot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 动态图（视频监控）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=stream</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个兼容性好点</span></span><br><span class="line">http://&lt;IP&gt;：8080/javascript_stream.html</span><br></pre></td></tr></table></figure>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/cat-2023-03-06-09-54-35.jpeg" alt="cat-2023-03-06-09-54-35"></p>
-<h1 id="9-问题"><a href="#9-问题" class="headerlink" title="9.问题"></a>9.问题</h1><p>有的同学可能在<strong>开启mjpg-streamer</strong>的时候会报错，可能是你USB摄像头用了树莓派专用摄像头RaspiCamera指令的指令启动造成的（我就是这样，哈哈哈）</p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Raspberry</category>
-      </categories>
-      <tags>
-        <tag>树莓派</tag>
-        <tag>监控</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>虚拟机Linux的root或普通用户密码忘记找回</title>
     <url>/2018/07/31/%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E/</url>
     <content><![CDATA[<h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
@@ -2385,168 +2600,6 @@
       <tags>
         <tag>虚拟机</tag>
         <tag>密码找回</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何超过大多数人</title>
-    <url>/2019/07/22/%E5%A6%82%E4%BD%95%E8%B6%85%E8%BF%87%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%BA%BA/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/如何超过大多数人/1-2023-03-06-09-50-46.png" alt="1-2023-03-06-09-50-46"><br><a id="more"></a></p>
-<p>当你看到这篇文章的标题，你一定对这篇文章产生了巨大的5兴趣，因为你的潜意识在告诉你，这是一本人生的 “武林秘籍”，而且还是左耳朵写的，一定有干货满满，只要读完，一定可以练就神功并找到超过大多数人的快车道和捷径…… 然而…… 当你看到我这样开篇时，你一定会觉得我马上就要有个转折，告诉你这是不可能的，一切都需要付出和努力…… 然而，你错了，这篇文章还真就是一篇“秘籍”，只要你把这些“秘籍” 用起来，你就一定可以超过大多数人。而且，这篇文章只有我这个 “人生导师” 可以写得好。毕竟，我的生命过到了十六进制 2B 的年纪，踏入这个社会已超过 20 年，舍我其谁呢？！</p>
-<p>P.S. 这篇文章借鉴于《<a href="https://coolshell.cn/articles/4758.html" target="_blank" rel="noopener">如何写出无法维护的代码</a>》一文的风格…… 嘿嘿</p>
-<blockquote>
-<h4 id="相关技巧和最佳实践"><a href="#相关技巧和最佳实践" class="headerlink" title="相关技巧和最佳实践"></a>相关技巧和最佳实践</h4></blockquote>
-<p>要超过别人其实还是比较简单的，尤其在今天的中国，更是简单。因为，你只看看中国的互联网，你就会发现，他们基本上全部都是在消费大众，让大众变得更为地愚蠢和傻瓜。<strong>所以，在今天的中国，你基本上不用做什么，只需要不使用中国互联网，你就很自然地超过大多数人了</strong>。当然，如果你还想跟他们彻底拉开，甩他们几个身位，把别人打到底层，下面的这些 “技巧” 你要多多了解一下。</p>
-<p>在信息获取上，你要不断地向大众鼓吹下面的这些事：</p>
-<ul>
-<li><p>让大家都用百度搜索引擎查找信息，订阅微信公众号或是到知乎上学习知识…… 要做到这一步，你就需要把 “百度一下” 挂在嘴边，然后要经常在群或朋友圈中转发微信公众号的文章，并且转发知乎里的各种 “如何看待……” 这样的文章，让他们爱上八卦，爱上转发，爱上碎片。</p>
-</li>
-<li><p>让大家到微博或是知识星球上粉一些大咖，密切关注他们的言论和动向…… 是的，告诉大家，大咖的任何想法一言一行都可以在微博、朋友圈或是知识星球上获得，让大家相信，你的成长和大咖的见闻和闲扯非常有关系，你跟牛人在一个圈子里你也会变牛。</p>
-</li>
-<li><p>把今日头条和抖音这样的 APP 推荐给大家…… 你只需要让你有朋友成功地安装这两个 APP，他们就会花大量的时间在上面，而不能自拔，要让他们安装其实还是很容易的，你要不信你就装一个试玩一会看看（嘿嘿嘿）。</p>
-</li>
-<li><p>让大家热爱八卦，八卦并不一定是明星的八卦，还可以是你身边的人，比如，公司的同事，自己的同学，职场见闻，社会热点，争议话题，…… 这些东西总有一些东西会让人心态有很多微妙的变化，甚至花大量的时间去搜索和阅读大量的观点，以及花大量时间与人辩论争论，这个过程会让人上瘾，让人欲罢不能，然而这些事却和自己没有半毛钱关系。你要做的事就是转发其中一些 SB 或是很极端的观点，造成大家的一睦讨论后，就早早离场……</p>
-</li>
-<li><p>利用爱国主义，让大家觉得不用学英文，不要出国，不要翻墙，咱们已经是强国了…… 这点其实还是很容易做到的，因为学习是比较逆人性的，所以，只要你鼓吹那些英文无用论，出国活得更惨，国家和民族都变得很强大，就算自己过得很底层，也有大国人民的感觉。</p>
-</li>
-</ul>
-<p>然后，在知识学习和技能训练上，让他们不得要领并产生幻觉</p>
-<ul>
-<li><p>让他们混淆认识和知识，以为开阔认知就是学习，让他们有学习和成长的幻觉……</p>
-</li>
-<li><p>培养他们要学会使用碎片时间学习。等他们习惯利用碎片时间吃快餐后，他们就会失去精读一本书的耐性……</p>
-</li>
-<li><p>不断地给他们各种各样 “有价值的学习资料”，让他们抓不住重点，成为一个微信公众号或电子书 “收藏家”……</p>
-</li>
-<li><p>让他们看一些枯燥无味的基础知识和硬核知识，这样让他们只会用 “死记硬背” 的方式来学习，甚至直接让他们失去信心，直接放弃……</p>
-</li>
-<li><p>玩具手枪是易用的，重武器是难以操控的，多给他们一些玩具，这样他们就会对玩具玩地得心应手，觉得玩玩具就是自己的专业……</p>
-</li>
-<li><p>让他们喜欢直接得到答案的工作和学习方式，成为一个伸手党，从此学习再也不思考……</p>
-</li>
-<li><p>告诉他们东西做出来就好了，不要追求做漂亮，做优雅，这样他们就会慢慢地变成劳动密集型……</p>
-</li>
-<li><p>让他们觉得自己已经很努力了，剩下的就是运气，并说服他们去‘及时行乐’，然后再也找不到高阶和高效率学习的感觉……</p>
-</li>
-<li><p>让他们觉得 “读完书”、“读过书” 就行了，不需要对书中的东西进行思考，进行总结，或是实践，只要囫囵吞枣尽快读完就等同于学好了……</p>
-</li>
-</ul>
-<p>最后，在认知和格局上，彻底打垮他们，让他们变成韭菜。</p>
-<ul>
-<li><p>让他们不要看到大的形势，只看到眼前的一亩三分地，做好一个井底之蛙。其实这很简单，比如，你不要让他们看到整个计算机互联网技术改变人类社会的趋势，你要多让他看到，从事这一行业的人有多苦逼，然后再说一下其它行业或职业有多好……</p>
-</li>
-<li><p>宣扬一夜暴富以及快速挣钱的案例，最好让他们进入 “赌博类” 或是 “传销类” 的地方，比如：股市、数字货币…… 要让他们相信各种财富神话，相信他们就是那个幸运儿，他们也可以成为巴菲特，可以成为马云……</p>
-</li>
-<li><p>告诉他们，一些看上去很难的事都是有捷径的，比如：21 天就能学会机器学习，用区块链就能颠覆以及重构整个世界等等……</p>
-</li>
-<li><p>多跟他们讲一些小人物的励志的故事，这样让他们相信，不需要学习高级知识，不需要掌握高级技能，只需要用低等的知识和低级的技能，再加上持续不断拼命重复现有的工作，终有一天就会成功……</p>
-</li>
-<li><p>多让他们跟别人比较，人比人不会气死人，但是会让人变得浮躁，变得心急，变得焦虑，当一个人没有办法控制自己的情绪，没有办法让自己静下心来，人会失去耐性和坚持，开始好大喜欢功，开始装逼，开始歪门邪道剑走偏锋……</p>
-</li>
-<li><p>让他们到体制内的一些非常稳定的地方工作，这样他们拥有不思进取、怕承担责任、害怕犯错、喜欢偷懒、得过且过的素质……</p>
-</li>
-<li><p>让他们到体制外的那些喜欢拼命喜欢加班的地方工作，告诉他们爱拼才会赢，努力加班是一种福报，青春就是用来拼的，让他们喜欢上使蛮力的感觉……</p>
-</li>
-<li><p>告诉他们你的行业太累太辛苦，干不到 30 岁。让他们早点转行，不要耽误人生和青春……</p>
-</li>
-<li><p>当他们要做决定的时候，一定要让他们更多的关注自己会失去的东西，而不是会得到的东西。培养他们患得患失心态，让他们认识不到事物真正的价值，失去判断能力……（比如：让他们觉得跟对人拍领导的马屁忠于公司比自我的成长更有价值）</p>
-</li>
-<li><p>告诉他们，你现有的技能和知识不用更新，就能过好一辈子，新出来的东西没有生命力的…… 这样他们就会像我们再也不学习的父辈一样很快就会被时代所抛弃……</p>
-</li>
-<li><p>每个人都喜欢在一些自己做不到的事上找理由，这种能力不教就会，比如，事情太多没有时间，因为工作上没有用到，等等，你要做的就是帮他们为他们做不到的事找各种非常合理的理由，比如：没事的，一切都是最好的安排；你得不到的那个事没什么意思；你没有面好主要原因是那个面试官问的问题都是可以上网查得到的知识，而不没有问到你真正的能力上；这些东西学了不用很快会忘了，等有了环境再学也不迟……</p>
-</li>
-</ul>
-<p><strong>最后友情提示一下，上述的这些 “最佳实践” 你要小心，是所谓，贩毒的人从来不吸毒，开赌场的人从来不赌博！所以，你要小心别自己也掉进去了！这就是 “欲练神功，必先自宫” 的道理。</strong></p>
-<blockquote>
-<h4 id="相关原理和思维模型"><a href="#相关原理和思维模型" class="headerlink" title="相关原理和思维模型"></a>相关原理和思维模型</h4></blockquote>
-<p>对于上面的这些技巧还有很多很多，你自己也可以发明或是找到很多。所以，我来讲讲这其中的一些原理。</p>
-<p>一般来说，超过别人一般来说就是两个维度：</p>
-<ul>
-<li><p><strong>在认知、知识和技能上。</strong> 这是一个人赖以立足社会的能力（参看《<a href="https://coolshell.cn/articles/4235.html" target="_blank" rel="noopener">程序员的荒谬之言还是至理名言？</a>》和《<a href="https://coolshell.cn/articles/2250.html" target="_blank" rel="noopener">21 天教你学会 C++</a>》）</p>
-</li>
-<li><p><strong>在领导力上。</strong> 所谓领导力就是你跑在别人前面，你得要有比别人更好的能力更高的标准（参看《<a href="https://coolshell.cn/articles/17583.html" target="_blank" rel="noopener">技术人员发展之路</a>》）</p>
-</li>
-</ul>
-<p>首先，我们要明白，人的技能是从认识开始，然后通过学校、培训或是书本把 “零碎的认知” 转换成“系统的知识”，而有要把知识转换成技能，就需要训练和实践，这样才能完成从：认识 -&gt; 知识 -&gt; 技能 的转换。这个转换过程是需要耗费很多时间和精力的，而且其中还需要有强大的学习能力和动手能力，这条路径上有很多的“关卡”，每道关卡都会过滤掉一大部分人。比如：对于一些比较枯燥的硬核知识来说，90% 的人基本上就倒下来，不是因为他们没有智商，而是他们没有耐心。</p>
-<blockquote>
-<h4 id="认知"><a href="#认知" class="headerlink" title="认知"></a>认知</h4></blockquote>
-<p>要在认知上超过别人，就要在下面几个方面上做足功夫：</p>
-<p>1）<strong>信息渠道。</strong> 试想如果别人的信息源没有你的好，那么，这些看不见信息源的人，只能接触得到二手信息甚至三手信息，只能获得被别人解读过的信息，这些信息被三传两递后必定会有错误和失真，甚至会被传递信息的中间人 hack 其中的信息（也就是 “中间人攻击”），而这些找不出信息源的人，只能 “被人喂养”，于是，他们最终会被困在信息的底层，永世不得翻身。（比如：学习 C 语言，放着原作者 K&amp;R 的不用，硬要用错误百出谭浩强的书，能有什么好呢？）</p>
-<p>2）<strong>信息质量。</strong> 信息质量主要表现在两个方面，一个是信息中的燥音，另一个是信息中的质量等级，我们都知道，在大数据处理中有一句名言，叫 garbage in garbage out，你天天看的都是垃圾，你的思想和认识也只有垃圾。所以，如果你的信息质量并不好的话，你的认知也不会好，而且你还要花大量的时间来进行有价值信息的挖掘和处理。</p>
-<p>3）<strong>信息密度。</strong> 优质的信息，密度一般都很大，因为这种信息会逼着你去干这么几件事，a）搜索并学习其关联的知识，b）沉思和反省，c）亲手去推理、验证和实践…… 一般来说，经验性的文章会比知识性的文章会更有这样的功效。比如，类似于像 Effiective C++/Java，设计模式，Unix 编程艺术，算法导论等等这样的书就是属于这种密度很大的书，而像 Netflix 的官方 blog 和 AWS CTO 的 blog 等等地方也会经常有一些这样的文章。</p>
-<blockquote>
-<h4 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h4></blockquote>
-<p>要在知识上超过别人，你就需要在下面几个方面上做足功夫：</p>
-<p>1）<strong>知识树（图）。</strong> 任何知识，只在点上学习不够的，需要在面上学习，这叫系统地学习，这需要我们去总结并归纳知识树或知识图，一个知识面会有多个知识板块组成，一个板块又有各种知识点，一个知识点会导出另外的知识点，各种知识点又会交叉和依赖起来，学习就是要系统地学习整个知识树（图）。而我们都知道，<strong>对于一棵树来说，“根基” 是非常重要的，所以，学好基础知识也是非常重要的，对于一个陌生的地方，有一份地图是非常重要的，没有地图的你只会乱窜，只会迷路、练路、走冤枉路！</strong></p>
-<p>2）<strong>知识缘由。</strong> 任何知识都是有缘由的，了解一个知识的来龙去脉和前世今生，会让你对这个知识有非常强的掌握，而不再只是靠记忆去学习。靠记忆去学习是一件非常糟糕的事。而对于一些操作性的知识（不需要了解由来的），我把其叫操作知识，就像一些函数库一样，这样的知识只要学会查文档就好了。<strong>能够知其然，知其所以然的人自然会比识知识到表皮的人段位要高很多。</strong></p>
-<p>3）<strong>方法套路。</strong> 学习不是为了找到答案，而是找到方法。就像数学一样，你学的是方法，是解题思路，是套路，会用方程式解题的和不会用方程式解题的在解题效率上不可比较，而在微积分面前，其它的解题方法都变成了渣渣。你可以看到，掌握高级方法的人比别人的优势有多大，学习的目的就是为了掌握更为高级的方法和解题思路。</p>
-<blockquote>
-<h4 id="技能"><a href="#技能" class="headerlink" title="技能"></a>技能</h4></blockquote>
-<p>要在技能上超过别人，你就需要在下面几个方面做足功夫：</p>
-<p>1）<strong>精益求精。</strong> 如果你想拥有专业的技能，你要做不仅仅是拼命地重复一遍又一遍的训练，而是在每一次重复训练时你都要找到更好的方法，总结经验，让新的一遍能够更好，更漂亮，更有效率，否则，用相同的方法重复，那你只不过在搬砖罢了。</p>
-<p>2）<strong>让自己犯错。</strong> 犯错是有利于成长的，这是因为出错会让人反思，反思更好的方法，反思更完美的方案，总结教训，寻求更好更完美的过程，是技能升级的最好的方式。尤其是当你在出错后，被人鄙视，被人嘲笑后，你会有更大的动力提升自己，这样的动力才是进步的源动力。当然，千万不要同一个错误重复地犯！</p>
-<p>3）<strong>找高手切磋。</strong> 下过棋，打个球的人都知道，你要想提升自己的技艺，你必需找高手切磋，在和高手切磋的过程中你会感受到高手的技能和方法，有时候你会情不自禁地哇地一下，我靠，还可以这么玩！</p>
-<blockquote>
-<h4 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h4></blockquote>
-<p>最后一个是领导力，要有领导力或是影响力这个事并不容易，这跟你的野心有多大，好胜心有多强 ，你愿意付出多少很有关系，因为一个人的领导力跟他的标准很有关系，因为有领导力的人的标准比绝大多数人都要高。</p>
-<p>1）<strong>识别自己的特长和天赋。</strong> 首先，每个人 DNA 都可能或多或少都会有一些比大多数人 NB 的东西（当然，也可能没有），如果你有了，那么在你过去的人生中就一定会表现出来了，就是那种大家遇到这个事会来请教你的寻求你帮助的现象。那种，别人要非常努力，而且毫不费劲的事。一旦你有了这样的特长或天赋，那你就要大力地扩大你的领先优势，千万不要进到那些会限制你优势的地方。你是一条鱼，你就一定要把别人拉到水里来玩，绝对不要去陆地上跟别人拼，不断地在自己的特长和天赋上扩大自己的领先优势，彻底一骑绝尘。</p>
-<p>2）<strong>识别自己的兴趣和事业。</strong> 没有天赋也没有问题，还有兴趣点，都说兴趣是最好的老师，当年，Linus 就是在学校里对 minx 着迷了，于是整出个 Linux 来，这就是兴趣驱动出的东西，一般来说，兴趣驱动的事总是会比那些被动驱动的更好。但是，这里我想说明一下什么叫 “真∙兴趣”，真正的兴趣不是那种三天热度的东西，而是那种，你愿意为之付出一辈子的事，是那种无论有多大困难有多难受你都要死磕的事，这才是“真∙兴趣”，这也就是你的“野心” 和“好胜心”所在，其实上升到了你的事业。相信我，绝大多数人只有职业而没有事业的。</p>
-<p>3）<strong>建立高级的习惯和方法。</strong> 没有天赋没有野心，也还是可以跟别人拼习惯拼方法的，只要你有一些比较好的习惯和方法，那么你一样可以超过大多数人。对此，在习惯上你要做到比较大多数人更自律，更有计划性，更有目标性，比如，每年学习一门新的语言或技术，并可以参与相关的顶级开源项目，每个月训练一个类算法，掌握一种算法，每周阅读一篇英文论文，并把阅读笔记整理出来…… 自律的是非常可怕的。除此之外，你还需要在方法上超过别人，你需要满世界的找各种高级的方法，其中包括，思考的方法，学习的方法、时间管理的方法、沟通的方法这类软实力的，还有，解决问题的方法（trouble shooting 和 problem solving），设计的方法，工程的方法，代码的方法等等硬实力的，一开始照猫画虎，时间长了就可能会自己发明或推导新的方法。</p>
-<p>4）<strong>勤奋努力执着坚持。</strong> 如果上面三件事你都没有也没有能力，那还有最后一件事了，那就是勤奋努力了，就是所谓的 “一万小时定律” 了（参看《21 天教你学会 C++》中的十年学编程一节），我见过很多不聪明的人，悟性也不够（比如我就是一个），别人学一个东西，一个月就好了，而我需要 1 年甚至更长，但是很多东西都是死的，只要肯花时间就有一天你会搞懂的，耐不住我坚持十年二十年，聪明的人发明个飞机飞过去了，笨一点的人愚公移山也过得去，因为更多的人是懒人，我不用拼过聪明人，我只用拼过那些懒人就好了。</p>
-<p>好了，就这么多，如果哪天你变得消极和不自信，你要来读读我的这篇文章，子曰：温故而知新。</p>
-<p>（全文完）</p>
-<blockquote>
-<p>本文转自：<a href="https://coolshell.cn/" target="_blank" rel="noopener">CoolShell</a> 的<a href="https://coolshell.cn/articles/19464.html/comment-page-1#comments" target="_blank" rel="noopener">《如何超过大多数人》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>超过</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>艾默生的战略规划创新及其启示</title>
-    <url>/2023/03/03/%E8%89%BE%E9%BB%98%E7%94%9F%E7%9A%84%E6%88%98%E7%95%A5%E8%A7%84%E5%88%92%E5%88%9B%E6%96%B0%E5%8F%8A%E5%85%B6%E5%90%AF%E7%A4%BA/</url>
-    <content><![CDATA[<blockquote>
-<p>&emsp;&emsp;本文对世界制造业取得卓越绩效的艾默生集团公司上世纪60年代以来的战略规划体系发展及其创新进行了案例研究。在对艾默生公司战略规划的发展过程、核心内容、组织流程和时间周期描述的基础上，分析了公司规划体系的“两栖型”内容创新、“一体化”组织创新和“独特性”的规划工具创新等特征，指出艾默生的战略规划体系的“三重创新”使企业战略在增长与赢利、前瞻与学习、制定与执行、普遍与独特等方面达到协调和统一，从而驱动了公司赢利的长期持续增长。最后对战略规划创新与竞争优势的关系、大中型企业的战略决策模式进行了讨论，并探讨了艾默生经验对中国大中型制造企业战略规划与战略管理体系建设的启示。</p>
-</blockquote>
-<a id="more"></a>
-<p>&emsp;&emsp;作为世界制造业强势企业集团，艾默生近50年来的股东回报以年均16％的复合增长率持续增长，2008年的利润总额和股东权益回报率都居电气行业前列。在此期间，公司的战略规划体系的发展与创新对企业保持良好的赢利性和持续成长产生了重大的影响。本文希望通过对艾默生近50多年来的战略规划体系创新的深入分析，探讨其影响公司赢利持续增长的内在机制，进而对中国制造业的企业战略规划体系创新和战略管理体系建设以有益启示。</p>
-<h2 id="一、艾默生公司的战略规划体系：一个素描"><a href="#一、艾默生公司的战略规划体系：一个素描" class="headerlink" title="一、艾默生公司的战略规划体系：一个素描"></a>一、艾默生公司的战略规划体系：一个素描</h2><h3 id="1、子公司利润评估"><a href="#1、子公司利润评估" class="headerlink" title="1、子公司利润评估"></a>1、子公司利润评估</h3><p>&emsp;&emsp;一直以来，艾默生很强调利润计划。在20世纪90年代初，艾默生意识到增长的重要性。同时，由于国际制造业所处的高度竞争的环境，公司又需要可靠的利润预测。因此，艾默生决定为利润计划和增长计划分别举行会议。在每年春天开始作利润评估时，子公司管理层—子公司总裁及其高级管理人员将与总公司的“利润沙皇”举行会议，“利润沙皇”通常是是艾默生最高管理团队中的一位，主要职责是确保各个子公司和总公司作为一个整体实现年度目标利润。有关业务集团的高层管理人员也会列席会议，但是主角是子公司管理者。利润评估将审查前5年的历史、当前年份的现状以及未来5年的预测数据，因此，计划者用11年跨度的窗口评估其业务，并形成一个利润模型。在模型中，价格变化、通货膨胀因素以及生产率提高等都会被考虑到，纳入模型的还有成本减少和控制计划、固定成本的处理方法以及业务组合方面的变化。计划者在所有这些领域作的都是最为保守的假设，以确保不夸大自己的估计。在此情况下，要达成两位数的税前利润增长是非常具有挑战性的，这一方法使管理者去寻求和详细讨论特定的行动计划，以满足利润目标，这包括新产品的研发带来的溢价、新产品销售带来的拉动效应、整合采购带来的效益、必要的工作转移、工厂转向最优成本地区、业务外包和其他可以改善资产管理的行动。所有这些计划都是保证子公司在大风暴中继续发展和成功的基石。在完成利润评估之后，“利润沙皇”将准备一份备忘录供计划会议使用，计划会议是计划周期的下一个阶段，它是艾默生计划的核心，一般在几个月之后举行。</p>
-<h3 id="2、子公司计划会议"><a href="#2、子公司计划会议" class="headerlink" title="2、子公司计划会议"></a>2、子公司计划会议</h3><p>&emsp;&emsp;在通过“利润评估”之后，计划过程将转入子公司的“增长战略”阶段。出席这个1～2天会议的人员包括：子公司管理层、艾默生的CEO以及一些选定的公司领导。子公司计划会议的最终目的是确定为公司创造价值的最佳方法。子公司管理层将安排日程，准确说明如何创造价值。母公司并不要求提供指定形式的详细数据，不过，核心管理层希望观察到关于财务和竞争绩效—销售、利润、资本回报、市场规模、市场渗透能力和价格走势的有见地的讨论，以及关于客户和竞争对手的详细分析。与利润评估一样，增长计划评估时用11年作为时间跨度，对损益表和资产负债表展望未来5年，回顾过去5年。11年的窗口可以将投资与收益预测分散到一个较长期的观察视野之中。</p>
-<p>&emsp;&emsp;尽管计划会议是属于子公司总裁及其团队的事情，但是，艾默生总部也参与对话和准备工作，以帮助子公司经理们完善计划并取得好的计划效果。艾默生总部的小型战略计划部门承担着为子公司“挑错”和核对各种数据的工作，计划经理们对研究和分析的质量以及总体计划的一体化与一致性程度加以检查；对于各个市场、竞争者和工业领域变化的数据向子公司管理团队提出质询；母公司计划经理们会确保企业所面临的关键问题和挑战都在会议资料中得到了详细论述，并制定应对这些问题和挑战相应的行动措施。在这些准备工作中，子公司管理层将主导这一切，即计划者是将来的执行者。</p>
-<p>&emsp;&emsp;子公司计划会议的基调是对抗性的。子公司管理团队而不仅仅是子公司的总裁负有责任让艾默生的核心层信服：计划经过好的构思，而且有详尽的研究和严密的分析作支持。会议上要对一些假设和传统的思维表示质疑，并给出足够的时间来讨论每个重要问题。同时，会议将对前三至五个最重要的行动展开详细讨论，并对提供支持的因素及构成挑战的问题进行分析。会议讨论中母公司领导人有时候会故意不断从各个角度挑战子公司的观点，这并非是CEO或COO不赞同这一观点，只是他们希望子公司已经把各个方面都考虑清楚了。</p>
-<p>&emsp;&emsp;子公司计划会议的产出将是诸多为大家共同认可的行动和优先考虑事项。艾默生的CEO也会向各子公司总裁发出备忘录，文件中将就计划、行动、承诺以及其他任何重要问题扼要地进行总结。这封信将成为下一次计划会议议程的一部分，在控制循环所举行的会议上，信中的内容将被一一跟踪考察。这种计划备忘录的做法在艾默生内部得到广泛应用，每一位经理人在和团队评估过计划后，都会以一封电子邮件或备忘录的形式总结要点、承诺和行动方案，因此，这也是控制和跟进的重要方式。</p>
-<h3 id="3、战略评估：在业务集团层面制定计划"><a href="#3、战略评估：在业务集团层面制定计划" class="headerlink" title="3、战略评估：在业务集团层面制定计划"></a>3、战略评估：在业务集团层面制定计划</h3><p>&emsp;&emsp;业务集团计划并不仅仅是将子公司的计划汇总，艾默生也在业务集团层次制定计划，以便在发现子公司能力不足以应对某些机会的时候，能够在公司整体范围内进行整合，确保资源的充分利用。在这一更高层面，公司对于要寻求的机会进行选择和取舍，以决定哪些机会务必竭力获得，哪些业务必须支持，哪些业务需要降低重要性甚至需要退出。</p>
-<p>&emsp;&emsp;各个业务集团每年夏季都进行年度战略评估。这时，业务集团领导人、核心管理人员与CEO、总裁和其他公司领导将会见面，聚在一起评估和讨论重大的战略性经营挑战以及关键性行为。会议将精力集中在成长和营销战略，以建立和保持艾默生的行业领导地位。业务集团的领导人也要评估业务集团的财务前景。</p>
-<h3 id="4、总公司计划和全球高级管理者沟通会议"><a href="#4、总公司计划和全球高级管理者沟通会议" class="headerlink" title="4、总公司计划和全球高级管理者沟通会议"></a>4、总公司计划和全球高级管理者沟通会议</h3><p>&emsp;&emsp;子公司计划会议、利润评估和业务集团战略评估期间获得的信息，将成为艾默生每年秋天召开的公司规划会议(简称CPC)所需要的原始材料。出席CPC的是前300名总公司和子公司高层领导。各个子公司和业务集团是业务组合的一部分，对于其中的每一个部分，艾默生的管理层都在不断地衡量和评估其增长、赢利能力和现金流的趋势。在会议召开之前，CEO办公室要从子公司会议和战略评估之中找出关键性的主题，并将它们与宏观经济环境分析相应结合。然后，CEO办公室将这一信息整合成公司总计划：一个一体化的、有重点的关于公司目标以及实现公司目标的计划陈述。然后，将计划提交给CPC和区域性公司计划会议。</p>
-<p>&emsp;&emsp;每年初秋，在公司计划被汇总及被批准之后，公司计划会议基本上就成为一个向经理人员传达信息的载体。公司高层在会议上汇报公司所取得的成就，并通报下一年度的财务计划及今后5年的战略计划。在总公司计划会议之后，还将举行区域(欧洲/亚洲)公司计划会议，以便对该区域经理进行沟通和宣贯。与上述的计划周期相平行，公司主要通过三种正式制度来对运营和行动计划执行情况进行监控，一种是每年1次的财务评估，通常在每财年后半段举行；第二是每季度1次的总裁行政会议—每个子公司的CEO和CFO将会参加；其次是每月1次的总裁运营报告(POR)—即要由各个子公司递交给总裁会议和年度财务会议的月度报告，它是动态工具，每月都要更新预期的年度结果并与历史和目标进行比较。</p>
-<h2 id="二、艾默生战略规划体系“三重创新”分析"><a href="#二、艾默生战略规划体系“三重创新”分析" class="headerlink" title="二、艾默生战略规划体系“三重创新”分析"></a>二、艾默生战略规划体系“三重创新”分析</h2><p>&emsp;&emsp;战略规划的系统设计理论认为，战略规划系统可以从以下维度进行设计(斯坦纳，2001)：内容完整性与侧重点、时间尺度、分析深度与复杂性、流程、CEO的参与、直线管理者的角色、规划部门的角色、分析工具等。其中，前三项构成战略规划的内容体系，中间四项构成了规划的组织体系，最后一项构成了工具体系。本文从这三大方面分析艾默生战略规划体系的主要特点、创新及其影响(详见表1)。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031439612-2023-03-06-10-18-58.png" alt="202303031439612-2023-03-06-10-18-58"></p>
-<h3 id="1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡"><a href="#1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡" class="headerlink" title="1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡"></a>1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡</h3><p>&emsp;&emsp;艾默生战略规划体系在内容方面的创新，包括三个方面(表1中的①②③)：(1)以子公司为核心的增长计划和赢利评估的分立与并重；(2)赢利性评估中建立在细致、严苛预测基础上的行动方案；(3)跨度为11年的“瞻前顾后式”滚动计划。其中，第1条使得公司在关注公司赢利性的同时，很好地挖掘长期战略成长机会及行动方案，拓展公司的业务范围和能力疆域，避免了战略规划沦为“年度预算”或“运营项目”的倾向，防止了明茨伯格所谓的战略规划的“正式性谬误”—即由于过于关注正式性而忽略了“软性”的战略思考，促进了公司赢利基础上的持续增长。第二项创新则使赢利性评估建立在对近期最严苛的经营环境情景之上，部分避免了明茨伯格的战略规划的“可预测性谬误”；第三项创新是11年期的“瞻前顾后式”滚动性计划，它覆盖了制造业的投资波动周期，并且在战略学习(回顾过去5年)与前瞻性(展望未来5年)之间形成了平衡，使得战略规划过程成为一个持续的设计、学习、修正和改进的过程。本文把艾默生的“增长与赢利并重”(目标/内容)、“瞻前顾后型滚动计划”(时间尺度)称为战略规划内容的“两栖型创新”，并将其要素和相互关系概括如图1所示。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031439106-2023-03-06-10-19-21.png" alt="202303031439106-2023-03-06-10-19-21"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图1 艾默生的计划和控制周期</p>
-<h3 id="2、“一体化”组织创新：规划主体与执行者的统一及分工协作"><a href="#2、“一体化”组织创新：规划主体与执行者的统一及分工协作" class="headerlink" title="2、“一体化”组织创新：规划主体与执行者的统一及分工协作"></a>2、“一体化”组织创新：规划主体与执行者的统一及分工协作</h3><p>&emsp;&emsp;艾默生的规划流程/组织设计有两方面的创新(表1中④⑥⑦⑧)：(1)计划主体与实施者的统一。它主要体现在表一中的④和⑦上，这种以子公司的领导团队为主体的规划组织体系，使得子公司领导层能充分利用其业务信息、提高其承诺和战略执行的主动性，避免了明茨伯格所谓的战略规划制定与执行的“分离性谬误”；(2)规划中总公司CEO、公司规划部门和子公司管理者之间的分工协作。这主要体现在表1的⑥⑦⑧。在这个过程中，CEO、子公司经理、公司规划经理的各司其职与紧密协作是至关重要的。其中，艾默生的公司规划经理主要承担了以下角色：为子公司“挑错”和核对各种数据、对研究和分析的质量以及总体计划的一体化与一致性进行检查；对于各种市场、竞争者和工业领域变化的数据向子公司管理团队提出质询；确定企业所面临的关键问题和挑战，并制定应对这些问题和挑战相应的行动措施等。总公司的CEO在规划会议中对子公司计划提出各角度的质询，甚至故意引起激烈争论，以保证各种因素在决策中得到考虑。</p>
-<h3 id="3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”"><a href="#3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”" class="headerlink" title="3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”"></a>3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”</h3><p>&emsp;&emsp;艾默生在规划工具方面，也坚持从实际出发，在遵循一般规律的基础上，进行有针对性的“独特”的创新，这可以用“最佳成本制造商战略”和“利润瀑布分析”为例加以说明。1970年代，随着日本工业的兴起，艾默生率先意识到全面质量管理(TQM)的重要性，开始在所有子公司开展TQM管理。1980年初，艾默生意识到全球化激烈竞争将扩散到所有业务领域，因此，重新定义了一个新的“最佳成本制造商战略”来应付与日俱增的全球竞争—艾默生需要最佳成本，它不仅关注价格同时还关注客户所感受到的价值—即产品、服务和价格的最优组合而非简单的最低成本。这一模式顺应了国际竞争新趋势，符合一般竞争规律而又突破了竞争优势在低成本或差异化之间非此即彼的教条。根据这一原则，艾默生推动了大量子公司向低成本地区迁移和扩张，包括90年代中期在墨西哥的大规模建厂和90年代后期利用东欧的智力和工业资源的迅速扩张。</p>
-<p>&emsp;&emsp;另外的一个例子是“利润瀑布分析”。1990年代初期北美经济面临另一个衰退周期时，通过收购和剥离的效果已经不够显著了，艾默生便将首席运营官(COO)博杰思调离重要的运作管理岗位，委派他负责重振和改善利润增进过程—以尽快地找出问题和解决问题。博杰思带领团队花了一周时间尝试分析什么事情出了错。他们找回1987年的子公司计划会议记录，了解曾经预测在1992年底达到3.5％利润增长计划的组成内容，目的是为了弄清楚为什么会落后于计划。这项工作有几项重要的发现：与原计划相比，需求增长的下降、定价压力、材料成本的膨胀、工资成本的膨胀、医疗福利费用增长等是计划失效的主要因素。基于这个发现，在首席财务官高文和首席运营官博杰思的直接领导下，艾默生的团队编制了一个以Excel为基础的数据分析表，它能够为制定5年预测计划提供精确的基础。这一软件将销售数量、价格和成本组成部分(材料、计时劳工、薪酬和一般费用)结合起来，并在上一个5年计划的实际结果的条件下对预测进行估计。这一分析工具名为“利润瀑布”，它很快被用作一年期财务评估和5年期计划的基础。同时，为防止不现实的乐观预测，并驱使管理层彻底考虑强有力的行动以在艰难环境中改善利润率，艾默生的最高管理层坚持要求各个子公司就计划利润作最为保守的假设，子公司的总裁还必须为那些在过去的实际结果中经常出现但从来没有被预测到的不可预见的成本因素留出余地。保守的估计以及瀑布设计的严密促进经理们意识到更多、更强硬的降低成本和提高赢利行动的需要。事实表明，这一从实际出发的有针对性的赢利分析工具为艾默生在严酷竞争环境下长期保持较高赢利能力做出了重要贡献。</p>
-<h2 id="三、创新背后的理念和价值观"><a href="#三、创新背后的理念和价值观" class="headerlink" title="三、创新背后的理念和价值观"></a>三、创新背后的理念和价值观</h2><p>&emsp;&emsp;艾默生战略规划体系的创新，除了受公司“管理过程”六大要素的影响外，公司最高领导层的基本信念和价值观也是深层的影响因素。事实上，艾默生公司的最高领导层相当稳定，在过去60年间，只有三位CEO，其中，奈特从1973-2001年任CEO期间对于艾默生的“管理过程”做出了巨大的贡献。他系统地阐述了艾默生的“最优成本制造战略”，同时，完善并强化了公司商业竞争取胜的基本理念(奈特，戴尔，2007)，这些理念包括：(1)持续的高绩效；(2)寻觅为客户增加价值的新方法是致胜之道；(3)在关键市场中，艾默生必须是行业的领袖；(4)取得技术领先地位是取得市场领先地位的关键；(5)长期的成功需要整个组织的全心全意地投入；(6)主要的经理人员必须拥有自主权，从而发挥其最大潜力；(7)艾默生一贯通过员工来提高生产力。</p>
-<p>&emsp;&emsp;应该指出，正是基于这些基本理念和价值观以及对管理任务的共同理解，艾默生在实践中不断完善了公司“管理过程”体系，并实现了战略规划体系的不断创新。</p>
-<p>&emsp;&emsp;基于上述的分析，我们可以把艾默生战略规划在内容、组织、工具三方面的创新概括为战略规划设计的“三重创新”，并将其主要特征及其深层理念和价值观原因概括为图2的简略形式。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031440300-2023-03-06-10-19-48.png" alt="202303031440300-2023-03-06-10-19-48"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图2 艾默生战略规划的“两栖型”内容创新</p>
-<h2 id="四、讨论与启示"><a href="#四、讨论与启示" class="headerlink" title="四、讨论与启示"></a>四、讨论与启示</h2><h3 id="1、战略规划体系创新与竞争优势"><a href="#1、战略规划体系创新与竞争优势" class="headerlink" title="1、战略规划体系创新与竞争优势"></a>1、战略规划体系创新与竞争优势</h3><p>&emsp;&emsp;从艾默生的战略规划实践来看，明茨伯格对战略规划“三重谬误”的批评并非是不可避免的。艾默生通过增长计划与赢利评估分立、子公司管理层为核心和利润瀑布分析等方式，实现了战略规划的“三重创新”：即内容方面的“双栖型创新”、组织/流程的“一体化创新”和工具方面量身定做的“独特工具”创新，有效地避免“正式性谬误”、“分离性谬误”和“可预测性谬误”等问题，取得了较好的战略规划与实施绩效。这说明了战略规划体系设计中内容、组织和工具“三重创新”对竞争优势的重要性。Barney曾经认为，正式的战略规划(如经典的SWOT分析工具、业务组合管理等)由于其广泛传播而不具有稀缺性、难模仿性和难替代性，因此它不能成为持续竞争优势的来源。Powell也根据资源基础观指出，当战略规划作为一种生产要素在行业中能被广泛获得时，其带来的竞争优势将消失。本文的案例研究则表明，由于战略规划体系的系统性和复杂性，战略规划的内容、组织或工具的创新确实可以带给企业竞争优势，甚至形成一定时期内的持续竞争优势。结合Grant(2003)对世界八大石油巨头战略规划体系的系统分析，可以看出，利用正式战略规划并根据环境变化和企业情况对内容、组织和工具进行调整或创新，仍然是大中型制造业企业可以利用的一种重要战略管理工具，也是其获得竞争优势的一种可行途径。当然，从艾默生的经验看，其领导人在战略发展方向(如“最优成本生产商战略”)和完善战略规划制度方面(“利润瀑布分析”、“计划跟进及控制”)起到了至关重要的作用，因此，领导人的战略领导和战略规划不是非此即彼的替代关系，领导人全身心地参与到战略规划中进行指导和引导是产生竞争优势的一个非常重要的驱动因素。从这个角度看，明茨伯格对正式战略规划可能导致“分析取代综合性战略思维”的批评仍有一定的警示意义。此外，本案例也表明，战略规划体系创新需要企业内部权力结构和文化体系的支持。因此，如何在战略规划中更好地促进战略思维并协调思维与行动之间的关系，同时系统考虑战略规划创新的政治、文化支持因素，既是战略规划体系设计必须应对的一个挑战，也是进入21世纪后战略规划理论发展的一个重要方向。</p>
-<h3 id="2、大型企业战略决策模式的“混合化”趋势"><a href="#2、大型企业战略决策模式的“混合化”趋势" class="headerlink" title="2、大型企业战略决策模式的“混合化”趋势"></a>2、大型企业战略决策模式的“混合化”趋势</h3><p>&emsp;&emsp;在战略决策文献中，关于战略规划、企业家决策与自发/分散决策等战略决策类型及其作用的讨论一直很激烈。从国内外大型制造企业的实践看，一些企业选择了战略规划体系的创新或调整，如艾默生、联想、大石油公司等(Grant，2003；武亚军，2007)，另外一些企业如GE则“放弃”了传统的正式性很强的战略规划体系而转向以战略领导和分散决策为主的战略决策模式。从总体上看，这反映了一种动态环境下企业战略决策的“混合化”趋势—即正式战略规划与其他战略决策类型相结合。这一方面和企业国际化及竞争环境的快速变化有关，另一方面也与企业的管理基础、最高领导人的能力与管理风格有很大的关系。从大中型企业的战略决策方式看，正式战略规划是很普遍也很难逾越的决策方式。事实上，艾默生通过战略规划体系的创新，在战略领导、正式战略规划和一线业务领导人的分散决策之间形成了一种“综合协调”，进而取得了赢利的持续增长。从这个角度上看，艾默生的成功在于其以正式战略规划为主、辅以其他两种战略决策模式的成功。正如不少研究所揭示的那样，结合战略规划和其他两种模式的综合性战略决策模式将是动态复杂环境下大型制造企业战略决策的一种发展趋势。</p>
-<h3 id="3、对中国大中型本土制造企业的启示"><a href="#3、对中国大中型本土制造企业的启示" class="headerlink" title="3、对中国大中型本土制造企业的启示"></a>3、对中国大中型本土制造企业的启示</h3><p>&emsp;&emsp;如表2所示，对比艾默生的战略规划创新与中国本土著名制造业企业——联想的战略规划经验(武亚军，2007)，可以发现：两个企业在外部环境的动态性、内容创新、工具创新、组织创新等方面都有一定的相似性，例如，艾默生通过利润与增长计划分立来平衡赢利性和成长问题，而联想则通过三类业务组合配置(成长战略)和完善业务模式(竞争战略)来协调两者的关系；艾默生在1990年代初未达到预期目标后通过反思性的战略学习形成了“利润瀑布”分析工具和“严苛预测”原则，而联想在经过2000-2003年规划挫折后也通过反思性的战略学习形成了“战略路线精准化”和“业务模式创新”等战略原则。所不同的是，艾默生在战略规划的体系化、制度化上比联想更为成熟，这和前者经历了更长期的发展有很大关系。无论如何，对于中国的大中型制造企业来说，联想和艾默生的经验都有很强的借鉴意义：(1)企业从小到大、从创业到逐步成熟、从国内到国际化的发展过程中，需要结合企业的环境和自身条件，进行战略规划的内容、组织和工具“三重创新”，才能真正通过战略规划提高竞争力和实现持续增长；(2)战略规划的创新需要组织权力结构和核心价值观的支持，这是企业战略规划创新的制度与文化基础。事实上，这恰恰是很多中国大中型本土企业所欠缺和需要面对的挑战。艾默生公司和联想为中国大中型制造企业的战略规划树立了两个标杆，不过联想的战略规划体系仍处于系统化和完善之中，而艾默生则由于其长期发展而比较成熟和完善，这也增大了艾默生公司经验对中国大中型企业(包括联想在内)的借鉴价值。</p>
-<h2 id="五、结论与展望"><a href="#五、结论与展望" class="headerlink" title="五、结论与展望"></a>五、结论与展望</h2><p>&emsp;&emsp;艾默生案例清晰表明了战略规划体系设计和创新对大企业持续发展的重要性及其作用机制。艾默生公司在“管理过程”发展中有效地实现了战略规划体系的“三重创新”：即以“增长计划和赢利评估并重”及“瞻前顾后式”滚动计划为代表的“两栖型”内容创新、以子公司为主体又分工协作的“一体化”组织创新，以及以“最优成本制造”和“赢利瀑布分析”为代表的量身定做的“独特”工具创新。案例分析表明，基于“管理过程”及核心价值观上的战略规划体系创新，促进了艾默生公司在高层战略领导、正式战略规划和子公司领导层的主动性之间的合理平衡，实现了企业战略在增长与赢利、前瞻与学习、制定与执行、普遍与独特等方面的协调和统一，这是艾默生公司近50年来赢利性持续增长的重要驱动因素。可以认为，战略规划体系的“三重创新”是战略规划有效性的一个永恒主题，也是大中型企业在战略思维和行动之间保持有效连接的关键。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031440867-2023-03-06-10-21-31.png" alt="202303031440867-2023-03-06-10-21-31"></p>
-<p>&emsp;&emsp;战略规划体系创新需要核心价值观支撑。艾默生的战略规划创新过程说明了其“管理过程”和核心理念的重要性，“保持精简”、“重视计划”、“发挥经理人员的自主性”等基本理念都显著地影响了艾默生的战略规划设计与创新。从这个意义上，“精于心，简于形”可以说是艾默生的规划之道。也许，每个企业的战略规划体系设计模式和经验不能直接复制，但其成功背后的智慧完全可以学习和借鉴。艾默生集团公司的战略规划创新和规划之道，值得中国本土大中型制造企业仔细品味和借鉴。</p>
-<p><a href="http://59.252.42.34:6251/Qw/Paper/395094" target="_blank" rel="noopener">原文</a></p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>艾默生</tag>
-        <tag>企业管理研究</tag>
       </tags>
   </entry>
   <entry>
@@ -4268,103 +4321,6 @@
       </tags>
   </entry>
   <entry>
-    <title>虚拟机VirtualBox中挂载新硬盘</title>
-    <url>/2018/03/18/%E8%99%9A%E6%8B%9F%E6%9C%BAVirtualBox%E4%B8%AD%E6%8C%82%E8%BD%BD%E6%96%B0%E7%A1%AC%E7%9B%98/</url>
-    <content><![CDATA[<p>在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘：</p>
-<h5 id="添加新硬盘"><a href="#添加新硬盘" class="headerlink" title="添加新硬盘"></a>添加新硬盘</h5><blockquote>
-<p>设置 -&gt; Storage(存储) -&gt; SATA控制器-&gt;右击，选择”添加虚拟硬盘”<br>然后，根据需求创建合适的硬盘<br><a id="more"></a></p>
-</blockquote>
-<h5 id="重启虚拟机"><a href="#重启虚拟机" class="headerlink" title="重启虚拟机"></a>重启虚拟机</h5><p>  查看现有系统的磁盘空间</p>
-<blockquote>
-<p>sudo fdisk -l</p>
-</blockquote>
-<p>  可看到新加的虚拟硬盘，一般名为：Disk /dev/sdb</p>
-<h5 id="给新加的硬盘分区"><a href="#给新加的硬盘分区" class="headerlink" title="给新加的硬盘分区"></a>给新加的硬盘分区</h5><blockquote>
-<p>fdisk /dev/sdb  </p>
-</blockquote>
-<p>  键入m,可看到帮助信息</p>
-<blockquote>
-<p>command (m for help):m</p>
-</blockquote>
-<p>  增加新分区</p>
-<blockquote>
-<p>command (m for help):n  </p>
-</blockquote>
-<p>  选择基本分区，输入：p 建一个分区</p>
-<blockquote>
-<p>Partition number(1-4):  </p>
-</blockquote>
-<p>  回车</p>
-<blockquote>
-<p>First cylinder (1-15908,default 1):Enter</p>
-</blockquote>
-<p>  写入并退出</p>
-<blockquote>
-<p>command (m for help):w</p>
-</blockquote>
-<h5 id="格式化磁盘分区"><a href="#格式化磁盘分区" class="headerlink" title="格式化磁盘分区"></a>格式化磁盘分区</h5><p>  用ext4格式对/dev/sdb1进入格式化</p>
-<blockquote>
-<p>sudo mkfs.ext4 /dev/sdb1</p>
-</blockquote>
-<h5 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h5><p>  创建新的挂载点</p>
-<blockquote>
-<p>sudo mkdir /work</p>
-</blockquote>
-<p>  将新磁盘分区挂载到/work目录下</p>
-<blockquote>
-<p>sudo mount -t ext4 /dev/sdb1 /work</p>
-</blockquote>
-<p>  查看挂载</p>
-<blockquote>
-<p>df -h</p>
-</blockquote>
-<p>  可以看到新加的硬盘：/dev/sdb1</p>
-<h5 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h5><p>  修改文件</p>
-<blockquote>
-<p>sudo vim /etc/fstab</p>
-</blockquote>
-<p>  在最后一行加入：</p>
-<blockquote>
-<p>/dev/sdb1 /work ext4 errors=remount-ro 0 1</p>
-</blockquote>
-<p>  完成!</p>
-<hr>
-<h4 id="补充：为挂载点扩容"><a href="#补充：为挂载点扩容" class="headerlink" title="补充：为挂载点扩容"></a>补充：为挂载点扩容</h4><p>假设之前我们有一个挂载点为 <em>/mydata</em> ，但该 <em>/mydata</em> 已经写满，但依然想在 <em>/mydata</em> 下添加新的数据，这时可以使用软链接将 <em>/mydata</em> 软链接到一个新挂载的磁盘分区上以实现扩容。具体步骤如下。</p>
-<p><strong>1. 创建一个目录，以便稍后作为挂载点：</strong></p>
-<blockquote>
-<p>mkdir /newdata</p>
-</blockquote>
-<p><strong>2. 将 /dev/sdb1 分区挂载到 /newdata 下：</strong></p>
-<blockquote>
-<p>mount /dev/sdb1 /newdata</p>
-</blockquote>
-<p><strong>3. 新建 /mydata 到 /newdata 的软链接：</strong></p>
-<blockquote>
-<p>ln -s /newdata /mydata</p>
-</blockquote>
-<p>  此时在 /mydata 目录下会有一个软链接文件 <em>newdata</em> 指向 <em>/newdata/</em> ，即 <em>newdata-&gt; /newdata/</em> 。这样一来，只要我们向 <em>/mydata/newdata</em> 下写文件，实际就写入了 <em>/newdata/</em> 目录下，相当于我们为原 <em>/mydata</em> 挂载点新增加了一部分使用空间。  </p>
-<p>  也可以手动指定该软链接文件的名称：</p>
-<blockquote>
-<p>ln -s /newdata /mydata/customed_name</p>
-</blockquote>
-<p>  这样就有 /mydata/customed_name -&gt; /newdata  </p>
-<p>  <strong>注：</strong> 我们也可以利用软链接的这一用途，将比较大的日志文件链接到存储空间充足的磁盘分区的挂载点上。<br>  举例来说，如果 /opt/tomcat/logs/catalina.out 日志文件输入很多，占用空间很大，而 /opt 挂载点中所剩空间已经不多，存在溢出风险，通过下面两步就可以将该日志文件软链接到另一个磁盘分区的挂载点上：  </p>
-<blockquote>
-<p>touch /newdata/catalina_link.out<br>ln -sf /newdata/catalina_link.out /opt/tomcat/logs/catalina.out</p>
-</blockquote>
-<p>  <strong><em>这里还需要注意三点：</em></strong></p>
-<p>  一是必须先创建一个被链接的文件，否则软链接后失败；<br>  二是强制软链接会清空之前 /opt/tomcat/logs/catalina.out 日志文件中的全部内容清空；<br>  三是需要重启 tomcat 目录后才能继续向 /opt/tomcat/logs/catalina.out 写入。  </p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>虚拟机</tag>
-        <tag>Linux挂载硬盘</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>设置mac自带的vim语法高亮</title>
     <url>/2018/06/15/%E8%AE%BE%E7%BD%AEmac%E8%87%AA%E5%B8%A6%E7%9A%84vim%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE/</url>
     <content><![CDATA[<h4 id="最终效果图大概是这个样子"><a href="#最终效果图大概是这个样子" class="headerlink" title="最终效果图大概是这个样子"></a>最终效果图大概是这个样子</h4><p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/设置mac自带的vim语法高亮/15-2023-03-06-09-42-13.png" alt="15-2023-03-06-09-42-13"></p>
@@ -4387,6 +4343,50 @@
       </categories>
       <tags>
         <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>艾默生的战略规划创新及其启示</title>
+    <url>/2023/03/03/%E8%89%BE%E9%BB%98%E7%94%9F%E7%9A%84%E6%88%98%E7%95%A5%E8%A7%84%E5%88%92%E5%88%9B%E6%96%B0%E5%8F%8A%E5%85%B6%E5%90%AF%E7%A4%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>&emsp;&emsp;本文对世界制造业取得卓越绩效的艾默生集团公司上世纪60年代以来的战略规划体系发展及其创新进行了案例研究。在对艾默生公司战略规划的发展过程、核心内容、组织流程和时间周期描述的基础上，分析了公司规划体系的“两栖型”内容创新、“一体化”组织创新和“独特性”的规划工具创新等特征，指出艾默生的战略规划体系的“三重创新”使企业战略在增长与赢利、前瞻与学习、制定与执行、普遍与独特等方面达到协调和统一，从而驱动了公司赢利的长期持续增长。最后对战略规划创新与竞争优势的关系、大中型企业的战略决策模式进行了讨论，并探讨了艾默生经验对中国大中型制造企业战略规划与战略管理体系建设的启示。</p>
+</blockquote>
+<a id="more"></a>
+<p>&emsp;&emsp;作为世界制造业强势企业集团，艾默生近50年来的股东回报以年均16％的复合增长率持续增长，2008年的利润总额和股东权益回报率都居电气行业前列。在此期间，公司的战略规划体系的发展与创新对企业保持良好的赢利性和持续成长产生了重大的影响。本文希望通过对艾默生近50多年来的战略规划体系创新的深入分析，探讨其影响公司赢利持续增长的内在机制，进而对中国制造业的企业战略规划体系创新和战略管理体系建设以有益启示。</p>
+<h2 id="一、艾默生公司的战略规划体系：一个素描"><a href="#一、艾默生公司的战略规划体系：一个素描" class="headerlink" title="一、艾默生公司的战略规划体系：一个素描"></a>一、艾默生公司的战略规划体系：一个素描</h2><h3 id="1、子公司利润评估"><a href="#1、子公司利润评估" class="headerlink" title="1、子公司利润评估"></a>1、子公司利润评估</h3><p>&emsp;&emsp;一直以来，艾默生很强调利润计划。在20世纪90年代初，艾默生意识到增长的重要性。同时，由于国际制造业所处的高度竞争的环境，公司又需要可靠的利润预测。因此，艾默生决定为利润计划和增长计划分别举行会议。在每年春天开始作利润评估时，子公司管理层—子公司总裁及其高级管理人员将与总公司的“利润沙皇”举行会议，“利润沙皇”通常是是艾默生最高管理团队中的一位，主要职责是确保各个子公司和总公司作为一个整体实现年度目标利润。有关业务集团的高层管理人员也会列席会议，但是主角是子公司管理者。利润评估将审查前5年的历史、当前年份的现状以及未来5年的预测数据，因此，计划者用11年跨度的窗口评估其业务，并形成一个利润模型。在模型中，价格变化、通货膨胀因素以及生产率提高等都会被考虑到，纳入模型的还有成本减少和控制计划、固定成本的处理方法以及业务组合方面的变化。计划者在所有这些领域作的都是最为保守的假设，以确保不夸大自己的估计。在此情况下，要达成两位数的税前利润增长是非常具有挑战性的，这一方法使管理者去寻求和详细讨论特定的行动计划，以满足利润目标，这包括新产品的研发带来的溢价、新产品销售带来的拉动效应、整合采购带来的效益、必要的工作转移、工厂转向最优成本地区、业务外包和其他可以改善资产管理的行动。所有这些计划都是保证子公司在大风暴中继续发展和成功的基石。在完成利润评估之后，“利润沙皇”将准备一份备忘录供计划会议使用，计划会议是计划周期的下一个阶段，它是艾默生计划的核心，一般在几个月之后举行。</p>
+<h3 id="2、子公司计划会议"><a href="#2、子公司计划会议" class="headerlink" title="2、子公司计划会议"></a>2、子公司计划会议</h3><p>&emsp;&emsp;在通过“利润评估”之后，计划过程将转入子公司的“增长战略”阶段。出席这个1～2天会议的人员包括：子公司管理层、艾默生的CEO以及一些选定的公司领导。子公司计划会议的最终目的是确定为公司创造价值的最佳方法。子公司管理层将安排日程，准确说明如何创造价值。母公司并不要求提供指定形式的详细数据，不过，核心管理层希望观察到关于财务和竞争绩效—销售、利润、资本回报、市场规模、市场渗透能力和价格走势的有见地的讨论，以及关于客户和竞争对手的详细分析。与利润评估一样，增长计划评估时用11年作为时间跨度，对损益表和资产负债表展望未来5年，回顾过去5年。11年的窗口可以将投资与收益预测分散到一个较长期的观察视野之中。</p>
+<p>&emsp;&emsp;尽管计划会议是属于子公司总裁及其团队的事情，但是，艾默生总部也参与对话和准备工作，以帮助子公司经理们完善计划并取得好的计划效果。艾默生总部的小型战略计划部门承担着为子公司“挑错”和核对各种数据的工作，计划经理们对研究和分析的质量以及总体计划的一体化与一致性程度加以检查；对于各个市场、竞争者和工业领域变化的数据向子公司管理团队提出质询；母公司计划经理们会确保企业所面临的关键问题和挑战都在会议资料中得到了详细论述，并制定应对这些问题和挑战相应的行动措施。在这些准备工作中，子公司管理层将主导这一切，即计划者是将来的执行者。</p>
+<p>&emsp;&emsp;子公司计划会议的基调是对抗性的。子公司管理团队而不仅仅是子公司的总裁负有责任让艾默生的核心层信服：计划经过好的构思，而且有详尽的研究和严密的分析作支持。会议上要对一些假设和传统的思维表示质疑，并给出足够的时间来讨论每个重要问题。同时，会议将对前三至五个最重要的行动展开详细讨论，并对提供支持的因素及构成挑战的问题进行分析。会议讨论中母公司领导人有时候会故意不断从各个角度挑战子公司的观点，这并非是CEO或COO不赞同这一观点，只是他们希望子公司已经把各个方面都考虑清楚了。</p>
+<p>&emsp;&emsp;子公司计划会议的产出将是诸多为大家共同认可的行动和优先考虑事项。艾默生的CEO也会向各子公司总裁发出备忘录，文件中将就计划、行动、承诺以及其他任何重要问题扼要地进行总结。这封信将成为下一次计划会议议程的一部分，在控制循环所举行的会议上，信中的内容将被一一跟踪考察。这种计划备忘录的做法在艾默生内部得到广泛应用，每一位经理人在和团队评估过计划后，都会以一封电子邮件或备忘录的形式总结要点、承诺和行动方案，因此，这也是控制和跟进的重要方式。</p>
+<h3 id="3、战略评估：在业务集团层面制定计划"><a href="#3、战略评估：在业务集团层面制定计划" class="headerlink" title="3、战略评估：在业务集团层面制定计划"></a>3、战略评估：在业务集团层面制定计划</h3><p>&emsp;&emsp;业务集团计划并不仅仅是将子公司的计划汇总，艾默生也在业务集团层次制定计划，以便在发现子公司能力不足以应对某些机会的时候，能够在公司整体范围内进行整合，确保资源的充分利用。在这一更高层面，公司对于要寻求的机会进行选择和取舍，以决定哪些机会务必竭力获得，哪些业务必须支持，哪些业务需要降低重要性甚至需要退出。</p>
+<p>&emsp;&emsp;各个业务集团每年夏季都进行年度战略评估。这时，业务集团领导人、核心管理人员与CEO、总裁和其他公司领导将会见面，聚在一起评估和讨论重大的战略性经营挑战以及关键性行为。会议将精力集中在成长和营销战略，以建立和保持艾默生的行业领导地位。业务集团的领导人也要评估业务集团的财务前景。</p>
+<h3 id="4、总公司计划和全球高级管理者沟通会议"><a href="#4、总公司计划和全球高级管理者沟通会议" class="headerlink" title="4、总公司计划和全球高级管理者沟通会议"></a>4、总公司计划和全球高级管理者沟通会议</h3><p>&emsp;&emsp;子公司计划会议、利润评估和业务集团战略评估期间获得的信息，将成为艾默生每年秋天召开的公司规划会议(简称CPC)所需要的原始材料。出席CPC的是前300名总公司和子公司高层领导。各个子公司和业务集团是业务组合的一部分，对于其中的每一个部分，艾默生的管理层都在不断地衡量和评估其增长、赢利能力和现金流的趋势。在会议召开之前，CEO办公室要从子公司会议和战略评估之中找出关键性的主题，并将它们与宏观经济环境分析相应结合。然后，CEO办公室将这一信息整合成公司总计划：一个一体化的、有重点的关于公司目标以及实现公司目标的计划陈述。然后，将计划提交给CPC和区域性公司计划会议。</p>
+<p>&emsp;&emsp;每年初秋，在公司计划被汇总及被批准之后，公司计划会议基本上就成为一个向经理人员传达信息的载体。公司高层在会议上汇报公司所取得的成就，并通报下一年度的财务计划及今后5年的战略计划。在总公司计划会议之后，还将举行区域(欧洲/亚洲)公司计划会议，以便对该区域经理进行沟通和宣贯。与上述的计划周期相平行，公司主要通过三种正式制度来对运营和行动计划执行情况进行监控，一种是每年1次的财务评估，通常在每财年后半段举行；第二是每季度1次的总裁行政会议—每个子公司的CEO和CFO将会参加；其次是每月1次的总裁运营报告(POR)—即要由各个子公司递交给总裁会议和年度财务会议的月度报告，它是动态工具，每月都要更新预期的年度结果并与历史和目标进行比较。</p>
+<h2 id="二、艾默生战略规划体系“三重创新”分析"><a href="#二、艾默生战略规划体系“三重创新”分析" class="headerlink" title="二、艾默生战略规划体系“三重创新”分析"></a>二、艾默生战略规划体系“三重创新”分析</h2><p>&emsp;&emsp;战略规划的系统设计理论认为，战略规划系统可以从以下维度进行设计(斯坦纳，2001)：内容完整性与侧重点、时间尺度、分析深度与复杂性、流程、CEO的参与、直线管理者的角色、规划部门的角色、分析工具等。其中，前三项构成战略规划的内容体系，中间四项构成了规划的组织体系，最后一项构成了工具体系。本文从这三大方面分析艾默生战略规划体系的主要特点、创新及其影响(详见表1)。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031439612-2023-03-06-10-18-58.png" alt="202303031439612-2023-03-06-10-18-58"></p>
+<h3 id="1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡"><a href="#1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡" class="headerlink" title="1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡"></a>1、“两栖型”内容创新：成长与赢利、前瞻与学习的平衡</h3><p>&emsp;&emsp;艾默生战略规划体系在内容方面的创新，包括三个方面(表1中的①②③)：(1)以子公司为核心的增长计划和赢利评估的分立与并重；(2)赢利性评估中建立在细致、严苛预测基础上的行动方案；(3)跨度为11年的“瞻前顾后式”滚动计划。其中，第1条使得公司在关注公司赢利性的同时，很好地挖掘长期战略成长机会及行动方案，拓展公司的业务范围和能力疆域，避免了战略规划沦为“年度预算”或“运营项目”的倾向，防止了明茨伯格所谓的战略规划的“正式性谬误”—即由于过于关注正式性而忽略了“软性”的战略思考，促进了公司赢利基础上的持续增长。第二项创新则使赢利性评估建立在对近期最严苛的经营环境情景之上，部分避免了明茨伯格的战略规划的“可预测性谬误”；第三项创新是11年期的“瞻前顾后式”滚动性计划，它覆盖了制造业的投资波动周期，并且在战略学习(回顾过去5年)与前瞻性(展望未来5年)之间形成了平衡，使得战略规划过程成为一个持续的设计、学习、修正和改进的过程。本文把艾默生的“增长与赢利并重”(目标/内容)、“瞻前顾后型滚动计划”(时间尺度)称为战略规划内容的“两栖型创新”，并将其要素和相互关系概括如图1所示。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031439106-2023-03-06-10-19-21.png" alt="202303031439106-2023-03-06-10-19-21"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图1 艾默生的计划和控制周期</p>
+<h3 id="2、“一体化”组织创新：规划主体与执行者的统一及分工协作"><a href="#2、“一体化”组织创新：规划主体与执行者的统一及分工协作" class="headerlink" title="2、“一体化”组织创新：规划主体与执行者的统一及分工协作"></a>2、“一体化”组织创新：规划主体与执行者的统一及分工协作</h3><p>&emsp;&emsp;艾默生的规划流程/组织设计有两方面的创新(表1中④⑥⑦⑧)：(1)计划主体与实施者的统一。它主要体现在表一中的④和⑦上，这种以子公司的领导团队为主体的规划组织体系，使得子公司领导层能充分利用其业务信息、提高其承诺和战略执行的主动性，避免了明茨伯格所谓的战略规划制定与执行的“分离性谬误”；(2)规划中总公司CEO、公司规划部门和子公司管理者之间的分工协作。这主要体现在表1的⑥⑦⑧。在这个过程中，CEO、子公司经理、公司规划经理的各司其职与紧密协作是至关重要的。其中，艾默生的公司规划经理主要承担了以下角色：为子公司“挑错”和核对各种数据、对研究和分析的质量以及总体计划的一体化与一致性进行检查；对于各种市场、竞争者和工业领域变化的数据向子公司管理团队提出质询；确定企业所面临的关键问题和挑战，并制定应对这些问题和挑战相应的行动措施等。总公司的CEO在规划会议中对子公司计划提出各角度的质询，甚至故意引起激烈争论，以保证各种因素在决策中得到考虑。</p>
+<h3 id="3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”"><a href="#3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”" class="headerlink" title="3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”"></a>3、有针对性的“独特”工具创新：“最佳成本制造商战略”和“利润瀑布分析”</h3><p>&emsp;&emsp;艾默生在规划工具方面，也坚持从实际出发，在遵循一般规律的基础上，进行有针对性的“独特”的创新，这可以用“最佳成本制造商战略”和“利润瀑布分析”为例加以说明。1970年代，随着日本工业的兴起，艾默生率先意识到全面质量管理(TQM)的重要性，开始在所有子公司开展TQM管理。1980年初，艾默生意识到全球化激烈竞争将扩散到所有业务领域，因此，重新定义了一个新的“最佳成本制造商战略”来应付与日俱增的全球竞争—艾默生需要最佳成本，它不仅关注价格同时还关注客户所感受到的价值—即产品、服务和价格的最优组合而非简单的最低成本。这一模式顺应了国际竞争新趋势，符合一般竞争规律而又突破了竞争优势在低成本或差异化之间非此即彼的教条。根据这一原则，艾默生推动了大量子公司向低成本地区迁移和扩张，包括90年代中期在墨西哥的大规模建厂和90年代后期利用东欧的智力和工业资源的迅速扩张。</p>
+<p>&emsp;&emsp;另外的一个例子是“利润瀑布分析”。1990年代初期北美经济面临另一个衰退周期时，通过收购和剥离的效果已经不够显著了，艾默生便将首席运营官(COO)博杰思调离重要的运作管理岗位，委派他负责重振和改善利润增进过程—以尽快地找出问题和解决问题。博杰思带领团队花了一周时间尝试分析什么事情出了错。他们找回1987年的子公司计划会议记录，了解曾经预测在1992年底达到3.5％利润增长计划的组成内容，目的是为了弄清楚为什么会落后于计划。这项工作有几项重要的发现：与原计划相比，需求增长的下降、定价压力、材料成本的膨胀、工资成本的膨胀、医疗福利费用增长等是计划失效的主要因素。基于这个发现，在首席财务官高文和首席运营官博杰思的直接领导下，艾默生的团队编制了一个以Excel为基础的数据分析表，它能够为制定5年预测计划提供精确的基础。这一软件将销售数量、价格和成本组成部分(材料、计时劳工、薪酬和一般费用)结合起来，并在上一个5年计划的实际结果的条件下对预测进行估计。这一分析工具名为“利润瀑布”，它很快被用作一年期财务评估和5年期计划的基础。同时，为防止不现实的乐观预测，并驱使管理层彻底考虑强有力的行动以在艰难环境中改善利润率，艾默生的最高管理层坚持要求各个子公司就计划利润作最为保守的假设，子公司的总裁还必须为那些在过去的实际结果中经常出现但从来没有被预测到的不可预见的成本因素留出余地。保守的估计以及瀑布设计的严密促进经理们意识到更多、更强硬的降低成本和提高赢利行动的需要。事实表明，这一从实际出发的有针对性的赢利分析工具为艾默生在严酷竞争环境下长期保持较高赢利能力做出了重要贡献。</p>
+<h2 id="三、创新背后的理念和价值观"><a href="#三、创新背后的理念和价值观" class="headerlink" title="三、创新背后的理念和价值观"></a>三、创新背后的理念和价值观</h2><p>&emsp;&emsp;艾默生战略规划体系的创新，除了受公司“管理过程”六大要素的影响外，公司最高领导层的基本信念和价值观也是深层的影响因素。事实上，艾默生公司的最高领导层相当稳定，在过去60年间，只有三位CEO，其中，奈特从1973-2001年任CEO期间对于艾默生的“管理过程”做出了巨大的贡献。他系统地阐述了艾默生的“最优成本制造战略”，同时，完善并强化了公司商业竞争取胜的基本理念(奈特，戴尔，2007)，这些理念包括：(1)持续的高绩效；(2)寻觅为客户增加价值的新方法是致胜之道；(3)在关键市场中，艾默生必须是行业的领袖；(4)取得技术领先地位是取得市场领先地位的关键；(5)长期的成功需要整个组织的全心全意地投入；(6)主要的经理人员必须拥有自主权，从而发挥其最大潜力；(7)艾默生一贯通过员工来提高生产力。</p>
+<p>&emsp;&emsp;应该指出，正是基于这些基本理念和价值观以及对管理任务的共同理解，艾默生在实践中不断完善了公司“管理过程”体系，并实现了战略规划体系的不断创新。</p>
+<p>&emsp;&emsp;基于上述的分析，我们可以把艾默生战略规划在内容、组织、工具三方面的创新概括为战略规划设计的“三重创新”，并将其主要特征及其深层理念和价值观原因概括为图2的简略形式。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031440300-2023-03-06-10-19-48.png" alt="202303031440300-2023-03-06-10-19-48"><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;图2 艾默生战略规划的“两栖型”内容创新</p>
+<h2 id="四、讨论与启示"><a href="#四、讨论与启示" class="headerlink" title="四、讨论与启示"></a>四、讨论与启示</h2><h3 id="1、战略规划体系创新与竞争优势"><a href="#1、战略规划体系创新与竞争优势" class="headerlink" title="1、战略规划体系创新与竞争优势"></a>1、战略规划体系创新与竞争优势</h3><p>&emsp;&emsp;从艾默生的战略规划实践来看，明茨伯格对战略规划“三重谬误”的批评并非是不可避免的。艾默生通过增长计划与赢利评估分立、子公司管理层为核心和利润瀑布分析等方式，实现了战略规划的“三重创新”：即内容方面的“双栖型创新”、组织/流程的“一体化创新”和工具方面量身定做的“独特工具”创新，有效地避免“正式性谬误”、“分离性谬误”和“可预测性谬误”等问题，取得了较好的战略规划与实施绩效。这说明了战略规划体系设计中内容、组织和工具“三重创新”对竞争优势的重要性。Barney曾经认为，正式的战略规划(如经典的SWOT分析工具、业务组合管理等)由于其广泛传播而不具有稀缺性、难模仿性和难替代性，因此它不能成为持续竞争优势的来源。Powell也根据资源基础观指出，当战略规划作为一种生产要素在行业中能被广泛获得时，其带来的竞争优势将消失。本文的案例研究则表明，由于战略规划体系的系统性和复杂性，战略规划的内容、组织或工具的创新确实可以带给企业竞争优势，甚至形成一定时期内的持续竞争优势。结合Grant(2003)对世界八大石油巨头战略规划体系的系统分析，可以看出，利用正式战略规划并根据环境变化和企业情况对内容、组织和工具进行调整或创新，仍然是大中型制造业企业可以利用的一种重要战略管理工具，也是其获得竞争优势的一种可行途径。当然，从艾默生的经验看，其领导人在战略发展方向(如“最优成本生产商战略”)和完善战略规划制度方面(“利润瀑布分析”、“计划跟进及控制”)起到了至关重要的作用，因此，领导人的战略领导和战略规划不是非此即彼的替代关系，领导人全身心地参与到战略规划中进行指导和引导是产生竞争优势的一个非常重要的驱动因素。从这个角度看，明茨伯格对正式战略规划可能导致“分析取代综合性战略思维”的批评仍有一定的警示意义。此外，本案例也表明，战略规划体系创新需要企业内部权力结构和文化体系的支持。因此，如何在战略规划中更好地促进战略思维并协调思维与行动之间的关系，同时系统考虑战略规划创新的政治、文化支持因素，既是战略规划体系设计必须应对的一个挑战，也是进入21世纪后战略规划理论发展的一个重要方向。</p>
+<h3 id="2、大型企业战略决策模式的“混合化”趋势"><a href="#2、大型企业战略决策模式的“混合化”趋势" class="headerlink" title="2、大型企业战略决策模式的“混合化”趋势"></a>2、大型企业战略决策模式的“混合化”趋势</h3><p>&emsp;&emsp;在战略决策文献中，关于战略规划、企业家决策与自发/分散决策等战略决策类型及其作用的讨论一直很激烈。从国内外大型制造企业的实践看，一些企业选择了战略规划体系的创新或调整，如艾默生、联想、大石油公司等(Grant，2003；武亚军，2007)，另外一些企业如GE则“放弃”了传统的正式性很强的战略规划体系而转向以战略领导和分散决策为主的战略决策模式。从总体上看，这反映了一种动态环境下企业战略决策的“混合化”趋势—即正式战略规划与其他战略决策类型相结合。这一方面和企业国际化及竞争环境的快速变化有关，另一方面也与企业的管理基础、最高领导人的能力与管理风格有很大的关系。从大中型企业的战略决策方式看，正式战略规划是很普遍也很难逾越的决策方式。事实上，艾默生通过战略规划体系的创新，在战略领导、正式战略规划和一线业务领导人的分散决策之间形成了一种“综合协调”，进而取得了赢利的持续增长。从这个角度上看，艾默生的成功在于其以正式战略规划为主、辅以其他两种战略决策模式的成功。正如不少研究所揭示的那样，结合战略规划和其他两种模式的综合性战略决策模式将是动态复杂环境下大型制造企业战略决策的一种发展趋势。</p>
+<h3 id="3、对中国大中型本土制造企业的启示"><a href="#3、对中国大中型本土制造企业的启示" class="headerlink" title="3、对中国大中型本土制造企业的启示"></a>3、对中国大中型本土制造企业的启示</h3><p>&emsp;&emsp;如表2所示，对比艾默生的战略规划创新与中国本土著名制造业企业——联想的战略规划经验(武亚军，2007)，可以发现：两个企业在外部环境的动态性、内容创新、工具创新、组织创新等方面都有一定的相似性，例如，艾默生通过利润与增长计划分立来平衡赢利性和成长问题，而联想则通过三类业务组合配置(成长战略)和完善业务模式(竞争战略)来协调两者的关系；艾默生在1990年代初未达到预期目标后通过反思性的战略学习形成了“利润瀑布”分析工具和“严苛预测”原则，而联想在经过2000-2003年规划挫折后也通过反思性的战略学习形成了“战略路线精准化”和“业务模式创新”等战略原则。所不同的是，艾默生在战略规划的体系化、制度化上比联想更为成熟，这和前者经历了更长期的发展有很大关系。无论如何，对于中国的大中型制造企业来说，联想和艾默生的经验都有很强的借鉴意义：(1)企业从小到大、从创业到逐步成熟、从国内到国际化的发展过程中，需要结合企业的环境和自身条件，进行战略规划的内容、组织和工具“三重创新”，才能真正通过战略规划提高竞争力和实现持续增长；(2)战略规划的创新需要组织权力结构和核心价值观的支持，这是企业战略规划创新的制度与文化基础。事实上，这恰恰是很多中国大中型本土企业所欠缺和需要面对的挑战。艾默生公司和联想为中国大中型制造企业的战略规划树立了两个标杆，不过联想的战略规划体系仍处于系统化和完善之中，而艾默生则由于其长期发展而比较成熟和完善，这也增大了艾默生公司经验对中国大中型企业(包括联想在内)的借鉴价值。</p>
+<h2 id="五、结论与展望"><a href="#五、结论与展望" class="headerlink" title="五、结论与展望"></a>五、结论与展望</h2><p>&emsp;&emsp;艾默生案例清晰表明了战略规划体系设计和创新对大企业持续发展的重要性及其作用机制。艾默生公司在“管理过程”发展中有效地实现了战略规划体系的“三重创新”：即以“增长计划和赢利评估并重”及“瞻前顾后式”滚动计划为代表的“两栖型”内容创新、以子公司为主体又分工协作的“一体化”组织创新，以及以“最优成本制造”和“赢利瀑布分析”为代表的量身定做的“独特”工具创新。案例分析表明，基于“管理过程”及核心价值观上的战略规划体系创新，促进了艾默生公司在高层战略领导、正式战略规划和子公司领导层的主动性之间的合理平衡，实现了企业战略在增长与赢利、前瞻与学习、制定与执行、普遍与独特等方面的协调和统一，这是艾默生公司近50年来赢利性持续增长的重要驱动因素。可以认为，战略规划体系的“三重创新”是战略规划有效性的一个永恒主题，也是大中型企业在战略思维和行动之间保持有效连接的关键。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/艾默生的战略规划创新及其启示/202303031440867-2023-03-06-10-21-31.png" alt="202303031440867-2023-03-06-10-21-31"></p>
+<p>&emsp;&emsp;战略规划体系创新需要核心价值观支撑。艾默生的战略规划创新过程说明了其“管理过程”和核心理念的重要性，“保持精简”、“重视计划”、“发挥经理人员的自主性”等基本理念都显著地影响了艾默生的战略规划设计与创新。从这个意义上，“精于心，简于形”可以说是艾默生的规划之道。也许，每个企业的战略规划体系设计模式和经验不能直接复制，但其成功背后的智慧完全可以学习和借鉴。艾默生集团公司的战略规划创新和规划之道，值得中国本土大中型制造企业仔细品味和借鉴。</p>
+<p><a href="http://59.252.42.34:6251/Qw/Paper/395094" target="_blank" rel="noopener">原文</a></p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>艾默生</tag>
+        <tag>企业管理研究</tag>
       </tags>
   </entry>
 </search>
