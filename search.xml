@@ -35,142 +35,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Axios基本使用说明</title>
-    <url>/2018/04/11/Axios%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
-    <content><![CDATA[<h1 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h1><p><a href="https://www.npmjs.org/package/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/axios.svg?style=flat-square" alt="npm version"></a><a href="https://travis-ci.org/axios/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/travis/axios/axios.svg?style=flat-square" alt="build status"></a><a href="https://coveralls.io/r/mzabriskie/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/coveralls/mzabriskie/axios.svg?style=flat-square" alt="code coverage"></a><a href="http://npm-stat.com/charts.html?package=axios" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/dm/axios.svg?style=flat-square" alt="npm downloads"></a><a href="https://gitter.im/mzabriskie/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/gitter/room/mzabriskie/axios.svg?style=flat-square" alt="gitter chat"></a><a href="https://www.codetriage.com/axios/axios" target="_blank" rel="noopener"><img src="https://www.codetriage.com/axios/axios/badges/users.svg" alt="code helpers"></a></p>
-<p>Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。</p>
-<a id="more"></a>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>从浏览器中创建 <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank" rel="noopener">XMLHttpRequests</a></li>
-<li>从 node.js 创建 <a href="http://nodejs.org/api/http.html" target="_blank" rel="noopener">http</a> 请求</li>
-<li>支持 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promise</a> API</li>
-<li>拦截请求和响应</li>
-<li>转换请求数据和响应数据</li>
-<li>取消请求</li>
-<li>自动转换 JSON 数据</li>
-<li>客户端支持防御 <a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener">XSRF</a></li>
-</ul>
-<h2 id="浏览器支持"><a href="#浏览器支持" class="headerlink" title="浏览器支持"></a>浏览器支持</h2><table>
-<thead>
-<tr>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome"></th>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox"></th>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari"></th>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera"></th>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge"></th>
-<th><img src="https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Latest ✔</td>
-<td>Latest ✔</td>
-<td>Latest ✔</td>
-<td>Latest ✔</td>
-<td>Latest ✔</td>
-<td>8+ ✔</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><a href="https://saucelabs.com/u/axios" target="_blank" rel="noopener"><img src="https://saucelabs.com/open_sauce/build_matrix/axios.svg" alt="Browser Matrix"></a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用 npm:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install axios</span><br></pre></td></tr></table></figure>
-<p>使用 bower:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bower install axios</span><br></pre></td></tr></table></figure>
-<p>使用 cdn:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/axios/dist/axios.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>执行 <code>GET</code> 请求</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 为给定 ID 的 user 创建请求</span></span><br><span class="line">axios.get(<span class="string">'/user?ID=12345'</span>)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可选地，上面的请求可以这样做</span></span><br><span class="line">axios.get(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    params: &#123;</span><br><span class="line">      ID: <span class="number">12345</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 想使用异步/等待？将`async`关键字添加到外部函数/方法中。</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.get(<span class="string">'/user?ID=12345'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>注意:</strong> async/await是ECMAScript 2017的一部分，在Internet Explorer和旧版浏览器中不支持，因此请谨慎使用。</p>
-</blockquote>
-<p>执行 <code>POST</code> 请求</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.post(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-<p>执行多个并发请求</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserAccount</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserPermissions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345/permissions'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">axios.all([getUserAccount(), getUserPermissions()])</span><br><span class="line">  .then(axios.spread(<span class="function"><span class="keyword">function</span> (<span class="params">acct, perms</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//两个请求均已完成</span></span><br><span class="line">  &#125;));</span><br></pre></td></tr></table></figure>
-<h2 id="axios-API"><a href="#axios-API" class="headerlink" title="axios API"></a>axios API</h2><p>请求可以通过传递相关配置来完成 <code>axios</code>.</p>
-<p><strong>axios(config)</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 发送一个POST请求</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method: <span class="string">'post'</span>,</span><br><span class="line">  url: <span class="string">'/user/12345'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// GET请求远程图像</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method:<span class="string">'get'</span>,</span><br><span class="line">  url:<span class="string">'http://bit.ly/2mTM3nY'</span>,</span><br><span class="line">  responseType:<span class="string">'stream'</span></span><br><span class="line">&#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">  response.data.pipe(fs.createWriteStream(<span class="string">'ada_lovelace.jpg'</span>))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p><code>axios(url[, config])</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 发送GET请求（默认方法）</span></span><br><span class="line">axios(<span class="string">'/user/12345'</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="请求方法别名"><a href="#请求方法别名" class="headerlink" title="请求方法别名"></a>请求方法别名</h2><p>为方便起见，为所有支持的请求方法提供了别名</p>
-<p><strong>axios.request(config)</strong><br><strong>axios.get(url[, config])</strong><br><strong>axios.delete(url[, config])</strong><br><strong>axios.head(url[, config])</strong><br><strong>axios.options(url[, config])</strong><br><strong>axios.post(url[, data[, config]])</strong><br><strong>axios.put(url[, data[, config]])</strong><br><strong>axios.patch(url[, data[, config]])</strong></p>
-<blockquote>
-<p>注意: 在使用别名方法时， url、method、data 这些属性都不必在配置中指定。</p>
-</blockquote>
-<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>处理并发请求的助手函数</p>
-<p><strong>axios.all(iterable)</strong><br><strong>axios.spread(callback)</strong></p>
-<h3 id="创建一个实例"><a href="#创建一个实例" class="headerlink" title="创建一个实例"></a>创建一个实例</h3><p>您可以使用自定义配置创建一个新的axios实例。</p>
-<p><strong>axios.create([config])</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line">  timeout: <span class="number">1000</span>,</span><br><span class="line">  headers: &#123;<span class="string">'X-Custom-Header'</span>: <span class="string">'foobar'</span>&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><p>以下是可用的实例方法。指定的配置将与实例的配置合并</p>
-<p><strong>axios#request(config)</strong><br><strong>axios#get(url[, config])</strong><br><strong>axios#delete(url[, config])</strong><br><strong>axios#head(url[, config])</strong><br><strong>axios#options(url[, config])</strong><br><strong>axios#post(url[, data[, config]])</strong><br><strong>axios#put(url[, data[, config]])</strong><br><strong>axios#patch(url[, data[, config]])</strong></p>
-<h2 id="请求配置"><a href="#请求配置" class="headerlink" title="请求配置"></a>请求配置</h2><p>这些是创建请求时可以用的配置选项。只有 <code>url</code> 是必需的。如果没有指定 <code>method</code>，请求将默认使用 <code>get</code> 方法。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// `url` 是用于请求的服务器 URL</span></span><br><span class="line">  url: <span class="string">'/user'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `method` 是创建请求时使用的方法</span></span><br><span class="line">  method: <span class="string">'get'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。</span></span><br><span class="line">  <span class="comment">// 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL</span></span><br><span class="line">  baseURL: <span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `transformRequest` 允许在向服务器发送前，修改请求数据</span></span><br><span class="line">  <span class="comment">// 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法</span></span><br><span class="line">  <span class="comment">// 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream</span></span><br><span class="line">  <span class="comment">// 您可以修改headers对象。</span></span><br><span class="line">  transformRequest: [<span class="function"><span class="keyword">function</span> (<span class="params">data, headers</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对 data 进行任意转换处理</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">  &#125;],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `transformResponse` 在传递给 then/catch 前，允许修改响应数据</span></span><br><span class="line">  transformResponse: [<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对 data 进行任意转换处理</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">  &#125;],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `headers` 是即将被发送的自定义请求头</span></span><br><span class="line">  headers: &#123;<span class="string">'X-Requested-With'</span>: <span class="string">'XMLHttpRequest'</span>&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `params`  是即将与请求一起发送的 URL 参数</span></span><br><span class="line">  <span class="comment">// 必须是一个普通对象(plain object)或 URLSearchParams 对象</span></span><br><span class="line">  params: &#123;</span><br><span class="line">    ID: <span class="number">12345</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `paramsSerializer` 是一个负责 `params` 序列化的函数</span></span><br><span class="line">  <span class="comment">// (例如： https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)</span></span><br><span class="line">  paramsSerializer: <span class="function"><span class="keyword">function</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Qs.stringify(params, &#123;<span class="attr">arrayFormat</span>: <span class="string">'brackets'</span>&#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `data` 是作为请求主体被发送的数据</span></span><br><span class="line">  <span class="comment">// 只适用于这些请求方法 'PUT', 'POST', 和 'PATCH'</span></span><br><span class="line">  <span class="comment">// 在没有设置 `transformRequest` 时，必须是以下类型之一：</span></span><br><span class="line">  <span class="comment">// - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams</span></span><br><span class="line">  <span class="comment">// - 浏览器专属： FormData, File, Blob</span></span><br><span class="line">  <span class="comment">// - Node专属: Stream, Buffer</span></span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)</span></span><br><span class="line">  <span class="comment">// 如果请求话费了超过 `timeout` 的时间，请求将被中断</span></span><br><span class="line">  timeout: <span class="number">1000</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `withCredentials` 表示跨域请求时是否需要使用凭证</span></span><br><span class="line">  withCredentials: <span class="literal">false</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `adapter` 允许自定义处理请求，以使测试更轻松</span></span><br><span class="line">  <span class="comment">// 返回一个 promise 并应用一个有效的响应</span></span><br><span class="line">  adapter: <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `auth` 表示应该使用 HTTP 基础验证，并提供凭据</span></span><br><span class="line">  <span class="comment">// 这将设置一个 `Authorization` 头，覆写掉现有的任意使用 `headers` 设置的自定义 `Authorization`头</span></span><br><span class="line">  auth: &#123;</span><br><span class="line">    username: <span class="string">'janedoe'</span>,</span><br><span class="line">    password: <span class="string">'s00pers3cret'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `responseType` 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'</span></span><br><span class="line">  responseType: <span class="string">'json'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `responseEncoding` 表示用于解码响应的编码</span></span><br><span class="line">  <span class="comment">// 注意：忽略'stream'或客户端请求的`responseType`</span></span><br><span class="line">  responseEncoding: <span class="string">'utf8'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称</span></span><br><span class="line">  xsrfCookieName: <span class="string">'XSRF-TOKEN'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `xsrfHeaderName` 是承载 xsrf token 的值的 HTTP 头的名称</span></span><br><span class="line">  xsrfHeaderName: <span class="string">'X-XSRF-TOKEN'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `onUploadProgress` 允许为上传处理进度事件</span></span><br><span class="line">  onUploadProgress: <span class="function"><span class="keyword">function</span> (<span class="params">progressEvent</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对原生进度事件的处理</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `onDownloadProgress` 允许为下载处理进度事件</span></span><br><span class="line">  onDownloadProgress: <span class="function"><span class="keyword">function</span> (<span class="params">progressEvent</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对原生进度事件的处理</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `maxContentLength` 定义允许的响应内容的最大尺寸</span></span><br><span class="line">  maxContentLength: <span class="number">2000</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `validateStatus` 定义对于给定的HTTP 响应状态码是 resolve 或 reject  promise 。</span></span><br><span class="line">  <span class="comment">// 如果 `validateStatus` 返回 `true` (或者设置为 `null` 或 `undefined`)，</span></span><br><span class="line">  <span class="comment">// promise 将被 resolve; 否则，promise 将被 rejecte</span></span><br><span class="line">  validateStatus: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>; <span class="comment">// 默认</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `maxRedirects` 定义在 node.js 中遵循的最大重定向数目</span></span><br><span class="line">  <span class="comment">// 如果设置为0，将不会 follow 任何重定向</span></span><br><span class="line">  maxRedirects: <span class="number">5</span>, <span class="comment">// default</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `socketPath` 定义了一个在Socket.js中使用的UNIX套接字。</span></span><br><span class="line">  <span class="comment">// 例如'/var/run/docker.sock'发送请求到docker守护进程。</span></span><br><span class="line">  <span class="comment">// 只能指定`socketPath`或`proxy`。</span></span><br><span class="line">  <span class="comment">// 如果两者都指定，则使用`socketPath`。</span></span><br><span class="line">  socketPath: <span class="literal">null</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `httpAgent` 和 `httpsAgent` 分别在 node.js 中用于定义在执行 http 和 https 时使用的自定义代理。允许像这样配置选项：</span></span><br><span class="line">  <span class="comment">// `keepAlive` 默认没有启用</span></span><br><span class="line">  httpAgent: <span class="keyword">new</span> http.Agent(&#123; <span class="attr">keepAlive</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">  httpsAgent: <span class="keyword">new</span> https.Agent(&#123; <span class="attr">keepAlive</span>: <span class="literal">true</span> &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 'proxy' 定义代理服务器的主机名称和端口</span></span><br><span class="line">  <span class="comment">// 使用'false'来禁用代理，忽略环境变量。</span></span><br><span class="line">  <span class="comment">// `auth` 表示 HTTP 基础验证应当用于连接代理，并提供凭据</span></span><br><span class="line">  <span class="comment">// 这将会设置一个 `Proxy-Authorization` 头，覆写掉已有的通过使用 `header` 设置的自定义 `Proxy-Authorization` 头。</span></span><br><span class="line">  proxy: &#123;</span><br><span class="line">    host: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">    port: <span class="number">9000</span>,</span><br><span class="line">    auth: &#123;</span><br><span class="line">      username: <span class="string">'mikeymike'</span>,</span><br><span class="line">      password: <span class="string">'rapunz3l'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `cancelToken` 指定用于取消请求的 cancel token</span></span><br><span class="line">  <span class="comment">// （查看后面的 Cancellation 这节了解更多）</span></span><br><span class="line">  cancelToken: <span class="keyword">new</span> CancelToken(<span class="function"><span class="keyword">function</span> (<span class="params">cancel</span>) </span>&#123;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="响应结构"><a href="#响应结构" class="headerlink" title="响应结构"></a>响应结构</h2><p>某个请求的响应包含以下信息</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// `data` 由服务器提供的响应</span></span><br><span class="line">  data: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `status` 来自服务器响应的 HTTP 状态码</span></span><br><span class="line">  status: <span class="number">200</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `statusText` 来自服务器响应的 HTTP 状态信息</span></span><br><span class="line">  statusText: <span class="string">'OK'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `headers` t服务器响应的头</span></span><br><span class="line">  <span class="comment">// 所有的 header 都是小写</span></span><br><span class="line">  headers: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `config` 是为请求提供给`axios`的配置</span></span><br><span class="line">  config: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `request` 是生成此响应的请求</span></span><br><span class="line">  <span class="comment">// 它是node.js中的最后一个ClientRequest实例和浏览器请求的XMLHttpRequest实例</span></span><br><span class="line">  request: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 <code>then</code> 时，你将接收下面这样的响应：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response.data);</span><br><span class="line">    <span class="built_in">console</span>.log(response.status);</span><br><span class="line">    <span class="built_in">console</span>.log(response.statusText);</span><br><span class="line">    <span class="built_in">console</span>.log(response.headers);</span><br><span class="line">    <span class="built_in">console</span>.log(response.config);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-<p>在使用 <code>catch</code> 时，或传递<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then" target="_blank" rel="noopener">rejection callback</a> 作为 <code>then</code> 的第二个参数时, 响应可以通过 <code>error</code> 对象可被使用，正如在<a href="#错误处理">错误处理</a> 这一节所讲.</p>
-<h2 id="配置的默认值-defaults"><a href="#配置的默认值-defaults" class="headerlink" title="配置的默认值/defaults"></a>配置的默认值/defaults</h2><p>你可以指定将被用在各个请求的配置默认值</p>
-<h3 id="全局axios默认值"><a href="#全局axios默认值" class="headerlink" title="全局axios默认值"></a>全局axios默认值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.defaults.baseURL = <span class="string">'https://api.example.com'</span>;</span><br><span class="line">axios.defaults.headers.common[<span class="string">'Authorization'</span>] = AUTH_TOKEN;</span><br><span class="line">axios.defaults.headers.post[<span class="string">'Content-Type'</span>] = <span class="string">'application/x-www-form-urlencoded'</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="自定义实例默认值"><a href="#自定义实例默认值" class="headerlink" title="自定义实例默认值"></a>自定义实例默认值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建实例时设置配置的默认值</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">'https://api.example.com'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在实例已创建后修改默认值</span></span><br><span class="line">instance.defaults.headers.common[<span class="string">'Authorization'</span>] = AUTH_TOKEN;</span><br></pre></td></tr></table></figure>
-<h3 id="配置的优先顺序"><a href="#配置的优先顺序" class="headerlink" title="配置的优先顺序"></a>配置的优先顺序</h3><p>配置会以一个优先顺序进行合并。这个顺序是：在 <a href="https://github.com/axios/axios/blob/master/lib/defaults.js#L28" target="_blank" rel="noopener">lib/defaults.js</a>找到的库的默认值，然后是实例的 <code>defaults</code> 属性，最后是请求的 <code>config</code> 参数。后者将优先于前者。这里是一个例子：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用由库提供的配置的默认值来创建实例</span></span><br><span class="line"><span class="comment">// 此时超时配置的默认值是 `0`</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 覆写库的超时默认值</span></span><br><span class="line"><span class="comment">// 现在，在超时前，所有请求都会等待 2.5 秒</span></span><br><span class="line">instance.defaults.timeout = <span class="number">2500</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为已知需要花费很长时间的请求覆写超时设置</span></span><br><span class="line">instance.get(<span class="string">'/longRequest'</span>, &#123;</span><br><span class="line">  timeout: <span class="number">5000</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><p>在请求或响应被 <code>then</code> 或 <code>catch</code> 处理前拦截它们。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 添加请求拦截器</span></span><br><span class="line">axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 在发送请求之前做些什么</span></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对请求错误做些什么</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//  添加响应拦截器</span></span><br><span class="line">axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对响应数据做点什么</span></span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对响应错误做点什么</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-<p>如果你想在稍后移除拦截器，可以这样：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> myInterceptor = axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">/*...*/</span>&#125;);</span><br><span class="line">axios.interceptors.request.eject(myInterceptor);</span><br></pre></td></tr></table></figure>
-<p>可以为自定义 axios 实例添加拦截器</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.create();</span><br><span class="line">instance.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">/*...*/</span>&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (error.response) &#123;</span><br><span class="line">      <span class="comment">// 请求已发出，但服务器响应的状态码不在 2xx 范围内</span></span><br><span class="line">      <span class="built_in">console</span>.log(error.response.data);</span><br><span class="line">      <span class="built_in">console</span>.log(error.response.status);</span><br><span class="line">      <span class="built_in">console</span>.log(error.response.headers);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (error.request) &#123;</span><br><span class="line">      <span class="comment">// 请求被提出，但没有接收到响应</span></span><br><span class="line">      <span class="comment">// `error.request`是在浏览器中一个XMLHttpRequest的实例和node.js中http.ClientRequest的实例</span></span><br><span class="line">      <span class="built_in">console</span>.log(error.request);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 设置触发错误</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'Error'</span>, error.message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(error.config);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-<p>您可以使用 <code>validateStatus</code> 配置选项定义一个自定义 <code>HTTP</code> 状态码的错误范围。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  validateStatus: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> status &lt; <span class="number">500</span>; <span class="comment">// 仅当状态码大于或等于500时才拒绝</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="取消"><a href="#取消" class="headerlink" title="取消"></a>取消</h2><p>使用 <em>cancel token</em> 取消请求</p>
-<blockquote>
-<p>Axios 的 cancel token API 基于<a href="https://github.com/tc39/proposal-cancelable-promises" target="_blank" rel="noopener">cancelable promises proposal</a>，它还处于第一阶段。</p>
-</blockquote>
-<p>可以使用 <code>CancelToken.source</code> 工厂创建取消令牌，如下所示：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> CancelToken = axios.CancelToken;</span><br><span class="line"><span class="keyword">const</span> source = CancelToken.source();</span><br><span class="line"></span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  cancelToken: source.token</span><br><span class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">thrown</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (axios.isCancel(thrown)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Request canceled'</span>, thrown.message);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 处理错误</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">axios.post(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  name: <span class="string">'new name'</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">  cancelToken: source.token</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消请求（消息参数是可选的）</span></span><br><span class="line">source.cancel(<span class="string">'Operation canceled by the user.'</span>);</span><br></pre></td></tr></table></figure>
-<p>还可以通过传递一个 executor 函数到 <code>CancelToken</code> 的构造函数来创建 cancel token：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> CancelToken = axios.CancelToken;</span><br><span class="line"><span class="keyword">let</span> cancel;</span><br><span class="line"></span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  cancelToken: <span class="keyword">new</span> CancelToken(<span class="function"><span class="keyword">function</span> <span class="title">executor</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// executor 函数接收一个 cancel 函数作为参数</span></span><br><span class="line">    cancel = c;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消请求</span></span><br><span class="line">cancel();</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意: 可以使用同一个 cancel token 取消多个请求</p>
-</blockquote>
-<h2 id="使用-application-x-www-form-urlencoded-格式"><a href="#使用-application-x-www-form-urlencoded-格式" class="headerlink" title="使用 application/x-www-form-urlencoded 格式"></a>使用 application/x-www-form-urlencoded 格式</h2><p>默认情况下，axios将JavaScript对象序列化为JSON。要以<code>application/x-www-form-urlencoded</code> 格式发送数据，您可以使用以下选项之一。</p>
-<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>在浏览器中，您可以使用以下<a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener"><code>URLSearchParams</code></a> API:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> params = <span class="keyword">new</span> URLSearchParams();</span><br><span class="line">params.append(<span class="string">'param1'</span>, <span class="string">'value1'</span>);</span><br><span class="line">params.append(<span class="string">'param2'</span>, <span class="string">'value2'</span>);</span><br><span class="line">axios.post(<span class="string">'/foo'</span>, params);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>请注意， <code>URLSearchParams</code> 并非所有浏览器都支持(请参阅 <a href="http://www.caniuse.com/#feat=urlsearchparams" target="_blank" rel="noopener">caniuse.com</a>), 但可以使用 <a href="https://github.com/WebReflection/url-search-params" target="_blank" rel="noopener">polyfill</a>(请确保填充全局环境)。<br>或者，您可以使用<a href="https://github.com/ljharb/qs" target="_blank" rel="noopener"><code>qs</code></a> 库对数据进行编码：</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> qs = <span class="built_in">require</span>(<span class="string">'qs'</span>);</span><br><span class="line">axios.post(<span class="string">'/foo'</span>, qs.stringify(&#123; <span class="string">'bar'</span>: <span class="number">123</span> &#125;));</span><br></pre></td></tr></table></figure>
-<p>或者以另一种方式（ES6），</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">'qs'</span>;</span><br><span class="line"><span class="keyword">const</span> data = &#123; <span class="string">'bar'</span>: <span class="number">123</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  method: <span class="string">'POST'</span>,</span><br><span class="line">  headers: &#123; <span class="string">'content-type'</span>: <span class="string">'application/x-www-form-urlencoded'</span> &#125;,</span><br><span class="line">  data: qs.stringify(data),</span><br><span class="line">  url,</span><br><span class="line">&#125;;</span><br><span class="line">axios(options);</span><br></pre></td></tr></table></figure>
-<h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>在node.js中，您可以<a href="https://nodejs.org/api/querystring.html" target="_blank" rel="noopener"><code>querystring</code></a>按如下方式使用模块：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">'querystring'</span>);</span><br><span class="line">axios.post(<span class="string">'http://something.com/'</span>, querystring.stringify(&#123; <span class="attr">foo</span>: <span class="string">'bar'</span> &#125;));</span><br></pre></td></tr></table></figure>
-<p>您也可以使用该<a href="https://github.com/ljharb/qs" target="_blank" rel="noopener"><code>qs</code></a>库.</p>
-<h2 id="Semver"><a href="#Semver" class="headerlink" title="Semver"></a>Semver</h2><p>在axios达到<code>1.0</code> 发布之前，将通过新的次要版本发布重大更改。例如 <code>0.5.1</code>, 和 <code>0.5.4</code>将具有相同的API, 但 <code>0.6.0</code> 会有重大更改。</p>
-<h2 id="承诺"><a href="#承诺" class="headerlink" title="承诺"></a>承诺</h2><p>aaxios依赖于原生ES6 Promise实现的<a href="http://caniuse.com/promises" target="_blank" rel="noopener">支持</a>。如果您的环境不支持ES6 Promise，则可以<a href="https://github.com/jakearchibald/es6-promise" target="_blank" rel="noopener">polyfill</a>。</p>
-<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p>axios包括<a href="http://typescriptlang.org" target="_blank" rel="noopener">TypeScript</a>定义。<br><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>;</span><br><span class="line">axios.get(<span class="string">'/user?ID=12345'</span>);</span><br></pre></td></tr></table></figure></p>
-<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
-<li><a href="https://github.com/axios/axios/blob/master/CHANGELOG.md" target="_blank" rel="noopener">更新日志</a></li>
-<li><a href="https://github.com/axios/axios/blob/master/UPGRADE_GUIDE.md" target="_blank" rel="noopener">升级指南</a></li>
-<li><a href="https://github.com/axios/axios/blob/master/ECOSYSTEM.md" target="_blank" rel="noopener">生态系统</a></li>
-<li><a href="https://github.com/axios/axios/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener">C参与指南</a></li>
-<li><a href="https://github.com/axios/axios/blob/master/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">行为守则</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>翻译</category>
-        <category>README</category>
-      </categories>
-      <tags>
-        <tag>axios</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker命令大全整理</title>
     <url>/2019/04/24/Docker%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%E6%95%B4%E7%90%86/</url>
     <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Docker命令大全整理/1-2023-03-06-10-00-30.jpg" alt="1-2023-03-06-10-00-30"></p>
@@ -392,10 +256,10 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">runoob@runoob:~$ docker exec -i -t  mynginx /bin/bash</span><br><span class="line">root@b1a0703e41e7:/#</span><br></pre></td></tr></table></figure>
 <p>也可以通过<code>docker ps -a</code> 命令查看已经在运行的容器，然后使用容器 ID 进入容器。</p>
 <p>查看已经在运行的容器 ID：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker ps -a </span></span><br><span class="line">...</span><br><span class="line">9df70f9a0714     openjdk        "/usercode/script.sh…" </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> docker ps -a </span><br><span class="line">...</span><br><span class="line">9df70f9a0714     openjdk        "/usercode/script.sh…" </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>第一列的 9df70f9a0714 就是容器 ID</p>
 <p>通过 exec 命令对指定的容器执行 bash:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> docker <span class="built_in">exec</span> -it 9df70f9a0714 /bin/bash</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> docker exec -it 9df70f9a0714 /bin/bash</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="rqcz">容器操作</h2>
 
@@ -776,9 +640,9 @@
 <p>使用URL github.com/creack/docker-firefox 的 Dockerfile 创建镜像。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker build github.com/creack/docker-firefox</span><br></pre></td></tr></table></figure>
 <p>也可以通过 -f Dockerfile 文件的位置：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker build -f /path/to/a/Dockerfile .</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker build -f /path/to/a/Dockerfile .</span><br></pre></td></tr></table></figure>
 <p>在 Docker 守护进程执行 Dockerfile 中的指令前，首先会对 Dockerfile 进行语法检查，有语法错误时会返回：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker build -t <span class="built_in">test</span>/myapp .</span></span><br><span class="line">Sending build context to Docker daemon 2.048 kB</span><br><span class="line">Error response from daemon: Unknown instruction: RUNCMD</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker build -t test/myapp .</span><br><span class="line">Sending build context to Docker daemon 2.048 kB</span><br><span class="line">Error response from daemon: Unknown instruction: RUNCMD</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="history">Docker history 命令</h3>
 
@@ -839,7 +703,7 @@
 </blockquote>
 <p><strong>实例</strong></p>
 <p>查看docker系统信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker info</span></span><br><span class="line">Containers: 12</span><br><span class="line">Images: 41</span><br><span class="line">Storage Driver: aufs</span><br><span class="line"> Root Dir: /var/lib/docker/aufs</span><br><span class="line"> Backing Filesystem: extfs</span><br><span class="line"> Dirs: 66</span><br><span class="line"> Dirperm1 Supported: false</span><br><span class="line">Execution Driver: native-0.2</span><br><span class="line">Logging Driver: json-file</span><br><span class="line">Kernel Version: 3.13.0-32-generic</span><br><span class="line">Operating System: Ubuntu 14.04.1 LTS</span><br><span class="line">CPUs: 1</span><br><span class="line">Total Memory: 1.954 GiB</span><br><span class="line">Name: iZ23mtq8bs1Z</span><br><span class="line">ID: M5N4:K6WN:PUNC:73ZN:AONJ:AUHL:KSYH:2JPI:CH3K:O4MK:6OCX:5OYW</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker info</span><br><span class="line">Containers: 12</span><br><span class="line">Images: 41</span><br><span class="line">Storage Driver: aufs</span><br><span class="line"> Root Dir: /var/lib/docker/aufs</span><br><span class="line"> Backing Filesystem: extfs</span><br><span class="line"> Dirs: 66</span><br><span class="line"> Dirperm1 Supported: false</span><br><span class="line">Execution Driver: native-0.2</span><br><span class="line">Logging Driver: json-file</span><br><span class="line">Kernel Version: 3.13.0-32-generic</span><br><span class="line">Operating System: Ubuntu 14.04.1 LTS</span><br><span class="line">CPUs: 1</span><br><span class="line">Total Memory: 1.954 GiB</span><br><span class="line">Name: iZ23mtq8bs1Z</span><br><span class="line">ID: M5N4:K6WN:PUNC:73ZN:AONJ:AUHL:KSYH:2JPI:CH3K:O4MK:6OCX:5OYW</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="version">Docker version 命令</h3>
 
@@ -854,7 +718,7 @@
 </ul>
 <p><strong>实例</strong></p>
 <p>显示 Docker 版本信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker version</span></span><br><span class="line">Client:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> docker version</span><br><span class="line">Client:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Version:      1.8.2</span><br><span class="line"> API version:  1.20</span><br><span class="line"> Go version:   go1.4.2</span><br><span class="line"> Git commit:   0a8c2e3</span><br><span class="line"> Built:        Thu Sep 10 19:19:00 UTC 2015</span><br><span class="line"> OS/Arch:      linux/amd64</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Docker</category>
@@ -862,6 +726,142 @@
       <tags>
         <tag>Docker</tag>
         <tag>命令</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Axios基本使用说明</title>
+    <url>/2018/04/11/Axios%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<h1 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h1><p><a href="https://www.npmjs.org/package/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/axios.svg?style=flat-square" alt="npm version"></a><a href="https://travis-ci.org/axios/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/travis/axios/axios.svg?style=flat-square" alt="build status"></a><a href="https://coveralls.io/r/mzabriskie/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/coveralls/mzabriskie/axios.svg?style=flat-square" alt="code coverage"></a><a href="http://npm-stat.com/charts.html?package=axios" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/dm/axios.svg?style=flat-square" alt="npm downloads"></a><a href="https://gitter.im/mzabriskie/axios" target="_blank" rel="noopener"><img src="https://img.shields.io/gitter/room/mzabriskie/axios.svg?style=flat-square" alt="gitter chat"></a><a href="https://www.codetriage.com/axios/axios" target="_blank" rel="noopener"><img src="https://www.codetriage.com/axios/axios/badges/users.svg" alt="code helpers"></a></p>
+<p>Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。</p>
+<a id="more"></a>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>从浏览器中创建 <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank" rel="noopener">XMLHttpRequests</a></li>
+<li>从 node.js 创建 <a href="http://nodejs.org/api/http.html" target="_blank" rel="noopener">http</a> 请求</li>
+<li>支持 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promise</a> API</li>
+<li>拦截请求和响应</li>
+<li>转换请求数据和响应数据</li>
+<li>取消请求</li>
+<li>自动转换 JSON 数据</li>
+<li>客户端支持防御 <a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener">XSRF</a></li>
+</ul>
+<h2 id="浏览器支持"><a href="#浏览器支持" class="headerlink" title="浏览器支持"></a>浏览器支持</h2><table>
+<thead>
+<tr>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge"></th>
+<th><img src="https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>Latest ✔</td>
+<td>8+ ✔</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://saucelabs.com/u/axios" target="_blank" rel="noopener"><img src="https://saucelabs.com/open_sauce/build_matrix/axios.svg" alt="Browser Matrix"></a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用 npm:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install axios</span><br></pre></td></tr></table></figure>
+<p>使用 bower:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bower install axios</span><br></pre></td></tr></table></figure>
+<p>使用 cdn:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/axios/dist/axios.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>执行 <code>GET</code> 请求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 为给定 ID 的 user 创建请求</span></span><br><span class="line">axios.get(<span class="string">'/user?ID=12345'</span>)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可选地，上面的请求可以这样做</span></span><br><span class="line">axios.get(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    params: &#123;</span><br><span class="line">      ID: <span class="number">12345</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 想使用异步/等待？将`async`关键字添加到外部函数/方法中。</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getUser</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.get(<span class="string">'/user?ID=12345'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意:</strong> async/await是ECMAScript 2017的一部分，在Internet Explorer和旧版浏览器中不支持，因此请谨慎使用。</p>
+</blockquote>
+<p>执行 <code>POST</code> 请求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.post(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>执行多个并发请求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserAccount</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserPermissions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> axios.get(<span class="string">'/user/12345/permissions'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">axios.all([getUserAccount(), getUserPermissions()])</span><br><span class="line">  .then(axios.spread(<span class="function"><span class="keyword">function</span> (<span class="params">acct, perms</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//两个请求均已完成</span></span><br><span class="line">  &#125;));</span><br></pre></td></tr></table></figure>
+<h2 id="axios-API"><a href="#axios-API" class="headerlink" title="axios API"></a>axios API</h2><p>请求可以通过传递相关配置来完成 <code>axios</code>.</p>
+<p><strong>axios(config)</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 发送一个POST请求</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method: <span class="string">'post'</span>,</span><br><span class="line">  url: <span class="string">'/user/12345'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span>,</span><br><span class="line">    lastName: <span class="string">'Flintstone'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// GET请求远程图像</span></span><br><span class="line">axios(&#123;</span><br><span class="line">  method:<span class="string">'get'</span>,</span><br><span class="line">  url:<span class="string">'http://bit.ly/2mTM3nY'</span>,</span><br><span class="line">  responseType:<span class="string">'stream'</span></span><br><span class="line">&#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">  response.data.pipe(fs.createWriteStream(<span class="string">'ada_lovelace.jpg'</span>))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>axios(url[, config])</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 发送GET请求（默认方法）</span></span><br><span class="line">axios(<span class="string">'/user/12345'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="请求方法别名"><a href="#请求方法别名" class="headerlink" title="请求方法别名"></a>请求方法别名</h2><p>为方便起见，为所有支持的请求方法提供了别名</p>
+<p><strong>axios.request(config)</strong><br><strong>axios.get(url[, config])</strong><br><strong>axios.delete(url[, config])</strong><br><strong>axios.head(url[, config])</strong><br><strong>axios.options(url[, config])</strong><br><strong>axios.post(url[, data[, config]])</strong><br><strong>axios.put(url[, data[, config]])</strong><br><strong>axios.patch(url[, data[, config]])</strong></p>
+<blockquote>
+<p>注意: 在使用别名方法时， url、method、data 这些属性都不必在配置中指定。</p>
+</blockquote>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>处理并发请求的助手函数</p>
+<p><strong>axios.all(iterable)</strong><br><strong>axios.spread(callback)</strong></p>
+<h3 id="创建一个实例"><a href="#创建一个实例" class="headerlink" title="创建一个实例"></a>创建一个实例</h3><p>您可以使用自定义配置创建一个新的axios实例。</p>
+<p><strong>axios.create([config])</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line">  timeout: <span class="number">1000</span>,</span><br><span class="line">  headers: &#123;<span class="string">'X-Custom-Header'</span>: <span class="string">'foobar'</span>&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><p>以下是可用的实例方法。指定的配置将与实例的配置合并</p>
+<p><strong>axios#request(config)</strong><br><strong>axios#get(url[, config])</strong><br><strong>axios#delete(url[, config])</strong><br><strong>axios#head(url[, config])</strong><br><strong>axios#options(url[, config])</strong><br><strong>axios#post(url[, data[, config]])</strong><br><strong>axios#put(url[, data[, config]])</strong><br><strong>axios#patch(url[, data[, config]])</strong></p>
+<h2 id="请求配置"><a href="#请求配置" class="headerlink" title="请求配置"></a>请求配置</h2><p>这些是创建请求时可以用的配置选项。只有 <code>url</code> 是必需的。如果没有指定 <code>method</code>，请求将默认使用 <code>get</code> 方法。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// `url` 是用于请求的服务器 URL</span></span><br><span class="line">  url: <span class="string">'/user'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `method` 是创建请求时使用的方法</span></span><br><span class="line">  method: <span class="string">'get'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。</span></span><br><span class="line">  <span class="comment">// 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL</span></span><br><span class="line">  baseURL: <span class="string">'https://some-domain.com/api/'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `transformRequest` 允许在向服务器发送前，修改请求数据</span></span><br><span class="line">  <span class="comment">// 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法</span></span><br><span class="line">  <span class="comment">// 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream</span></span><br><span class="line">  <span class="comment">// 您可以修改headers对象。</span></span><br><span class="line">  transformRequest: [<span class="function"><span class="keyword">function</span> (<span class="params">data, headers</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对 data 进行任意转换处理</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">  &#125;],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `transformResponse` 在传递给 then/catch 前，允许修改响应数据</span></span><br><span class="line">  transformResponse: [<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对 data 进行任意转换处理</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">  &#125;],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `headers` 是即将被发送的自定义请求头</span></span><br><span class="line">  headers: &#123;<span class="string">'X-Requested-With'</span>: <span class="string">'XMLHttpRequest'</span>&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `params`  是即将与请求一起发送的 URL 参数</span></span><br><span class="line">  <span class="comment">// 必须是一个普通对象(plain object)或 URLSearchParams 对象</span></span><br><span class="line">  params: &#123;</span><br><span class="line">    ID: <span class="number">12345</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `paramsSerializer` 是一个负责 `params` 序列化的函数</span></span><br><span class="line">  <span class="comment">// (例如： https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)</span></span><br><span class="line">  paramsSerializer: <span class="function"><span class="keyword">function</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Qs.stringify(params, &#123;<span class="attr">arrayFormat</span>: <span class="string">'brackets'</span>&#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `data` 是作为请求主体被发送的数据</span></span><br><span class="line">  <span class="comment">// 只适用于这些请求方法 'PUT', 'POST', 和 'PATCH'</span></span><br><span class="line">  <span class="comment">// 在没有设置 `transformRequest` 时，必须是以下类型之一：</span></span><br><span class="line">  <span class="comment">// - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams</span></span><br><span class="line">  <span class="comment">// - 浏览器专属： FormData, File, Blob</span></span><br><span class="line">  <span class="comment">// - Node专属: Stream, Buffer</span></span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName: <span class="string">'Fred'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)</span></span><br><span class="line">  <span class="comment">// 如果请求话费了超过 `timeout` 的时间，请求将被中断</span></span><br><span class="line">  timeout: <span class="number">1000</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `withCredentials` 表示跨域请求时是否需要使用凭证</span></span><br><span class="line">  withCredentials: <span class="literal">false</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `adapter` 允许自定义处理请求，以使测试更轻松</span></span><br><span class="line">  <span class="comment">// 返回一个 promise 并应用一个有效的响应</span></span><br><span class="line">  adapter: <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `auth` 表示应该使用 HTTP 基础验证，并提供凭据</span></span><br><span class="line">  <span class="comment">// 这将设置一个 `Authorization` 头，覆写掉现有的任意使用 `headers` 设置的自定义 `Authorization`头</span></span><br><span class="line">  auth: &#123;</span><br><span class="line">    username: <span class="string">'janedoe'</span>,</span><br><span class="line">    password: <span class="string">'s00pers3cret'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `responseType` 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'</span></span><br><span class="line">  responseType: <span class="string">'json'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `responseEncoding` 表示用于解码响应的编码</span></span><br><span class="line">  <span class="comment">// 注意：忽略'stream'或客户端请求的`responseType`</span></span><br><span class="line">  responseEncoding: <span class="string">'utf8'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称</span></span><br><span class="line">  xsrfCookieName: <span class="string">'XSRF-TOKEN'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `xsrfHeaderName` 是承载 xsrf token 的值的 HTTP 头的名称</span></span><br><span class="line">  xsrfHeaderName: <span class="string">'X-XSRF-TOKEN'</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `onUploadProgress` 允许为上传处理进度事件</span></span><br><span class="line">  onUploadProgress: <span class="function"><span class="keyword">function</span> (<span class="params">progressEvent</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对原生进度事件的处理</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `onDownloadProgress` 允许为下载处理进度事件</span></span><br><span class="line">  onDownloadProgress: <span class="function"><span class="keyword">function</span> (<span class="params">progressEvent</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对原生进度事件的处理</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `maxContentLength` 定义允许的响应内容的最大尺寸</span></span><br><span class="line">  maxContentLength: <span class="number">2000</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `validateStatus` 定义对于给定的HTTP 响应状态码是 resolve 或 reject  promise 。</span></span><br><span class="line">  <span class="comment">// 如果 `validateStatus` 返回 `true` (或者设置为 `null` 或 `undefined`)，</span></span><br><span class="line">  <span class="comment">// promise 将被 resolve; 否则，promise 将被 rejecte</span></span><br><span class="line">  validateStatus: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>; <span class="comment">// 默认</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `maxRedirects` 定义在 node.js 中遵循的最大重定向数目</span></span><br><span class="line">  <span class="comment">// 如果设置为0，将不会 follow 任何重定向</span></span><br><span class="line">  maxRedirects: <span class="number">5</span>, <span class="comment">// default</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `socketPath` 定义了一个在Socket.js中使用的UNIX套接字。</span></span><br><span class="line">  <span class="comment">// 例如'/var/run/docker.sock'发送请求到docker守护进程。</span></span><br><span class="line">  <span class="comment">// 只能指定`socketPath`或`proxy`。</span></span><br><span class="line">  <span class="comment">// 如果两者都指定，则使用`socketPath`。</span></span><br><span class="line">  socketPath: <span class="literal">null</span>, <span class="comment">// 默认</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// `httpAgent` 和 `httpsAgent` 分别在 node.js 中用于定义在执行 http 和 https 时使用的自定义代理。允许像这样配置选项：</span></span><br><span class="line">  <span class="comment">// `keepAlive` 默认没有启用</span></span><br><span class="line">  httpAgent: <span class="keyword">new</span> http.Agent(&#123; <span class="attr">keepAlive</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">  httpsAgent: <span class="keyword">new</span> https.Agent(&#123; <span class="attr">keepAlive</span>: <span class="literal">true</span> &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 'proxy' 定义代理服务器的主机名称和端口</span></span><br><span class="line">  <span class="comment">// 使用'false'来禁用代理，忽略环境变量。</span></span><br><span class="line">  <span class="comment">// `auth` 表示 HTTP 基础验证应当用于连接代理，并提供凭据</span></span><br><span class="line">  <span class="comment">// 这将会设置一个 `Proxy-Authorization` 头，覆写掉已有的通过使用 `header` 设置的自定义 `Proxy-Authorization` 头。</span></span><br><span class="line">  proxy: &#123;</span><br><span class="line">    host: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">    port: <span class="number">9000</span>,</span><br><span class="line">    auth: &#123;</span><br><span class="line">      username: <span class="string">'mikeymike'</span>,</span><br><span class="line">      password: <span class="string">'rapunz3l'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `cancelToken` 指定用于取消请求的 cancel token</span></span><br><span class="line">  <span class="comment">// （查看后面的 Cancellation 这节了解更多）</span></span><br><span class="line">  cancelToken: <span class="keyword">new</span> CancelToken(<span class="function"><span class="keyword">function</span> (<span class="params">cancel</span>) </span>&#123;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="响应结构"><a href="#响应结构" class="headerlink" title="响应结构"></a>响应结构</h2><p>某个请求的响应包含以下信息</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// `data` 由服务器提供的响应</span></span><br><span class="line">  data: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `status` 来自服务器响应的 HTTP 状态码</span></span><br><span class="line">  status: <span class="number">200</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `statusText` 来自服务器响应的 HTTP 状态信息</span></span><br><span class="line">  statusText: <span class="string">'OK'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `headers` t服务器响应的头</span></span><br><span class="line">  <span class="comment">// 所有的 header 都是小写</span></span><br><span class="line">  headers: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `config` 是为请求提供给`axios`的配置</span></span><br><span class="line">  config: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// `request` 是生成此响应的请求</span></span><br><span class="line">  <span class="comment">// 它是node.js中的最后一个ClientRequest实例和浏览器请求的XMLHttpRequest实例</span></span><br><span class="line">  request: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>then</code> 时，你将接收下面这样的响应：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response.data);</span><br><span class="line">    <span class="built_in">console</span>.log(response.status);</span><br><span class="line">    <span class="built_in">console</span>.log(response.statusText);</span><br><span class="line">    <span class="built_in">console</span>.log(response.headers);</span><br><span class="line">    <span class="built_in">console</span>.log(response.config);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>在使用 <code>catch</code> 时，或传递<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then" target="_blank" rel="noopener">rejection callback</a> 作为 <code>then</code> 的第二个参数时, 响应可以通过 <code>error</code> 对象可被使用，正如在<a href="#错误处理">错误处理</a> 这一节所讲.</p>
+<h2 id="配置的默认值-defaults"><a href="#配置的默认值-defaults" class="headerlink" title="配置的默认值/defaults"></a>配置的默认值/defaults</h2><p>你可以指定将被用在各个请求的配置默认值</p>
+<h3 id="全局axios默认值"><a href="#全局axios默认值" class="headerlink" title="全局axios默认值"></a>全局axios默认值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.defaults.baseURL = <span class="string">'https://api.example.com'</span>;</span><br><span class="line">axios.defaults.headers.common[<span class="string">'Authorization'</span>] = AUTH_TOKEN;</span><br><span class="line">axios.defaults.headers.post[<span class="string">'Content-Type'</span>] = <span class="string">'application/x-www-form-urlencoded'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="自定义实例默认值"><a href="#自定义实例默认值" class="headerlink" title="自定义实例默认值"></a>自定义实例默认值</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建实例时设置配置的默认值</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  baseURL: <span class="string">'https://api.example.com'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在实例已创建后修改默认值</span></span><br><span class="line">instance.defaults.headers.common[<span class="string">'Authorization'</span>] = AUTH_TOKEN;</span><br></pre></td></tr></table></figure>
+<h3 id="配置的优先顺序"><a href="#配置的优先顺序" class="headerlink" title="配置的优先顺序"></a>配置的优先顺序</h3><p>配置会以一个优先顺序进行合并。这个顺序是：在 <a href="https://github.com/axios/axios/blob/master/lib/defaults.js#L28" target="_blank" rel="noopener">lib/defaults.js</a>找到的库的默认值，然后是实例的 <code>defaults</code> 属性，最后是请求的 <code>config</code> 参数。后者将优先于前者。这里是一个例子：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用由库提供的配置的默认值来创建实例</span></span><br><span class="line"><span class="comment">// 此时超时配置的默认值是 `0`</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 覆写库的超时默认值</span></span><br><span class="line"><span class="comment">// 现在，在超时前，所有请求都会等待 2.5 秒</span></span><br><span class="line">instance.defaults.timeout = <span class="number">2500</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为已知需要花费很长时间的请求覆写超时设置</span></span><br><span class="line">instance.get(<span class="string">'/longRequest'</span>, &#123;</span><br><span class="line">  timeout: <span class="number">5000</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><p>在请求或响应被 <code>then</code> 或 <code>catch</code> 处理前拦截它们。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 添加请求拦截器</span></span><br><span class="line">axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 在发送请求之前做些什么</span></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对请求错误做些什么</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//  添加响应拦截器</span></span><br><span class="line">axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对响应数据做点什么</span></span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对响应错误做点什么</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>如果你想在稍后移除拦截器，可以这样：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> myInterceptor = axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">/*...*/</span>&#125;);</span><br><span class="line">axios.interceptors.request.eject(myInterceptor);</span><br></pre></td></tr></table></figure>
+<p>可以为自定义 axios 实例添加拦截器</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.create();</span><br><span class="line">instance.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;<span class="comment">/*...*/</span>&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (error.response) &#123;</span><br><span class="line">      <span class="comment">// 请求已发出，但服务器响应的状态码不在 2xx 范围内</span></span><br><span class="line">      <span class="built_in">console</span>.log(error.response.data);</span><br><span class="line">      <span class="built_in">console</span>.log(error.response.status);</span><br><span class="line">      <span class="built_in">console</span>.log(error.response.headers);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (error.request) &#123;</span><br><span class="line">      <span class="comment">// 请求被提出，但没有接收到响应</span></span><br><span class="line">      <span class="comment">// `error.request`是在浏览器中一个XMLHttpRequest的实例和node.js中http.ClientRequest的实例</span></span><br><span class="line">      <span class="built_in">console</span>.log(error.request);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 设置触发错误</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'Error'</span>, error.message);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(error.config);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>您可以使用 <code>validateStatus</code> 配置选项定义一个自定义 <code>HTTP</code> 状态码的错误范围。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  validateStatus: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> status &lt; <span class="number">500</span>; <span class="comment">// 仅当状态码大于或等于500时才拒绝</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="取消"><a href="#取消" class="headerlink" title="取消"></a>取消</h2><p>使用 <em>cancel token</em> 取消请求</p>
+<blockquote>
+<p>Axios 的 cancel token API 基于<a href="https://github.com/tc39/proposal-cancelable-promises" target="_blank" rel="noopener">cancelable promises proposal</a>，它还处于第一阶段。</p>
+</blockquote>
+<p>可以使用 <code>CancelToken.source</code> 工厂创建取消令牌，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> CancelToken = axios.CancelToken;</span><br><span class="line"><span class="keyword">const</span> source = CancelToken.source();</span><br><span class="line"></span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  cancelToken: source.token</span><br><span class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">thrown</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (axios.isCancel(thrown)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Request canceled'</span>, thrown.message);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 处理错误</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">axios.post(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  name: <span class="string">'new name'</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">  cancelToken: source.token</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消请求（消息参数是可选的）</span></span><br><span class="line">source.cancel(<span class="string">'Operation canceled by the user.'</span>);</span><br></pre></td></tr></table></figure>
+<p>还可以通过传递一个 executor 函数到 <code>CancelToken</code> 的构造函数来创建 cancel token：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> CancelToken = axios.CancelToken;</span><br><span class="line"><span class="keyword">let</span> cancel;</span><br><span class="line"></span><br><span class="line">axios.get(<span class="string">'/user/12345'</span>, &#123;</span><br><span class="line">  cancelToken: <span class="keyword">new</span> CancelToken(<span class="function"><span class="keyword">function</span> <span class="title">executor</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// executor 函数接收一个 cancel 函数作为参数</span></span><br><span class="line">    cancel = c;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消请求</span></span><br><span class="line">cancel();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意: 可以使用同一个 cancel token 取消多个请求</p>
+</blockquote>
+<h2 id="使用-application-x-www-form-urlencoded-格式"><a href="#使用-application-x-www-form-urlencoded-格式" class="headerlink" title="使用 application/x-www-form-urlencoded 格式"></a>使用 application/x-www-form-urlencoded 格式</h2><p>默认情况下，axios将JavaScript对象序列化为JSON。要以<code>application/x-www-form-urlencoded</code> 格式发送数据，您可以使用以下选项之一。</p>
+<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>在浏览器中，您可以使用以下<a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener"><code>URLSearchParams</code></a> API:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> params = <span class="keyword">new</span> URLSearchParams();</span><br><span class="line">params.append(<span class="string">'param1'</span>, <span class="string">'value1'</span>);</span><br><span class="line">params.append(<span class="string">'param2'</span>, <span class="string">'value2'</span>);</span><br><span class="line">axios.post(<span class="string">'/foo'</span>, params);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>请注意， <code>URLSearchParams</code> 并非所有浏览器都支持(请参阅 <a href="http://www.caniuse.com/#feat=urlsearchparams" target="_blank" rel="noopener">caniuse.com</a>), 但可以使用 <a href="https://github.com/WebReflection/url-search-params" target="_blank" rel="noopener">polyfill</a>(请确保填充全局环境)。<br>或者，您可以使用<a href="https://github.com/ljharb/qs" target="_blank" rel="noopener"><code>qs</code></a> 库对数据进行编码：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> qs = <span class="built_in">require</span>(<span class="string">'qs'</span>);</span><br><span class="line">axios.post(<span class="string">'/foo'</span>, qs.stringify(&#123; <span class="string">'bar'</span>: <span class="number">123</span> &#125;));</span><br></pre></td></tr></table></figure>
+<p>或者以另一种方式（ES6），</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">'qs'</span>;</span><br><span class="line"><span class="keyword">const</span> data = &#123; <span class="string">'bar'</span>: <span class="number">123</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  method: <span class="string">'POST'</span>,</span><br><span class="line">  headers: &#123; <span class="string">'content-type'</span>: <span class="string">'application/x-www-form-urlencoded'</span> &#125;,</span><br><span class="line">  data: qs.stringify(data),</span><br><span class="line">  url,</span><br><span class="line">&#125;;</span><br><span class="line">axios(options);</span><br></pre></td></tr></table></figure>
+<h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>在node.js中，您可以<a href="https://nodejs.org/api/querystring.html" target="_blank" rel="noopener"><code>querystring</code></a>按如下方式使用模块：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">'querystring'</span>);</span><br><span class="line">axios.post(<span class="string">'http://something.com/'</span>, querystring.stringify(&#123; <span class="attr">foo</span>: <span class="string">'bar'</span> &#125;));</span><br></pre></td></tr></table></figure>
+<p>您也可以使用该<a href="https://github.com/ljharb/qs" target="_blank" rel="noopener"><code>qs</code></a>库.</p>
+<h2 id="Semver"><a href="#Semver" class="headerlink" title="Semver"></a>Semver</h2><p>在axios达到<code>1.0</code> 发布之前，将通过新的次要版本发布重大更改。例如 <code>0.5.1</code>, 和 <code>0.5.4</code>将具有相同的API, 但 <code>0.6.0</code> 会有重大更改。</p>
+<h2 id="承诺"><a href="#承诺" class="headerlink" title="承诺"></a>承诺</h2><p>aaxios依赖于原生ES6 Promise实现的<a href="http://caniuse.com/promises" target="_blank" rel="noopener">支持</a>。如果您的环境不支持ES6 Promise，则可以<a href="https://github.com/jakearchibald/es6-promise" target="_blank" rel="noopener">polyfill</a>。</p>
+<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p>axios包括<a href="http://typescriptlang.org" target="_blank" rel="noopener">TypeScript</a>定义。<br><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>;</span><br><span class="line">axios.get(<span class="string">'/user?ID=12345'</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
+<li><a href="https://github.com/axios/axios/blob/master/CHANGELOG.md" target="_blank" rel="noopener">更新日志</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/UPGRADE_GUIDE.md" target="_blank" rel="noopener">升级指南</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/ECOSYSTEM.md" target="_blank" rel="noopener">生态系统</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener">C参与指南</a></li>
+<li><a href="https://github.com/axios/axios/blob/master/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">行为守则</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>翻译</category>
+        <category>README</category>
+      </categories>
+      <tags>
+        <tag>axios</tag>
       </tags>
   </entry>
   <entry>
@@ -1452,61 +1452,23 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac上用QuickTimePlayer和Soundflower插件录制完美视频</title>
-    <url>/2019/04/10/Mac%E4%B8%8A%E7%94%A8QuickTimePlayer%E5%92%8CSoundflower%E6%8F%92%E4%BB%B6%E5%BD%95%E5%88%B6%E5%AE%8C%E7%BE%8E%E8%A7%86%E9%A2%91/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/0-2023-03-06-10-51-48.png" alt="0-2023-03-06-10-51-48"></p>
-<a id="more"></a>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MacOS自带的QuickTime Player录制视频的时候默认是不会有内部视频里的音频的，默认情况下除非你开到最大声，然后通过内置的麦克风“听到”，又录进到视频。这是很傻X的。<br>今天整理了一下可以录制到音视频的两个方法：</p>
-<blockquote>
+    <title>Mac下删除launchpad还有残留图标的应用</title>
+    <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
+<h2 id="打开launchpad"><a href="#打开launchpad" class="headerlink" title="打开launchpad"></a>打开launchpad</h2><p>下列三个放都可以打开launchpad  </p>
 <ol>
-<li>录制只有屏内音频视频的方法  </li>
-<li>录制有屏内音频和屏外声音视频的方法</li>
+<li>fn + F4（F1-F12是正常使用情况）  </li>
+<li>F4（F1-F12使用需要借助fn键使用）  </li>
+<li>四个指头抓一下  </li>
 </ol>
-</blockquote>
-<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><blockquote>
-<p>软件： Soundflower 小插件<br>操作系统：macOS<br>其他：一个聪明的脑袋  </p>
-</blockquote>
-<h2 id="1-下载Soundflower并安装"><a href="#1-下载Soundflower并安装" class="headerlink" title="1. 下载Soundflower并安装"></a>1. 下载<a href="https://github.com/mattingalls/Soundflower/releases" target="_blank" rel="noopener">Soundflower</a>并安装</h2><p>点击上面这个链接，进入GitHub选择下载<code>Soundflower-2.0b2.dmg</code>(版本可能不一样)</p>
-<p>下载完成后，无脑安装，再次期间可能会提示<code>提示来自身份不明的开发者</code>，这个时候不要慌，打开系统偏好设置-&gt;安全性与隐私，选择“仍要打开”（此时我们在“通用”选项卡）</p>
-<p>在这里我们顺便检查一下，QuickTime Player的麦克风权限。打开系统偏好设置-&gt;安全性与隐私-&gt;选择“隐私”选项卡，选择左侧的“麦克风”选项，看右侧的“QuickTime Player”有没有勾上对勾，没有的话把它勾上</p>
-<p>到这里Soundflower基本就算安装好了，接下来开始设置</p>
-<h2 id="2-设置"><a href="#2-设置" class="headerlink" title="2. 设置"></a>2. 设置</h2><p>设置我们需要打开<code>音频 MIDI 设置</code>这个Mac自带的软件：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/1-2023-03-06-10-52-10.png" alt="音频MIDI设置"></p>
-<h3 id="2-1-创建多输出设备并设置"><a href="#2-1-创建多输出设备并设置" class="headerlink" title="2.1 创建多输出设备并设置"></a>2.1 创建<code>多输出设备</code>并设置</h3><p>点击左下角“+”，选择“创建多输出设备”，按如图所示设置：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/2-2023-03-06-10-52-30.png" alt="创建多输出设备"></p>
-<h3 id="2-2-创建只有屏内音频的配置（创建聚集设备）"><a href="#2-2-创建只有屏内音频的配置（创建聚集设备）" class="headerlink" title="2.2 创建只有屏内音频的配置（创建聚集设备）"></a>2.2 创建<code>只有屏内音频</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/3-2023-03-06-10-52-55.png" alt="只有屏内音频"></p>
-<h3 id="2-3-创建屏内音频和屏外声音的配置（创建聚集设备）"><a href="#2-3-创建屏内音频和屏外声音的配置（创建聚集设备）" class="headerlink" title="2.3 创建屏内音频和屏外声音的配置（创建聚集设备）"></a>2.3 创建<code>屏内音频和屏外声音</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/4-2023-03-06-10-53-13.png" alt="屏内音频和屏外声音"></p>
-<h2 id="3-录制"><a href="#3-录制" class="headerlink" title="3. 录制"></a>3. 录制</h2><p>录制时因为分为两种不同的方式，所以在录制是设置稍有不同，我大致总结如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.录制只有内部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器输出：</span><br><span class="line">        多输出设备   ✔️</span><br><span class="line"></span><br><span class="line">2.录制有内外部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内外部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器：</span><br><span class="line">        多输出设备（内外声音结合很好，效果好） ✔️</span><br><span class="line">        内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）  </span><br><span class="line">        刚才建的两个选项（自己听不到声音，但是录完屏后视频内有声音）</span><br></pre></td></tr></table></figure>
-<p>看不懂的同学请往下看</p>
-<h3 id="3-1-录制只有屏内音频视频的方法"><a href="#3-1-录制只有屏内音频视频的方法" class="headerlink" title="3.1 录制只有屏内音频视频的方法"></a>3.1 录制只有屏内音频视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/5-2023-03-06-10-53-47.png" alt="录屏专用-内部音频"></p>
-<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-54-10.png" alt="多输出设备1"></p>
-<p>如果没有小喇叭可以打开系统偏好设置-&gt;声音-&gt;选择输出选项卡，选中“多输出设备”。最后把“在菜单栏中显示音量”选中即可，方便以后使用</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/7-2023-03-06-10-54-29.png" alt="多输出设备2"></p>
-<p>至此，点击开始，录制你的视频吧</p>
-<h3 id="3-2-录制有屏内音频和屏外声音视频的方法"><a href="#3-2-录制有屏内音频和屏外声音视频的方法" class="headerlink" title="3.2 录制有屏内音频和屏外声音视频的方法"></a>3.2 录制有屏内音频和屏外声音视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内外部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/8-2023-03-06-10-54-57.png" alt="录屏专用-内外部音频"></p>
-<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-55-31.png" alt="多输出设备3"></p>
-<p>剩下的其他选项：</p>
-<blockquote>
-<p>内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）<br>刚才建的两个选项(录屏专用-内部音频/录屏专用-内外部音频)，自己听不到声音，但是录完屏后视频内有声音（感觉这个适合用来夜深人静的时候录~）</p>
-</blockquote>
-<p>至此，点击开始，录制你的视频吧</p>
-<h2 id="4-补充"><a href="#4-补充" class="headerlink" title="4. 补充"></a>4. 补充</h2><p>如果同学你机器上装有 <code>homebrew</code> 和 <code>homebrew cask</code>，可以直接用如下命令安装Soundflower：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install soundflower</span><br></pre></td></tr></table></figure>
-]]></content>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h4 id="1-长按control-option-command，看到图标抖动"><a href="#1-长按control-option-command，看到图标抖动" class="headerlink" title="1. 长按control+option+command，看到图标抖动"></a>1. 长按control+option+command，看到图标抖动</h4><h4 id="2-单击待删除图标，图标中心出现白色问号"><a href="#2-单击待删除图标，图标中心出现白色问号" class="headerlink" title="2. 单击待删除图标，图标中心出现白色问号"></a>2. 单击待删除图标，图标中心出现白色问号</h4><h4 id="3-松开按住的三个快捷键（control-option-command）"><a href="#3-松开按住的三个快捷键（control-option-command）" class="headerlink" title="3. 松开按住的三个快捷键（control+option+command）"></a>3. 松开按住的三个快捷键（control+option+command）</h4><h4 id="4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"><a href="#4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除" class="headerlink" title="4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"></a>4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除</h4>]]></content>
       <categories>
         <category>OS</category>
         <category>Mac</category>
       </categories>
       <tags>
-        <tag>Mac</tag>
-        <tag>录视频</tag>
+        <tag>Mac删除</tag>
+        <tag>launchpad</tag>
       </tags>
   </entry>
   <entry>
@@ -1622,47 +1584,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac下删除launchpad还有残留图标的应用</title>
-    <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
-    <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
-<h2 id="打开launchpad"><a href="#打开launchpad" class="headerlink" title="打开launchpad"></a>打开launchpad</h2><p>下列三个放都可以打开launchpad  </p>
-<ol>
-<li>fn + F4（F1-F12是正常使用情况）  </li>
-<li>F4（F1-F12使用需要借助fn键使用）  </li>
-<li>四个指头抓一下  </li>
-</ol>
-<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h4 id="1-长按control-option-command，看到图标抖动"><a href="#1-长按control-option-command，看到图标抖动" class="headerlink" title="1. 长按control+option+command，看到图标抖动"></a>1. 长按control+option+command，看到图标抖动</h4><h4 id="2-单击待删除图标，图标中心出现白色问号"><a href="#2-单击待删除图标，图标中心出现白色问号" class="headerlink" title="2. 单击待删除图标，图标中心出现白色问号"></a>2. 单击待删除图标，图标中心出现白色问号</h4><h4 id="3-松开按住的三个快捷键（control-option-command）"><a href="#3-松开按住的三个快捷键（control-option-command）" class="headerlink" title="3. 松开按住的三个快捷键（control+option+command）"></a>3. 松开按住的三个快捷键（control+option+command）</h4><h4 id="4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"><a href="#4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除" class="headerlink" title="4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"></a>4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除</h4>]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac删除</tag>
-        <tag>launchpad</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac下安装mysql5.7完整步骤及问题整理</title>
-    <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
-    <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
-<p><a href="http://www.jb51.net/article/103841.htm" target="_blank" rel="noopener">Mac下安装mysql5.7完整步骤</a></p>
-<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><ul>
-<li><p>“MAC下安装Mysql找不到my.cnf配置文件的问题”，参考：<br><a href="http://blog.csdn.net/jyongchong/article/details/77862819" target="_blank" rel="noopener">MAC 安装MySQL的my.cnf配置文件</a></p>
-</li>
-<li><p>“Warning: World-writable config file ‘/etc/my.cnf’ is ignored”，参考：<br><a href="http://blog.csdn.net/xeay123/article/details/44127951" target="_blank" rel="noopener">World-writable</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac安装Mysql</tag>
-        <tag>Mysql</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac下利用GCP和v2ray搭建无限使用梯子</title>
     <url>/2019/02/18/Mac%E4%B8%8B%E5%88%A9%E7%94%A8GCP%E5%92%8Cv2ray%E6%90%AD%E5%BB%BA%E6%97%A0%E9%99%90%E4%BD%BF%E7%94%A8%E6%A2%AF%E5%AD%90/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>妈妈再也不用为我担心没梯子用了</p>
@@ -1767,6 +1688,27 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac下安装mysql5.7完整步骤及问题整理</title>
+    <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
+<p><a href="http://www.jb51.net/article/103841.htm" target="_blank" rel="noopener">Mac下安装mysql5.7完整步骤</a></p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><ul>
+<li><p>“MAC下安装Mysql找不到my.cnf配置文件的问题”，参考：<br><a href="http://blog.csdn.net/jyongchong/article/details/77862819" target="_blank" rel="noopener">MAC 安装MySQL的my.cnf配置文件</a></p>
+</li>
+<li><p>“Warning: World-writable config file ‘/etc/my.cnf’ is ignored”，参考：<br><a href="http://blog.csdn.net/xeay123/article/details/44127951" target="_blank" rel="noopener">World-writable</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac安装Mysql</tag>
+        <tag>Mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac安装软件时提示已损坏的解决方法</title>
     <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：</p>
@@ -1811,6 +1753,33 @@
         <tag>Mac</tag>
         <tag>GCP</tag>
         <tag>谷歌云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
+    <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<ol>
+<li><p>首先下载 .Net Framework 3.5.</p>
+</li>
+<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
+<a id="more"></a>
+<blockquote>
+<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
+</blockquote>
+</li>
+</ol>
+<p>其他:</p>
+<ul>
+<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
+<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Framework3.5无法安装</tag>
       </tags>
   </entry>
   <entry>
@@ -1892,84 +1861,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
-    <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<ol>
-<li><p>首先下载 .Net Framework 3.5.</p>
-</li>
-<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
-<a id="more"></a>
-<blockquote>
-<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
-</blockquote>
-</li>
-</ol>
-<p>其他:</p>
-<ul>
-<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
-<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Windows</category>
-      </categories>
-      <tags>
-        <tag>Framework3.5无法安装</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>树莓派3B+制作视频监控</title>
-    <url>/2019/03/12/%E6%A0%91%E8%8E%93%E6%B4%BE3Bplus%E5%88%B6%E4%BD%9C%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/logo-2023-03-06-09-53-34.png" alt="logo-2023-03-06-09-53-34"></p>
-<h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p>本人育有一毛，此猫调皮捣蛋，因此想要做个监控放在家里，在公司上班的时候看看它到底在家里捣什么鬼蛋！</p>
-<a id="more"></a>
-<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><blockquote>
-<p>环境：树莓派3B+<br>操作系统：树莓派3B+默认系统<br>摄像头：N年前买的一个USB摄像头（比树莓派官方好点）  </p>
-</blockquote>
-<h1 id="1-更新列表"><a href="#1-更新列表" class="headerlink" title="1.更新列表"></a>1.更新列表</h1><p>这一步可能有点慢，请耐心等待。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新软件列表</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新软件</span></span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
-<h1 id="2-开启摄像头"><a href="#2-开启摄像头" class="headerlink" title="2.开启摄像头"></a>2.开启摄像头</h1><p>执行如下命令，进入配置页面，开启摄像头。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/1-2023-03-06-09-53-56.png" alt="1-2023-03-06-09-53-56"><br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/2-2023-03-06-09-54-04.png" alt="2-2023-03-06-09-54-04"><br>选择: “是”  -&gt; “Back” -&gt; “Finish”</p>
-<p>重启一下树莓派</p>
-<h1 id="3-安装依赖库"><a href="#3-安装依赖库" class="headerlink" title="3.安装依赖库"></a>3.安装依赖库</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> JPEG支持库</span></span><br><span class="line">sudo apt-get install libjpeg8-dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载编译工具</span></span><br><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
-<h1 id="4-下载mjpg-streamer"><a href="#4-下载mjpg-streamer" class="headerlink" title="4.下载mjpg-streamer"></a>4.下载mjpg-streamer</h1><p>随意找个目录执行：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
-<p>以常见的<strong>Downloads</strong>目录为例：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cd Downloads/</span><br><span class="line">pi@raspberrypi:~ $ git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
-<h1 id="5-编辑源文件（非必须）"><a href="#5-编辑源文件（非必须）" class="headerlink" title="5.编辑源文件（非必须）"></a>5.编辑源文件（非必须）</h1><p>网上有教程基本都编辑<strong>plugins/input_raspicam/input_raspicam.c</strong>源码里的几个参数（fps、width和height）<br>，这个文件是对应官方的摄像头（RaspiCamera）。</p>
-<p>我这里用的是自己的普通USB摄像头，所以这个文件可以不用修改。</p>
-<p>如果你的摄像头是普通USB摄像头，可以跳过。</p>
-<p>如果你的摄像头是官方的摄像头（RaspiCamera）那么请修改之：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:/ $ cd /home/pi/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/</span><br><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/ $ vi input_raspicam.c</span><br></pre></td></tr></table></figure>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/3-2023-03-06-09-54-21.png" alt="3-2023-03-06-09-54-21"></p>
-<h1 id="6-编译mjpg-streamer"><a href="#6-编译mjpg-streamer" class="headerlink" title="6.编译mjpg-streamer"></a>6.编译mjpg-streamer</h1><p>进入工程mjpg-streamer-experimental，进行完全编译。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental $ make clean all</span><br></pre></td></tr></table></figure>
-<h1 id="7-开启mjpg-streamer"><a href="#7-开启mjpg-streamer" class="headerlink" title="7.开启mjpg-streamer"></a>7.开启mjpg-streamer</h1><p>进入mjpg-streamer-experimental目录，使用一下指令启动摄像头。</p>
-<ul>
-<li><p>启动普通USB摄像头指令：</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_uvc.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动树莓派专用摄像头RaspiCamera指令：</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_raspicam.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h1><p>在浏览器里输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 静态图（拍照）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=snapshot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 动态图（视频监控）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=stream</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个兼容性好点</span></span><br><span class="line">http://&lt;IP&gt;：8080/javascript_stream.html</span><br></pre></td></tr></table></figure>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/cat-2023-03-06-09-54-35.jpeg" alt="cat-2023-03-06-09-54-35"></p>
-<h1 id="9-问题"><a href="#9-问题" class="headerlink" title="9.问题"></a>9.问题</h1><p>有的同学可能在<strong>开启mjpg-streamer</strong>的时候会报错，可能是你USB摄像头用了树莓派专用摄像头RaspiCamera指令的指令启动造成的（我就是这样，哈哈哈）</p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Raspberry</category>
-      </categories>
-      <tags>
-        <tag>树莓派</tag>
-        <tag>监控</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>win2008R2磁盘脱机和写入保护解决办法</title>
     <url>/2018/10/22/win2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
     <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/1-2023-03-06-11-04-05.png" alt="磁盘脱机"></p>
@@ -2004,124 +1895,6 @@
       <tags>
         <tag>Windows磁盘脱机</tag>
         <tag>写入保护</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何超过大多数人</title>
-    <url>/2019/07/22/%E5%A6%82%E4%BD%95%E8%B6%85%E8%BF%87%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%BA%BA/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/如何超过大多数人/1-2023-03-06-09-50-46.png" alt="1-2023-03-06-09-50-46"><br><a id="more"></a></p>
-<p>当你看到这篇文章的标题，你一定对这篇文章产生了巨大的5兴趣，因为你的潜意识在告诉你，这是一本人生的 “武林秘籍”，而且还是左耳朵写的，一定有干货满满，只要读完，一定可以练就神功并找到超过大多数人的快车道和捷径…… 然而…… 当你看到我这样开篇时，你一定会觉得我马上就要有个转折，告诉你这是不可能的，一切都需要付出和努力…… 然而，你错了，这篇文章还真就是一篇“秘籍”，只要你把这些“秘籍” 用起来，你就一定可以超过大多数人。而且，这篇文章只有我这个 “人生导师” 可以写得好。毕竟，我的生命过到了十六进制 2B 的年纪，踏入这个社会已超过 20 年，舍我其谁呢？！</p>
-<p>P.S. 这篇文章借鉴于《<a href="https://coolshell.cn/articles/4758.html" target="_blank" rel="noopener">如何写出无法维护的代码</a>》一文的风格…… 嘿嘿</p>
-<blockquote>
-<h4 id="相关技巧和最佳实践"><a href="#相关技巧和最佳实践" class="headerlink" title="相关技巧和最佳实践"></a>相关技巧和最佳实践</h4></blockquote>
-<p>要超过别人其实还是比较简单的，尤其在今天的中国，更是简单。因为，你只看看中国的互联网，你就会发现，他们基本上全部都是在消费大众，让大众变得更为地愚蠢和傻瓜。<strong>所以，在今天的中国，你基本上不用做什么，只需要不使用中国互联网，你就很自然地超过大多数人了</strong>。当然，如果你还想跟他们彻底拉开，甩他们几个身位，把别人打到底层，下面的这些 “技巧” 你要多多了解一下。</p>
-<p>在信息获取上，你要不断地向大众鼓吹下面的这些事：</p>
-<ul>
-<li><p>让大家都用百度搜索引擎查找信息，订阅微信公众号或是到知乎上学习知识…… 要做到这一步，你就需要把 “百度一下” 挂在嘴边，然后要经常在群或朋友圈中转发微信公众号的文章，并且转发知乎里的各种 “如何看待……” 这样的文章，让他们爱上八卦，爱上转发，爱上碎片。</p>
-</li>
-<li><p>让大家到微博或是知识星球上粉一些大咖，密切关注他们的言论和动向…… 是的，告诉大家，大咖的任何想法一言一行都可以在微博、朋友圈或是知识星球上获得，让大家相信，你的成长和大咖的见闻和闲扯非常有关系，你跟牛人在一个圈子里你也会变牛。</p>
-</li>
-<li><p>把今日头条和抖音这样的 APP 推荐给大家…… 你只需要让你有朋友成功地安装这两个 APP，他们就会花大量的时间在上面，而不能自拔，要让他们安装其实还是很容易的，你要不信你就装一个试玩一会看看（嘿嘿嘿）。</p>
-</li>
-<li><p>让大家热爱八卦，八卦并不一定是明星的八卦，还可以是你身边的人，比如，公司的同事，自己的同学，职场见闻，社会热点，争议话题，…… 这些东西总有一些东西会让人心态有很多微妙的变化，甚至花大量的时间去搜索和阅读大量的观点，以及花大量时间与人辩论争论，这个过程会让人上瘾，让人欲罢不能，然而这些事却和自己没有半毛钱关系。你要做的事就是转发其中一些 SB 或是很极端的观点，造成大家的一睦讨论后，就早早离场……</p>
-</li>
-<li><p>利用爱国主义，让大家觉得不用学英文，不要出国，不要翻墙，咱们已经是强国了…… 这点其实还是很容易做到的，因为学习是比较逆人性的，所以，只要你鼓吹那些英文无用论，出国活得更惨，国家和民族都变得很强大，就算自己过得很底层，也有大国人民的感觉。</p>
-</li>
-</ul>
-<p>然后，在知识学习和技能训练上，让他们不得要领并产生幻觉</p>
-<ul>
-<li><p>让他们混淆认识和知识，以为开阔认知就是学习，让他们有学习和成长的幻觉……</p>
-</li>
-<li><p>培养他们要学会使用碎片时间学习。等他们习惯利用碎片时间吃快餐后，他们就会失去精读一本书的耐性……</p>
-</li>
-<li><p>不断地给他们各种各样 “有价值的学习资料”，让他们抓不住重点，成为一个微信公众号或电子书 “收藏家”……</p>
-</li>
-<li><p>让他们看一些枯燥无味的基础知识和硬核知识，这样让他们只会用 “死记硬背” 的方式来学习，甚至直接让他们失去信心，直接放弃……</p>
-</li>
-<li><p>玩具手枪是易用的，重武器是难以操控的，多给他们一些玩具，这样他们就会对玩具玩地得心应手，觉得玩玩具就是自己的专业……</p>
-</li>
-<li><p>让他们喜欢直接得到答案的工作和学习方式，成为一个伸手党，从此学习再也不思考……</p>
-</li>
-<li><p>告诉他们东西做出来就好了，不要追求做漂亮，做优雅，这样他们就会慢慢地变成劳动密集型……</p>
-</li>
-<li><p>让他们觉得自己已经很努力了，剩下的就是运气，并说服他们去‘及时行乐’，然后再也找不到高阶和高效率学习的感觉……</p>
-</li>
-<li><p>让他们觉得 “读完书”、“读过书” 就行了，不需要对书中的东西进行思考，进行总结，或是实践，只要囫囵吞枣尽快读完就等同于学好了……</p>
-</li>
-</ul>
-<p>最后，在认知和格局上，彻底打垮他们，让他们变成韭菜。</p>
-<ul>
-<li><p>让他们不要看到大的形势，只看到眼前的一亩三分地，做好一个井底之蛙。其实这很简单，比如，你不要让他们看到整个计算机互联网技术改变人类社会的趋势，你要多让他看到，从事这一行业的人有多苦逼，然后再说一下其它行业或职业有多好……</p>
-</li>
-<li><p>宣扬一夜暴富以及快速挣钱的案例，最好让他们进入 “赌博类” 或是 “传销类” 的地方，比如：股市、数字货币…… 要让他们相信各种财富神话，相信他们就是那个幸运儿，他们也可以成为巴菲特，可以成为马云……</p>
-</li>
-<li><p>告诉他们，一些看上去很难的事都是有捷径的，比如：21 天就能学会机器学习，用区块链就能颠覆以及重构整个世界等等……</p>
-</li>
-<li><p>多跟他们讲一些小人物的励志的故事，这样让他们相信，不需要学习高级知识，不需要掌握高级技能，只需要用低等的知识和低级的技能，再加上持续不断拼命重复现有的工作，终有一天就会成功……</p>
-</li>
-<li><p>多让他们跟别人比较，人比人不会气死人，但是会让人变得浮躁，变得心急，变得焦虑，当一个人没有办法控制自己的情绪，没有办法让自己静下心来，人会失去耐性和坚持，开始好大喜欢功，开始装逼，开始歪门邪道剑走偏锋……</p>
-</li>
-<li><p>让他们到体制内的一些非常稳定的地方工作，这样他们拥有不思进取、怕承担责任、害怕犯错、喜欢偷懒、得过且过的素质……</p>
-</li>
-<li><p>让他们到体制外的那些喜欢拼命喜欢加班的地方工作，告诉他们爱拼才会赢，努力加班是一种福报，青春就是用来拼的，让他们喜欢上使蛮力的感觉……</p>
-</li>
-<li><p>告诉他们你的行业太累太辛苦，干不到 30 岁。让他们早点转行，不要耽误人生和青春……</p>
-</li>
-<li><p>当他们要做决定的时候，一定要让他们更多的关注自己会失去的东西，而不是会得到的东西。培养他们患得患失心态，让他们认识不到事物真正的价值，失去判断能力……（比如：让他们觉得跟对人拍领导的马屁忠于公司比自我的成长更有价值）</p>
-</li>
-<li><p>告诉他们，你现有的技能和知识不用更新，就能过好一辈子，新出来的东西没有生命力的…… 这样他们就会像我们再也不学习的父辈一样很快就会被时代所抛弃……</p>
-</li>
-<li><p>每个人都喜欢在一些自己做不到的事上找理由，这种能力不教就会，比如，事情太多没有时间，因为工作上没有用到，等等，你要做的就是帮他们为他们做不到的事找各种非常合理的理由，比如：没事的，一切都是最好的安排；你得不到的那个事没什么意思；你没有面好主要原因是那个面试官问的问题都是可以上网查得到的知识，而不没有问到你真正的能力上；这些东西学了不用很快会忘了，等有了环境再学也不迟……</p>
-</li>
-</ul>
-<p><strong>最后友情提示一下，上述的这些 “最佳实践” 你要小心，是所谓，贩毒的人从来不吸毒，开赌场的人从来不赌博！所以，你要小心别自己也掉进去了！这就是 “欲练神功，必先自宫” 的道理。</strong></p>
-<blockquote>
-<h4 id="相关原理和思维模型"><a href="#相关原理和思维模型" class="headerlink" title="相关原理和思维模型"></a>相关原理和思维模型</h4></blockquote>
-<p>对于上面的这些技巧还有很多很多，你自己也可以发明或是找到很多。所以，我来讲讲这其中的一些原理。</p>
-<p>一般来说，超过别人一般来说就是两个维度：</p>
-<ul>
-<li><p><strong>在认知、知识和技能上。</strong> 这是一个人赖以立足社会的能力（参看《<a href="https://coolshell.cn/articles/4235.html" target="_blank" rel="noopener">程序员的荒谬之言还是至理名言？</a>》和《<a href="https://coolshell.cn/articles/2250.html" target="_blank" rel="noopener">21 天教你学会 C++</a>》）</p>
-</li>
-<li><p><strong>在领导力上。</strong> 所谓领导力就是你跑在别人前面，你得要有比别人更好的能力更高的标准（参看《<a href="https://coolshell.cn/articles/17583.html" target="_blank" rel="noopener">技术人员发展之路</a>》）</p>
-</li>
-</ul>
-<p>首先，我们要明白，人的技能是从认识开始，然后通过学校、培训或是书本把 “零碎的认知” 转换成“系统的知识”，而有要把知识转换成技能，就需要训练和实践，这样才能完成从：认识 -&gt; 知识 -&gt; 技能 的转换。这个转换过程是需要耗费很多时间和精力的，而且其中还需要有强大的学习能力和动手能力，这条路径上有很多的“关卡”，每道关卡都会过滤掉一大部分人。比如：对于一些比较枯燥的硬核知识来说，90% 的人基本上就倒下来，不是因为他们没有智商，而是他们没有耐心。</p>
-<blockquote>
-<h4 id="认知"><a href="#认知" class="headerlink" title="认知"></a>认知</h4></blockquote>
-<p>要在认知上超过别人，就要在下面几个方面上做足功夫：</p>
-<p>1）<strong>信息渠道。</strong> 试想如果别人的信息源没有你的好，那么，这些看不见信息源的人，只能接触得到二手信息甚至三手信息，只能获得被别人解读过的信息，这些信息被三传两递后必定会有错误和失真，甚至会被传递信息的中间人 hack 其中的信息（也就是 “中间人攻击”），而这些找不出信息源的人，只能 “被人喂养”，于是，他们最终会被困在信息的底层，永世不得翻身。（比如：学习 C 语言，放着原作者 K&amp;R 的不用，硬要用错误百出谭浩强的书，能有什么好呢？）</p>
-<p>2）<strong>信息质量。</strong> 信息质量主要表现在两个方面，一个是信息中的燥音，另一个是信息中的质量等级，我们都知道，在大数据处理中有一句名言，叫 garbage in garbage out，你天天看的都是垃圾，你的思想和认识也只有垃圾。所以，如果你的信息质量并不好的话，你的认知也不会好，而且你还要花大量的时间来进行有价值信息的挖掘和处理。</p>
-<p>3）<strong>信息密度。</strong> 优质的信息，密度一般都很大，因为这种信息会逼着你去干这么几件事，a）搜索并学习其关联的知识，b）沉思和反省，c）亲手去推理、验证和实践…… 一般来说，经验性的文章会比知识性的文章会更有这样的功效。比如，类似于像 Effiective C++/Java，设计模式，Unix 编程艺术，算法导论等等这样的书就是属于这种密度很大的书，而像 Netflix 的官方 blog 和 AWS CTO 的 blog 等等地方也会经常有一些这样的文章。</p>
-<blockquote>
-<h4 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h4></blockquote>
-<p>要在知识上超过别人，你就需要在下面几个方面上做足功夫：</p>
-<p>1）<strong>知识树（图）。</strong> 任何知识，只在点上学习不够的，需要在面上学习，这叫系统地学习，这需要我们去总结并归纳知识树或知识图，一个知识面会有多个知识板块组成，一个板块又有各种知识点，一个知识点会导出另外的知识点，各种知识点又会交叉和依赖起来，学习就是要系统地学习整个知识树（图）。而我们都知道，<strong>对于一棵树来说，“根基” 是非常重要的，所以，学好基础知识也是非常重要的，对于一个陌生的地方，有一份地图是非常重要的，没有地图的你只会乱窜，只会迷路、练路、走冤枉路！</strong></p>
-<p>2）<strong>知识缘由。</strong> 任何知识都是有缘由的，了解一个知识的来龙去脉和前世今生，会让你对这个知识有非常强的掌握，而不再只是靠记忆去学习。靠记忆去学习是一件非常糟糕的事。而对于一些操作性的知识（不需要了解由来的），我把其叫操作知识，就像一些函数库一样，这样的知识只要学会查文档就好了。<strong>能够知其然，知其所以然的人自然会比识知识到表皮的人段位要高很多。</strong></p>
-<p>3）<strong>方法套路。</strong> 学习不是为了找到答案，而是找到方法。就像数学一样，你学的是方法，是解题思路，是套路，会用方程式解题的和不会用方程式解题的在解题效率上不可比较，而在微积分面前，其它的解题方法都变成了渣渣。你可以看到，掌握高级方法的人比别人的优势有多大，学习的目的就是为了掌握更为高级的方法和解题思路。</p>
-<blockquote>
-<h4 id="技能"><a href="#技能" class="headerlink" title="技能"></a>技能</h4></blockquote>
-<p>要在技能上超过别人，你就需要在下面几个方面做足功夫：</p>
-<p>1）<strong>精益求精。</strong> 如果你想拥有专业的技能，你要做不仅仅是拼命地重复一遍又一遍的训练，而是在每一次重复训练时你都要找到更好的方法，总结经验，让新的一遍能够更好，更漂亮，更有效率，否则，用相同的方法重复，那你只不过在搬砖罢了。</p>
-<p>2）<strong>让自己犯错。</strong> 犯错是有利于成长的，这是因为出错会让人反思，反思更好的方法，反思更完美的方案，总结教训，寻求更好更完美的过程，是技能升级的最好的方式。尤其是当你在出错后，被人鄙视，被人嘲笑后，你会有更大的动力提升自己，这样的动力才是进步的源动力。当然，千万不要同一个错误重复地犯！</p>
-<p>3）<strong>找高手切磋。</strong> 下过棋，打个球的人都知道，你要想提升自己的技艺，你必需找高手切磋，在和高手切磋的过程中你会感受到高手的技能和方法，有时候你会情不自禁地哇地一下，我靠，还可以这么玩！</p>
-<blockquote>
-<h4 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h4></blockquote>
-<p>最后一个是领导力，要有领导力或是影响力这个事并不容易，这跟你的野心有多大，好胜心有多强 ，你愿意付出多少很有关系，因为一个人的领导力跟他的标准很有关系，因为有领导力的人的标准比绝大多数人都要高。</p>
-<p>1）<strong>识别自己的特长和天赋。</strong> 首先，每个人 DNA 都可能或多或少都会有一些比大多数人 NB 的东西（当然，也可能没有），如果你有了，那么在你过去的人生中就一定会表现出来了，就是那种大家遇到这个事会来请教你的寻求你帮助的现象。那种，别人要非常努力，而且毫不费劲的事。一旦你有了这样的特长或天赋，那你就要大力地扩大你的领先优势，千万不要进到那些会限制你优势的地方。你是一条鱼，你就一定要把别人拉到水里来玩，绝对不要去陆地上跟别人拼，不断地在自己的特长和天赋上扩大自己的领先优势，彻底一骑绝尘。</p>
-<p>2）<strong>识别自己的兴趣和事业。</strong> 没有天赋也没有问题，还有兴趣点，都说兴趣是最好的老师，当年，Linus 就是在学校里对 minx 着迷了，于是整出个 Linux 来，这就是兴趣驱动出的东西，一般来说，兴趣驱动的事总是会比那些被动驱动的更好。但是，这里我想说明一下什么叫 “真∙兴趣”，真正的兴趣不是那种三天热度的东西，而是那种，你愿意为之付出一辈子的事，是那种无论有多大困难有多难受你都要死磕的事，这才是“真∙兴趣”，这也就是你的“野心” 和“好胜心”所在，其实上升到了你的事业。相信我，绝大多数人只有职业而没有事业的。</p>
-<p>3）<strong>建立高级的习惯和方法。</strong> 没有天赋没有野心，也还是可以跟别人拼习惯拼方法的，只要你有一些比较好的习惯和方法，那么你一样可以超过大多数人。对此，在习惯上你要做到比较大多数人更自律，更有计划性，更有目标性，比如，每年学习一门新的语言或技术，并可以参与相关的顶级开源项目，每个月训练一个类算法，掌握一种算法，每周阅读一篇英文论文，并把阅读笔记整理出来…… 自律的是非常可怕的。除此之外，你还需要在方法上超过别人，你需要满世界的找各种高级的方法，其中包括，思考的方法，学习的方法、时间管理的方法、沟通的方法这类软实力的，还有，解决问题的方法（trouble shooting 和 problem solving），设计的方法，工程的方法，代码的方法等等硬实力的，一开始照猫画虎，时间长了就可能会自己发明或推导新的方法。</p>
-<p>4）<strong>勤奋努力执着坚持。</strong> 如果上面三件事你都没有也没有能力，那还有最后一件事了，那就是勤奋努力了，就是所谓的 “一万小时定律” 了（参看《21 天教你学会 C++》中的十年学编程一节），我见过很多不聪明的人，悟性也不够（比如我就是一个），别人学一个东西，一个月就好了，而我需要 1 年甚至更长，但是很多东西都是死的，只要肯花时间就有一天你会搞懂的，耐不住我坚持十年二十年，聪明的人发明个飞机飞过去了，笨一点的人愚公移山也过得去，因为更多的人是懒人，我不用拼过聪明人，我只用拼过那些懒人就好了。</p>
-<p>好了，就这么多，如果哪天你变得消极和不自信，你要来读读我的这篇文章，子曰：温故而知新。</p>
-<p>（全文完）</p>
-<blockquote>
-<p>本文转自：<a href="https://coolshell.cn/" target="_blank" rel="noopener">CoolShell</a> 的<a href="https://coolshell.cn/articles/19464.html/comment-page-1#comments" target="_blank" rel="noopener">《如何超过大多数人》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>超过</tag>
       </tags>
   </entry>
   <entry>
@@ -2274,103 +2047,6 @@
       <tags>
         <tag>IPD</tag>
         <tag>华为</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虚拟机VirtualBox中挂载新硬盘</title>
-    <url>/2018/03/18/%E8%99%9A%E6%8B%9F%E6%9C%BAVirtualBox%E4%B8%AD%E6%8C%82%E8%BD%BD%E6%96%B0%E7%A1%AC%E7%9B%98/</url>
-    <content><![CDATA[<p>在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘：</p>
-<h5 id="添加新硬盘"><a href="#添加新硬盘" class="headerlink" title="添加新硬盘"></a>添加新硬盘</h5><blockquote>
-<p>设置 -&gt; Storage(存储) -&gt; SATA控制器-&gt;右击，选择”添加虚拟硬盘”<br>然后，根据需求创建合适的硬盘<br><a id="more"></a></p>
-</blockquote>
-<h5 id="重启虚拟机"><a href="#重启虚拟机" class="headerlink" title="重启虚拟机"></a>重启虚拟机</h5><p>  查看现有系统的磁盘空间</p>
-<blockquote>
-<p>sudo fdisk -l</p>
-</blockquote>
-<p>  可看到新加的虚拟硬盘，一般名为：Disk /dev/sdb</p>
-<h5 id="给新加的硬盘分区"><a href="#给新加的硬盘分区" class="headerlink" title="给新加的硬盘分区"></a>给新加的硬盘分区</h5><blockquote>
-<p>fdisk /dev/sdb  </p>
-</blockquote>
-<p>  键入m,可看到帮助信息</p>
-<blockquote>
-<p>command (m for help):m</p>
-</blockquote>
-<p>  增加新分区</p>
-<blockquote>
-<p>command (m for help):n  </p>
-</blockquote>
-<p>  选择基本分区，输入：p 建一个分区</p>
-<blockquote>
-<p>Partition number(1-4):  </p>
-</blockquote>
-<p>  回车</p>
-<blockquote>
-<p>First cylinder (1-15908,default 1):Enter</p>
-</blockquote>
-<p>  写入并退出</p>
-<blockquote>
-<p>command (m for help):w</p>
-</blockquote>
-<h5 id="格式化磁盘分区"><a href="#格式化磁盘分区" class="headerlink" title="格式化磁盘分区"></a>格式化磁盘分区</h5><p>  用ext4格式对/dev/sdb1进入格式化</p>
-<blockquote>
-<p>sudo mkfs.ext4 /dev/sdb1</p>
-</blockquote>
-<h5 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h5><p>  创建新的挂载点</p>
-<blockquote>
-<p>sudo mkdir /work</p>
-</blockquote>
-<p>  将新磁盘分区挂载到/work目录下</p>
-<blockquote>
-<p>sudo mount -t ext4 /dev/sdb1 /work</p>
-</blockquote>
-<p>  查看挂载</p>
-<blockquote>
-<p>df -h</p>
-</blockquote>
-<p>  可以看到新加的硬盘：/dev/sdb1</p>
-<h5 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h5><p>  修改文件</p>
-<blockquote>
-<p>sudo vim /etc/fstab</p>
-</blockquote>
-<p>  在最后一行加入：</p>
-<blockquote>
-<p>/dev/sdb1 /work ext4 errors=remount-ro 0 1</p>
-</blockquote>
-<p>  完成!</p>
-<hr>
-<h4 id="补充：为挂载点扩容"><a href="#补充：为挂载点扩容" class="headerlink" title="补充：为挂载点扩容"></a>补充：为挂载点扩容</h4><p>假设之前我们有一个挂载点为 <em>/mydata</em> ，但该 <em>/mydata</em> 已经写满，但依然想在 <em>/mydata</em> 下添加新的数据，这时可以使用软链接将 <em>/mydata</em> 软链接到一个新挂载的磁盘分区上以实现扩容。具体步骤如下。</p>
-<p><strong>1. 创建一个目录，以便稍后作为挂载点：</strong></p>
-<blockquote>
-<p>mkdir /newdata</p>
-</blockquote>
-<p><strong>2. 将 /dev/sdb1 分区挂载到 /newdata 下：</strong></p>
-<blockquote>
-<p>mount /dev/sdb1 /newdata</p>
-</blockquote>
-<p><strong>3. 新建 /mydata 到 /newdata 的软链接：</strong></p>
-<blockquote>
-<p>ln -s /newdata /mydata</p>
-</blockquote>
-<p>  此时在 /mydata 目录下会有一个软链接文件 <em>newdata</em> 指向 <em>/newdata/</em> ，即 <em>newdata-&gt; /newdata/</em> 。这样一来，只要我们向 <em>/mydata/newdata</em> 下写文件，实际就写入了 <em>/newdata/</em> 目录下，相当于我们为原 <em>/mydata</em> 挂载点新增加了一部分使用空间。  </p>
-<p>  也可以手动指定该软链接文件的名称：</p>
-<blockquote>
-<p>ln -s /newdata /mydata/customed_name</p>
-</blockquote>
-<p>  这样就有 /mydata/customed_name -&gt; /newdata  </p>
-<p>  <strong>注：</strong> 我们也可以利用软链接的这一用途，将比较大的日志文件链接到存储空间充足的磁盘分区的挂载点上。<br>  举例来说，如果 /opt/tomcat/logs/catalina.out 日志文件输入很多，占用空间很大，而 /opt 挂载点中所剩空间已经不多，存在溢出风险，通过下面两步就可以将该日志文件软链接到另一个磁盘分区的挂载点上：  </p>
-<blockquote>
-<p>touch /newdata/catalina_link.out<br>ln -sf /newdata/catalina_link.out /opt/tomcat/logs/catalina.out</p>
-</blockquote>
-<p>  <strong><em>这里还需要注意三点：</em></strong></p>
-<p>  一是必须先创建一个被链接的文件，否则软链接后失败；<br>  二是强制软链接会清空之前 /opt/tomcat/logs/catalina.out 日志文件中的全部内容清空；<br>  三是需要重启 tomcat 目录后才能继续向 /opt/tomcat/logs/catalina.out 写入。  </p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>虚拟机</tag>
-        <tag>Linux挂载硬盘</tag>
       </tags>
   </entry>
   <entry>
@@ -2577,6 +2253,233 @@
       </tags>
   </entry>
   <entry>
+    <title>树莓派3B+制作视频监控</title>
+    <url>/2019/03/12/%E6%A0%91%E8%8E%93%E6%B4%BE3Bplus%E5%88%B6%E4%BD%9C%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/logo-2023-03-06-09-53-34.png" alt="logo-2023-03-06-09-53-34"></p>
+<h1 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h1><p>本人育有一毛，此猫调皮捣蛋，因此想要做个监控放在家里，在公司上班的时候看看它到底在家里捣什么鬼蛋！</p>
+<a id="more"></a>
+<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><blockquote>
+<p>环境：树莓派3B+<br>操作系统：树莓派3B+默认系统<br>摄像头：N年前买的一个USB摄像头（比树莓派官方好点）  </p>
+</blockquote>
+<h1 id="1-更新列表"><a href="#1-更新列表" class="headerlink" title="1.更新列表"></a>1.更新列表</h1><p>这一步可能有点慢，请耐心等待。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新软件列表</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新软件</span></span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+<h1 id="2-开启摄像头"><a href="#2-开启摄像头" class="headerlink" title="2.开启摄像头"></a>2.开启摄像头</h1><p>执行如下命令，进入配置页面，开启摄像头。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/1-2023-03-06-09-53-56.png" alt="1-2023-03-06-09-53-56"><br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/2-2023-03-06-09-54-04.png" alt="2-2023-03-06-09-54-04"><br>选择: “是”  -&gt; “Back” -&gt; “Finish”</p>
+<p>重启一下树莓派</p>
+<h1 id="3-安装依赖库"><a href="#3-安装依赖库" class="headerlink" title="3.安装依赖库"></a>3.安装依赖库</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> JPEG支持库</span></span><br><span class="line">sudo apt-get install libjpeg8-dev</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载编译工具</span></span><br><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
+<h1 id="4-下载mjpg-streamer"><a href="#4-下载mjpg-streamer" class="headerlink" title="4.下载mjpg-streamer"></a>4.下载mjpg-streamer</h1><p>随意找个目录执行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
+<p>以常见的<strong>Downloads</strong>目录为例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cd Downloads/</span><br><span class="line">pi@raspberrypi:~ $ git clone https://github.com/jacksonliam/mjpg-streamer.git</span><br></pre></td></tr></table></figure>
+<h1 id="5-编辑源文件（非必须）"><a href="#5-编辑源文件（非必须）" class="headerlink" title="5.编辑源文件（非必须）"></a>5.编辑源文件（非必须）</h1><p>网上有教程基本都编辑<strong>plugins/input_raspicam/input_raspicam.c</strong>源码里的几个参数（fps、width和height）<br>，这个文件是对应官方的摄像头（RaspiCamera）。</p>
+<p>我这里用的是自己的普通USB摄像头，所以这个文件可以不用修改。</p>
+<p>如果你的摄像头是普通USB摄像头，可以跳过。</p>
+<p>如果你的摄像头是官方的摄像头（RaspiCamera）那么请修改之：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:/ $ cd /home/pi/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/</span><br><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental/plugins/input_raspicam/ $ vi input_raspicam.c</span><br></pre></td></tr></table></figure>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/3-2023-03-06-09-54-21.png" alt="3-2023-03-06-09-54-21"></p>
+<h1 id="6-编译mjpg-streamer"><a href="#6-编译mjpg-streamer" class="headerlink" title="6.编译mjpg-streamer"></a>6.编译mjpg-streamer</h1><p>进入工程mjpg-streamer-experimental，进行完全编译。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pi@raspberrypi:~/Downloads/mjpg-streamer/mjpg-streamer-experimental $ make clean all</span><br></pre></td></tr></table></figure>
+<h1 id="7-开启mjpg-streamer"><a href="#7-开启mjpg-streamer" class="headerlink" title="7.开启mjpg-streamer"></a>7.开启mjpg-streamer</h1><p>进入mjpg-streamer-experimental目录，使用一下指令启动摄像头。</p>
+<ul>
+<li><p>启动普通USB摄像头指令：</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_uvc.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动树莓派专用摄像头RaspiCamera指令：</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./mjpg_streamer -i "./input_raspicam.so" -o "./output_http.so -w ./www"</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h1><p>在浏览器里输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 静态图（拍照）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=snapshot</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 动态图（视频监控）</span></span><br><span class="line">http://&lt;IP&gt;：8080/?action=stream</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个兼容性好点</span></span><br><span class="line">http://&lt;IP&gt;：8080/javascript_stream.html</span><br></pre></td></tr></table></figure>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/树莓派3Bplus制作视频监控/cat-2023-03-06-09-54-35.jpeg" alt="cat-2023-03-06-09-54-35"></p>
+<h1 id="9-问题"><a href="#9-问题" class="headerlink" title="9.问题"></a>9.问题</h1><p>有的同学可能在<strong>开启mjpg-streamer</strong>的时候会报错，可能是你USB摄像头用了树莓派专用摄像头RaspiCamera指令的指令启动造成的（我就是这样，哈哈哈）</p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Raspberry</category>
+      </categories>
+      <tags>
+        <tag>树莓派</tag>
+        <tag>监控</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何超过大多数人</title>
+    <url>/2019/07/22/%E5%A6%82%E4%BD%95%E8%B6%85%E8%BF%87%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%BA%BA/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/如何超过大多数人/1-2023-03-06-09-50-46.png" alt="1-2023-03-06-09-50-46"><br><a id="more"></a></p>
+<p>当你看到这篇文章的标题，你一定对这篇文章产生了巨大的5兴趣，因为你的潜意识在告诉你，这是一本人生的 “武林秘籍”，而且还是左耳朵写的，一定有干货满满，只要读完，一定可以练就神功并找到超过大多数人的快车道和捷径…… 然而…… 当你看到我这样开篇时，你一定会觉得我马上就要有个转折，告诉你这是不可能的，一切都需要付出和努力…… 然而，你错了，这篇文章还真就是一篇“秘籍”，只要你把这些“秘籍” 用起来，你就一定可以超过大多数人。而且，这篇文章只有我这个 “人生导师” 可以写得好。毕竟，我的生命过到了十六进制 2B 的年纪，踏入这个社会已超过 20 年，舍我其谁呢？！</p>
+<p>P.S. 这篇文章借鉴于《<a href="https://coolshell.cn/articles/4758.html" target="_blank" rel="noopener">如何写出无法维护的代码</a>》一文的风格…… 嘿嘿</p>
+<blockquote>
+<h4 id="相关技巧和最佳实践"><a href="#相关技巧和最佳实践" class="headerlink" title="相关技巧和最佳实践"></a>相关技巧和最佳实践</h4></blockquote>
+<p>要超过别人其实还是比较简单的，尤其在今天的中国，更是简单。因为，你只看看中国的互联网，你就会发现，他们基本上全部都是在消费大众，让大众变得更为地愚蠢和傻瓜。<strong>所以，在今天的中国，你基本上不用做什么，只需要不使用中国互联网，你就很自然地超过大多数人了</strong>。当然，如果你还想跟他们彻底拉开，甩他们几个身位，把别人打到底层，下面的这些 “技巧” 你要多多了解一下。</p>
+<p>在信息获取上，你要不断地向大众鼓吹下面的这些事：</p>
+<ul>
+<li><p>让大家都用百度搜索引擎查找信息，订阅微信公众号或是到知乎上学习知识…… 要做到这一步，你就需要把 “百度一下” 挂在嘴边，然后要经常在群或朋友圈中转发微信公众号的文章，并且转发知乎里的各种 “如何看待……” 这样的文章，让他们爱上八卦，爱上转发，爱上碎片。</p>
+</li>
+<li><p>让大家到微博或是知识星球上粉一些大咖，密切关注他们的言论和动向…… 是的，告诉大家，大咖的任何想法一言一行都可以在微博、朋友圈或是知识星球上获得，让大家相信，你的成长和大咖的见闻和闲扯非常有关系，你跟牛人在一个圈子里你也会变牛。</p>
+</li>
+<li><p>把今日头条和抖音这样的 APP 推荐给大家…… 你只需要让你有朋友成功地安装这两个 APP，他们就会花大量的时间在上面，而不能自拔，要让他们安装其实还是很容易的，你要不信你就装一个试玩一会看看（嘿嘿嘿）。</p>
+</li>
+<li><p>让大家热爱八卦，八卦并不一定是明星的八卦，还可以是你身边的人，比如，公司的同事，自己的同学，职场见闻，社会热点，争议话题，…… 这些东西总有一些东西会让人心态有很多微妙的变化，甚至花大量的时间去搜索和阅读大量的观点，以及花大量时间与人辩论争论，这个过程会让人上瘾，让人欲罢不能，然而这些事却和自己没有半毛钱关系。你要做的事就是转发其中一些 SB 或是很极端的观点，造成大家的一睦讨论后，就早早离场……</p>
+</li>
+<li><p>利用爱国主义，让大家觉得不用学英文，不要出国，不要翻墙，咱们已经是强国了…… 这点其实还是很容易做到的，因为学习是比较逆人性的，所以，只要你鼓吹那些英文无用论，出国活得更惨，国家和民族都变得很强大，就算自己过得很底层，也有大国人民的感觉。</p>
+</li>
+</ul>
+<p>然后，在知识学习和技能训练上，让他们不得要领并产生幻觉</p>
+<ul>
+<li><p>让他们混淆认识和知识，以为开阔认知就是学习，让他们有学习和成长的幻觉……</p>
+</li>
+<li><p>培养他们要学会使用碎片时间学习。等他们习惯利用碎片时间吃快餐后，他们就会失去精读一本书的耐性……</p>
+</li>
+<li><p>不断地给他们各种各样 “有价值的学习资料”，让他们抓不住重点，成为一个微信公众号或电子书 “收藏家”……</p>
+</li>
+<li><p>让他们看一些枯燥无味的基础知识和硬核知识，这样让他们只会用 “死记硬背” 的方式来学习，甚至直接让他们失去信心，直接放弃……</p>
+</li>
+<li><p>玩具手枪是易用的，重武器是难以操控的，多给他们一些玩具，这样他们就会对玩具玩地得心应手，觉得玩玩具就是自己的专业……</p>
+</li>
+<li><p>让他们喜欢直接得到答案的工作和学习方式，成为一个伸手党，从此学习再也不思考……</p>
+</li>
+<li><p>告诉他们东西做出来就好了，不要追求做漂亮，做优雅，这样他们就会慢慢地变成劳动密集型……</p>
+</li>
+<li><p>让他们觉得自己已经很努力了，剩下的就是运气，并说服他们去‘及时行乐’，然后再也找不到高阶和高效率学习的感觉……</p>
+</li>
+<li><p>让他们觉得 “读完书”、“读过书” 就行了，不需要对书中的东西进行思考，进行总结，或是实践，只要囫囵吞枣尽快读完就等同于学好了……</p>
+</li>
+</ul>
+<p>最后，在认知和格局上，彻底打垮他们，让他们变成韭菜。</p>
+<ul>
+<li><p>让他们不要看到大的形势，只看到眼前的一亩三分地，做好一个井底之蛙。其实这很简单，比如，你不要让他们看到整个计算机互联网技术改变人类社会的趋势，你要多让他看到，从事这一行业的人有多苦逼，然后再说一下其它行业或职业有多好……</p>
+</li>
+<li><p>宣扬一夜暴富以及快速挣钱的案例，最好让他们进入 “赌博类” 或是 “传销类” 的地方，比如：股市、数字货币…… 要让他们相信各种财富神话，相信他们就是那个幸运儿，他们也可以成为巴菲特，可以成为马云……</p>
+</li>
+<li><p>告诉他们，一些看上去很难的事都是有捷径的，比如：21 天就能学会机器学习，用区块链就能颠覆以及重构整个世界等等……</p>
+</li>
+<li><p>多跟他们讲一些小人物的励志的故事，这样让他们相信，不需要学习高级知识，不需要掌握高级技能，只需要用低等的知识和低级的技能，再加上持续不断拼命重复现有的工作，终有一天就会成功……</p>
+</li>
+<li><p>多让他们跟别人比较，人比人不会气死人，但是会让人变得浮躁，变得心急，变得焦虑，当一个人没有办法控制自己的情绪，没有办法让自己静下心来，人会失去耐性和坚持，开始好大喜欢功，开始装逼，开始歪门邪道剑走偏锋……</p>
+</li>
+<li><p>让他们到体制内的一些非常稳定的地方工作，这样他们拥有不思进取、怕承担责任、害怕犯错、喜欢偷懒、得过且过的素质……</p>
+</li>
+<li><p>让他们到体制外的那些喜欢拼命喜欢加班的地方工作，告诉他们爱拼才会赢，努力加班是一种福报，青春就是用来拼的，让他们喜欢上使蛮力的感觉……</p>
+</li>
+<li><p>告诉他们你的行业太累太辛苦，干不到 30 岁。让他们早点转行，不要耽误人生和青春……</p>
+</li>
+<li><p>当他们要做决定的时候，一定要让他们更多的关注自己会失去的东西，而不是会得到的东西。培养他们患得患失心态，让他们认识不到事物真正的价值，失去判断能力……（比如：让他们觉得跟对人拍领导的马屁忠于公司比自我的成长更有价值）</p>
+</li>
+<li><p>告诉他们，你现有的技能和知识不用更新，就能过好一辈子，新出来的东西没有生命力的…… 这样他们就会像我们再也不学习的父辈一样很快就会被时代所抛弃……</p>
+</li>
+<li><p>每个人都喜欢在一些自己做不到的事上找理由，这种能力不教就会，比如，事情太多没有时间，因为工作上没有用到，等等，你要做的就是帮他们为他们做不到的事找各种非常合理的理由，比如：没事的，一切都是最好的安排；你得不到的那个事没什么意思；你没有面好主要原因是那个面试官问的问题都是可以上网查得到的知识，而不没有问到你真正的能力上；这些东西学了不用很快会忘了，等有了环境再学也不迟……</p>
+</li>
+</ul>
+<p><strong>最后友情提示一下，上述的这些 “最佳实践” 你要小心，是所谓，贩毒的人从来不吸毒，开赌场的人从来不赌博！所以，你要小心别自己也掉进去了！这就是 “欲练神功，必先自宫” 的道理。</strong></p>
+<blockquote>
+<h4 id="相关原理和思维模型"><a href="#相关原理和思维模型" class="headerlink" title="相关原理和思维模型"></a>相关原理和思维模型</h4></blockquote>
+<p>对于上面的这些技巧还有很多很多，你自己也可以发明或是找到很多。所以，我来讲讲这其中的一些原理。</p>
+<p>一般来说，超过别人一般来说就是两个维度：</p>
+<ul>
+<li><p><strong>在认知、知识和技能上。</strong> 这是一个人赖以立足社会的能力（参看《<a href="https://coolshell.cn/articles/4235.html" target="_blank" rel="noopener">程序员的荒谬之言还是至理名言？</a>》和《<a href="https://coolshell.cn/articles/2250.html" target="_blank" rel="noopener">21 天教你学会 C++</a>》）</p>
+</li>
+<li><p><strong>在领导力上。</strong> 所谓领导力就是你跑在别人前面，你得要有比别人更好的能力更高的标准（参看《<a href="https://coolshell.cn/articles/17583.html" target="_blank" rel="noopener">技术人员发展之路</a>》）</p>
+</li>
+</ul>
+<p>首先，我们要明白，人的技能是从认识开始，然后通过学校、培训或是书本把 “零碎的认知” 转换成“系统的知识”，而有要把知识转换成技能，就需要训练和实践，这样才能完成从：认识 -&gt; 知识 -&gt; 技能 的转换。这个转换过程是需要耗费很多时间和精力的，而且其中还需要有强大的学习能力和动手能力，这条路径上有很多的“关卡”，每道关卡都会过滤掉一大部分人。比如：对于一些比较枯燥的硬核知识来说，90% 的人基本上就倒下来，不是因为他们没有智商，而是他们没有耐心。</p>
+<blockquote>
+<h4 id="认知"><a href="#认知" class="headerlink" title="认知"></a>认知</h4></blockquote>
+<p>要在认知上超过别人，就要在下面几个方面上做足功夫：</p>
+<p>1）<strong>信息渠道。</strong> 试想如果别人的信息源没有你的好，那么，这些看不见信息源的人，只能接触得到二手信息甚至三手信息，只能获得被别人解读过的信息，这些信息被三传两递后必定会有错误和失真，甚至会被传递信息的中间人 hack 其中的信息（也就是 “中间人攻击”），而这些找不出信息源的人，只能 “被人喂养”，于是，他们最终会被困在信息的底层，永世不得翻身。（比如：学习 C 语言，放着原作者 K&amp;R 的不用，硬要用错误百出谭浩强的书，能有什么好呢？）</p>
+<p>2）<strong>信息质量。</strong> 信息质量主要表现在两个方面，一个是信息中的燥音，另一个是信息中的质量等级，我们都知道，在大数据处理中有一句名言，叫 garbage in garbage out，你天天看的都是垃圾，你的思想和认识也只有垃圾。所以，如果你的信息质量并不好的话，你的认知也不会好，而且你还要花大量的时间来进行有价值信息的挖掘和处理。</p>
+<p>3）<strong>信息密度。</strong> 优质的信息，密度一般都很大，因为这种信息会逼着你去干这么几件事，a）搜索并学习其关联的知识，b）沉思和反省，c）亲手去推理、验证和实践…… 一般来说，经验性的文章会比知识性的文章会更有这样的功效。比如，类似于像 Effiective C++/Java，设计模式，Unix 编程艺术，算法导论等等这样的书就是属于这种密度很大的书，而像 Netflix 的官方 blog 和 AWS CTO 的 blog 等等地方也会经常有一些这样的文章。</p>
+<blockquote>
+<h4 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h4></blockquote>
+<p>要在知识上超过别人，你就需要在下面几个方面上做足功夫：</p>
+<p>1）<strong>知识树（图）。</strong> 任何知识，只在点上学习不够的，需要在面上学习，这叫系统地学习，这需要我们去总结并归纳知识树或知识图，一个知识面会有多个知识板块组成，一个板块又有各种知识点，一个知识点会导出另外的知识点，各种知识点又会交叉和依赖起来，学习就是要系统地学习整个知识树（图）。而我们都知道，<strong>对于一棵树来说，“根基” 是非常重要的，所以，学好基础知识也是非常重要的，对于一个陌生的地方，有一份地图是非常重要的，没有地图的你只会乱窜，只会迷路、练路、走冤枉路！</strong></p>
+<p>2）<strong>知识缘由。</strong> 任何知识都是有缘由的，了解一个知识的来龙去脉和前世今生，会让你对这个知识有非常强的掌握，而不再只是靠记忆去学习。靠记忆去学习是一件非常糟糕的事。而对于一些操作性的知识（不需要了解由来的），我把其叫操作知识，就像一些函数库一样，这样的知识只要学会查文档就好了。<strong>能够知其然，知其所以然的人自然会比识知识到表皮的人段位要高很多。</strong></p>
+<p>3）<strong>方法套路。</strong> 学习不是为了找到答案，而是找到方法。就像数学一样，你学的是方法，是解题思路，是套路，会用方程式解题的和不会用方程式解题的在解题效率上不可比较，而在微积分面前，其它的解题方法都变成了渣渣。你可以看到，掌握高级方法的人比别人的优势有多大，学习的目的就是为了掌握更为高级的方法和解题思路。</p>
+<blockquote>
+<h4 id="技能"><a href="#技能" class="headerlink" title="技能"></a>技能</h4></blockquote>
+<p>要在技能上超过别人，你就需要在下面几个方面做足功夫：</p>
+<p>1）<strong>精益求精。</strong> 如果你想拥有专业的技能，你要做不仅仅是拼命地重复一遍又一遍的训练，而是在每一次重复训练时你都要找到更好的方法，总结经验，让新的一遍能够更好，更漂亮，更有效率，否则，用相同的方法重复，那你只不过在搬砖罢了。</p>
+<p>2）<strong>让自己犯错。</strong> 犯错是有利于成长的，这是因为出错会让人反思，反思更好的方法，反思更完美的方案，总结教训，寻求更好更完美的过程，是技能升级的最好的方式。尤其是当你在出错后，被人鄙视，被人嘲笑后，你会有更大的动力提升自己，这样的动力才是进步的源动力。当然，千万不要同一个错误重复地犯！</p>
+<p>3）<strong>找高手切磋。</strong> 下过棋，打个球的人都知道，你要想提升自己的技艺，你必需找高手切磋，在和高手切磋的过程中你会感受到高手的技能和方法，有时候你会情不自禁地哇地一下，我靠，还可以这么玩！</p>
+<blockquote>
+<h4 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h4></blockquote>
+<p>最后一个是领导力，要有领导力或是影响力这个事并不容易，这跟你的野心有多大，好胜心有多强 ，你愿意付出多少很有关系，因为一个人的领导力跟他的标准很有关系，因为有领导力的人的标准比绝大多数人都要高。</p>
+<p>1）<strong>识别自己的特长和天赋。</strong> 首先，每个人 DNA 都可能或多或少都会有一些比大多数人 NB 的东西（当然，也可能没有），如果你有了，那么在你过去的人生中就一定会表现出来了，就是那种大家遇到这个事会来请教你的寻求你帮助的现象。那种，别人要非常努力，而且毫不费劲的事。一旦你有了这样的特长或天赋，那你就要大力地扩大你的领先优势，千万不要进到那些会限制你优势的地方。你是一条鱼，你就一定要把别人拉到水里来玩，绝对不要去陆地上跟别人拼，不断地在自己的特长和天赋上扩大自己的领先优势，彻底一骑绝尘。</p>
+<p>2）<strong>识别自己的兴趣和事业。</strong> 没有天赋也没有问题，还有兴趣点，都说兴趣是最好的老师，当年，Linus 就是在学校里对 minx 着迷了，于是整出个 Linux 来，这就是兴趣驱动出的东西，一般来说，兴趣驱动的事总是会比那些被动驱动的更好。但是，这里我想说明一下什么叫 “真∙兴趣”，真正的兴趣不是那种三天热度的东西，而是那种，你愿意为之付出一辈子的事，是那种无论有多大困难有多难受你都要死磕的事，这才是“真∙兴趣”，这也就是你的“野心” 和“好胜心”所在，其实上升到了你的事业。相信我，绝大多数人只有职业而没有事业的。</p>
+<p>3）<strong>建立高级的习惯和方法。</strong> 没有天赋没有野心，也还是可以跟别人拼习惯拼方法的，只要你有一些比较好的习惯和方法，那么你一样可以超过大多数人。对此，在习惯上你要做到比较大多数人更自律，更有计划性，更有目标性，比如，每年学习一门新的语言或技术，并可以参与相关的顶级开源项目，每个月训练一个类算法，掌握一种算法，每周阅读一篇英文论文，并把阅读笔记整理出来…… 自律的是非常可怕的。除此之外，你还需要在方法上超过别人，你需要满世界的找各种高级的方法，其中包括，思考的方法，学习的方法、时间管理的方法、沟通的方法这类软实力的，还有，解决问题的方法（trouble shooting 和 problem solving），设计的方法，工程的方法，代码的方法等等硬实力的，一开始照猫画虎，时间长了就可能会自己发明或推导新的方法。</p>
+<p>4）<strong>勤奋努力执着坚持。</strong> 如果上面三件事你都没有也没有能力，那还有最后一件事了，那就是勤奋努力了，就是所谓的 “一万小时定律” 了（参看《21 天教你学会 C++》中的十年学编程一节），我见过很多不聪明的人，悟性也不够（比如我就是一个），别人学一个东西，一个月就好了，而我需要 1 年甚至更长，但是很多东西都是死的，只要肯花时间就有一天你会搞懂的，耐不住我坚持十年二十年，聪明的人发明个飞机飞过去了，笨一点的人愚公移山也过得去，因为更多的人是懒人，我不用拼过聪明人，我只用拼过那些懒人就好了。</p>
+<p>好了，就这么多，如果哪天你变得消极和不自信，你要来读读我的这篇文章，子曰：温故而知新。</p>
+<p>（全文完）</p>
+<blockquote>
+<p>本文转自：<a href="https://coolshell.cn/" target="_blank" rel="noopener">CoolShell</a> 的<a href="https://coolshell.cn/articles/19464.html/comment-page-1#comments" target="_blank" rel="noopener">《如何超过大多数人》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>超过</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac上用QuickTimePlayer和Soundflower插件录制完美视频</title>
+    <url>/2019/04/10/Mac%E4%B8%8A%E7%94%A8QuickTimePlayer%E5%92%8CSoundflower%E6%8F%92%E4%BB%B6%E5%BD%95%E5%88%B6%E5%AE%8C%E7%BE%8E%E8%A7%86%E9%A2%91/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/0-2023-03-06-10-51-48.png" alt="0-2023-03-06-10-51-48"></p>
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MacOS自带的QuickTime Player录制视频的时候默认是不会有内部视频里的音频的，默认情况下除非你开到最大声，然后通过内置的麦克风“听到”，又录进到视频。这是很傻X的。<br>今天整理了一下可以录制到音视频的两个方法：</p>
+<blockquote>
+<ol>
+<li>录制只有屏内音频视频的方法  </li>
+<li>录制有屏内音频和屏外声音视频的方法</li>
+</ol>
+</blockquote>
+<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><blockquote>
+<p>软件： Soundflower 小插件<br>操作系统：macOS<br>其他：一个聪明的脑袋  </p>
+</blockquote>
+<h2 id="1-下载Soundflower并安装"><a href="#1-下载Soundflower并安装" class="headerlink" title="1. 下载Soundflower并安装"></a>1. 下载<a href="https://github.com/mattingalls/Soundflower/releases" target="_blank" rel="noopener">Soundflower</a>并安装</h2><p>点击上面这个链接，进入GitHub选择下载<code>Soundflower-2.0b2.dmg</code>(版本可能不一样)</p>
+<p>下载完成后，无脑安装，再次期间可能会提示<code>提示来自身份不明的开发者</code>，这个时候不要慌，打开系统偏好设置-&gt;安全性与隐私，选择“仍要打开”（此时我们在“通用”选项卡）</p>
+<p>在这里我们顺便检查一下，QuickTime Player的麦克风权限。打开系统偏好设置-&gt;安全性与隐私-&gt;选择“隐私”选项卡，选择左侧的“麦克风”选项，看右侧的“QuickTime Player”有没有勾上对勾，没有的话把它勾上</p>
+<p>到这里Soundflower基本就算安装好了，接下来开始设置</p>
+<h2 id="2-设置"><a href="#2-设置" class="headerlink" title="2. 设置"></a>2. 设置</h2><p>设置我们需要打开<code>音频 MIDI 设置</code>这个Mac自带的软件：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/1-2023-03-06-10-52-10.png" alt="音频MIDI设置"></p>
+<h3 id="2-1-创建多输出设备并设置"><a href="#2-1-创建多输出设备并设置" class="headerlink" title="2.1 创建多输出设备并设置"></a>2.1 创建<code>多输出设备</code>并设置</h3><p>点击左下角“+”，选择“创建多输出设备”，按如图所示设置：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/2-2023-03-06-10-52-30.png" alt="创建多输出设备"></p>
+<h3 id="2-2-创建只有屏内音频的配置（创建聚集设备）"><a href="#2-2-创建只有屏内音频的配置（创建聚集设备）" class="headerlink" title="2.2 创建只有屏内音频的配置（创建聚集设备）"></a>2.2 创建<code>只有屏内音频</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/3-2023-03-06-10-52-55.png" alt="只有屏内音频"></p>
+<h3 id="2-3-创建屏内音频和屏外声音的配置（创建聚集设备）"><a href="#2-3-创建屏内音频和屏外声音的配置（创建聚集设备）" class="headerlink" title="2.3 创建屏内音频和屏外声音的配置（创建聚集设备）"></a>2.3 创建<code>屏内音频和屏外声音</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/4-2023-03-06-10-53-13.png" alt="屏内音频和屏外声音"></p>
+<h2 id="3-录制"><a href="#3-录制" class="headerlink" title="3. 录制"></a>3. 录制</h2><p>录制时因为分为两种不同的方式，所以在录制是设置稍有不同，我大致总结如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.录制只有内部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器输出：</span><br><span class="line">        多输出设备   ✔️</span><br><span class="line"></span><br><span class="line">2.录制有内外部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内外部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器：</span><br><span class="line">        多输出设备（内外声音结合很好，效果好） ✔️</span><br><span class="line">        内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）  </span><br><span class="line">        刚才建的两个选项（自己听不到声音，但是录完屏后视频内有声音）</span><br></pre></td></tr></table></figure>
+<p>看不懂的同学请往下看</p>
+<h3 id="3-1-录制只有屏内音频视频的方法"><a href="#3-1-录制只有屏内音频视频的方法" class="headerlink" title="3.1 录制只有屏内音频视频的方法"></a>3.1 录制只有屏内音频视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/5-2023-03-06-10-53-47.png" alt="录屏专用-内部音频"></p>
+<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-54-10.png" alt="多输出设备1"></p>
+<p>如果没有小喇叭可以打开系统偏好设置-&gt;声音-&gt;选择输出选项卡，选中“多输出设备”。最后把“在菜单栏中显示音量”选中即可，方便以后使用</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/7-2023-03-06-10-54-29.png" alt="多输出设备2"></p>
+<p>至此，点击开始，录制你的视频吧</p>
+<h3 id="3-2-录制有屏内音频和屏外声音视频的方法"><a href="#3-2-录制有屏内音频和屏外声音视频的方法" class="headerlink" title="3.2 录制有屏内音频和屏外声音视频的方法"></a>3.2 录制有屏内音频和屏外声音视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内外部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/8-2023-03-06-10-54-57.png" alt="录屏专用-内外部音频"></p>
+<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-55-31.png" alt="多输出设备3"></p>
+<p>剩下的其他选项：</p>
+<blockquote>
+<p>内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）<br>刚才建的两个选项(录屏专用-内部音频/录屏专用-内外部音频)，自己听不到声音，但是录完屏后视频内有声音（感觉这个适合用来夜深人静的时候录~）</p>
+</blockquote>
+<p>至此，点击开始，录制你的视频吧</p>
+<h2 id="4-补充"><a href="#4-补充" class="headerlink" title="4. 补充"></a>4. 补充</h2><p>如果同学你机器上装有 <code>homebrew</code> 和 <code>homebrew cask</code>，可以直接用如下命令安装Soundflower：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install soundflower</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>录视频</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>虚拟机Linux的root或普通用户密码忘记找回</title>
     <url>/2018/07/31/%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E/</url>
     <content><![CDATA[<h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
@@ -2600,6 +2503,103 @@
       <tags>
         <tag>虚拟机</tag>
         <tag>密码找回</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虚拟机VirtualBox中挂载新硬盘</title>
+    <url>/2018/03/18/%E8%99%9A%E6%8B%9F%E6%9C%BAVirtualBox%E4%B8%AD%E6%8C%82%E8%BD%BD%E6%96%B0%E7%A1%AC%E7%9B%98/</url>
+    <content><![CDATA[<p>在VirtualBox中装好Linux后，发现硬盘空间太小，怎样才能增加硬盘容量？那就是再建一个硬盘：</p>
+<h5 id="添加新硬盘"><a href="#添加新硬盘" class="headerlink" title="添加新硬盘"></a>添加新硬盘</h5><blockquote>
+<p>设置 -&gt; Storage(存储) -&gt; SATA控制器-&gt;右击，选择”添加虚拟硬盘”<br>然后，根据需求创建合适的硬盘<br><a id="more"></a></p>
+</blockquote>
+<h5 id="重启虚拟机"><a href="#重启虚拟机" class="headerlink" title="重启虚拟机"></a>重启虚拟机</h5><p>  查看现有系统的磁盘空间</p>
+<blockquote>
+<p>sudo fdisk -l</p>
+</blockquote>
+<p>  可看到新加的虚拟硬盘，一般名为：Disk /dev/sdb</p>
+<h5 id="给新加的硬盘分区"><a href="#给新加的硬盘分区" class="headerlink" title="给新加的硬盘分区"></a>给新加的硬盘分区</h5><blockquote>
+<p>fdisk /dev/sdb  </p>
+</blockquote>
+<p>  键入m,可看到帮助信息</p>
+<blockquote>
+<p>command (m for help):m</p>
+</blockquote>
+<p>  增加新分区</p>
+<blockquote>
+<p>command (m for help):n  </p>
+</blockquote>
+<p>  选择基本分区，输入：p 建一个分区</p>
+<blockquote>
+<p>Partition number(1-4):  </p>
+</blockquote>
+<p>  回车</p>
+<blockquote>
+<p>First cylinder (1-15908,default 1):Enter</p>
+</blockquote>
+<p>  写入并退出</p>
+<blockquote>
+<p>command (m for help):w</p>
+</blockquote>
+<h5 id="格式化磁盘分区"><a href="#格式化磁盘分区" class="headerlink" title="格式化磁盘分区"></a>格式化磁盘分区</h5><p>  用ext4格式对/dev/sdb1进入格式化</p>
+<blockquote>
+<p>sudo mkfs.ext4 /dev/sdb1</p>
+</blockquote>
+<h5 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h5><p>  创建新的挂载点</p>
+<blockquote>
+<p>sudo mkdir /work</p>
+</blockquote>
+<p>  将新磁盘分区挂载到/work目录下</p>
+<blockquote>
+<p>sudo mount -t ext4 /dev/sdb1 /work</p>
+</blockquote>
+<p>  查看挂载</p>
+<blockquote>
+<p>df -h</p>
+</blockquote>
+<p>  可以看到新加的硬盘：/dev/sdb1</p>
+<h5 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h5><p>  修改文件</p>
+<blockquote>
+<p>sudo vim /etc/fstab</p>
+</blockquote>
+<p>  在最后一行加入：</p>
+<blockquote>
+<p>/dev/sdb1 /work ext4 errors=remount-ro 0 1</p>
+</blockquote>
+<p>  完成!</p>
+<hr>
+<h4 id="补充：为挂载点扩容"><a href="#补充：为挂载点扩容" class="headerlink" title="补充：为挂载点扩容"></a>补充：为挂载点扩容</h4><p>假设之前我们有一个挂载点为 <em>/mydata</em> ，但该 <em>/mydata</em> 已经写满，但依然想在 <em>/mydata</em> 下添加新的数据，这时可以使用软链接将 <em>/mydata</em> 软链接到一个新挂载的磁盘分区上以实现扩容。具体步骤如下。</p>
+<p><strong>1. 创建一个目录，以便稍后作为挂载点：</strong></p>
+<blockquote>
+<p>mkdir /newdata</p>
+</blockquote>
+<p><strong>2. 将 /dev/sdb1 分区挂载到 /newdata 下：</strong></p>
+<blockquote>
+<p>mount /dev/sdb1 /newdata</p>
+</blockquote>
+<p><strong>3. 新建 /mydata 到 /newdata 的软链接：</strong></p>
+<blockquote>
+<p>ln -s /newdata /mydata</p>
+</blockquote>
+<p>  此时在 /mydata 目录下会有一个软链接文件 <em>newdata</em> 指向 <em>/newdata/</em> ，即 <em>newdata-&gt; /newdata/</em> 。这样一来，只要我们向 <em>/mydata/newdata</em> 下写文件，实际就写入了 <em>/newdata/</em> 目录下，相当于我们为原 <em>/mydata</em> 挂载点新增加了一部分使用空间。  </p>
+<p>  也可以手动指定该软链接文件的名称：</p>
+<blockquote>
+<p>ln -s /newdata /mydata/customed_name</p>
+</blockquote>
+<p>  这样就有 /mydata/customed_name -&gt; /newdata  </p>
+<p>  <strong>注：</strong> 我们也可以利用软链接的这一用途，将比较大的日志文件链接到存储空间充足的磁盘分区的挂载点上。<br>  举例来说，如果 /opt/tomcat/logs/catalina.out 日志文件输入很多，占用空间很大，而 /opt 挂载点中所剩空间已经不多，存在溢出风险，通过下面两步就可以将该日志文件软链接到另一个磁盘分区的挂载点上：  </p>
+<blockquote>
+<p>touch /newdata/catalina_link.out<br>ln -sf /newdata/catalina_link.out /opt/tomcat/logs/catalina.out</p>
+</blockquote>
+<p>  <strong><em>这里还需要注意三点：</em></strong></p>
+<p>  一是必须先创建一个被链接的文件，否则软链接后失败；<br>  二是强制软链接会清空之前 /opt/tomcat/logs/catalina.out 日志文件中的全部内容清空；<br>  三是需要重启 tomcat 目录后才能继续向 /opt/tomcat/logs/catalina.out 写入。  </p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>Linux挂载硬盘</tag>
       </tags>
   </entry>
   <entry>
