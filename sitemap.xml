@@ -308,20 +308,6 @@
 
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/Hadoop/</loc>
-    <lastmod>2023-12-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://daihuiblog.github.io/tags/%E9%9B%86%E7%BE%A4/</loc>
-    <lastmod>2023-12-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://daihuiblog.github.io/tags/UEditor/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -343,14 +329,14 @@
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/Java/</loc>
+    <loc>https://daihuiblog.github.io/tags/Hadoop/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/%E5%BC%82%E5%B8%B8/</loc>
+    <loc>https://daihuiblog.github.io/tags/%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -371,14 +357,14 @@
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/Mac/</loc>
+    <loc>https://daihuiblog.github.io/tags/Java/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/%E5%BD%95%E8%A7%86%E9%A2%91/</loc>
+    <loc>https://daihuiblog.github.io/tags/%E5%BC%82%E5%B8%B8/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -393,6 +379,20 @@
   
   <url>
     <loc>https://daihuiblog.github.io/tags/launchpad/</loc>
+    <lastmod>2023-12-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://daihuiblog.github.io/tags/Mac/</loc>
+    <lastmod>2023-12-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://daihuiblog.github.io/tags/%E5%BD%95%E8%A7%86%E9%A2%91/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -567,20 +567,6 @@
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/IPD/</loc>
-    <lastmod>2023-12-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://daihuiblog.github.io/tags/%E5%8D%8E%E4%B8%BA/</loc>
-    <lastmod>2023-12-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://daihuiblog.github.io/tags/Java8/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -589,6 +575,20 @@
   
   <url>
     <loc>https://daihuiblog.github.io/tags/Streams-API/</loc>
+    <lastmod>2023-12-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://daihuiblog.github.io/tags/IPD/</loc>
+    <lastmod>2023-12-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://daihuiblog.github.io/tags/%E5%8D%8E%E4%B8%BA/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -625,13 +625,6 @@
 
   
   <url>
-    <loc>https://daihuiblog.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2023-12-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://daihuiblog.github.io/categories/Java/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -646,7 +639,7 @@
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop/</loc>
+    <loc>https://daihuiblog.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -660,6 +653,13 @@
   </url>
   
   <url>
+    <loc>https://daihuiblog.github.io/categories/Hexo/</loc>
+    <lastmod>2023-12-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://daihuiblog.github.io/categories/Java/%E5%BC%82%E5%B8%B8/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -667,7 +667,7 @@
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/categories/Hexo/</loc>
+    <loc>https://daihuiblog.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop/</loc>
     <lastmod>2023-12-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
