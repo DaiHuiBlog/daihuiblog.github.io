@@ -35,6 +35,78 @@
       </tags>
   </entry>
   <entry>
+    <title>Hadoop伪分布式搭建-(1)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-1/</url>
+    <content><![CDATA[<h3 id="配置虚拟机子网网段-hostonly模式时"><a href="#配置虚拟机子网网段-hostonly模式时" class="headerlink" title="配置虚拟机子网网段(hostonly模式时)"></a>配置虚拟机子网网段(hostonly模式时)</h3><ul>
+<li>配置网段  </li>
+</ul>
+<blockquote>
+<p>点击VMware快捷方式，右键打开文件所在位置 -&gt; 双击vmnetcfg.exe -&gt; VMnet1 host-only -&gt;<br>修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&gt; apply -&gt; ok</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>设置本地机器IP  </li>
+</ul>
+<blockquote>
+<p>回到windows –&gt; 打开网络和共享中心 -&gt; 更改适配器设置 -&gt; 右键VMnet1 -&gt; 属性 -&gt; 双击IPv4 -&gt;<br>设置windows的IP：192.168.8.100 子网掩码：255.255.255.0 -&gt; 点击确定</p>
+</blockquote>
+<ul>
+<li>设置为hostonly模式</li>
+</ul>
+<blockquote>
+<p>在虚拟软件上 –My Computer -&gt; 选中虚拟机 -&gt; 右键 -&gt; settings -&gt; network adapter -&gt; host only -&gt; ok   </p>
+</blockquote>
+<ul>
+<li>另:桥接模式</li>
+</ul>
+<blockquote>
+<p>桥接模式直接将本地机器的当前正在使用的网卡(无线/非无线网卡)IP改为静态IP即可.设置windows的IP：192.168.8.100 子网掩 码：255.255.255.0 -&gt; 网关:192.168.1.1 -&gt; 若为无线网卡,设置前先查看路由分配的DNS是多少,直接照着填进来就行.-&gt;<br>点击确定</p>
+</blockquote>
+<h3 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h3><blockquote>
+<p>vim /etc/sysconfig/network</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">NETWORKING=yes</span><br><span class="line">HOSTNAME=dh01 #随便设置一个名字</span><br></pre></td></tr></table></figure>
+<h3 id="修改虚拟机IP-这里是centos7"><a href="#修改虚拟机IP-这里是centos7" class="headerlink" title="修改虚拟机IP(这里是centos7)"></a>修改虚拟机IP(这里是centos7)</h3><p>两种方式：  </p>
+<ul>
+<li>第一种：通过Linux图形界面进行修改（推荐）</li>
+</ul>
+<blockquote>
+<p>进入Linux图形界面 -&gt; 右键点击右上方的两个小电脑 -&gt; 点击Edit connections -&gt; 选中当前网络System eth0 -&gt; 点击edit按钮 -&gt; 选择IPv4 -&gt; method选择为manual -&gt; 点击add按钮 -&gt;添加IP：192.168.8.88<br>子网掩码：255.255.255.0 网关：192.168.8.1 -&gt; apply</p>
+</blockquote>
+<ul>
+<li>第二种：修改配置文件方式</li>
+</ul>
+<blockquote>
+<p>vim /etc/sysconfig/network-scripts/ifcfg-eth0` (不一定一定是ifcfg-eth0)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DEVICE="eth0"</span><br><span class="line">BOOTPROTO="static"               #修改</span><br><span class="line">HWADDR="00:0C:29:3C:BF:E7"</span><br><span class="line">IPV6INIT="yes"</span><br><span class="line">NM_CONTROLLED="yes"</span><br><span class="line">ONBOOT="yes"</span><br><span class="line">TYPE="Ethernet"</span><br><span class="line">UUID="ce22eeca-ecde-4536-8cc2-ef0dc36d4a8c"</span><br><span class="line">IPADDR="192.168.8.88"               #修改</span><br><span class="line">NETMASK="255.255.255.0"           #修改</span><br><span class="line">GATEWAY="192.168.8.1"               #修改</span><br></pre></td></tr></table></figure>
+<h3 id="修改主机名和IP的映射关系"><a href="#修改主机名和IP的映射关系" class="headerlink" title="修改主机名和IP的映射关系"></a>修改主机名和IP的映射关系</h3><p><code>vim /etc/hosts</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">192.168.8.88 dh01</span><br></pre></td></tr></table></figure>
+<h3 id="关闭防火墙-以下为centos7以前命令-centos7"><a href="#关闭防火墙-以下为centos7以前命令-centos7" class="headerlink" title="关闭防火墙(以下为centos7以前命令,centos7)"></a>关闭防火墙(以下为centos7以前命令,centos7)</h3><blockquote>
+<p>#查看防火墙状态<br>service iptables status</p>
+<p>#关闭防火墙<br>service iptables stop</p>
+<p>#查看防火墙开机启动状态<br>chkconfig iptables –list</p>
+<p>#关闭防火墙开机启动<br>chkconfig iptables off</p>
+</blockquote>
+<p>CentOS 7.0默认使用的是firewall作为防火墙  </p>
+<blockquote>
+<p>systemctl start firewalld.service    #启动firewall<br>systemctl stop firewalld.service    #停止firewall<br>systemctl disable firewalld.service    #禁止firewall开机启动  </p>
+</blockquote>
+<p>也可以改成使用iptables：systemctl start iptables.service</p>
+<h3 id="重启Linux"><a href="#重启Linux" class="headerlink" title="重启Linux"></a>重启Linux</h3><blockquote>
+<p>reboot</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>大数据</category>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git简明指南</title>
     <url>/2018/04/24/Git%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/</url>
     <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Git简明指南/3-2023-03-06-10-23-18.jpg" alt="3-2023-03-06-10-23-18"></p>
@@ -116,78 +188,6 @@
       </categories>
       <tags>
         <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop伪分布式搭建-(1)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-1/</url>
-    <content><![CDATA[<h3 id="配置虚拟机子网网段-hostonly模式时"><a href="#配置虚拟机子网网段-hostonly模式时" class="headerlink" title="配置虚拟机子网网段(hostonly模式时)"></a>配置虚拟机子网网段(hostonly模式时)</h3><ul>
-<li>配置网段  </li>
-</ul>
-<blockquote>
-<p>点击VMware快捷方式，右键打开文件所在位置 -&gt; 双击vmnetcfg.exe -&gt; VMnet1 host-only -&gt;<br>修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&gt; apply -&gt; ok</p>
-</blockquote>
-<a id="more"></a>
-<ul>
-<li>设置本地机器IP  </li>
-</ul>
-<blockquote>
-<p>回到windows –&gt; 打开网络和共享中心 -&gt; 更改适配器设置 -&gt; 右键VMnet1 -&gt; 属性 -&gt; 双击IPv4 -&gt;<br>设置windows的IP：192.168.8.100 子网掩码：255.255.255.0 -&gt; 点击确定</p>
-</blockquote>
-<ul>
-<li>设置为hostonly模式</li>
-</ul>
-<blockquote>
-<p>在虚拟软件上 –My Computer -&gt; 选中虚拟机 -&gt; 右键 -&gt; settings -&gt; network adapter -&gt; host only -&gt; ok   </p>
-</blockquote>
-<ul>
-<li>另:桥接模式</li>
-</ul>
-<blockquote>
-<p>桥接模式直接将本地机器的当前正在使用的网卡(无线/非无线网卡)IP改为静态IP即可.设置windows的IP：192.168.8.100 子网掩 码：255.255.255.0 -&gt; 网关:192.168.1.1 -&gt; 若为无线网卡,设置前先查看路由分配的DNS是多少,直接照着填进来就行.-&gt;<br>点击确定</p>
-</blockquote>
-<h3 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h3><blockquote>
-<p>vim /etc/sysconfig/network</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">NETWORKING=yes</span><br><span class="line">HOSTNAME=dh01 #随便设置一个名字</span><br></pre></td></tr></table></figure>
-<h3 id="修改虚拟机IP-这里是centos7"><a href="#修改虚拟机IP-这里是centos7" class="headerlink" title="修改虚拟机IP(这里是centos7)"></a>修改虚拟机IP(这里是centos7)</h3><p>两种方式：  </p>
-<ul>
-<li>第一种：通过Linux图形界面进行修改（推荐）</li>
-</ul>
-<blockquote>
-<p>进入Linux图形界面 -&gt; 右键点击右上方的两个小电脑 -&gt; 点击Edit connections -&gt; 选中当前网络System eth0 -&gt; 点击edit按钮 -&gt; 选择IPv4 -&gt; method选择为manual -&gt; 点击add按钮 -&gt;添加IP：192.168.8.88<br>子网掩码：255.255.255.0 网关：192.168.8.1 -&gt; apply</p>
-</blockquote>
-<ul>
-<li>第二种：修改配置文件方式</li>
-</ul>
-<blockquote>
-<p>vim /etc/sysconfig/network-scripts/ifcfg-eth0` (不一定一定是ifcfg-eth0)</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DEVICE="eth0"</span><br><span class="line">BOOTPROTO="static"               #修改</span><br><span class="line">HWADDR="00:0C:29:3C:BF:E7"</span><br><span class="line">IPV6INIT="yes"</span><br><span class="line">NM_CONTROLLED="yes"</span><br><span class="line">ONBOOT="yes"</span><br><span class="line">TYPE="Ethernet"</span><br><span class="line">UUID="ce22eeca-ecde-4536-8cc2-ef0dc36d4a8c"</span><br><span class="line">IPADDR="192.168.8.88"               #修改</span><br><span class="line">NETMASK="255.255.255.0"           #修改</span><br><span class="line">GATEWAY="192.168.8.1"               #修改</span><br></pre></td></tr></table></figure>
-<h3 id="修改主机名和IP的映射关系"><a href="#修改主机名和IP的映射关系" class="headerlink" title="修改主机名和IP的映射关系"></a>修改主机名和IP的映射关系</h3><p><code>vim /etc/hosts</code></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">192.168.8.88 dh01</span><br></pre></td></tr></table></figure>
-<h3 id="关闭防火墙-以下为centos7以前命令-centos7"><a href="#关闭防火墙-以下为centos7以前命令-centos7" class="headerlink" title="关闭防火墙(以下为centos7以前命令,centos7)"></a>关闭防火墙(以下为centos7以前命令,centos7)</h3><blockquote>
-<p>#查看防火墙状态<br>service iptables status</p>
-<p>#关闭防火墙<br>service iptables stop</p>
-<p>#查看防火墙开机启动状态<br>chkconfig iptables –list</p>
-<p>#关闭防火墙开机启动<br>chkconfig iptables off</p>
-</blockquote>
-<p>CentOS 7.0默认使用的是firewall作为防火墙  </p>
-<blockquote>
-<p>systemctl start firewalld.service    #启动firewall<br>systemctl stop firewalld.service    #停止firewall<br>systemctl disable firewalld.service    #禁止firewall开机启动  </p>
-</blockquote>
-<p>也可以改成使用iptables：systemctl start iptables.service</p>
-<h3 id="重启Linux"><a href="#重启Linux" class="headerlink" title="重启Linux"></a>重启Linux</h3><blockquote>
-<p>reboot</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>大数据</category>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>集群</tag>
       </tags>
   </entry>
   <entry>
@@ -544,6 +544,26 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac下删除launchpad还有残留图标的应用</title>
+    <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
+<h2 id="打开launchpad"><a href="#打开launchpad" class="headerlink" title="打开launchpad"></a>打开launchpad</h2><p>下列三个放都可以打开launchpad  </p>
+<ol>
+<li>fn + F4（F1-F12是正常使用情况）  </li>
+<li>F4（F1-F12使用需要借助fn键使用）  </li>
+<li>四个指头抓一下  </li>
+</ol>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h4 id="1-长按control-option-command，看到图标抖动"><a href="#1-长按control-option-command，看到图标抖动" class="headerlink" title="1. 长按control+option+command，看到图标抖动"></a>1. 长按control+option+command，看到图标抖动</h4><h4 id="2-单击待删除图标，图标中心出现白色问号"><a href="#2-单击待删除图标，图标中心出现白色问号" class="headerlink" title="2. 单击待删除图标，图标中心出现白色问号"></a>2. 单击待删除图标，图标中心出现白色问号</h4><h4 id="3-松开按住的三个快捷键（control-option-command）"><a href="#3-松开按住的三个快捷键（control-option-command）" class="headerlink" title="3. 松开按住的三个快捷键（control+option+command）"></a>3. 松开按住的三个快捷键（control+option+command）</h4><h4 id="4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"><a href="#4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除" class="headerlink" title="4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"></a>4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除</h4>]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac删除</tag>
+        <tag>launchpad</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac下利用GCP和v2ray搭建无限使用梯子</title>
     <url>/2019/02/18/Mac%E4%B8%8B%E5%88%A9%E7%94%A8GCP%E5%92%8Cv2ray%E6%90%AD%E5%BB%BA%E6%97%A0%E9%99%90%E4%BD%BF%E7%94%A8%E6%A2%AF%E5%AD%90/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>妈妈再也不用为我担心没梯子用了</p>
@@ -648,26 +668,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac下删除launchpad还有残留图标的应用</title>
-    <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
-    <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
-<h2 id="打开launchpad"><a href="#打开launchpad" class="headerlink" title="打开launchpad"></a>打开launchpad</h2><p>下列三个放都可以打开launchpad  </p>
-<ol>
-<li>fn + F4（F1-F12是正常使用情况）  </li>
-<li>F4（F1-F12使用需要借助fn键使用）  </li>
-<li>四个指头抓一下  </li>
-</ol>
-<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h4 id="1-长按control-option-command，看到图标抖动"><a href="#1-长按control-option-command，看到图标抖动" class="headerlink" title="1. 长按control+option+command，看到图标抖动"></a>1. 长按control+option+command，看到图标抖动</h4><h4 id="2-单击待删除图标，图标中心出现白色问号"><a href="#2-单击待删除图标，图标中心出现白色问号" class="headerlink" title="2. 单击待删除图标，图标中心出现白色问号"></a>2. 单击待删除图标，图标中心出现白色问号</h4><h4 id="3-松开按住的三个快捷键（control-option-command）"><a href="#3-松开按住的三个快捷键（control-option-command）" class="headerlink" title="3. 松开按住的三个快捷键（control+option+command）"></a>3. 松开按住的三个快捷键（control+option+command）</h4><h4 id="4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"><a href="#4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除" class="headerlink" title="4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"></a>4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除</h4>]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac删除</tag>
-        <tag>launchpad</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac下安装mysql5.7完整步骤及问题整理</title>
     <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
     <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
@@ -713,26 +713,6 @@
         <tag>Mac</tag>
         <tag>GCP</tag>
         <tag>谷歌云</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac安装软件时提示已损坏的解决方法</title>
-    <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/1-2023-03-06-10-50-35.png" alt="已损坏"></p>
-<a id="more"></a>
-<p>这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>打开终端，在终端中输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
-<p>输入密码，回车。搞定<br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/2-2023-03-06-10-51-14.png" alt="2-2023-03-06-10-51-14"></p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac</tag>
-        <tag>文件损坏</tag>
       </tags>
   </entry>
   <entry>
@@ -841,6 +821,26 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac安装软件时提示已损坏的解决方法</title>
+    <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/1-2023-03-06-10-50-35.png" alt="已损坏"></p>
+<a id="more"></a>
+<p>这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>打开终端，在终端中输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
+<p>输入密码，回车。搞定<br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/2-2023-03-06-10-51-14.png" alt="2-2023-03-06-10-51-14"></p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>文件损坏</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>win2008R2磁盘脱机和写入保护解决办法</title>
     <url>/2018/10/22/win2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
     <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/1-2023-03-06-11-04-05.png" alt="磁盘脱机"></p>
@@ -926,32 +926,6 @@
       <tags>
         <tag>树莓派</tag>
         <tag>监控</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虚拟机Linux的root或普通用户密码忘记找回</title>
-    <url>/2018/07/31/%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E/</url>
-    <content><![CDATA[<h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
-<li>进入GRUB界面后，有几秒钟时间给你。进入GRUB出现：<br> Red Hat Enterprise Linux Server (2.6.18-8.e15xen) <a id="more"></a></li>
-<li>倒计时结束前，键入e出现：<br>root（hd0,0）<br>kernel /xen.gz-2.6.28-8.e15<br>module /vmlinux-2.6.18.e15xen ro root=/dev/VolGroup00/LogVo100 rhgb quiet<br>module /initrd-2.6.18-8.e15xen.img<br>上下键移到quiet那一行，按e进入，加上 linux single或者1即可，回车</li>
-<li>按b后进入重启模式，一定注意出现：<br> Starting udev:<br> 在后面输入boot回车</li>
-<li>之后出现命令行：<br> sh-3.2#</li>
-<li>输入passwd，回车即可修改root密码，输入两次密码</li>
-<li>完成之后reboot即可重启。</li>
-</ol>
-<h1 id="普通用户密码忘记了，比较简单"><a href="#普通用户密码忘记了，比较简单" class="headerlink" title="普通用户密码忘记了，比较简单"></a>普通用户密码忘记了，比较简单</h1><ol>
-<li>在root账户下，打开/etc/shadow (不是passwd文件，因为密码实际上经过加密后放在了“影子口令”文件shadow中了。passwd文件每个用户均可见，但是shadow只有root可以见)。</li>
-<li>找到普通用户名cicikasa，然后删除第二个域即可，域之间用“:”隔开的，如下：<br>cicikasa:TdkakkkYUukkjkjk:14672:0:99999:7:::<br>上述红色部分就是经过加密的密码，删除即可</li>
-<li>在普通用户下，输入passwd即可输入新密码</li>
-</ol>
-<h1 id="如果想修改VMware的bios"><a href="#如果想修改VMware的bios" class="headerlink" title="如果想修改VMware的bios"></a>如果想修改VMware的bios</h1><p>在VMWare中将BIOS设成光驱启动:<br>启动时(点击启动虚拟机按钮),按F2 ,进入BIOS 设置,找到 BOOT—把CDROM光驱，移动到最上面即可。根据提示进行设置，一般按“-”号进行设置。<br>注意：启动时，点了启动虚拟机按钮后一定要在点一下窗口（或者Ctrl +G），然后快按F2。否则，窗口没激活，F2是不起作用的.</p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>虚拟机</tag>
-        <tag>密码找回</tag>
       </tags>
   </entry>
   <entry>
@@ -1049,6 +1023,32 @@
       <tags>
         <tag>虚拟机</tag>
         <tag>Linux挂载硬盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虚拟机Linux的root或普通用户密码忘记找回</title>
+    <url>/2018/07/31/%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E/</url>
+    <content><![CDATA[<h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
+<li>进入GRUB界面后，有几秒钟时间给你。进入GRUB出现：<br> Red Hat Enterprise Linux Server (2.6.18-8.e15xen) <a id="more"></a></li>
+<li>倒计时结束前，键入e出现：<br>root（hd0,0）<br>kernel /xen.gz-2.6.28-8.e15<br>module /vmlinux-2.6.18.e15xen ro root=/dev/VolGroup00/LogVo100 rhgb quiet<br>module /initrd-2.6.18-8.e15xen.img<br>上下键移到quiet那一行，按e进入，加上 linux single或者1即可，回车</li>
+<li>按b后进入重启模式，一定注意出现：<br> Starting udev:<br> 在后面输入boot回车</li>
+<li>之后出现命令行：<br> sh-3.2#</li>
+<li>输入passwd，回车即可修改root密码，输入两次密码</li>
+<li>完成之后reboot即可重启。</li>
+</ol>
+<h1 id="普通用户密码忘记了，比较简单"><a href="#普通用户密码忘记了，比较简单" class="headerlink" title="普通用户密码忘记了，比较简单"></a>普通用户密码忘记了，比较简单</h1><ol>
+<li>在root账户下，打开/etc/shadow (不是passwd文件，因为密码实际上经过加密后放在了“影子口令”文件shadow中了。passwd文件每个用户均可见，但是shadow只有root可以见)。</li>
+<li>找到普通用户名cicikasa，然后删除第二个域即可，域之间用“:”隔开的，如下：<br>cicikasa:TdkakkkYUukkjkjk:14672:0:99999:7:::<br>上述红色部分就是经过加密的密码，删除即可</li>
+<li>在普通用户下，输入passwd即可输入新密码</li>
+</ol>
+<h1 id="如果想修改VMware的bios"><a href="#如果想修改VMware的bios" class="headerlink" title="如果想修改VMware的bios"></a>如果想修改VMware的bios</h1><p>在VMWare中将BIOS设成光驱启动:<br>启动时(点击启动虚拟机按钮),按F2 ,进入BIOS 设置,找到 BOOT—把CDROM光驱，移动到最上面即可。根据提示进行设置，一般按“-”号进行设置。<br>注意：启动时，点了启动虚拟机按钮后一定要在点一下窗口（或者Ctrl +G），然后快按F2。否则，窗口没激活，F2是不起作用的.</p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>密码找回</tag>
       </tags>
   </entry>
   <entry>
