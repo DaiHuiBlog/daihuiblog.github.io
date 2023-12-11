@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hadoop伪分布式搭建-(1)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-1/</url>
+    <content><![CDATA[<h3 id="配置虚拟机子网网段-hostonly模式时"><a href="#配置虚拟机子网网段-hostonly模式时" class="headerlink" title="配置虚拟机子网网段(hostonly模式时)"></a>配置虚拟机子网网段(hostonly模式时)</h3><ul>
+<li>配置网段  </li>
+</ul>
+<blockquote>
+<p>点击VMware快捷方式，右键打开文件所在位置 -&gt; 双击vmnetcfg.exe -&gt; VMnet1 host-only -&gt;<br>修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&gt; apply -&gt; ok</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>设置本地机器IP  </li>
+</ul>
+<blockquote>
+<p>回到windows –&gt; 打开网络和共享中心 -&gt; 更改适配器设置 -&gt; 右键VMnet1 -&gt; 属性 -&gt; 双击IPv4 -&gt;<br>设置windows的IP：192.168.8.100 子网掩码：255.255.255.0 -&gt; 点击确定</p>
+</blockquote>
+<ul>
+<li>设置为hostonly模式</li>
+</ul>
+<blockquote>
+<p>在虚拟软件上 –My Computer -&gt; 选中虚拟机 -&gt; 右键 -&gt; settings -&gt; network adapter -&gt; host only -&gt; ok   </p>
+</blockquote>
+<ul>
+<li>另:桥接模式</li>
+</ul>
+<blockquote>
+<p>桥接模式直接将本地机器的当前正在使用的网卡(无线/非无线网卡)IP改为静态IP即可.设置windows的IP：192.168.8.100 子网掩 码：255.255.255.0 -&gt; 网关:192.168.1.1 -&gt; 若为无线网卡,设置前先查看路由分配的DNS是多少,直接照着填进来就行.-&gt;<br>点击确定</p>
+</blockquote>
+<h3 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h3><blockquote>
+<p>vim /etc/sysconfig/network</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">NETWORKING=yes</span><br><span class="line">HOSTNAME=dh01 #随便设置一个名字</span><br></pre></td></tr></table></figure>
+<h3 id="修改虚拟机IP-这里是centos7"><a href="#修改虚拟机IP-这里是centos7" class="headerlink" title="修改虚拟机IP(这里是centos7)"></a>修改虚拟机IP(这里是centos7)</h3><p>两种方式：  </p>
+<ul>
+<li>第一种：通过Linux图形界面进行修改（推荐）</li>
+</ul>
+<blockquote>
+<p>进入Linux图形界面 -&gt; 右键点击右上方的两个小电脑 -&gt; 点击Edit connections -&gt; 选中当前网络System eth0 -&gt; 点击edit按钮 -&gt; 选择IPv4 -&gt; method选择为manual -&gt; 点击add按钮 -&gt;添加IP：192.168.8.88<br>子网掩码：255.255.255.0 网关：192.168.8.1 -&gt; apply</p>
+</blockquote>
+<ul>
+<li>第二种：修改配置文件方式</li>
+</ul>
+<blockquote>
+<p>vim /etc/sysconfig/network-scripts/ifcfg-eth0` (不一定一定是ifcfg-eth0)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DEVICE="eth0"</span><br><span class="line">BOOTPROTO="static"               #修改</span><br><span class="line">HWADDR="00:0C:29:3C:BF:E7"</span><br><span class="line">IPV6INIT="yes"</span><br><span class="line">NM_CONTROLLED="yes"</span><br><span class="line">ONBOOT="yes"</span><br><span class="line">TYPE="Ethernet"</span><br><span class="line">UUID="ce22eeca-ecde-4536-8cc2-ef0dc36d4a8c"</span><br><span class="line">IPADDR="192.168.8.88"               #修改</span><br><span class="line">NETMASK="255.255.255.0"           #修改</span><br><span class="line">GATEWAY="192.168.8.1"               #修改</span><br></pre></td></tr></table></figure>
+<h3 id="修改主机名和IP的映射关系"><a href="#修改主机名和IP的映射关系" class="headerlink" title="修改主机名和IP的映射关系"></a>修改主机名和IP的映射关系</h3><p><code>vim /etc/hosts</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">192.168.8.88 dh01</span><br></pre></td></tr></table></figure>
+<h3 id="关闭防火墙-以下为centos7以前命令-centos7"><a href="#关闭防火墙-以下为centos7以前命令-centos7" class="headerlink" title="关闭防火墙(以下为centos7以前命令,centos7)"></a>关闭防火墙(以下为centos7以前命令,centos7)</h3><blockquote>
+<p>#查看防火墙状态<br>service iptables status</p>
+<p>#关闭防火墙<br>service iptables stop</p>
+<p>#查看防火墙开机启动状态<br>chkconfig iptables –list</p>
+<p>#关闭防火墙开机启动<br>chkconfig iptables off</p>
+</blockquote>
+<p>CentOS 7.0默认使用的是firewall作为防火墙  </p>
+<blockquote>
+<p>systemctl start firewalld.service    #启动firewall<br>systemctl stop firewalld.service    #停止firewall<br>systemctl disable firewalld.service    #禁止firewall开机启动  </p>
+</blockquote>
+<p>也可以改成使用iptables：systemctl start iptables.service</p>
+<h3 id="重启Linux"><a href="#重启Linux" class="headerlink" title="重启Linux"></a>重启Linux</h3><blockquote>
+<p>reboot</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>大数据</category>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git简明指南</title>
     <url>/2018/04/24/Git%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/</url>
     <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Git简明指南/3-2023-03-06-10-23-18.jpg" alt="3-2023-03-06-10-23-18"></p>
@@ -119,34 +191,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hadoop伪分布式搭建-(4)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-4/</url>
-    <content><![CDATA[<h3 id="生成ssh免登陆密钥"><a href="#生成ssh免登陆密钥" class="headerlink" title="生成ssh免登陆密钥"></a>生成ssh免登陆密钥</h3><ul>
-<li><p>进入到/dh/下的home目录(隐藏)  </p>
-<blockquote>
-<p>cd ~/.ssh<br>ssh-keygen -t rsa （一直回车）</p>
-</blockquote>
-</li>
-</ul>
-<a id="more"></a>
-<p>执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥）</p>
-<ul>
-<li>将公钥拷贝到要免登陆的机器上<blockquote>
-<p>ssh-copy-id -i localhost (ssh-copy-id -i 要免登陆的机器的IP)<br>或者<br>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys  </p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>大数据</category>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>集群</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hadoop伪分布式搭建-(2)</title>
     <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
     <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
@@ -175,6 +219,34 @@
 <blockquote>
 <p>source /etc/profile</p>
 </blockquote>
+]]></content>
+      <categories>
+        <category>大数据</category>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hadoop伪分布式搭建-(4)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-4/</url>
+    <content><![CDATA[<h3 id="生成ssh免登陆密钥"><a href="#生成ssh免登陆密钥" class="headerlink" title="生成ssh免登陆密钥"></a>生成ssh免登陆密钥</h3><ul>
+<li><p>进入到/dh/下的home目录(隐藏)  </p>
+<blockquote>
+<p>cd ~/.ssh<br>ssh-keygen -t rsa （一直回车）</p>
+</blockquote>
+</li>
+</ul>
+<a id="more"></a>
+<p>执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥）</p>
+<ul>
+<li>将公钥拷贝到要免登陆的机器上<blockquote>
+<p>ssh-copy-id -i localhost (ssh-copy-id -i 要免登陆的机器的IP)<br>或者<br>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys  </p>
+</blockquote>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>大数据</category>
@@ -260,78 +332,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hadoop伪分布式搭建-(1)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-1/</url>
-    <content><![CDATA[<h3 id="配置虚拟机子网网段-hostonly模式时"><a href="#配置虚拟机子网网段-hostonly模式时" class="headerlink" title="配置虚拟机子网网段(hostonly模式时)"></a>配置虚拟机子网网段(hostonly模式时)</h3><ul>
-<li>配置网段  </li>
-</ul>
-<blockquote>
-<p>点击VMware快捷方式，右键打开文件所在位置 -&gt; 双击vmnetcfg.exe -&gt; VMnet1 host-only -&gt;<br>修改subnet ip 设置网段：192.168.8.0 子网掩码：255.255.255.0 -&gt; apply -&gt; ok</p>
-</blockquote>
-<a id="more"></a>
-<ul>
-<li>设置本地机器IP  </li>
-</ul>
-<blockquote>
-<p>回到windows –&gt; 打开网络和共享中心 -&gt; 更改适配器设置 -&gt; 右键VMnet1 -&gt; 属性 -&gt; 双击IPv4 -&gt;<br>设置windows的IP：192.168.8.100 子网掩码：255.255.255.0 -&gt; 点击确定</p>
-</blockquote>
-<ul>
-<li>设置为hostonly模式</li>
-</ul>
-<blockquote>
-<p>在虚拟软件上 –My Computer -&gt; 选中虚拟机 -&gt; 右键 -&gt; settings -&gt; network adapter -&gt; host only -&gt; ok   </p>
-</blockquote>
-<ul>
-<li>另:桥接模式</li>
-</ul>
-<blockquote>
-<p>桥接模式直接将本地机器的当前正在使用的网卡(无线/非无线网卡)IP改为静态IP即可.设置windows的IP：192.168.8.100 子网掩 码：255.255.255.0 -&gt; 网关:192.168.1.1 -&gt; 若为无线网卡,设置前先查看路由分配的DNS是多少,直接照着填进来就行.-&gt;<br>点击确定</p>
-</blockquote>
-<h3 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a>修改主机名</h3><blockquote>
-<p>vim /etc/sysconfig/network</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">NETWORKING=yes</span><br><span class="line">HOSTNAME=dh01 #随便设置一个名字</span><br></pre></td></tr></table></figure>
-<h3 id="修改虚拟机IP-这里是centos7"><a href="#修改虚拟机IP-这里是centos7" class="headerlink" title="修改虚拟机IP(这里是centos7)"></a>修改虚拟机IP(这里是centos7)</h3><p>两种方式：  </p>
-<ul>
-<li>第一种：通过Linux图形界面进行修改（推荐）</li>
-</ul>
-<blockquote>
-<p>进入Linux图形界面 -&gt; 右键点击右上方的两个小电脑 -&gt; 点击Edit connections -&gt; 选中当前网络System eth0 -&gt; 点击edit按钮 -&gt; 选择IPv4 -&gt; method选择为manual -&gt; 点击add按钮 -&gt;添加IP：192.168.8.88<br>子网掩码：255.255.255.0 网关：192.168.8.1 -&gt; apply</p>
-</blockquote>
-<ul>
-<li>第二种：修改配置文件方式</li>
-</ul>
-<blockquote>
-<p>vim /etc/sysconfig/network-scripts/ifcfg-eth0` (不一定一定是ifcfg-eth0)</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DEVICE="eth0"</span><br><span class="line">BOOTPROTO="static"               #修改</span><br><span class="line">HWADDR="00:0C:29:3C:BF:E7"</span><br><span class="line">IPV6INIT="yes"</span><br><span class="line">NM_CONTROLLED="yes"</span><br><span class="line">ONBOOT="yes"</span><br><span class="line">TYPE="Ethernet"</span><br><span class="line">UUID="ce22eeca-ecde-4536-8cc2-ef0dc36d4a8c"</span><br><span class="line">IPADDR="192.168.8.88"               #修改</span><br><span class="line">NETMASK="255.255.255.0"           #修改</span><br><span class="line">GATEWAY="192.168.8.1"               #修改</span><br></pre></td></tr></table></figure>
-<h3 id="修改主机名和IP的映射关系"><a href="#修改主机名和IP的映射关系" class="headerlink" title="修改主机名和IP的映射关系"></a>修改主机名和IP的映射关系</h3><p><code>vim /etc/hosts</code></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">192.168.8.88 dh01</span><br></pre></td></tr></table></figure>
-<h3 id="关闭防火墙-以下为centos7以前命令-centos7"><a href="#关闭防火墙-以下为centos7以前命令-centos7" class="headerlink" title="关闭防火墙(以下为centos7以前命令,centos7)"></a>关闭防火墙(以下为centos7以前命令,centos7)</h3><blockquote>
-<p>#查看防火墙状态<br>service iptables status</p>
-<p>#关闭防火墙<br>service iptables stop</p>
-<p>#查看防火墙开机启动状态<br>chkconfig iptables –list</p>
-<p>#关闭防火墙开机启动<br>chkconfig iptables off</p>
-</blockquote>
-<p>CentOS 7.0默认使用的是firewall作为防火墙  </p>
-<blockquote>
-<p>systemctl start firewalld.service    #启动firewall<br>systemctl stop firewalld.service    #停止firewall<br>systemctl disable firewalld.service    #禁止firewall开机启动  </p>
-</blockquote>
-<p>也可以改成使用iptables：systemctl start iptables.service</p>
-<h3 id="重启Linux"><a href="#重启Linux" class="headerlink" title="重启Linux"></a>重启Linux</h3><blockquote>
-<p>reboot</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>大数据</category>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>集群</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo下NexT主题添加Gitment评论插件</title>
     <url>/2018/06/20/Hexo%E4%B8%8BNexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/</url>
     <content><![CDATA[<h3 id="最终效果图大概是这个样子"><a href="#最终效果图大概是这个样子" class="headerlink" title="最终效果图大概是这个样子"></a>最终效果图大概是这个样子</h3><p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Hexo下NexT主题添加Gitment评论插件/3-2023-03-06-10-29-40.png" alt="3-2023-03-06-10-29-40"></p>
@@ -371,6 +371,64 @@
       <tags>
         <tag>Hexo</tag>
         <tag>Gitment</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac上用QuickTimePlayer和Soundflower插件录制完美视频</title>
+    <url>/2019/04/10/Mac%E4%B8%8A%E7%94%A8QuickTimePlayer%E5%92%8CSoundflower%E6%8F%92%E4%BB%B6%E5%BD%95%E5%88%B6%E5%AE%8C%E7%BE%8E%E8%A7%86%E9%A2%91/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/0-2023-03-06-10-51-48.png" alt="0-2023-03-06-10-51-48"></p>
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MacOS自带的QuickTime Player录制视频的时候默认是不会有内部视频里的音频的，默认情况下除非你开到最大声，然后通过内置的麦克风“听到”，又录进到视频。这是很傻X的。<br>今天整理了一下可以录制到音视频的两个方法：</p>
+<blockquote>
+<ol>
+<li>录制只有屏内音频视频的方法  </li>
+<li>录制有屏内音频和屏外声音视频的方法</li>
+</ol>
+</blockquote>
+<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><blockquote>
+<p>软件： Soundflower 小插件<br>操作系统：macOS<br>其他：一个聪明的脑袋  </p>
+</blockquote>
+<h2 id="1-下载Soundflower并安装"><a href="#1-下载Soundflower并安装" class="headerlink" title="1. 下载Soundflower并安装"></a>1. 下载<a href="https://github.com/mattingalls/Soundflower/releases" target="_blank" rel="noopener">Soundflower</a>并安装</h2><p>点击上面这个链接，进入GitHub选择下载<code>Soundflower-2.0b2.dmg</code>(版本可能不一样)</p>
+<p>下载完成后，无脑安装，再次期间可能会提示<code>提示来自身份不明的开发者</code>，这个时候不要慌，打开系统偏好设置-&gt;安全性与隐私，选择“仍要打开”（此时我们在“通用”选项卡）</p>
+<p>在这里我们顺便检查一下，QuickTime Player的麦克风权限。打开系统偏好设置-&gt;安全性与隐私-&gt;选择“隐私”选项卡，选择左侧的“麦克风”选项，看右侧的“QuickTime Player”有没有勾上对勾，没有的话把它勾上</p>
+<p>到这里Soundflower基本就算安装好了，接下来开始设置</p>
+<h2 id="2-设置"><a href="#2-设置" class="headerlink" title="2. 设置"></a>2. 设置</h2><p>设置我们需要打开<code>音频 MIDI 设置</code>这个Mac自带的软件：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/1-2023-03-06-10-52-10.png" alt="音频MIDI设置"></p>
+<h3 id="2-1-创建多输出设备并设置"><a href="#2-1-创建多输出设备并设置" class="headerlink" title="2.1 创建多输出设备并设置"></a>2.1 创建<code>多输出设备</code>并设置</h3><p>点击左下角“+”，选择“创建多输出设备”，按如图所示设置：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/2-2023-03-06-10-52-30.png" alt="创建多输出设备"></p>
+<h3 id="2-2-创建只有屏内音频的配置（创建聚集设备）"><a href="#2-2-创建只有屏内音频的配置（创建聚集设备）" class="headerlink" title="2.2 创建只有屏内音频的配置（创建聚集设备）"></a>2.2 创建<code>只有屏内音频</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/3-2023-03-06-10-52-55.png" alt="只有屏内音频"></p>
+<h3 id="2-3-创建屏内音频和屏外声音的配置（创建聚集设备）"><a href="#2-3-创建屏内音频和屏外声音的配置（创建聚集设备）" class="headerlink" title="2.3 创建屏内音频和屏外声音的配置（创建聚集设备）"></a>2.3 创建<code>屏内音频和屏外声音</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/4-2023-03-06-10-53-13.png" alt="屏内音频和屏外声音"></p>
+<h2 id="3-录制"><a href="#3-录制" class="headerlink" title="3. 录制"></a>3. 录制</h2><p>录制时因为分为两种不同的方式，所以在录制是设置稍有不同，我大致总结如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.录制只有内部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器输出：</span><br><span class="line">        多输出设备   ✔️</span><br><span class="line"></span><br><span class="line">2.录制有内外部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内外部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器：</span><br><span class="line">        多输出设备（内外声音结合很好，效果好） ✔️</span><br><span class="line">        内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）  </span><br><span class="line">        刚才建的两个选项（自己听不到声音，但是录完屏后视频内有声音）</span><br></pre></td></tr></table></figure>
+<p>看不懂的同学请往下看</p>
+<h3 id="3-1-录制只有屏内音频视频的方法"><a href="#3-1-录制只有屏内音频视频的方法" class="headerlink" title="3.1 录制只有屏内音频视频的方法"></a>3.1 录制只有屏内音频视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/5-2023-03-06-10-53-47.png" alt="录屏专用-内部音频"></p>
+<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-54-10.png" alt="多输出设备1"></p>
+<p>如果没有小喇叭可以打开系统偏好设置-&gt;声音-&gt;选择输出选项卡，选中“多输出设备”。最后把“在菜单栏中显示音量”选中即可，方便以后使用</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/7-2023-03-06-10-54-29.png" alt="多输出设备2"></p>
+<p>至此，点击开始，录制你的视频吧</p>
+<h3 id="3-2-录制有屏内音频和屏外声音视频的方法"><a href="#3-2-录制有屏内音频和屏外声音视频的方法" class="headerlink" title="3.2 录制有屏内音频和屏外声音视频的方法"></a>3.2 录制有屏内音频和屏外声音视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内外部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/8-2023-03-06-10-54-57.png" alt="录屏专用-内外部音频"></p>
+<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-55-31.png" alt="多输出设备3"></p>
+<p>剩下的其他选项：</p>
+<blockquote>
+<p>内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）<br>刚才建的两个选项(录屏专用-内部音频/录屏专用-内外部音频)，自己听不到声音，但是录完屏后视频内有声音（感觉这个适合用来夜深人静的时候录~）</p>
+</blockquote>
+<p>至此，点击开始，录制你的视频吧</p>
+<h2 id="4-补充"><a href="#4-补充" class="headerlink" title="4. 补充"></a>4. 补充</h2><p>如果同学你机器上装有 <code>homebrew</code> 和 <code>homebrew cask</code>，可以直接用如下命令安装Soundflower：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install soundflower</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>录视频</tag>
       </tags>
   </entry>
   <entry>
@@ -486,61 +544,23 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac上用QuickTimePlayer和Soundflower插件录制完美视频</title>
-    <url>/2019/04/10/Mac%E4%B8%8A%E7%94%A8QuickTimePlayer%E5%92%8CSoundflower%E6%8F%92%E4%BB%B6%E5%BD%95%E5%88%B6%E5%AE%8C%E7%BE%8E%E8%A7%86%E9%A2%91/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/0-2023-03-06-10-51-48.png" alt="0-2023-03-06-10-51-48"></p>
-<a id="more"></a>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MacOS自带的QuickTime Player录制视频的时候默认是不会有内部视频里的音频的，默认情况下除非你开到最大声，然后通过内置的麦克风“听到”，又录进到视频。这是很傻X的。<br>今天整理了一下可以录制到音视频的两个方法：</p>
-<blockquote>
+    <title>Mac下删除launchpad还有残留图标的应用</title>
+    <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
+<h2 id="打开launchpad"><a href="#打开launchpad" class="headerlink" title="打开launchpad"></a>打开launchpad</h2><p>下列三个放都可以打开launchpad  </p>
 <ol>
-<li>录制只有屏内音频视频的方法  </li>
-<li>录制有屏内音频和屏外声音视频的方法</li>
+<li>fn + F4（F1-F12是正常使用情况）  </li>
+<li>F4（F1-F12使用需要借助fn键使用）  </li>
+<li>四个指头抓一下  </li>
 </ol>
-</blockquote>
-<h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><blockquote>
-<p>软件： Soundflower 小插件<br>操作系统：macOS<br>其他：一个聪明的脑袋  </p>
-</blockquote>
-<h2 id="1-下载Soundflower并安装"><a href="#1-下载Soundflower并安装" class="headerlink" title="1. 下载Soundflower并安装"></a>1. 下载<a href="https://github.com/mattingalls/Soundflower/releases" target="_blank" rel="noopener">Soundflower</a>并安装</h2><p>点击上面这个链接，进入GitHub选择下载<code>Soundflower-2.0b2.dmg</code>(版本可能不一样)</p>
-<p>下载完成后，无脑安装，再次期间可能会提示<code>提示来自身份不明的开发者</code>，这个时候不要慌，打开系统偏好设置-&gt;安全性与隐私，选择“仍要打开”（此时我们在“通用”选项卡）</p>
-<p>在这里我们顺便检查一下，QuickTime Player的麦克风权限。打开系统偏好设置-&gt;安全性与隐私-&gt;选择“隐私”选项卡，选择左侧的“麦克风”选项，看右侧的“QuickTime Player”有没有勾上对勾，没有的话把它勾上</p>
-<p>到这里Soundflower基本就算安装好了，接下来开始设置</p>
-<h2 id="2-设置"><a href="#2-设置" class="headerlink" title="2. 设置"></a>2. 设置</h2><p>设置我们需要打开<code>音频 MIDI 设置</code>这个Mac自带的软件：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/1-2023-03-06-10-52-10.png" alt="音频MIDI设置"></p>
-<h3 id="2-1-创建多输出设备并设置"><a href="#2-1-创建多输出设备并设置" class="headerlink" title="2.1 创建多输出设备并设置"></a>2.1 创建<code>多输出设备</code>并设置</h3><p>点击左下角“+”，选择“创建多输出设备”，按如图所示设置：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/2-2023-03-06-10-52-30.png" alt="创建多输出设备"></p>
-<h3 id="2-2-创建只有屏内音频的配置（创建聚集设备）"><a href="#2-2-创建只有屏内音频的配置（创建聚集设备）" class="headerlink" title="2.2 创建只有屏内音频的配置（创建聚集设备）"></a>2.2 创建<code>只有屏内音频</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/3-2023-03-06-10-52-55.png" alt="只有屏内音频"></p>
-<h3 id="2-3-创建屏内音频和屏外声音的配置（创建聚集设备）"><a href="#2-3-创建屏内音频和屏外声音的配置（创建聚集设备）" class="headerlink" title="2.3 创建屏内音频和屏外声音的配置（创建聚集设备）"></a>2.3 创建<code>屏内音频和屏外声音</code>的配置（创建聚集设备）</h3><p>点击左下角“+”，选择“创建聚集设备”，将默认名称（聚集设备）改为自己的名称，以区分另外一个聚集设备，按如图所示设置：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/4-2023-03-06-10-53-13.png" alt="屏内音频和屏外声音"></p>
-<h2 id="3-录制"><a href="#3-录制" class="headerlink" title="3. 录制"></a>3. 录制</h2><p>录制时因为分为两种不同的方式，所以在录制是设置稍有不同，我大致总结如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.录制只有内部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器输出：</span><br><span class="line">        多输出设备   ✔️</span><br><span class="line"></span><br><span class="line">2.录制有内外部音频</span><br><span class="line">    QuickTime：</span><br><span class="line">        选择对应的设置(录屏专用-内外部音频)  ✔️</span><br><span class="line">        音量最小  （调大会有回音，默认最小即可）</span><br><span class="line">    扬声器：</span><br><span class="line">        多输出设备（内外声音结合很好，效果好） ✔️</span><br><span class="line">        内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）  </span><br><span class="line">        刚才建的两个选项（自己听不到声音，但是录完屏后视频内有声音）</span><br></pre></td></tr></table></figure>
-<p>看不懂的同学请往下看</p>
-<h3 id="3-1-录制只有屏内音频视频的方法"><a href="#3-1-录制只有屏内音频视频的方法" class="headerlink" title="3.1 录制只有屏内音频视频的方法"></a>3.1 录制只有屏内音频视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/5-2023-03-06-10-53-47.png" alt="录屏专用-内部音频"></p>
-<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-54-10.png" alt="多输出设备1"></p>
-<p>如果没有小喇叭可以打开系统偏好设置-&gt;声音-&gt;选择输出选项卡，选中“多输出设备”。最后把“在菜单栏中显示音量”选中即可，方便以后使用</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/7-2023-03-06-10-54-29.png" alt="多输出设备2"></p>
-<p>至此，点击开始，录制你的视频吧</p>
-<h3 id="3-2-录制有屏内音频和屏外声音视频的方法"><a href="#3-2-录制有屏内音频和屏外声音视频的方法" class="headerlink" title="3.2 录制有屏内音频和屏外声音视频的方法"></a>3.2 录制有屏内音频和屏外声音视频的方法</h3><p>打开QuickTime Player，右键“新建屏幕录制”，选择“录屏专用-内外部音频”，音量选项保持最小(调大会有回音，默认最小即可）</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/8-2023-03-06-10-54-57.png" alt="录屏专用-内外部音频"></p>
-<p>点击右上角“小喇叭”并选择“多输出设备”：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac上用QuickTimePlayer和Soundflower插件录制完美视频/6-2023-03-06-10-55-31.png" alt="多输出设备3"></p>
-<p>剩下的其他选项：</p>
-<blockquote>
-<p>内置扬声器（内部音频不明显，人声大，内部声音小，效果不好）<br>刚才建的两个选项(录屏专用-内部音频/录屏专用-内外部音频)，自己听不到声音，但是录完屏后视频内有声音（感觉这个适合用来夜深人静的时候录~）</p>
-</blockquote>
-<p>至此，点击开始，录制你的视频吧</p>
-<h2 id="4-补充"><a href="#4-补充" class="headerlink" title="4. 补充"></a>4. 补充</h2><p>如果同学你机器上装有 <code>homebrew</code> 和 <code>homebrew cask</code>，可以直接用如下命令安装Soundflower：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew cask install soundflower</span><br></pre></td></tr></table></figure>
-]]></content>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h4 id="1-长按control-option-command，看到图标抖动"><a href="#1-长按control-option-command，看到图标抖动" class="headerlink" title="1. 长按control+option+command，看到图标抖动"></a>1. 长按control+option+command，看到图标抖动</h4><h4 id="2-单击待删除图标，图标中心出现白色问号"><a href="#2-单击待删除图标，图标中心出现白色问号" class="headerlink" title="2. 单击待删除图标，图标中心出现白色问号"></a>2. 单击待删除图标，图标中心出现白色问号</h4><h4 id="3-松开按住的三个快捷键（control-option-command）"><a href="#3-松开按住的三个快捷键（control-option-command）" class="headerlink" title="3. 松开按住的三个快捷键（control+option+command）"></a>3. 松开按住的三个快捷键（control+option+command）</h4><h4 id="4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"><a href="#4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除" class="headerlink" title="4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"></a>4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除</h4>]]></content>
       <categories>
         <category>OS</category>
         <category>Mac</category>
       </categories>
       <tags>
-        <tag>Mac</tag>
-        <tag>录视频</tag>
+        <tag>Mac删除</tag>
+        <tag>launchpad</tag>
       </tags>
   </entry>
   <entry>
@@ -648,67 +668,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac下删除launchpad还有残留图标的应用</title>
-    <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
-    <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
-<h2 id="打开launchpad"><a href="#打开launchpad" class="headerlink" title="打开launchpad"></a>打开launchpad</h2><p>下列三个放都可以打开launchpad  </p>
-<ol>
-<li>fn + F4（F1-F12是正常使用情况）  </li>
-<li>F4（F1-F12使用需要借助fn键使用）  </li>
-<li>四个指头抓一下  </li>
-</ol>
-<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h4 id="1-长按control-option-command，看到图标抖动"><a href="#1-长按control-option-command，看到图标抖动" class="headerlink" title="1. 长按control+option+command，看到图标抖动"></a>1. 长按control+option+command，看到图标抖动</h4><h4 id="2-单击待删除图标，图标中心出现白色问号"><a href="#2-单击待删除图标，图标中心出现白色问号" class="headerlink" title="2. 单击待删除图标，图标中心出现白色问号"></a>2. 单击待删除图标，图标中心出现白色问号</h4><h4 id="3-松开按住的三个快捷键（control-option-command）"><a href="#3-松开按住的三个快捷键（control-option-command）" class="headerlink" title="3. 松开按住的三个快捷键（control+option+command）"></a>3. 松开按住的三个快捷键（control+option+command）</h4><h4 id="4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"><a href="#4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除" class="headerlink" title="4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"></a>4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除</h4>]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac删除</tag>
-        <tag>launchpad</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac下安装mysql5.7完整步骤及问题整理</title>
-    <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
-    <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
-<p><a href="http://www.jb51.net/article/103841.htm" target="_blank" rel="noopener">Mac下安装mysql5.7完整步骤</a></p>
-<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><ul>
-<li><p>“MAC下安装Mysql找不到my.cnf配置文件的问题”，参考：<br><a href="http://blog.csdn.net/jyongchong/article/details/77862819" target="_blank" rel="noopener">MAC 安装MySQL的my.cnf配置文件</a></p>
-</li>
-<li><p>“Warning: World-writable config file ‘/etc/my.cnf’ is ignored”，参考：<br><a href="http://blog.csdn.net/xeay123/article/details/44127951" target="_blank" rel="noopener">World-writable</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac安装Mysql</tag>
-        <tag>Mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac安装软件时提示已损坏的解决方法</title>
-    <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/1-2023-03-06-10-50-35.png" alt="已损坏"></p>
-<a id="more"></a>
-<p>这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>打开终端，在终端中输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
-<p>输入密码，回车。搞定<br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/2-2023-03-06-10-51-14.png" alt="2-2023-03-06-10-51-14"></p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac</tag>
-        <tag>文件损坏</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
     <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<ol>
@@ -736,6 +695,27 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac下安装mysql5.7完整步骤及问题整理</title>
+    <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
+<p><a href="http://www.jb51.net/article/103841.htm" target="_blank" rel="noopener">Mac下安装mysql5.7完整步骤</a></p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><ul>
+<li><p>“MAC下安装Mysql找不到my.cnf配置文件的问题”，参考：<br><a href="http://blog.csdn.net/jyongchong/article/details/77862819" target="_blank" rel="noopener">MAC 安装MySQL的my.cnf配置文件</a></p>
+</li>
+<li><p>“Warning: World-writable config file ‘/etc/my.cnf’ is ignored”，参考：<br><a href="http://blog.csdn.net/xeay123/article/details/44127951" target="_blank" rel="noopener">World-writable</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac安装Mysql</tag>
+        <tag>Mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac远程连接谷歌云VM实例</title>
     <url>/2019/02/19/Mac%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%B0%B7%E6%AD%8C%E4%BA%91VM%E5%AE%9E%E4%BE%8B/</url>
     <content><![CDATA[<p>一般在管理远程主机时，都用ssh登录，ssh user@host，但是这样每次会使用密码。 使用ssh-keygen生成的密钥对，然后将公钥添加的目标主机的~/.ssh/authorized_keys文件中，当前主机就成为可信任的主机，下次使用ssh登录时，就不用输入密码了<br>官方网站的教程很详细，但是表达方式不是很好理解，并且有的功能在操作上第一次用GCP的我来说有点陌生，这里就Linux或Mac连接VM实例方式作一个简要记录（全是大白话）</p>
@@ -760,6 +740,26 @@
         <tag>Mac</tag>
         <tag>GCP</tag>
         <tag>谷歌云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac安装软件时提示已损坏的解决方法</title>
+    <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/1-2023-03-06-10-50-35.png" alt="已损坏"></p>
+<a id="more"></a>
+<p>这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>打开终端，在终端中输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
+<p>输入密码，回车。搞定<br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/2-2023-03-06-10-51-14.png" alt="2-2023-03-06-10-51-14"></p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>文件损坏</tag>
       </tags>
   </entry>
   <entry>
@@ -1185,6 +1185,124 @@
       </categories>
       <tags>
         <tag>axios</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何超过大多数人</title>
+    <url>/2019/07/22/%E5%A6%82%E4%BD%95%E8%B6%85%E8%BF%87%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%BA%BA/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/如何超过大多数人/1-2023-03-06-09-50-46.png" alt="1-2023-03-06-09-50-46"><br><a id="more"></a></p>
+<p>当你看到这篇文章的标题，你一定对这篇文章产生了巨大的5兴趣，因为你的潜意识在告诉你，这是一本人生的 “武林秘籍”，而且还是左耳朵写的，一定有干货满满，只要读完，一定可以练就神功并找到超过大多数人的快车道和捷径…… 然而…… 当你看到我这样开篇时，你一定会觉得我马上就要有个转折，告诉你这是不可能的，一切都需要付出和努力…… 然而，你错了，这篇文章还真就是一篇“秘籍”，只要你把这些“秘籍” 用起来，你就一定可以超过大多数人。而且，这篇文章只有我这个 “人生导师” 可以写得好。毕竟，我的生命过到了十六进制 2B 的年纪，踏入这个社会已超过 20 年，舍我其谁呢？！</p>
+<p>P.S. 这篇文章借鉴于《<a href="https://coolshell.cn/articles/4758.html" target="_blank" rel="noopener">如何写出无法维护的代码</a>》一文的风格…… 嘿嘿</p>
+<blockquote>
+<h4 id="相关技巧和最佳实践"><a href="#相关技巧和最佳实践" class="headerlink" title="相关技巧和最佳实践"></a>相关技巧和最佳实践</h4></blockquote>
+<p>要超过别人其实还是比较简单的，尤其在今天的中国，更是简单。因为，你只看看中国的互联网，你就会发现，他们基本上全部都是在消费大众，让大众变得更为地愚蠢和傻瓜。<strong>所以，在今天的中国，你基本上不用做什么，只需要不使用中国互联网，你就很自然地超过大多数人了</strong>。当然，如果你还想跟他们彻底拉开，甩他们几个身位，把别人打到底层，下面的这些 “技巧” 你要多多了解一下。</p>
+<p>在信息获取上，你要不断地向大众鼓吹下面的这些事：</p>
+<ul>
+<li><p>让大家都用百度搜索引擎查找信息，订阅微信公众号或是到知乎上学习知识…… 要做到这一步，你就需要把 “百度一下” 挂在嘴边，然后要经常在群或朋友圈中转发微信公众号的文章，并且转发知乎里的各种 “如何看待……” 这样的文章，让他们爱上八卦，爱上转发，爱上碎片。</p>
+</li>
+<li><p>让大家到微博或是知识星球上粉一些大咖，密切关注他们的言论和动向…… 是的，告诉大家，大咖的任何想法一言一行都可以在微博、朋友圈或是知识星球上获得，让大家相信，你的成长和大咖的见闻和闲扯非常有关系，你跟牛人在一个圈子里你也会变牛。</p>
+</li>
+<li><p>把今日头条和抖音这样的 APP 推荐给大家…… 你只需要让你有朋友成功地安装这两个 APP，他们就会花大量的时间在上面，而不能自拔，要让他们安装其实还是很容易的，你要不信你就装一个试玩一会看看（嘿嘿嘿）。</p>
+</li>
+<li><p>让大家热爱八卦，八卦并不一定是明星的八卦，还可以是你身边的人，比如，公司的同事，自己的同学，职场见闻，社会热点，争议话题，…… 这些东西总有一些东西会让人心态有很多微妙的变化，甚至花大量的时间去搜索和阅读大量的观点，以及花大量时间与人辩论争论，这个过程会让人上瘾，让人欲罢不能，然而这些事却和自己没有半毛钱关系。你要做的事就是转发其中一些 SB 或是很极端的观点，造成大家的一睦讨论后，就早早离场……</p>
+</li>
+<li><p>利用爱国主义，让大家觉得不用学英文，不要出国，不要翻墙，咱们已经是强国了…… 这点其实还是很容易做到的，因为学习是比较逆人性的，所以，只要你鼓吹那些英文无用论，出国活得更惨，国家和民族都变得很强大，就算自己过得很底层，也有大国人民的感觉。</p>
+</li>
+</ul>
+<p>然后，在知识学习和技能训练上，让他们不得要领并产生幻觉</p>
+<ul>
+<li><p>让他们混淆认识和知识，以为开阔认知就是学习，让他们有学习和成长的幻觉……</p>
+</li>
+<li><p>培养他们要学会使用碎片时间学习。等他们习惯利用碎片时间吃快餐后，他们就会失去精读一本书的耐性……</p>
+</li>
+<li><p>不断地给他们各种各样 “有价值的学习资料”，让他们抓不住重点，成为一个微信公众号或电子书 “收藏家”……</p>
+</li>
+<li><p>让他们看一些枯燥无味的基础知识和硬核知识，这样让他们只会用 “死记硬背” 的方式来学习，甚至直接让他们失去信心，直接放弃……</p>
+</li>
+<li><p>玩具手枪是易用的，重武器是难以操控的，多给他们一些玩具，这样他们就会对玩具玩地得心应手，觉得玩玩具就是自己的专业……</p>
+</li>
+<li><p>让他们喜欢直接得到答案的工作和学习方式，成为一个伸手党，从此学习再也不思考……</p>
+</li>
+<li><p>告诉他们东西做出来就好了，不要追求做漂亮，做优雅，这样他们就会慢慢地变成劳动密集型……</p>
+</li>
+<li><p>让他们觉得自己已经很努力了，剩下的就是运气，并说服他们去‘及时行乐’，然后再也找不到高阶和高效率学习的感觉……</p>
+</li>
+<li><p>让他们觉得 “读完书”、“读过书” 就行了，不需要对书中的东西进行思考，进行总结，或是实践，只要囫囵吞枣尽快读完就等同于学好了……</p>
+</li>
+</ul>
+<p>最后，在认知和格局上，彻底打垮他们，让他们变成韭菜。</p>
+<ul>
+<li><p>让他们不要看到大的形势，只看到眼前的一亩三分地，做好一个井底之蛙。其实这很简单，比如，你不要让他们看到整个计算机互联网技术改变人类社会的趋势，你要多让他看到，从事这一行业的人有多苦逼，然后再说一下其它行业或职业有多好……</p>
+</li>
+<li><p>宣扬一夜暴富以及快速挣钱的案例，最好让他们进入 “赌博类” 或是 “传销类” 的地方，比如：股市、数字货币…… 要让他们相信各种财富神话，相信他们就是那个幸运儿，他们也可以成为巴菲特，可以成为马云……</p>
+</li>
+<li><p>告诉他们，一些看上去很难的事都是有捷径的，比如：21 天就能学会机器学习，用区块链就能颠覆以及重构整个世界等等……</p>
+</li>
+<li><p>多跟他们讲一些小人物的励志的故事，这样让他们相信，不需要学习高级知识，不需要掌握高级技能，只需要用低等的知识和低级的技能，再加上持续不断拼命重复现有的工作，终有一天就会成功……</p>
+</li>
+<li><p>多让他们跟别人比较，人比人不会气死人，但是会让人变得浮躁，变得心急，变得焦虑，当一个人没有办法控制自己的情绪，没有办法让自己静下心来，人会失去耐性和坚持，开始好大喜欢功，开始装逼，开始歪门邪道剑走偏锋……</p>
+</li>
+<li><p>让他们到体制内的一些非常稳定的地方工作，这样他们拥有不思进取、怕承担责任、害怕犯错、喜欢偷懒、得过且过的素质……</p>
+</li>
+<li><p>让他们到体制外的那些喜欢拼命喜欢加班的地方工作，告诉他们爱拼才会赢，努力加班是一种福报，青春就是用来拼的，让他们喜欢上使蛮力的感觉……</p>
+</li>
+<li><p>告诉他们你的行业太累太辛苦，干不到 30 岁。让他们早点转行，不要耽误人生和青春……</p>
+</li>
+<li><p>当他们要做决定的时候，一定要让他们更多的关注自己会失去的东西，而不是会得到的东西。培养他们患得患失心态，让他们认识不到事物真正的价值，失去判断能力……（比如：让他们觉得跟对人拍领导的马屁忠于公司比自我的成长更有价值）</p>
+</li>
+<li><p>告诉他们，你现有的技能和知识不用更新，就能过好一辈子，新出来的东西没有生命力的…… 这样他们就会像我们再也不学习的父辈一样很快就会被时代所抛弃……</p>
+</li>
+<li><p>每个人都喜欢在一些自己做不到的事上找理由，这种能力不教就会，比如，事情太多没有时间，因为工作上没有用到，等等，你要做的就是帮他们为他们做不到的事找各种非常合理的理由，比如：没事的，一切都是最好的安排；你得不到的那个事没什么意思；你没有面好主要原因是那个面试官问的问题都是可以上网查得到的知识，而不没有问到你真正的能力上；这些东西学了不用很快会忘了，等有了环境再学也不迟……</p>
+</li>
+</ul>
+<p><strong>最后友情提示一下，上述的这些 “最佳实践” 你要小心，是所谓，贩毒的人从来不吸毒，开赌场的人从来不赌博！所以，你要小心别自己也掉进去了！这就是 “欲练神功，必先自宫” 的道理。</strong></p>
+<blockquote>
+<h4 id="相关原理和思维模型"><a href="#相关原理和思维模型" class="headerlink" title="相关原理和思维模型"></a>相关原理和思维模型</h4></blockquote>
+<p>对于上面的这些技巧还有很多很多，你自己也可以发明或是找到很多。所以，我来讲讲这其中的一些原理。</p>
+<p>一般来说，超过别人一般来说就是两个维度：</p>
+<ul>
+<li><p><strong>在认知、知识和技能上。</strong> 这是一个人赖以立足社会的能力（参看《<a href="https://coolshell.cn/articles/4235.html" target="_blank" rel="noopener">程序员的荒谬之言还是至理名言？</a>》和《<a href="https://coolshell.cn/articles/2250.html" target="_blank" rel="noopener">21 天教你学会 C++</a>》）</p>
+</li>
+<li><p><strong>在领导力上。</strong> 所谓领导力就是你跑在别人前面，你得要有比别人更好的能力更高的标准（参看《<a href="https://coolshell.cn/articles/17583.html" target="_blank" rel="noopener">技术人员发展之路</a>》）</p>
+</li>
+</ul>
+<p>首先，我们要明白，人的技能是从认识开始，然后通过学校、培训或是书本把 “零碎的认知” 转换成“系统的知识”，而有要把知识转换成技能，就需要训练和实践，这样才能完成从：认识 -&gt; 知识 -&gt; 技能 的转换。这个转换过程是需要耗费很多时间和精力的，而且其中还需要有强大的学习能力和动手能力，这条路径上有很多的“关卡”，每道关卡都会过滤掉一大部分人。比如：对于一些比较枯燥的硬核知识来说，90% 的人基本上就倒下来，不是因为他们没有智商，而是他们没有耐心。</p>
+<blockquote>
+<h4 id="认知"><a href="#认知" class="headerlink" title="认知"></a>认知</h4></blockquote>
+<p>要在认知上超过别人，就要在下面几个方面上做足功夫：</p>
+<p>1）<strong>信息渠道。</strong> 试想如果别人的信息源没有你的好，那么，这些看不见信息源的人，只能接触得到二手信息甚至三手信息，只能获得被别人解读过的信息，这些信息被三传两递后必定会有错误和失真，甚至会被传递信息的中间人 hack 其中的信息（也就是 “中间人攻击”），而这些找不出信息源的人，只能 “被人喂养”，于是，他们最终会被困在信息的底层，永世不得翻身。（比如：学习 C 语言，放着原作者 K&amp;R 的不用，硬要用错误百出谭浩强的书，能有什么好呢？）</p>
+<p>2）<strong>信息质量。</strong> 信息质量主要表现在两个方面，一个是信息中的燥音，另一个是信息中的质量等级，我们都知道，在大数据处理中有一句名言，叫 garbage in garbage out，你天天看的都是垃圾，你的思想和认识也只有垃圾。所以，如果你的信息质量并不好的话，你的认知也不会好，而且你还要花大量的时间来进行有价值信息的挖掘和处理。</p>
+<p>3）<strong>信息密度。</strong> 优质的信息，密度一般都很大，因为这种信息会逼着你去干这么几件事，a）搜索并学习其关联的知识，b）沉思和反省，c）亲手去推理、验证和实践…… 一般来说，经验性的文章会比知识性的文章会更有这样的功效。比如，类似于像 Effiective C++/Java，设计模式，Unix 编程艺术，算法导论等等这样的书就是属于这种密度很大的书，而像 Netflix 的官方 blog 和 AWS CTO 的 blog 等等地方也会经常有一些这样的文章。</p>
+<blockquote>
+<h4 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h4></blockquote>
+<p>要在知识上超过别人，你就需要在下面几个方面上做足功夫：</p>
+<p>1）<strong>知识树（图）。</strong> 任何知识，只在点上学习不够的，需要在面上学习，这叫系统地学习，这需要我们去总结并归纳知识树或知识图，一个知识面会有多个知识板块组成，一个板块又有各种知识点，一个知识点会导出另外的知识点，各种知识点又会交叉和依赖起来，学习就是要系统地学习整个知识树（图）。而我们都知道，<strong>对于一棵树来说，“根基” 是非常重要的，所以，学好基础知识也是非常重要的，对于一个陌生的地方，有一份地图是非常重要的，没有地图的你只会乱窜，只会迷路、练路、走冤枉路！</strong></p>
+<p>2）<strong>知识缘由。</strong> 任何知识都是有缘由的，了解一个知识的来龙去脉和前世今生，会让你对这个知识有非常强的掌握，而不再只是靠记忆去学习。靠记忆去学习是一件非常糟糕的事。而对于一些操作性的知识（不需要了解由来的），我把其叫操作知识，就像一些函数库一样，这样的知识只要学会查文档就好了。<strong>能够知其然，知其所以然的人自然会比识知识到表皮的人段位要高很多。</strong></p>
+<p>3）<strong>方法套路。</strong> 学习不是为了找到答案，而是找到方法。就像数学一样，你学的是方法，是解题思路，是套路，会用方程式解题的和不会用方程式解题的在解题效率上不可比较，而在微积分面前，其它的解题方法都变成了渣渣。你可以看到，掌握高级方法的人比别人的优势有多大，学习的目的就是为了掌握更为高级的方法和解题思路。</p>
+<blockquote>
+<h4 id="技能"><a href="#技能" class="headerlink" title="技能"></a>技能</h4></blockquote>
+<p>要在技能上超过别人，你就需要在下面几个方面做足功夫：</p>
+<p>1）<strong>精益求精。</strong> 如果你想拥有专业的技能，你要做不仅仅是拼命地重复一遍又一遍的训练，而是在每一次重复训练时你都要找到更好的方法，总结经验，让新的一遍能够更好，更漂亮，更有效率，否则，用相同的方法重复，那你只不过在搬砖罢了。</p>
+<p>2）<strong>让自己犯错。</strong> 犯错是有利于成长的，这是因为出错会让人反思，反思更好的方法，反思更完美的方案，总结教训，寻求更好更完美的过程，是技能升级的最好的方式。尤其是当你在出错后，被人鄙视，被人嘲笑后，你会有更大的动力提升自己，这样的动力才是进步的源动力。当然，千万不要同一个错误重复地犯！</p>
+<p>3）<strong>找高手切磋。</strong> 下过棋，打个球的人都知道，你要想提升自己的技艺，你必需找高手切磋，在和高手切磋的过程中你会感受到高手的技能和方法，有时候你会情不自禁地哇地一下，我靠，还可以这么玩！</p>
+<blockquote>
+<h4 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h4></blockquote>
+<p>最后一个是领导力，要有领导力或是影响力这个事并不容易，这跟你的野心有多大，好胜心有多强 ，你愿意付出多少很有关系，因为一个人的领导力跟他的标准很有关系，因为有领导力的人的标准比绝大多数人都要高。</p>
+<p>1）<strong>识别自己的特长和天赋。</strong> 首先，每个人 DNA 都可能或多或少都会有一些比大多数人 NB 的东西（当然，也可能没有），如果你有了，那么在你过去的人生中就一定会表现出来了，就是那种大家遇到这个事会来请教你的寻求你帮助的现象。那种，别人要非常努力，而且毫不费劲的事。一旦你有了这样的特长或天赋，那你就要大力地扩大你的领先优势，千万不要进到那些会限制你优势的地方。你是一条鱼，你就一定要把别人拉到水里来玩，绝对不要去陆地上跟别人拼，不断地在自己的特长和天赋上扩大自己的领先优势，彻底一骑绝尘。</p>
+<p>2）<strong>识别自己的兴趣和事业。</strong> 没有天赋也没有问题，还有兴趣点，都说兴趣是最好的老师，当年，Linus 就是在学校里对 minx 着迷了，于是整出个 Linux 来，这就是兴趣驱动出的东西，一般来说，兴趣驱动的事总是会比那些被动驱动的更好。但是，这里我想说明一下什么叫 “真∙兴趣”，真正的兴趣不是那种三天热度的东西，而是那种，你愿意为之付出一辈子的事，是那种无论有多大困难有多难受你都要死磕的事，这才是“真∙兴趣”，这也就是你的“野心” 和“好胜心”所在，其实上升到了你的事业。相信我，绝大多数人只有职业而没有事业的。</p>
+<p>3）<strong>建立高级的习惯和方法。</strong> 没有天赋没有野心，也还是可以跟别人拼习惯拼方法的，只要你有一些比较好的习惯和方法，那么你一样可以超过大多数人。对此，在习惯上你要做到比较大多数人更自律，更有计划性，更有目标性，比如，每年学习一门新的语言或技术，并可以参与相关的顶级开源项目，每个月训练一个类算法，掌握一种算法，每周阅读一篇英文论文，并把阅读笔记整理出来…… 自律的是非常可怕的。除此之外，你还需要在方法上超过别人，你需要满世界的找各种高级的方法，其中包括，思考的方法，学习的方法、时间管理的方法、沟通的方法这类软实力的，还有，解决问题的方法（trouble shooting 和 problem solving），设计的方法，工程的方法，代码的方法等等硬实力的，一开始照猫画虎，时间长了就可能会自己发明或推导新的方法。</p>
+<p>4）<strong>勤奋努力执着坚持。</strong> 如果上面三件事你都没有也没有能力，那还有最后一件事了，那就是勤奋努力了，就是所谓的 “一万小时定律” 了（参看《21 天教你学会 C++》中的十年学编程一节），我见过很多不聪明的人，悟性也不够（比如我就是一个），别人学一个东西，一个月就好了，而我需要 1 年甚至更长，但是很多东西都是死的，只要肯花时间就有一天你会搞懂的，耐不住我坚持十年二十年，聪明的人发明个飞机飞过去了，笨一点的人愚公移山也过得去，因为更多的人是懒人，我不用拼过聪明人，我只用拼过那些懒人就好了。</p>
+<p>好了，就这么多，如果哪天你变得消极和不自信，你要来读读我的这篇文章，子曰：温故而知新。</p>
+<p>（全文完）</p>
+<blockquote>
+<p>本文转自：<a href="https://coolshell.cn/" target="_blank" rel="noopener">CoolShell</a> 的<a href="https://coolshell.cn/articles/19464.html/comment-page-1#comments" target="_blank" rel="noopener">《如何超过大多数人》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>超过</tag>
       </tags>
   </entry>
   <entry>
@@ -2906,124 +3024,6 @@
       </tags>
   </entry>
   <entry>
-    <title>如何超过大多数人</title>
-    <url>/2019/07/22/%E5%A6%82%E4%BD%95%E8%B6%85%E8%BF%87%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%BA%BA/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/如何超过大多数人/1-2023-03-06-09-50-46.png" alt="1-2023-03-06-09-50-46"><br><a id="more"></a></p>
-<p>当你看到这篇文章的标题，你一定对这篇文章产生了巨大的5兴趣，因为你的潜意识在告诉你，这是一本人生的 “武林秘籍”，而且还是左耳朵写的，一定有干货满满，只要读完，一定可以练就神功并找到超过大多数人的快车道和捷径…… 然而…… 当你看到我这样开篇时，你一定会觉得我马上就要有个转折，告诉你这是不可能的，一切都需要付出和努力…… 然而，你错了，这篇文章还真就是一篇“秘籍”，只要你把这些“秘籍” 用起来，你就一定可以超过大多数人。而且，这篇文章只有我这个 “人生导师” 可以写得好。毕竟，我的生命过到了十六进制 2B 的年纪，踏入这个社会已超过 20 年，舍我其谁呢？！</p>
-<p>P.S. 这篇文章借鉴于《<a href="https://coolshell.cn/articles/4758.html" target="_blank" rel="noopener">如何写出无法维护的代码</a>》一文的风格…… 嘿嘿</p>
-<blockquote>
-<h4 id="相关技巧和最佳实践"><a href="#相关技巧和最佳实践" class="headerlink" title="相关技巧和最佳实践"></a>相关技巧和最佳实践</h4></blockquote>
-<p>要超过别人其实还是比较简单的，尤其在今天的中国，更是简单。因为，你只看看中国的互联网，你就会发现，他们基本上全部都是在消费大众，让大众变得更为地愚蠢和傻瓜。<strong>所以，在今天的中国，你基本上不用做什么，只需要不使用中国互联网，你就很自然地超过大多数人了</strong>。当然，如果你还想跟他们彻底拉开，甩他们几个身位，把别人打到底层，下面的这些 “技巧” 你要多多了解一下。</p>
-<p>在信息获取上，你要不断地向大众鼓吹下面的这些事：</p>
-<ul>
-<li><p>让大家都用百度搜索引擎查找信息，订阅微信公众号或是到知乎上学习知识…… 要做到这一步，你就需要把 “百度一下” 挂在嘴边，然后要经常在群或朋友圈中转发微信公众号的文章，并且转发知乎里的各种 “如何看待……” 这样的文章，让他们爱上八卦，爱上转发，爱上碎片。</p>
-</li>
-<li><p>让大家到微博或是知识星球上粉一些大咖，密切关注他们的言论和动向…… 是的，告诉大家，大咖的任何想法一言一行都可以在微博、朋友圈或是知识星球上获得，让大家相信，你的成长和大咖的见闻和闲扯非常有关系，你跟牛人在一个圈子里你也会变牛。</p>
-</li>
-<li><p>把今日头条和抖音这样的 APP 推荐给大家…… 你只需要让你有朋友成功地安装这两个 APP，他们就会花大量的时间在上面，而不能自拔，要让他们安装其实还是很容易的，你要不信你就装一个试玩一会看看（嘿嘿嘿）。</p>
-</li>
-<li><p>让大家热爱八卦，八卦并不一定是明星的八卦，还可以是你身边的人，比如，公司的同事，自己的同学，职场见闻，社会热点，争议话题，…… 这些东西总有一些东西会让人心态有很多微妙的变化，甚至花大量的时间去搜索和阅读大量的观点，以及花大量时间与人辩论争论，这个过程会让人上瘾，让人欲罢不能，然而这些事却和自己没有半毛钱关系。你要做的事就是转发其中一些 SB 或是很极端的观点，造成大家的一睦讨论后，就早早离场……</p>
-</li>
-<li><p>利用爱国主义，让大家觉得不用学英文，不要出国，不要翻墙，咱们已经是强国了…… 这点其实还是很容易做到的，因为学习是比较逆人性的，所以，只要你鼓吹那些英文无用论，出国活得更惨，国家和民族都变得很强大，就算自己过得很底层，也有大国人民的感觉。</p>
-</li>
-</ul>
-<p>然后，在知识学习和技能训练上，让他们不得要领并产生幻觉</p>
-<ul>
-<li><p>让他们混淆认识和知识，以为开阔认知就是学习，让他们有学习和成长的幻觉……</p>
-</li>
-<li><p>培养他们要学会使用碎片时间学习。等他们习惯利用碎片时间吃快餐后，他们就会失去精读一本书的耐性……</p>
-</li>
-<li><p>不断地给他们各种各样 “有价值的学习资料”，让他们抓不住重点，成为一个微信公众号或电子书 “收藏家”……</p>
-</li>
-<li><p>让他们看一些枯燥无味的基础知识和硬核知识，这样让他们只会用 “死记硬背” 的方式来学习，甚至直接让他们失去信心，直接放弃……</p>
-</li>
-<li><p>玩具手枪是易用的，重武器是难以操控的，多给他们一些玩具，这样他们就会对玩具玩地得心应手，觉得玩玩具就是自己的专业……</p>
-</li>
-<li><p>让他们喜欢直接得到答案的工作和学习方式，成为一个伸手党，从此学习再也不思考……</p>
-</li>
-<li><p>告诉他们东西做出来就好了，不要追求做漂亮，做优雅，这样他们就会慢慢地变成劳动密集型……</p>
-</li>
-<li><p>让他们觉得自己已经很努力了，剩下的就是运气，并说服他们去‘及时行乐’，然后再也找不到高阶和高效率学习的感觉……</p>
-</li>
-<li><p>让他们觉得 “读完书”、“读过书” 就行了，不需要对书中的东西进行思考，进行总结，或是实践，只要囫囵吞枣尽快读完就等同于学好了……</p>
-</li>
-</ul>
-<p>最后，在认知和格局上，彻底打垮他们，让他们变成韭菜。</p>
-<ul>
-<li><p>让他们不要看到大的形势，只看到眼前的一亩三分地，做好一个井底之蛙。其实这很简单，比如，你不要让他们看到整个计算机互联网技术改变人类社会的趋势，你要多让他看到，从事这一行业的人有多苦逼，然后再说一下其它行业或职业有多好……</p>
-</li>
-<li><p>宣扬一夜暴富以及快速挣钱的案例，最好让他们进入 “赌博类” 或是 “传销类” 的地方，比如：股市、数字货币…… 要让他们相信各种财富神话，相信他们就是那个幸运儿，他们也可以成为巴菲特，可以成为马云……</p>
-</li>
-<li><p>告诉他们，一些看上去很难的事都是有捷径的，比如：21 天就能学会机器学习，用区块链就能颠覆以及重构整个世界等等……</p>
-</li>
-<li><p>多跟他们讲一些小人物的励志的故事，这样让他们相信，不需要学习高级知识，不需要掌握高级技能，只需要用低等的知识和低级的技能，再加上持续不断拼命重复现有的工作，终有一天就会成功……</p>
-</li>
-<li><p>多让他们跟别人比较，人比人不会气死人，但是会让人变得浮躁，变得心急，变得焦虑，当一个人没有办法控制自己的情绪，没有办法让自己静下心来，人会失去耐性和坚持，开始好大喜欢功，开始装逼，开始歪门邪道剑走偏锋……</p>
-</li>
-<li><p>让他们到体制内的一些非常稳定的地方工作，这样他们拥有不思进取、怕承担责任、害怕犯错、喜欢偷懒、得过且过的素质……</p>
-</li>
-<li><p>让他们到体制外的那些喜欢拼命喜欢加班的地方工作，告诉他们爱拼才会赢，努力加班是一种福报，青春就是用来拼的，让他们喜欢上使蛮力的感觉……</p>
-</li>
-<li><p>告诉他们你的行业太累太辛苦，干不到 30 岁。让他们早点转行，不要耽误人生和青春……</p>
-</li>
-<li><p>当他们要做决定的时候，一定要让他们更多的关注自己会失去的东西，而不是会得到的东西。培养他们患得患失心态，让他们认识不到事物真正的价值，失去判断能力……（比如：让他们觉得跟对人拍领导的马屁忠于公司比自我的成长更有价值）</p>
-</li>
-<li><p>告诉他们，你现有的技能和知识不用更新，就能过好一辈子，新出来的东西没有生命力的…… 这样他们就会像我们再也不学习的父辈一样很快就会被时代所抛弃……</p>
-</li>
-<li><p>每个人都喜欢在一些自己做不到的事上找理由，这种能力不教就会，比如，事情太多没有时间，因为工作上没有用到，等等，你要做的就是帮他们为他们做不到的事找各种非常合理的理由，比如：没事的，一切都是最好的安排；你得不到的那个事没什么意思；你没有面好主要原因是那个面试官问的问题都是可以上网查得到的知识，而不没有问到你真正的能力上；这些东西学了不用很快会忘了，等有了环境再学也不迟……</p>
-</li>
-</ul>
-<p><strong>最后友情提示一下，上述的这些 “最佳实践” 你要小心，是所谓，贩毒的人从来不吸毒，开赌场的人从来不赌博！所以，你要小心别自己也掉进去了！这就是 “欲练神功，必先自宫” 的道理。</strong></p>
-<blockquote>
-<h4 id="相关原理和思维模型"><a href="#相关原理和思维模型" class="headerlink" title="相关原理和思维模型"></a>相关原理和思维模型</h4></blockquote>
-<p>对于上面的这些技巧还有很多很多，你自己也可以发明或是找到很多。所以，我来讲讲这其中的一些原理。</p>
-<p>一般来说，超过别人一般来说就是两个维度：</p>
-<ul>
-<li><p><strong>在认知、知识和技能上。</strong> 这是一个人赖以立足社会的能力（参看《<a href="https://coolshell.cn/articles/4235.html" target="_blank" rel="noopener">程序员的荒谬之言还是至理名言？</a>》和《<a href="https://coolshell.cn/articles/2250.html" target="_blank" rel="noopener">21 天教你学会 C++</a>》）</p>
-</li>
-<li><p><strong>在领导力上。</strong> 所谓领导力就是你跑在别人前面，你得要有比别人更好的能力更高的标准（参看《<a href="https://coolshell.cn/articles/17583.html" target="_blank" rel="noopener">技术人员发展之路</a>》）</p>
-</li>
-</ul>
-<p>首先，我们要明白，人的技能是从认识开始，然后通过学校、培训或是书本把 “零碎的认知” 转换成“系统的知识”，而有要把知识转换成技能，就需要训练和实践，这样才能完成从：认识 -&gt; 知识 -&gt; 技能 的转换。这个转换过程是需要耗费很多时间和精力的，而且其中还需要有强大的学习能力和动手能力，这条路径上有很多的“关卡”，每道关卡都会过滤掉一大部分人。比如：对于一些比较枯燥的硬核知识来说，90% 的人基本上就倒下来，不是因为他们没有智商，而是他们没有耐心。</p>
-<blockquote>
-<h4 id="认知"><a href="#认知" class="headerlink" title="认知"></a>认知</h4></blockquote>
-<p>要在认知上超过别人，就要在下面几个方面上做足功夫：</p>
-<p>1）<strong>信息渠道。</strong> 试想如果别人的信息源没有你的好，那么，这些看不见信息源的人，只能接触得到二手信息甚至三手信息，只能获得被别人解读过的信息，这些信息被三传两递后必定会有错误和失真，甚至会被传递信息的中间人 hack 其中的信息（也就是 “中间人攻击”），而这些找不出信息源的人，只能 “被人喂养”，于是，他们最终会被困在信息的底层，永世不得翻身。（比如：学习 C 语言，放着原作者 K&amp;R 的不用，硬要用错误百出谭浩强的书，能有什么好呢？）</p>
-<p>2）<strong>信息质量。</strong> 信息质量主要表现在两个方面，一个是信息中的燥音，另一个是信息中的质量等级，我们都知道，在大数据处理中有一句名言，叫 garbage in garbage out，你天天看的都是垃圾，你的思想和认识也只有垃圾。所以，如果你的信息质量并不好的话，你的认知也不会好，而且你还要花大量的时间来进行有价值信息的挖掘和处理。</p>
-<p>3）<strong>信息密度。</strong> 优质的信息，密度一般都很大，因为这种信息会逼着你去干这么几件事，a）搜索并学习其关联的知识，b）沉思和反省，c）亲手去推理、验证和实践…… 一般来说，经验性的文章会比知识性的文章会更有这样的功效。比如，类似于像 Effiective C++/Java，设计模式，Unix 编程艺术，算法导论等等这样的书就是属于这种密度很大的书，而像 Netflix 的官方 blog 和 AWS CTO 的 blog 等等地方也会经常有一些这样的文章。</p>
-<blockquote>
-<h4 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h4></blockquote>
-<p>要在知识上超过别人，你就需要在下面几个方面上做足功夫：</p>
-<p>1）<strong>知识树（图）。</strong> 任何知识，只在点上学习不够的，需要在面上学习，这叫系统地学习，这需要我们去总结并归纳知识树或知识图，一个知识面会有多个知识板块组成，一个板块又有各种知识点，一个知识点会导出另外的知识点，各种知识点又会交叉和依赖起来，学习就是要系统地学习整个知识树（图）。而我们都知道，<strong>对于一棵树来说，“根基” 是非常重要的，所以，学好基础知识也是非常重要的，对于一个陌生的地方，有一份地图是非常重要的，没有地图的你只会乱窜，只会迷路、练路、走冤枉路！</strong></p>
-<p>2）<strong>知识缘由。</strong> 任何知识都是有缘由的，了解一个知识的来龙去脉和前世今生，会让你对这个知识有非常强的掌握，而不再只是靠记忆去学习。靠记忆去学习是一件非常糟糕的事。而对于一些操作性的知识（不需要了解由来的），我把其叫操作知识，就像一些函数库一样，这样的知识只要学会查文档就好了。<strong>能够知其然，知其所以然的人自然会比识知识到表皮的人段位要高很多。</strong></p>
-<p>3）<strong>方法套路。</strong> 学习不是为了找到答案，而是找到方法。就像数学一样，你学的是方法，是解题思路，是套路，会用方程式解题的和不会用方程式解题的在解题效率上不可比较，而在微积分面前，其它的解题方法都变成了渣渣。你可以看到，掌握高级方法的人比别人的优势有多大，学习的目的就是为了掌握更为高级的方法和解题思路。</p>
-<blockquote>
-<h4 id="技能"><a href="#技能" class="headerlink" title="技能"></a>技能</h4></blockquote>
-<p>要在技能上超过别人，你就需要在下面几个方面做足功夫：</p>
-<p>1）<strong>精益求精。</strong> 如果你想拥有专业的技能，你要做不仅仅是拼命地重复一遍又一遍的训练，而是在每一次重复训练时你都要找到更好的方法，总结经验，让新的一遍能够更好，更漂亮，更有效率，否则，用相同的方法重复，那你只不过在搬砖罢了。</p>
-<p>2）<strong>让自己犯错。</strong> 犯错是有利于成长的，这是因为出错会让人反思，反思更好的方法，反思更完美的方案，总结教训，寻求更好更完美的过程，是技能升级的最好的方式。尤其是当你在出错后，被人鄙视，被人嘲笑后，你会有更大的动力提升自己，这样的动力才是进步的源动力。当然，千万不要同一个错误重复地犯！</p>
-<p>3）<strong>找高手切磋。</strong> 下过棋，打个球的人都知道，你要想提升自己的技艺，你必需找高手切磋，在和高手切磋的过程中你会感受到高手的技能和方法，有时候你会情不自禁地哇地一下，我靠，还可以这么玩！</p>
-<blockquote>
-<h4 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h4></blockquote>
-<p>最后一个是领导力，要有领导力或是影响力这个事并不容易，这跟你的野心有多大，好胜心有多强 ，你愿意付出多少很有关系，因为一个人的领导力跟他的标准很有关系，因为有领导力的人的标准比绝大多数人都要高。</p>
-<p>1）<strong>识别自己的特长和天赋。</strong> 首先，每个人 DNA 都可能或多或少都会有一些比大多数人 NB 的东西（当然，也可能没有），如果你有了，那么在你过去的人生中就一定会表现出来了，就是那种大家遇到这个事会来请教你的寻求你帮助的现象。那种，别人要非常努力，而且毫不费劲的事。一旦你有了这样的特长或天赋，那你就要大力地扩大你的领先优势，千万不要进到那些会限制你优势的地方。你是一条鱼，你就一定要把别人拉到水里来玩，绝对不要去陆地上跟别人拼，不断地在自己的特长和天赋上扩大自己的领先优势，彻底一骑绝尘。</p>
-<p>2）<strong>识别自己的兴趣和事业。</strong> 没有天赋也没有问题，还有兴趣点，都说兴趣是最好的老师，当年，Linus 就是在学校里对 minx 着迷了，于是整出个 Linux 来，这就是兴趣驱动出的东西，一般来说，兴趣驱动的事总是会比那些被动驱动的更好。但是，这里我想说明一下什么叫 “真∙兴趣”，真正的兴趣不是那种三天热度的东西，而是那种，你愿意为之付出一辈子的事，是那种无论有多大困难有多难受你都要死磕的事，这才是“真∙兴趣”，这也就是你的“野心” 和“好胜心”所在，其实上升到了你的事业。相信我，绝大多数人只有职业而没有事业的。</p>
-<p>3）<strong>建立高级的习惯和方法。</strong> 没有天赋没有野心，也还是可以跟别人拼习惯拼方法的，只要你有一些比较好的习惯和方法，那么你一样可以超过大多数人。对此，在习惯上你要做到比较大多数人更自律，更有计划性，更有目标性，比如，每年学习一门新的语言或技术，并可以参与相关的顶级开源项目，每个月训练一个类算法，掌握一种算法，每周阅读一篇英文论文，并把阅读笔记整理出来…… 自律的是非常可怕的。除此之外，你还需要在方法上超过别人，你需要满世界的找各种高级的方法，其中包括，思考的方法，学习的方法、时间管理的方法、沟通的方法这类软实力的，还有，解决问题的方法（trouble shooting 和 problem solving），设计的方法，工程的方法，代码的方法等等硬实力的，一开始照猫画虎，时间长了就可能会自己发明或推导新的方法。</p>
-<p>4）<strong>勤奋努力执着坚持。</strong> 如果上面三件事你都没有也没有能力，那还有最后一件事了，那就是勤奋努力了，就是所谓的 “一万小时定律” 了（参看《21 天教你学会 C++》中的十年学编程一节），我见过很多不聪明的人，悟性也不够（比如我就是一个），别人学一个东西，一个月就好了，而我需要 1 年甚至更长，但是很多东西都是死的，只要肯花时间就有一天你会搞懂的，耐不住我坚持十年二十年，聪明的人发明个飞机飞过去了，笨一点的人愚公移山也过得去，因为更多的人是懒人，我不用拼过聪明人，我只用拼过那些懒人就好了。</p>
-<p>好了，就这么多，如果哪天你变得消极和不自信，你要来读读我的这篇文章，子曰：温故而知新。</p>
-<p>（全文完）</p>
-<blockquote>
-<p>本文转自：<a href="https://coolshell.cn/" target="_blank" rel="noopener">CoolShell</a> 的<a href="https://coolshell.cn/articles/19464.html/comment-page-1#comments" target="_blank" rel="noopener">《如何超过大多数人》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>超过</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>设置mac自带的vim语法高亮</title>
     <url>/2018/06/15/%E8%AE%BE%E7%BD%AEmac%E8%87%AA%E5%B8%A6%E7%9A%84vim%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE/</url>
     <content><![CDATA[<h4 id="最终效果图大概是这个样子"><a href="#最终效果图大概是这个样子" class="headerlink" title="最终效果图大概是这个样子"></a>最终效果图大概是这个样子</h4><p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/设置mac自带的vim语法高亮/15-2023-03-06-09-42-13.png" alt="15-2023-03-06-09-42-13"></p>
@@ -3743,6 +3743,158 @@
       </tags>
   </entry>
   <entry>
+    <title>学不会的华为 IPD，其实是这样！</title>
+    <url>/2022/12/21/%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E5%8D%8E%E4%B8%BA%20IPD%EF%BC%8C%E5%85%B6%E5%AE%9E%E6%98%AF%E8%BF%99%E6%A0%B7%EF%BC%81/</url>
+    <content><![CDATA[<p>美国著名作家弗格森说了一句话 “谁也无法说服他人改变，因为我们每个人都守着一扇只能从内心开启的改变之门，不论动之以情或晓之以理，我们都不能替别人开门”。</p>
+<p>改变真的是由内而外的？不是！改变是由外而内，再由内而外的过程。只有当我们有信息输入，在新的信息下触发自身，只有触发自身的信息才能引发一场由内而外的改变。我们将用以下的文章内容来提供触发信息。</p>
+<a id="more"></a>
+<h4 id="一、让你的企业成为资产的思维"><a href="#一、让你的企业成为资产的思维" class="headerlink" title="一、让你的企业成为资产的思维"></a><strong>一、让你的企业成为资产的思维</strong></h4><p>企业经营的目标是要创造价值、利润，那么如何创造客户、并且持续不断的为客户创造价值、留住客户，是企业经营的法宝。产品无疑在企业与客户之间建立了一座桥梁。企业通过产品为客户创造价值。持续不断的高品质的产品输出，是一个企业持续立于不败之地的法宝。</p>
+<p>然而，一个企业要成长，就要未雨绸缪、不断变革，以保持持续的生命力。华为公司就是一家保持持续变革的伟大公司，持续管理变革的目标就是实现高效的流程化运作，确保端到端的自动优质交付，从而实现企业的自动化管道系统。</p>
+<p>今天我们向华为学习企业的变革之下的研发流程体系，其实是一个研发管道系统，在华为，这条管道叫做——IPD 体系。华为公司认为，研发不仅是研发部门的事，更是关系公司市场到产品变现的全流程。IPD 是企业实现产品商业化的管道系统，IPD 体系构建了产品从 idea 到产品变现的全流程。</p>
+<p>经营企业需要具备系统性的全局思维，将企业看做资产的思维，企业是不断创造价值的资产，需要融入经营者的经营思维、战略思维、管理思维、并赋予工具、流程和方法，让其实现自动化运行的系统。当然不是所有企业都可以看成资产，只有创造价值，创造利润的企业才能称为资产。</p>
+<p>作为经营者、管理者需要以经营资产的思维来经营企业。</p>
+<h4 id="二、IPD-的起源和发展"><a href="#二、IPD-的起源和发展" class="headerlink" title="二、IPD 的起源和发展"></a><strong>二、IPD 的起源和发展</strong></h4><p><strong>1、跨界的 IBM 领导者为何要建 IPD</strong></p>
+<p>IPD 起源于这家公司——IBM，一个世界级的巨无霸，全球最大的信息技术和业务解决方案公司，拥有 30 多万员工，业务遍及 160 多个国家和地区。2018 年《财富》世界 500 强排行榜发布，IBM 位列 92 位。</p>
+<p>那么就是这样一家世界级的公司，在 1991～1993 年间累计面临巨大的财务困境，三年间累计亏损达 162 亿美元，几乎是每天亏损掉 1480 万美元。93 年的 4 月 1 日，54 岁，路易斯 · 郭士纳临危受命，担任 IBM 的执行总裁。</p>
+<p>郭士纳的上任当时并不被人们看好，包含美国的媒体，人们不相信一个曾经以食品和烟草起家的公司老板，能够扭转 IBM 的困局。</p>
+<p>郭士纳就任后，做了三件事：</p>
+<p>第一件事：让 IBM 停止流血；郭士纳裁剪了 IBM 流血的部门和人员，半年内果断裁人 4.5 万。</p>
+<p>第二件事：重振大型机业务，拓展服务业范围，并带领 IBM 重新向 PC 市场发动攻击。</p>
+<p>第三件事：梳理公司流程体制，进行流程重构和再造工程。</p>
+<p>这第三件事情是与新班子花了近一年时间，研究如何对 IBM 进行 “再造工程”。IBM 组织团队进行分析，经过分析后，他们发现公司三个方面上远远落后于业界最佳——研发费用、研发浪费和产品上市时间。</p>
+<p>分析的结果：IBM 研发费用为销售收入的 12%，而业界最佳为 6%；　　研发损失费用为整个研发费用的 25%，而业界最佳仅为 3.3%；而在上市时间（指产品从概念产生到投放市场所需的时间）方面，36.5% 项目的上市时间是业界最佳的 1.25 倍，其余项目的上市时间多于业界最佳的 1.5-2 倍。</p>
+<p>为了重新获得市场竞争优势，IBM 提出了两个 50% 的目标，一是，将产品上市时间减少 50%，二是，在不影响产品开发结果的情况下，将研发费用减少 50% 的目标。</p>
+<p>为达成这个目标，IBM 公司应用了 PACE 的方法（Product And Cycle-time Excellence，产品及周期优化法）从流程重整和产品重整两个方面来达到缩短产品上市时间、提高产品利润的目标。</p>
+<p>时隔三年，1995 年，IBM 营收突破了 700 亿美元大关，IBM 的大型机业务也复活了。利润 60 亿美元。不得不说，IBM 公司流程重构在提升自身竞争力上发挥了巨大的作用。</p>
+<p>IBM 成为了全球率先应用 IPD 方法并取得成功实践的企业，这就是 IPD 的起源。</p>
+<p>美国著名的 PTRM 公司总结实施 IPD 后带来的好处是：</p>
+<p><img src="https://pic3.zhimg.com/v2-cbb22c372c41b100de7a85da06ff48f6_r.jpg" alt=""></p>
+<p>IPD 是集成产品开发的英文单词首字母，经过 IBM 公司实践的一套先进的、成熟的研发管理思想、模式和方法。</p>
+<p><strong>2、华为搭上 IPD 的快车</strong></p>
+<p>1997 年西方圣诞节前一周，任总重点考察了 IBM。圣诞节前夕美国各大企业都已经放假了，但 IBM 包括 CEO 郭士纳在内的高层领导均照常上班，并真诚而系统地向任正非介绍了他们的管理内涵。</p>
+<p>这次调研中整整一天时间，IBM 从产品预研到项目管理、从生产流程到项目寿命终结的投资评审做了详尽的介绍。为了强化任正非对 IPD 的认识，IBM 副总裁送给他一本哈佛大学出版的关于研发管理的著作，后来他发现朗讯、惠普等美国著名企业也都实施这样的研发模式。</p>
+<p>这次考察更加坚定了任正非对华为实施变革的坚定决心，华为要像 IBM 一样强大，不仅自己要以郭士纳为榜样，而且华为必须虔诚地拜 IBM 为师，不惜一切代价将其管理精髓移植到华为身上。</p>
+<p>1998 年 8 月初，华为与 IBM 中国区总裁周伟焜签订了金额 20 亿人民币的变革项目合作协议，当时 20 亿是华为当年全年的利润，可见任总的魄力非常人所能及也。</p>
+<p>这个项目包含了 IPD（集成产品开发）、ISC（集成供应链）、IT 系统重整、财务四统一等 8 个管理变革项目。这成为是华为历史上最重要的转折点，这个项目将华为带进了高速赛道。</p>
+<p>华为公司第一家引进和实施 IPD，也是受益最大的国内企业。从 98 年的 IPD1.0 到 2014 年的 IPD7.0, 华为不断升级优化。</p>
+<p>华为公司 1998 年启动 IPD 项目，分为关注、发明、推广 3 个阶段。根据 1998 年的计划，用两年多的时间就可以实现全面推广。</p>
+<p>华为在 2001 年华为颁布了《华为基本法》，基本法一个重要的方面是统一了公司变革的思想。</p>
+<p>经过了四年的梳理建设，IPD 在 2002 年在全公司推广使用。华为公司走上了与世界领先企业并肩同行的管理道路。</p>
+<h4 id="三、IPD-的核心思想"><a href="#三、IPD-的核心思想" class="headerlink" title="三、IPD 的核心思想"></a><strong>三、IPD 的核心思想</strong></h4><p><strong>1. 研发本质是研发是企业的一项投资</strong></p>
+<p>首先，IPD 认为研发是一项投资；因为这是一项投资决策，所以，需要对它进行有效的投资组合分析，在开发过程中，设置检查点，通过阶段性评审来决定项目是继续、暂停、终止还是改变方向。</p>
+<p><strong>IPD(Integrated product development 集成产品开发)，IPD 是一套先进的、成熟的研发管理思想、模式和方法。</strong></p>
+<p><strong>2. 基于市场的研发才是有效投资</strong></p>
+<p>IPD 强调，产品创新一定要是基于市场需求和竞争分析的创新，要准确地做正确的事情，要将正确定义产品概念、充分理解市场需求作为流程的第一步。</p>
+<p>在 IT 圈有个现象，一天公司其中一个人有个创意，然后召集人员参与讨论，之后，就规划出一个产品创意来，然后互相鼓励，觉得我们这个创意就是最牛逼的，我们是世界第一，没有人想到，只有我们想到。并且互相叮嘱，我们要保密哦，要充分注重信息安全，不能透露给外人。这样的产品规划，我们通常叫做意向创业；貌似具有非常强的执行力，立即组建团队，就卷起袖子加油干！立项、设计、开发、出样机、投生产。节奏很快，也很有魄力。恨不得 3 个月就能出产品，然后做营销、做销售。经历了千辛万苦，产品出来后，面向市场发布，结果无人问津。</p>
+<p>这里我们强调产品一定是基于市场需求的开发，一定要解决市场的问题和痛点，痒点都不行，必须是痛点。</p>
+<p>所以说，这种方式就不满足 IPD 的核心思想。我们说市场的端到端，是需求来源于市场，最终产品回归于市场。你都没有做充分的市场调研，怎么能够被市场所接受。</p>
+<p><strong>3. 如何穿越部门墙建立研发快车道</strong></p>
+<p>一个产品，尤其是以硬件为主的产品，设计产品的方方面面、结构、硬件、软件、工程、制造、采购、包装、市场推广等，是需要全部门协同配合的一个事情。所以必须要有跨部门的团队协作。</p>
+<p>采用跨部门的产品开发团队 (Product Development Team, 简称 PDT)，通过有效的沟通、协调以及决策，到达尽快将产品推向市场的目的。</p>
+<p>有的创业者，把这个事情想得太简单，完全没有搞清楚状况，拖几个人就开始干，在他们的理念中，出产品就是出样机，觉得样机出来了，产品就出来了，殊不知一个产品样机出来，仅仅只等效于产品开发过程只完成 40%，还有大量的工作要做。</p>
+<p>并且，在这种思想下，产品的是不完善的，是不具备量产化的，以样机为产品终结的思想，完全不会考虑到产品的后端需求。比如可测试性、可制造性、可服务性等 DFX 的需求。</p>
+<p>跨部门的团队，强调无缝沟通，强调把专业的团队串起来，为了一个共同的目标而努力。</p>
+<p>老罗有这么一句对自己的总结 “只有等到你掉到坑里的时候，你才刻骨铭心地意识到前辈们的忠告是如此的正确”。</p>
+<p>创业初期，老罗一直认为，除了乔布斯，锤子拥有世界上一流的工业设计团队。于是呢，我们看到，老罗开始打造工艺品，追求完美的产品设计。在产品转生产试制的时候，多次亲自在富士康的生产线跟线。在追求产品完美外观和软件体验细节的上面，忽略了产品的可实现性。后来老罗在一次产品发布会上深刻总结了做产品不是做艺术品，需要充分考虑产品的可制造性。其实老罗在 2012 年摩托罗拉大裁员的时候吸收了一大批摩托罗拉的技术专家。如果当时，他充分利用各类部门技术专家的优势，锤子 T1 手机就不会遭遇 “噩梦一般的三个月”。</p>
+<p><strong>4. 给新产品开发造一个发动机</strong></p>
+<p>IPD 同样也关注平台，平台化的开发带来了两大好处，铁打的银盘流水的兵，即使关键岗位的人员流动也不会对企业带来影响，平台让我们的开发成果得到积累和沉淀；另一方面，平台化的开发，支撑了我们新产品开发的速度。</p>
+<p><strong>5. 每个人都应该知道该干什么的方法</strong></p>
+<p>结构化的流程，所谓结构化，是指相互关联的工作要有一个框架结构，并要有一定的组织原则来支持它；每项工作都应清清楚楚地明确规定出来。所有与产品开发有关的人应该清楚他们所参与的是什么工作，用什么方法去完成。</p>
+<p>同时，有了结构化的流程，我们就不在受关键岗位、关键人才的限制。</p>
+<p>几年前，我就职过的一家公司，一个项目经理总览了一个产品系列的所有软硬件的全套技术和技术文件，以此为由，要求公司 CEO 给他加薪，CEO 最后不得不接受。当然，我们不希望这样的事情发生，同时我们也期望给公司员工带来更多的福利。可是这种情况在公司发展，对公司的发展，对员工的发展都是非常不利的。</p>
+<p><strong>6. 海陆空模式远比顺序模式强大</strong></p>
+<p><strong>异步开发模式</strong>，也称并行工程。通过严谨的计划、系统的设计、严格的流程控制，节点评审，把原来的许多后续活动提前进行，缩短产品上市时间。</p>
+<p>产品立项之后，总体方案评审通过，进入详细设计阶段，我们的动作就可以开始做了。</p>
+<p>产品的宣传资料可以出了，产品样机还没有出来，产品的市场预热推广已经开始了。这就是并行工程。那么我们通常情况下，我们敢不敢在样机还没有出来的时候有已经开始了产品的市场动作？敢不敢？</p>
+<p>我想很多企业是不敢的，产品没有出来就大量的投入营销，那么如果产品出不来怎么办呢？</p>
+<p>而在 IPD 的流程体系中，产品不会不出来，而且计划是产品不会不按照原定计划出来。</p>
+<p>一方面，IPD 强调的 “一次性把事情做好”；</p>
+<p>另外一方面，IPD 有系统的流程控制方法来保证产品开发如期完成。</p>
+<p><strong>重用性</strong> 尽量采用公共构建模块 (Common Building Block, 简称 CBB)，提高产品开发效率。</p>
+<p><strong>CBB</strong>，称为公共构建模块，这些模块，可以是软件的、可以是硬件的、可以是测试的、可以是生产的。有了这些模块，我们开发过程就聚焦在模块之外的其他需求进行，一方面减少了工作量。</p>
+<p>我在做手机的时候，我们曾做了一个 1.5 个月研发出一款手机并成功转量产的记录，就是充分应用了 CBB 的重用思想。</p>
+<p><strong>7. 中小企业也可以插上 IPD 的翅膀</strong></p>
+<p>第七个核心思想，阐述了 IPD 的灵活的，随着业务和技术的发展而变化的，可以全面应用，要可裁剪应用。因地制宜，随机应变。</p>
+<p>至今，华为的 IPD 还在不断的优化和升级，并且运用在了终端、无线、存储等各个产品线。</p>
+<p>而 IPD 最小的业务模式也同样适用于中小型企业。</p>
+<p>以上这七个横向的内容就是 IPD 的核心思想，IPD 的核心思想是 IPD 最重要管理精髓。</p>
+<p>当然除了横向的核心思想，IPD 还包含了纵向的核心内容：</p>
+<p>第一个内容，IPD 包含了 MM 市场管理流程，核心思想中强调了新产品开发是基于市场需求的开发，所以从市场到产品开发，一定需要一个市场管理流程来支撑。市场管理流程通过对市场的收集、分析、做出业务规划，输出产品开发任务书，作为产品开发的输入，是市场到开发的转化过程；</p>
+<p>第二个内容是 IPD 集成产品开发流程，这是我们实现产品开发落地的流程，怎样做出产品来，就是在这个流程中体现。后边的章节里我们会更详细的介绍。</p>
+<p>第三个内容技术开发流程，这个流程是实现企业的技术积累，核心竞争力的沉淀；</p>
+<p>第四个内容是项目管理流程，IPD 核心管理是基于项目管理来进行的，而项目管理是在管什么呢，是在管资源。</p>
+<p>第五个内容矩阵型组织结构，这是团队形式，核心思想中包含了跨部门团队，这个跨部门团队需要一个矩阵式的管理。</p>
+<p>第六个内容是：绩效与激励，从业务上来看着是一个支撑内容，为我们业务目标服务的。从管理上来看，这条非常重要，包含了企业文化、HR 的思想等。一句话，门朝哪里开，人就会从哪里走，就在这里来操作。我们的门要向着目标的方向打开。</p>
+<p>第七个内容 是管理优化与变革，这里强调了随着业务的发展，我们前面的这六点基于管理的内容要不断的优化升级，以更好的适配公司业务的发展。在华为公司，专门成立了管理优化部门，每年投入销售额的 3-5% 进行管理的优化变革。同时公司内部也有一个管理优化报，面向全公司发布。</p>
+<p>七横七纵，从概念上介绍了 IPD 的全貌，是 IPD 的精华所在，希望大家能够理解和运用它。</p>
+<h4 id="四、八个特征掌握-IPD"><a href="#四、八个特征掌握-IPD" class="headerlink" title="四、八个特征掌握 IPD"></a><strong>四、八个特征掌握 IPD</strong></h4><p><strong>1. IPD 的一套框架</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-557be7394adda907102507443972ce8a_r.jpg" alt=""></p>
+<p>从公司战略出发、收集市场信息、客户反馈、竞争信息、技术趋势、产品组合进入市场管理流程。通过市场管理流程的对信息的分析、转化为业务计划，输出产品规划的 charter（产品业务计划书）</p>
+<p>输入到产品开发流程，一部分输送给技术开发流程。通过产品开发流程和技术开发流程，实现对产品和技术的输出。</p>
+<p><strong>2. IPD 的两种评审模式 DCP 和 TR</strong></p>
+<p><img src="https://pic1.zhimg.com/v2-1b93002f94e2aded7cb220d1241c15b8_r.jpg" alt=""></p>
+<p>产品开发流程使用两种评审机制，一种是基于业务决策线的评审；另一种是基于技术线的决策评审。</p>
+<p>业务决策评审是集成产品开发管理团队（IPMT）管理产品投资的重要手段，在决策评审中，IPMT 始终站在投资商的角度来进行评审。</p>
+<p>业务决策评审包含了 charter 决策评审、概念决策评审、计划决策评审、验证决策评审、生命周期决策评审</p>
+<p>另外一种是技术决策评审，通过技术评审，帮助产品开发团队尽早发现产品开发中存在的问题和风险，及时采取相应的解决方案和行动计划，保证产品开发质量，减少浪费。</p>
+<p><strong>3. IPD 的三大业务流程</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-22db8a6eb8546a2cd01a4ebfafc16737_r.jpg" alt=""></p>
+<p><strong>4. IPD 的四大组织</strong>  </p>
+<p><img src="https://pic4.zhimg.com/v2-e9ee51a0800a6e6ddfac5209208838a7_r.jpg" alt=""></p>
+<p>（1）集成组合管理团队（IPMT）：产品投资决策和评审机构，负责制定公司总的使命愿景和战略方向，并对新产品线的产生进行决策。通常是一个高层跨部门团队，成员包括各个部门最高主管。</p>
+<p>（2）产品开发团队（PDT）：一个虚拟的组织，其成员在产品开发期间一起工作，由产品经理 / 项目经理组织，一般是产品经理 / 项目经理负责的矩阵组织结构。</p>
+<p>（3）产品生命周期管理团队（LMT）：在产品生命周期中，联合研发、制造、销售、使用、安全部门等各方面的资源，从根本上保证了产品在全生命周期中的管理能够高效、有序，并使产品保持低故障率。</p>
+<p>（4）技术开发团队（TMT）：利用从研究和试验获得的知识或技术，为产品开发提供新的工艺和系统而进行实质性的改进。</p>
+<p> <strong>5. IPD 的五个业务决策评审点</strong></p>
+<p><img src="https://pic2.zhimg.com/v2-dea016a73693563cde089ff9463e4259_r.jpg" alt=""></p>
+<p>（1）Charter：立项评审</p>
+<p>（2）CDCP(Concept?DCP)：概念决策评审</p>
+<p>（3）PDCP(Plan?DCP)：计划决策评审</p>
+<p>（4）ADCP(Availability?DCP)：可获得性决策评审</p>
+<p>（5）EDCP(EOL?DCP)：生命周期终止决策评审</p>
+<p><strong>6. IPD 的六个开发阶段</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-a9c7db1b072a48d9a4bde310d25b0252_r.jpg" alt=""></p>
+<p><strong>7. IPD 的七个技术评审点</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-cfb4bd36c41890aeb65d95f6ec329b9e_r.jpg" alt=""></p>
+<p>当然，IPD 流程中设置了很多机制来对这类问题的解决。比如说我们的研发质量规范、我们的代码规范、代码检视、单元测试、系统测试等等。</p>
+<p>IPD 的流程中为了最大限度的节省缺陷或问题流入后端造成了损失。就体现在前面介绍的两种评审机制，不论是基于业务的还会基于技术的评审，只要上一个评审点没有通过，就无法进入下一个评审点。这种机制有效的解决和平衡的我们新产品开发过程中的遇到的问题。</p>
+<p>每一个环节都有自己的客户，我们一定要清楚自己的客户是谁，我们是为谁在服务。IPD 强调下一道工序就是你的客户！</p>
+<h4 id="五、实施-IPD，你也可以"><a href="#五、实施-IPD，你也可以" class="headerlink" title="五、实施 IPD，你也可以"></a><strong>五、实施 IPD，你也可以</strong></h4><p><strong>1. 小组织也可以 IPD</strong></p>
+<p>重量级团队削弱了功能部门的影响力。事实：功能部门在 IPD 的执行与决策中都占据着关键的地位。但是角色发生了变化。就像在乐队的演奏中，每个人都有自己的角色。如果鼓手演奏的声音比其他人大，如果鼓手想控制整个音乐（即使鼓手的技能不够），虽然鼓手自己可能感觉很强大，但是整个音乐已经不和谐了，已经被破坏了。扪心自问，实事求是地考虑一下自己真正的权力来自哪里。功能部门在 IPD 中扮演着非常重要的角色，不过在 IPD 流程中以团队的形式进行运作很重要。如果没有本身优秀的强大功能部门，IPD 也无法发挥自己的作用。功能部门在许多方面都发挥着重要的作用，如对本部门员工技能的培养进行管理，制定功能部门策略，向 PDT 和 IPMT 做出并履行承诺，将本功能部门与其他部门及公司联合起来，加强本功能部门对承诺的执行。同样，IRB 和 EMT 已经签发了政策和指导来更好地支撑华为的重量级团队建设环境，包括激励，PBC 和资源池。可是每个团队成员仍然有责任充分参与团队工作，积极帮助团队实现目标。</p>
+<p>IPD 组织结构通常可以看成一个小公司。这就是为什么华为 18.8 万人的企业中，研发能够快速响应的一个重要原因。  </p>
+<p>误区一：<strong>IPD 是大公司的事情，我们是小公司，没有实施 IPD 的必要</strong></p>
+<p>IPD 本身是一种产品研发的最佳实践，强调研发要做正确的事情，体现市场驱动，把研发资源投入到最有价值的项目中，这些理念对中小企业同样有非常大的指导意义；尤其中小企业面临资源匮乏，一个项目的失败可能会导致整个公司的倒闭，这种状态下，更应该践行 IPD 的研发方法，确保项目的成功率，甚至要追求 120% 的成功率。 <strong>我们是项目化公司，IPD 是产品开发，所以不适合我们</strong></p>
+<p>IPD 本身是从商业角度分析产品和项目是否值得投资，即使项目化的公司，也需要追求项目的投入产出率，也需要时刻关注客户需求，尤其是国内项目化公司普遍面临缺乏平台、跨项目共享差、交付成本高的问题，IPD 的市场驱动、异步开发模式、项目决策分析都可以非常好地解决这些问题。所以项目化公司同样需要 IPD。<br><strong>IPD 实施推行需要非常高的成本，实施周期很长，我们目前没有能力搞。</strong></p>
+<p>大家有这种认识纯粹是 IBM、IPD 实施顾问忽悠的结果，把 IPD 忽悠的多么神圣、多么高档、如此之难，进而从客户手里多搂钱，把实施费用搞的奇贵，从而让客户感觉 IPD 是非常贵族化的东西，身份的象征。其实街边小餐馆都是按照 IPD 的思路运作的，在哪里开？市场客户决定 —（IPD 之市场驱动）；费用多少？竞争对比分析而定 — （IPD 之竞争分析）；每天早上要准备多少材料？历史销售情况 + 今天的销售预期决定 — （IPD 之预算管理）；提供哪些种类？制作周期太长的不做，因为客户没有时间等 — （IPD 之产品交付）；丰盛大餐的不做，因为厨师水平要求高，费用高 — （IPD 之项目研发费用）；每天晚上核算今天盈利、与历史对比 — （IPD 之衡量指标与对比分析）；客户喜欢的、利润高的种类放在菜单最上面 — （IPD 之投资组合分析）；所以 IPD 在中小企业同样适用，并且可以分步实施，实施难度、成本都是在可控范围之内。 <strong>还有诸多疑虑……</strong></p>
+<p>误区二：<strong>IPD 是要在速度与质量之间做出取舍？</strong></p>
+<p>误区三：<strong>IPD 影响决策的速度？</strong></p>
+<p>误区四：<strong>重量级团队削弱了功能部门的影响力？</strong></p>
+<p><strong>……</strong></p>
+<p><strong>2. 貌似缺失的质量控制缺是最有效的控制</strong></p>
+<p>IPD 是速度与质量相结合。技术评审点即使技术评审又是质量评审，质量管理被融入在 IPD 的流程和体系当中，潜移默化的，自然的服务于产品和控制产品质量。IPD 的目的是保证速度，但同时也要保证产品的高质量。IPD 不仅要使产品开发速度更快，而且还提供了一种规范，保证能够生产出高质量的产品。</p>
+<p><strong>3. 环环相扣，齿齿相连，一次性把事情做好</strong></p>
+<p><strong>环环相扣，齿齿相连</strong></p>
+<p>每个角色都处于 IPD 的一个环节，只有当上一个环节完成了，并且是按照产品质量要求完成了，才会流向下一个环节，正如流水生产线一样，只有上一个工序的工作完成了，且被检验为合格了才能流到下一个工序。也只有上一个工序完成时，下一个工序才能开始，一切都在项目计划的控制之中。每个工序都会对下一个工序产生影响。</p>
+<p><strong>一次性把事情做好！慢即是快。</strong></p>
+<p>从整个 IPD 的核心思想方面来说，所有的流程和关键的评审点都是围绕这个 “一次性把事情做好” 这句话来的，因为在研发当中，一次性把事情做好，效率才是最高的。比如原本计划下个月的进行新产品的试制，原材料已经准备好，生产计划已经按照出生产线为我们的试制产品做准备。如果产品试制不能如期进行，生产线的计划将被打乱。相关的人员安排可能临时不能调度，原计划的试制期间的生产资源就会造成浪费。</p>
+<p><strong>【结尾】</strong></p>
+<p>公司的战略是选择方向，就是解决做正确的事情，做与公司目标相匹配的事情。</p>
+<p>IPD(Integrated product development 集成产品开发) 是针对公司已经选择确定战略规划之下，正确的做公司规划的产品开发的事情，即使通常我们讲的正确的做事。</p>
+<p>只有做正确的事情和正确的做事，才能保障经营的不败。</p>
+<p>我想把一个复杂的系统，还原成一个常识的理解。只要我们理解和认识了 IPD，我们也同样可以穿上 IPD 之鞋，谁说灰姑娘就不能穿上漂亮的舞鞋跳舞呢？</p>
+<blockquote>
+<p>原文地址 <a href="https://zhuanlan.zhihu.com/p/392385187" target="_blank" rel="noopener">知乎</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>IPD</tag>
+        <tag>华为</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java8中的StreamsAPI详解</title>
     <url>/2018/09/30/Java8%E4%B8%AD%E7%9A%84StreamsAPI%E8%AF%A6%E8%A7%A3/</url>
     <content><![CDATA[<h1 id="Java-8-中的-Streams-API-详解"><a href="#Java-8-中的-Streams-API-详解" class="headerlink" title="Java 8 中的 Streams API 详解"></a>Java 8 中的 Streams API 详解</h1><h2 id="为什么需要-Stream"><a href="#为什么需要-Stream" class="headerlink" title="为什么需要 Stream"></a>为什么需要 Stream</h2><p>Stream 作为 Java 8 的一大亮点，它与 java.io 包里的 InputStream 和 OutputStream 是完全不同的概念。它也不同于 StAX 对 XML 解析的 Stream，也不是 Amazon Kinesis 对大数据实时处理的 Stream。Java 8 中的 Stream 是对集合（Collection）对象功能的增强，它专注于对集合对象进行各种非常便利、高效的聚合操作（aggregate operation），或者大批量数据操作 (bulk data     operation)。</p>
@@ -3988,158 +4140,6 @@
       <tags>
         <tag>Java8</tag>
         <tag>Streams API</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>学不会的华为 IPD，其实是这样！</title>
-    <url>/2022/12/21/%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E5%8D%8E%E4%B8%BA%20IPD%EF%BC%8C%E5%85%B6%E5%AE%9E%E6%98%AF%E8%BF%99%E6%A0%B7%EF%BC%81/</url>
-    <content><![CDATA[<p>美国著名作家弗格森说了一句话 “谁也无法说服他人改变，因为我们每个人都守着一扇只能从内心开启的改变之门，不论动之以情或晓之以理，我们都不能替别人开门”。</p>
-<p>改变真的是由内而外的？不是！改变是由外而内，再由内而外的过程。只有当我们有信息输入，在新的信息下触发自身，只有触发自身的信息才能引发一场由内而外的改变。我们将用以下的文章内容来提供触发信息。</p>
-<a id="more"></a>
-<h4 id="一、让你的企业成为资产的思维"><a href="#一、让你的企业成为资产的思维" class="headerlink" title="一、让你的企业成为资产的思维"></a><strong>一、让你的企业成为资产的思维</strong></h4><p>企业经营的目标是要创造价值、利润，那么如何创造客户、并且持续不断的为客户创造价值、留住客户，是企业经营的法宝。产品无疑在企业与客户之间建立了一座桥梁。企业通过产品为客户创造价值。持续不断的高品质的产品输出，是一个企业持续立于不败之地的法宝。</p>
-<p>然而，一个企业要成长，就要未雨绸缪、不断变革，以保持持续的生命力。华为公司就是一家保持持续变革的伟大公司，持续管理变革的目标就是实现高效的流程化运作，确保端到端的自动优质交付，从而实现企业的自动化管道系统。</p>
-<p>今天我们向华为学习企业的变革之下的研发流程体系，其实是一个研发管道系统，在华为，这条管道叫做——IPD 体系。华为公司认为，研发不仅是研发部门的事，更是关系公司市场到产品变现的全流程。IPD 是企业实现产品商业化的管道系统，IPD 体系构建了产品从 idea 到产品变现的全流程。</p>
-<p>经营企业需要具备系统性的全局思维，将企业看做资产的思维，企业是不断创造价值的资产，需要融入经营者的经营思维、战略思维、管理思维、并赋予工具、流程和方法，让其实现自动化运行的系统。当然不是所有企业都可以看成资产，只有创造价值，创造利润的企业才能称为资产。</p>
-<p>作为经营者、管理者需要以经营资产的思维来经营企业。</p>
-<h4 id="二、IPD-的起源和发展"><a href="#二、IPD-的起源和发展" class="headerlink" title="二、IPD 的起源和发展"></a><strong>二、IPD 的起源和发展</strong></h4><p><strong>1、跨界的 IBM 领导者为何要建 IPD</strong></p>
-<p>IPD 起源于这家公司——IBM，一个世界级的巨无霸，全球最大的信息技术和业务解决方案公司，拥有 30 多万员工，业务遍及 160 多个国家和地区。2018 年《财富》世界 500 强排行榜发布，IBM 位列 92 位。</p>
-<p>那么就是这样一家世界级的公司，在 1991～1993 年间累计面临巨大的财务困境，三年间累计亏损达 162 亿美元，几乎是每天亏损掉 1480 万美元。93 年的 4 月 1 日，54 岁，路易斯 · 郭士纳临危受命，担任 IBM 的执行总裁。</p>
-<p>郭士纳的上任当时并不被人们看好，包含美国的媒体，人们不相信一个曾经以食品和烟草起家的公司老板，能够扭转 IBM 的困局。</p>
-<p>郭士纳就任后，做了三件事：</p>
-<p>第一件事：让 IBM 停止流血；郭士纳裁剪了 IBM 流血的部门和人员，半年内果断裁人 4.5 万。</p>
-<p>第二件事：重振大型机业务，拓展服务业范围，并带领 IBM 重新向 PC 市场发动攻击。</p>
-<p>第三件事：梳理公司流程体制，进行流程重构和再造工程。</p>
-<p>这第三件事情是与新班子花了近一年时间，研究如何对 IBM 进行 “再造工程”。IBM 组织团队进行分析，经过分析后，他们发现公司三个方面上远远落后于业界最佳——研发费用、研发浪费和产品上市时间。</p>
-<p>分析的结果：IBM 研发费用为销售收入的 12%，而业界最佳为 6%；　　研发损失费用为整个研发费用的 25%，而业界最佳仅为 3.3%；而在上市时间（指产品从概念产生到投放市场所需的时间）方面，36.5% 项目的上市时间是业界最佳的 1.25 倍，其余项目的上市时间多于业界最佳的 1.5-2 倍。</p>
-<p>为了重新获得市场竞争优势，IBM 提出了两个 50% 的目标，一是，将产品上市时间减少 50%，二是，在不影响产品开发结果的情况下，将研发费用减少 50% 的目标。</p>
-<p>为达成这个目标，IBM 公司应用了 PACE 的方法（Product And Cycle-time Excellence，产品及周期优化法）从流程重整和产品重整两个方面来达到缩短产品上市时间、提高产品利润的目标。</p>
-<p>时隔三年，1995 年，IBM 营收突破了 700 亿美元大关，IBM 的大型机业务也复活了。利润 60 亿美元。不得不说，IBM 公司流程重构在提升自身竞争力上发挥了巨大的作用。</p>
-<p>IBM 成为了全球率先应用 IPD 方法并取得成功实践的企业，这就是 IPD 的起源。</p>
-<p>美国著名的 PTRM 公司总结实施 IPD 后带来的好处是：</p>
-<p><img src="https://pic3.zhimg.com/v2-cbb22c372c41b100de7a85da06ff48f6_r.jpg" alt=""></p>
-<p>IPD 是集成产品开发的英文单词首字母，经过 IBM 公司实践的一套先进的、成熟的研发管理思想、模式和方法。</p>
-<p><strong>2、华为搭上 IPD 的快车</strong></p>
-<p>1997 年西方圣诞节前一周，任总重点考察了 IBM。圣诞节前夕美国各大企业都已经放假了，但 IBM 包括 CEO 郭士纳在内的高层领导均照常上班，并真诚而系统地向任正非介绍了他们的管理内涵。</p>
-<p>这次调研中整整一天时间，IBM 从产品预研到项目管理、从生产流程到项目寿命终结的投资评审做了详尽的介绍。为了强化任正非对 IPD 的认识，IBM 副总裁送给他一本哈佛大学出版的关于研发管理的著作，后来他发现朗讯、惠普等美国著名企业也都实施这样的研发模式。</p>
-<p>这次考察更加坚定了任正非对华为实施变革的坚定决心，华为要像 IBM 一样强大，不仅自己要以郭士纳为榜样，而且华为必须虔诚地拜 IBM 为师，不惜一切代价将其管理精髓移植到华为身上。</p>
-<p>1998 年 8 月初，华为与 IBM 中国区总裁周伟焜签订了金额 20 亿人民币的变革项目合作协议，当时 20 亿是华为当年全年的利润，可见任总的魄力非常人所能及也。</p>
-<p>这个项目包含了 IPD（集成产品开发）、ISC（集成供应链）、IT 系统重整、财务四统一等 8 个管理变革项目。这成为是华为历史上最重要的转折点，这个项目将华为带进了高速赛道。</p>
-<p>华为公司第一家引进和实施 IPD，也是受益最大的国内企业。从 98 年的 IPD1.0 到 2014 年的 IPD7.0, 华为不断升级优化。</p>
-<p>华为公司 1998 年启动 IPD 项目，分为关注、发明、推广 3 个阶段。根据 1998 年的计划，用两年多的时间就可以实现全面推广。</p>
-<p>华为在 2001 年华为颁布了《华为基本法》，基本法一个重要的方面是统一了公司变革的思想。</p>
-<p>经过了四年的梳理建设，IPD 在 2002 年在全公司推广使用。华为公司走上了与世界领先企业并肩同行的管理道路。</p>
-<h4 id="三、IPD-的核心思想"><a href="#三、IPD-的核心思想" class="headerlink" title="三、IPD 的核心思想"></a><strong>三、IPD 的核心思想</strong></h4><p><strong>1. 研发本质是研发是企业的一项投资</strong></p>
-<p>首先，IPD 认为研发是一项投资；因为这是一项投资决策，所以，需要对它进行有效的投资组合分析，在开发过程中，设置检查点，通过阶段性评审来决定项目是继续、暂停、终止还是改变方向。</p>
-<p><strong>IPD(Integrated product development 集成产品开发)，IPD 是一套先进的、成熟的研发管理思想、模式和方法。</strong></p>
-<p><strong>2. 基于市场的研发才是有效投资</strong></p>
-<p>IPD 强调，产品创新一定要是基于市场需求和竞争分析的创新，要准确地做正确的事情，要将正确定义产品概念、充分理解市场需求作为流程的第一步。</p>
-<p>在 IT 圈有个现象，一天公司其中一个人有个创意，然后召集人员参与讨论，之后，就规划出一个产品创意来，然后互相鼓励，觉得我们这个创意就是最牛逼的，我们是世界第一，没有人想到，只有我们想到。并且互相叮嘱，我们要保密哦，要充分注重信息安全，不能透露给外人。这样的产品规划，我们通常叫做意向创业；貌似具有非常强的执行力，立即组建团队，就卷起袖子加油干！立项、设计、开发、出样机、投生产。节奏很快，也很有魄力。恨不得 3 个月就能出产品，然后做营销、做销售。经历了千辛万苦，产品出来后，面向市场发布，结果无人问津。</p>
-<p>这里我们强调产品一定是基于市场需求的开发，一定要解决市场的问题和痛点，痒点都不行，必须是痛点。</p>
-<p>所以说，这种方式就不满足 IPD 的核心思想。我们说市场的端到端，是需求来源于市场，最终产品回归于市场。你都没有做充分的市场调研，怎么能够被市场所接受。</p>
-<p><strong>3. 如何穿越部门墙建立研发快车道</strong></p>
-<p>一个产品，尤其是以硬件为主的产品，设计产品的方方面面、结构、硬件、软件、工程、制造、采购、包装、市场推广等，是需要全部门协同配合的一个事情。所以必须要有跨部门的团队协作。</p>
-<p>采用跨部门的产品开发团队 (Product Development Team, 简称 PDT)，通过有效的沟通、协调以及决策，到达尽快将产品推向市场的目的。</p>
-<p>有的创业者，把这个事情想得太简单，完全没有搞清楚状况，拖几个人就开始干，在他们的理念中，出产品就是出样机，觉得样机出来了，产品就出来了，殊不知一个产品样机出来，仅仅只等效于产品开发过程只完成 40%，还有大量的工作要做。</p>
-<p>并且，在这种思想下，产品的是不完善的，是不具备量产化的，以样机为产品终结的思想，完全不会考虑到产品的后端需求。比如可测试性、可制造性、可服务性等 DFX 的需求。</p>
-<p>跨部门的团队，强调无缝沟通，强调把专业的团队串起来，为了一个共同的目标而努力。</p>
-<p>老罗有这么一句对自己的总结 “只有等到你掉到坑里的时候，你才刻骨铭心地意识到前辈们的忠告是如此的正确”。</p>
-<p>创业初期，老罗一直认为，除了乔布斯，锤子拥有世界上一流的工业设计团队。于是呢，我们看到，老罗开始打造工艺品，追求完美的产品设计。在产品转生产试制的时候，多次亲自在富士康的生产线跟线。在追求产品完美外观和软件体验细节的上面，忽略了产品的可实现性。后来老罗在一次产品发布会上深刻总结了做产品不是做艺术品，需要充分考虑产品的可制造性。其实老罗在 2012 年摩托罗拉大裁员的时候吸收了一大批摩托罗拉的技术专家。如果当时，他充分利用各类部门技术专家的优势，锤子 T1 手机就不会遭遇 “噩梦一般的三个月”。</p>
-<p><strong>4. 给新产品开发造一个发动机</strong></p>
-<p>IPD 同样也关注平台，平台化的开发带来了两大好处，铁打的银盘流水的兵，即使关键岗位的人员流动也不会对企业带来影响，平台让我们的开发成果得到积累和沉淀；另一方面，平台化的开发，支撑了我们新产品开发的速度。</p>
-<p><strong>5. 每个人都应该知道该干什么的方法</strong></p>
-<p>结构化的流程，所谓结构化，是指相互关联的工作要有一个框架结构，并要有一定的组织原则来支持它；每项工作都应清清楚楚地明确规定出来。所有与产品开发有关的人应该清楚他们所参与的是什么工作，用什么方法去完成。</p>
-<p>同时，有了结构化的流程，我们就不在受关键岗位、关键人才的限制。</p>
-<p>几年前，我就职过的一家公司，一个项目经理总览了一个产品系列的所有软硬件的全套技术和技术文件，以此为由，要求公司 CEO 给他加薪，CEO 最后不得不接受。当然，我们不希望这样的事情发生，同时我们也期望给公司员工带来更多的福利。可是这种情况在公司发展，对公司的发展，对员工的发展都是非常不利的。</p>
-<p><strong>6. 海陆空模式远比顺序模式强大</strong></p>
-<p><strong>异步开发模式</strong>，也称并行工程。通过严谨的计划、系统的设计、严格的流程控制，节点评审，把原来的许多后续活动提前进行，缩短产品上市时间。</p>
-<p>产品立项之后，总体方案评审通过，进入详细设计阶段，我们的动作就可以开始做了。</p>
-<p>产品的宣传资料可以出了，产品样机还没有出来，产品的市场预热推广已经开始了。这就是并行工程。那么我们通常情况下，我们敢不敢在样机还没有出来的时候有已经开始了产品的市场动作？敢不敢？</p>
-<p>我想很多企业是不敢的，产品没有出来就大量的投入营销，那么如果产品出不来怎么办呢？</p>
-<p>而在 IPD 的流程体系中，产品不会不出来，而且计划是产品不会不按照原定计划出来。</p>
-<p>一方面，IPD 强调的 “一次性把事情做好”；</p>
-<p>另外一方面，IPD 有系统的流程控制方法来保证产品开发如期完成。</p>
-<p><strong>重用性</strong> 尽量采用公共构建模块 (Common Building Block, 简称 CBB)，提高产品开发效率。</p>
-<p><strong>CBB</strong>，称为公共构建模块，这些模块，可以是软件的、可以是硬件的、可以是测试的、可以是生产的。有了这些模块，我们开发过程就聚焦在模块之外的其他需求进行，一方面减少了工作量。</p>
-<p>我在做手机的时候，我们曾做了一个 1.5 个月研发出一款手机并成功转量产的记录，就是充分应用了 CBB 的重用思想。</p>
-<p><strong>7. 中小企业也可以插上 IPD 的翅膀</strong></p>
-<p>第七个核心思想，阐述了 IPD 的灵活的，随着业务和技术的发展而变化的，可以全面应用，要可裁剪应用。因地制宜，随机应变。</p>
-<p>至今，华为的 IPD 还在不断的优化和升级，并且运用在了终端、无线、存储等各个产品线。</p>
-<p>而 IPD 最小的业务模式也同样适用于中小型企业。</p>
-<p>以上这七个横向的内容就是 IPD 的核心思想，IPD 的核心思想是 IPD 最重要管理精髓。</p>
-<p>当然除了横向的核心思想，IPD 还包含了纵向的核心内容：</p>
-<p>第一个内容，IPD 包含了 MM 市场管理流程，核心思想中强调了新产品开发是基于市场需求的开发，所以从市场到产品开发，一定需要一个市场管理流程来支撑。市场管理流程通过对市场的收集、分析、做出业务规划，输出产品开发任务书，作为产品开发的输入，是市场到开发的转化过程；</p>
-<p>第二个内容是 IPD 集成产品开发流程，这是我们实现产品开发落地的流程，怎样做出产品来，就是在这个流程中体现。后边的章节里我们会更详细的介绍。</p>
-<p>第三个内容技术开发流程，这个流程是实现企业的技术积累，核心竞争力的沉淀；</p>
-<p>第四个内容是项目管理流程，IPD 核心管理是基于项目管理来进行的，而项目管理是在管什么呢，是在管资源。</p>
-<p>第五个内容矩阵型组织结构，这是团队形式，核心思想中包含了跨部门团队，这个跨部门团队需要一个矩阵式的管理。</p>
-<p>第六个内容是：绩效与激励，从业务上来看着是一个支撑内容，为我们业务目标服务的。从管理上来看，这条非常重要，包含了企业文化、HR 的思想等。一句话，门朝哪里开，人就会从哪里走，就在这里来操作。我们的门要向着目标的方向打开。</p>
-<p>第七个内容 是管理优化与变革，这里强调了随着业务的发展，我们前面的这六点基于管理的内容要不断的优化升级，以更好的适配公司业务的发展。在华为公司，专门成立了管理优化部门，每年投入销售额的 3-5% 进行管理的优化变革。同时公司内部也有一个管理优化报，面向全公司发布。</p>
-<p>七横七纵，从概念上介绍了 IPD 的全貌，是 IPD 的精华所在，希望大家能够理解和运用它。</p>
-<h4 id="四、八个特征掌握-IPD"><a href="#四、八个特征掌握-IPD" class="headerlink" title="四、八个特征掌握 IPD"></a><strong>四、八个特征掌握 IPD</strong></h4><p><strong>1. IPD 的一套框架</strong></p>
-<p><img src="https://pic3.zhimg.com/v2-557be7394adda907102507443972ce8a_r.jpg" alt=""></p>
-<p>从公司战略出发、收集市场信息、客户反馈、竞争信息、技术趋势、产品组合进入市场管理流程。通过市场管理流程的对信息的分析、转化为业务计划，输出产品规划的 charter（产品业务计划书）</p>
-<p>输入到产品开发流程，一部分输送给技术开发流程。通过产品开发流程和技术开发流程，实现对产品和技术的输出。</p>
-<p><strong>2. IPD 的两种评审模式 DCP 和 TR</strong></p>
-<p><img src="https://pic1.zhimg.com/v2-1b93002f94e2aded7cb220d1241c15b8_r.jpg" alt=""></p>
-<p>产品开发流程使用两种评审机制，一种是基于业务决策线的评审；另一种是基于技术线的决策评审。</p>
-<p>业务决策评审是集成产品开发管理团队（IPMT）管理产品投资的重要手段，在决策评审中，IPMT 始终站在投资商的角度来进行评审。</p>
-<p>业务决策评审包含了 charter 决策评审、概念决策评审、计划决策评审、验证决策评审、生命周期决策评审</p>
-<p>另外一种是技术决策评审，通过技术评审，帮助产品开发团队尽早发现产品开发中存在的问题和风险，及时采取相应的解决方案和行动计划，保证产品开发质量，减少浪费。</p>
-<p><strong>3. IPD 的三大业务流程</strong></p>
-<p><img src="https://pic4.zhimg.com/v2-22db8a6eb8546a2cd01a4ebfafc16737_r.jpg" alt=""></p>
-<p><strong>4. IPD 的四大组织</strong>  </p>
-<p><img src="https://pic4.zhimg.com/v2-e9ee51a0800a6e6ddfac5209208838a7_r.jpg" alt=""></p>
-<p>（1）集成组合管理团队（IPMT）：产品投资决策和评审机构，负责制定公司总的使命愿景和战略方向，并对新产品线的产生进行决策。通常是一个高层跨部门团队，成员包括各个部门最高主管。</p>
-<p>（2）产品开发团队（PDT）：一个虚拟的组织，其成员在产品开发期间一起工作，由产品经理 / 项目经理组织，一般是产品经理 / 项目经理负责的矩阵组织结构。</p>
-<p>（3）产品生命周期管理团队（LMT）：在产品生命周期中，联合研发、制造、销售、使用、安全部门等各方面的资源，从根本上保证了产品在全生命周期中的管理能够高效、有序，并使产品保持低故障率。</p>
-<p>（4）技术开发团队（TMT）：利用从研究和试验获得的知识或技术，为产品开发提供新的工艺和系统而进行实质性的改进。</p>
-<p> <strong>5. IPD 的五个业务决策评审点</strong></p>
-<p><img src="https://pic2.zhimg.com/v2-dea016a73693563cde089ff9463e4259_r.jpg" alt=""></p>
-<p>（1）Charter：立项评审</p>
-<p>（2）CDCP(Concept?DCP)：概念决策评审</p>
-<p>（3）PDCP(Plan?DCP)：计划决策评审</p>
-<p>（4）ADCP(Availability?DCP)：可获得性决策评审</p>
-<p>（5）EDCP(EOL?DCP)：生命周期终止决策评审</p>
-<p><strong>6. IPD 的六个开发阶段</strong></p>
-<p><img src="https://pic3.zhimg.com/v2-a9c7db1b072a48d9a4bde310d25b0252_r.jpg" alt=""></p>
-<p><strong>7. IPD 的七个技术评审点</strong></p>
-<p><img src="https://pic3.zhimg.com/v2-cfb4bd36c41890aeb65d95f6ec329b9e_r.jpg" alt=""></p>
-<p>当然，IPD 流程中设置了很多机制来对这类问题的解决。比如说我们的研发质量规范、我们的代码规范、代码检视、单元测试、系统测试等等。</p>
-<p>IPD 的流程中为了最大限度的节省缺陷或问题流入后端造成了损失。就体现在前面介绍的两种评审机制，不论是基于业务的还会基于技术的评审，只要上一个评审点没有通过，就无法进入下一个评审点。这种机制有效的解决和平衡的我们新产品开发过程中的遇到的问题。</p>
-<p>每一个环节都有自己的客户，我们一定要清楚自己的客户是谁，我们是为谁在服务。IPD 强调下一道工序就是你的客户！</p>
-<h4 id="五、实施-IPD，你也可以"><a href="#五、实施-IPD，你也可以" class="headerlink" title="五、实施 IPD，你也可以"></a><strong>五、实施 IPD，你也可以</strong></h4><p><strong>1. 小组织也可以 IPD</strong></p>
-<p>重量级团队削弱了功能部门的影响力。事实：功能部门在 IPD 的执行与决策中都占据着关键的地位。但是角色发生了变化。就像在乐队的演奏中，每个人都有自己的角色。如果鼓手演奏的声音比其他人大，如果鼓手想控制整个音乐（即使鼓手的技能不够），虽然鼓手自己可能感觉很强大，但是整个音乐已经不和谐了，已经被破坏了。扪心自问，实事求是地考虑一下自己真正的权力来自哪里。功能部门在 IPD 中扮演着非常重要的角色，不过在 IPD 流程中以团队的形式进行运作很重要。如果没有本身优秀的强大功能部门，IPD 也无法发挥自己的作用。功能部门在许多方面都发挥着重要的作用，如对本部门员工技能的培养进行管理，制定功能部门策略，向 PDT 和 IPMT 做出并履行承诺，将本功能部门与其他部门及公司联合起来，加强本功能部门对承诺的执行。同样，IRB 和 EMT 已经签发了政策和指导来更好地支撑华为的重量级团队建设环境，包括激励，PBC 和资源池。可是每个团队成员仍然有责任充分参与团队工作，积极帮助团队实现目标。</p>
-<p>IPD 组织结构通常可以看成一个小公司。这就是为什么华为 18.8 万人的企业中，研发能够快速响应的一个重要原因。  </p>
-<p>误区一：<strong>IPD 是大公司的事情，我们是小公司，没有实施 IPD 的必要</strong></p>
-<p>IPD 本身是一种产品研发的最佳实践，强调研发要做正确的事情，体现市场驱动，把研发资源投入到最有价值的项目中，这些理念对中小企业同样有非常大的指导意义；尤其中小企业面临资源匮乏，一个项目的失败可能会导致整个公司的倒闭，这种状态下，更应该践行 IPD 的研发方法，确保项目的成功率，甚至要追求 120% 的成功率。 <strong>我们是项目化公司，IPD 是产品开发，所以不适合我们</strong></p>
-<p>IPD 本身是从商业角度分析产品和项目是否值得投资，即使项目化的公司，也需要追求项目的投入产出率，也需要时刻关注客户需求，尤其是国内项目化公司普遍面临缺乏平台、跨项目共享差、交付成本高的问题，IPD 的市场驱动、异步开发模式、项目决策分析都可以非常好地解决这些问题。所以项目化公司同样需要 IPD。<br><strong>IPD 实施推行需要非常高的成本，实施周期很长，我们目前没有能力搞。</strong></p>
-<p>大家有这种认识纯粹是 IBM、IPD 实施顾问忽悠的结果，把 IPD 忽悠的多么神圣、多么高档、如此之难，进而从客户手里多搂钱，把实施费用搞的奇贵，从而让客户感觉 IPD 是非常贵族化的东西，身份的象征。其实街边小餐馆都是按照 IPD 的思路运作的，在哪里开？市场客户决定 —（IPD 之市场驱动）；费用多少？竞争对比分析而定 — （IPD 之竞争分析）；每天早上要准备多少材料？历史销售情况 + 今天的销售预期决定 — （IPD 之预算管理）；提供哪些种类？制作周期太长的不做，因为客户没有时间等 — （IPD 之产品交付）；丰盛大餐的不做，因为厨师水平要求高，费用高 — （IPD 之项目研发费用）；每天晚上核算今天盈利、与历史对比 — （IPD 之衡量指标与对比分析）；客户喜欢的、利润高的种类放在菜单最上面 — （IPD 之投资组合分析）；所以 IPD 在中小企业同样适用，并且可以分步实施，实施难度、成本都是在可控范围之内。 <strong>还有诸多疑虑……</strong></p>
-<p>误区二：<strong>IPD 是要在速度与质量之间做出取舍？</strong></p>
-<p>误区三：<strong>IPD 影响决策的速度？</strong></p>
-<p>误区四：<strong>重量级团队削弱了功能部门的影响力？</strong></p>
-<p><strong>……</strong></p>
-<p><strong>2. 貌似缺失的质量控制缺是最有效的控制</strong></p>
-<p>IPD 是速度与质量相结合。技术评审点即使技术评审又是质量评审，质量管理被融入在 IPD 的流程和体系当中，潜移默化的，自然的服务于产品和控制产品质量。IPD 的目的是保证速度，但同时也要保证产品的高质量。IPD 不仅要使产品开发速度更快，而且还提供了一种规范，保证能够生产出高质量的产品。</p>
-<p><strong>3. 环环相扣，齿齿相连，一次性把事情做好</strong></p>
-<p><strong>环环相扣，齿齿相连</strong></p>
-<p>每个角色都处于 IPD 的一个环节，只有当上一个环节完成了，并且是按照产品质量要求完成了，才会流向下一个环节，正如流水生产线一样，只有上一个工序的工作完成了，且被检验为合格了才能流到下一个工序。也只有上一个工序完成时，下一个工序才能开始，一切都在项目计划的控制之中。每个工序都会对下一个工序产生影响。</p>
-<p><strong>一次性把事情做好！慢即是快。</strong></p>
-<p>从整个 IPD 的核心思想方面来说，所有的流程和关键的评审点都是围绕这个 “一次性把事情做好” 这句话来的，因为在研发当中，一次性把事情做好，效率才是最高的。比如原本计划下个月的进行新产品的试制，原材料已经准备好，生产计划已经按照出生产线为我们的试制产品做准备。如果产品试制不能如期进行，生产线的计划将被打乱。相关的人员安排可能临时不能调度，原计划的试制期间的生产资源就会造成浪费。</p>
-<p><strong>【结尾】</strong></p>
-<p>公司的战略是选择方向，就是解决做正确的事情，做与公司目标相匹配的事情。</p>
-<p>IPD(Integrated product development 集成产品开发) 是针对公司已经选择确定战略规划之下，正确的做公司规划的产品开发的事情，即使通常我们讲的正确的做事。</p>
-<p>只有做正确的事情和正确的做事，才能保障经营的不败。</p>
-<p>我想把一个复杂的系统，还原成一个常识的理解。只要我们理解和认识了 IPD，我们也同样可以穿上 IPD 之鞋，谁说灰姑娘就不能穿上漂亮的舞鞋跳舞呢？</p>
-<blockquote>
-<p>原文地址 <a href="https://zhuanlan.zhihu.com/p/392385187" target="_blank" rel="noopener">知乎</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>IPD</tag>
-        <tag>华为</tag>
       </tags>
   </entry>
   <entry>
