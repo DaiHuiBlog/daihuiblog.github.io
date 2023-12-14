@@ -191,45 +191,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hadoop伪分布式搭建-(2)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
-    <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
-<li>从Windows上传jdk到虚拟机  </li>
-</ul>
-<blockquote>
-<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
-</blockquote>
-<a id="more"></a>
-<ul>
-<li>解压jdk</li>
-</ul>
-<blockquote>
-<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
-</blockquote>
-<ul>
-<li>将java添加到环境变量中</li>
-</ul>
-<blockquote>
-<p>vim /etc/profile  </p>
-</blockquote>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
-<ul>
-<li>刷新配置</li>
-</ul>
-<blockquote>
-<p>source /etc/profile</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>大数据</category>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>集群</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hadoop伪分布式搭建-(3)</title>
     <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-3/</url>
     <content><![CDATA[<p><code>安装hadoop2.4.1（或其他更高版本&lt;最好用更高的64位版本，免得重新编译&gt;）
@@ -293,6 +254,45 @@
 <p>在这个文件中添加linux主机名和IP的映射关系<br>C:\Windows\System32\drivers\etc\hosts下添加:  </p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">192.168.1.66	dh01</span><br></pre></td></tr></table></figure>
 <p>打开：<a href="http://192.168.8.88:8088验证" target="_blank" rel="noopener">http://192.168.8.88:8088验证</a> （mapreduce管理界面）  </p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hadoop伪分布式搭建-(2)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
+    <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
+<li>从Windows上传jdk到虚拟机  </li>
+</ul>
+<blockquote>
+<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>解压jdk</li>
+</ul>
+<blockquote>
+<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
+</blockquote>
+<ul>
+<li>将java添加到环境变量中</li>
+</ul>
+<blockquote>
+<p>vim /etc/profile  </p>
+</blockquote>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+<ul>
+<li>刷新配置</li>
+</ul>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>大数据</category>
@@ -883,7 +883,7 @@
     <content><![CDATA[<p>【摘要】：简要介绍了军事仿真的概念和分类, 并分别对武器装备平台仿真、作战指挥仿真、战略决策仿真等不同层次仿真系统的特点、组成、现状及发展作了综述和讨论。</p>
 <p>全文如下：</p>
 <a id="more"></a>
-<embed src="http://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20170916230815.pdf" width="100%" height="800" type="application/pdf">
+<embed src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20170916230815.pdf" width="100%" height="800" type="application/pdf">
 ]]></content>
       <categories>
         <category>转载</category>
@@ -919,7 +919,7 @@
     <content><![CDATA[<p>【摘要】：以系统仿真技术在防空导弹武器系统的方案论证、优化设计、飞行试验预测、作战效能评估等方面中的应用为背景，提出了一种基于 Xsim 平台的防空导弹武器系统仿真平台设计方法。论述了该平台的总体架构设计、模型设计以及仿真流程设计，给出了设计思路。完成了某防空导弹武器系统仿真平台的应用开发，实践表明该平台可以较好的开展防空导弹武器系统作战过程仿真，可用于支撑防空武器装备各阶段的仿真工作，提升复杂战场环境下防空武器装备研发论证及设计能力。</p>
 <p>全文如下：</p>
 <a id="more"></a>
-<embed src="http://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20210420201454.pdf" width="100%" height="800" type="application/pdf">
+<embed src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20210420201454.pdf" width="100%" height="800" type="application/pdf">
 ]]></content>
       <categories>
         <category>转载</category>
@@ -981,6 +981,32 @@
       <tags>
         <tag>树莓派</tag>
         <tag>监控</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虚拟机Linux的root或普通用户密码忘记找回</title>
+    <url>/2018/07/31/%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E/</url>
+    <content><![CDATA[<h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
+<li>进入GRUB界面后，有几秒钟时间给你。进入GRUB出现：<br> Red Hat Enterprise Linux Server (2.6.18-8.e15xen) <a id="more"></a></li>
+<li>倒计时结束前，键入e出现：<br>root（hd0,0）<br>kernel /xen.gz-2.6.28-8.e15<br>module /vmlinux-2.6.18.e15xen ro root=/dev/VolGroup00/LogVo100 rhgb quiet<br>module /initrd-2.6.18-8.e15xen.img<br>上下键移到quiet那一行，按e进入，加上 linux single或者1即可，回车</li>
+<li>按b后进入重启模式，一定注意出现：<br> Starting udev:<br> 在后面输入boot回车</li>
+<li>之后出现命令行：<br> sh-3.2#</li>
+<li>输入passwd，回车即可修改root密码，输入两次密码</li>
+<li>完成之后reboot即可重启。</li>
+</ol>
+<h1 id="普通用户密码忘记了，比较简单"><a href="#普通用户密码忘记了，比较简单" class="headerlink" title="普通用户密码忘记了，比较简单"></a>普通用户密码忘记了，比较简单</h1><ol>
+<li>在root账户下，打开/etc/shadow (不是passwd文件，因为密码实际上经过加密后放在了“影子口令”文件shadow中了。passwd文件每个用户均可见，但是shadow只有root可以见)。</li>
+<li>找到普通用户名cicikasa，然后删除第二个域即可，域之间用“:”隔开的，如下：<br>cicikasa:TdkakkkYUukkjkjk:14672:0:99999:7:::<br>上述红色部分就是经过加密的密码，删除即可</li>
+<li>在普通用户下，输入passwd即可输入新密码</li>
+</ol>
+<h1 id="如果想修改VMware的bios"><a href="#如果想修改VMware的bios" class="headerlink" title="如果想修改VMware的bios"></a>如果想修改VMware的bios</h1><p>在VMWare中将BIOS设成光驱启动:<br>启动时(点击启动虚拟机按钮),按F2 ,进入BIOS 设置,找到 BOOT—把CDROM光驱，移动到最上面即可。根据提示进行设置，一般按“-”号进行设置。<br>注意：启动时，点了启动虚拟机按钮后一定要在点一下窗口（或者Ctrl +G），然后快按F2。否则，窗口没激活，F2是不起作用的.</p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>密码找回</tag>
       </tags>
   </entry>
   <entry>
@@ -1078,32 +1104,6 @@
       <tags>
         <tag>虚拟机</tag>
         <tag>Linux挂载硬盘</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虚拟机Linux的root或普通用户密码忘记找回</title>
-    <url>/2018/07/31/%E8%99%9A%E6%8B%9F%E6%9C%BALinux%E7%9A%84root%E6%88%96%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%89%BE%E5%9B%9E/</url>
-    <content><![CDATA[<h1 id="启动VMware的Linux"><a href="#启动VMware的Linux" class="headerlink" title="启动VMware的Linux"></a>启动VMware的Linux</h1><ol>
-<li>进入GRUB界面后，有几秒钟时间给你。进入GRUB出现：<br> Red Hat Enterprise Linux Server (2.6.18-8.e15xen) <a id="more"></a></li>
-<li>倒计时结束前，键入e出现：<br>root（hd0,0）<br>kernel /xen.gz-2.6.28-8.e15<br>module /vmlinux-2.6.18.e15xen ro root=/dev/VolGroup00/LogVo100 rhgb quiet<br>module /initrd-2.6.18-8.e15xen.img<br>上下键移到quiet那一行，按e进入，加上 linux single或者1即可，回车</li>
-<li>按b后进入重启模式，一定注意出现：<br> Starting udev:<br> 在后面输入boot回车</li>
-<li>之后出现命令行：<br> sh-3.2#</li>
-<li>输入passwd，回车即可修改root密码，输入两次密码</li>
-<li>完成之后reboot即可重启。</li>
-</ol>
-<h1 id="普通用户密码忘记了，比较简单"><a href="#普通用户密码忘记了，比较简单" class="headerlink" title="普通用户密码忘记了，比较简单"></a>普通用户密码忘记了，比较简单</h1><ol>
-<li>在root账户下，打开/etc/shadow (不是passwd文件，因为密码实际上经过加密后放在了“影子口令”文件shadow中了。passwd文件每个用户均可见，但是shadow只有root可以见)。</li>
-<li>找到普通用户名cicikasa，然后删除第二个域即可，域之间用“:”隔开的，如下：<br>cicikasa:TdkakkkYUukkjkjk:14672:0:99999:7:::<br>上述红色部分就是经过加密的密码，删除即可</li>
-<li>在普通用户下，输入passwd即可输入新密码</li>
-</ol>
-<h1 id="如果想修改VMware的bios"><a href="#如果想修改VMware的bios" class="headerlink" title="如果想修改VMware的bios"></a>如果想修改VMware的bios</h1><p>在VMWare中将BIOS设成光驱启动:<br>启动时(点击启动虚拟机按钮),按F2 ,进入BIOS 设置,找到 BOOT—把CDROM光驱，移动到最上面即可。根据提示进行设置，一般按“-”号进行设置。<br>注意：启动时，点了启动虚拟机按钮后一定要在点一下窗口（或者Ctrl +G），然后快按F2。否则，窗口没激活，F2是不起作用的.</p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>虚拟机</tag>
-        <tag>密码找回</tag>
       </tags>
   </entry>
   <entry>
