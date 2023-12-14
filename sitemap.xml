@@ -452,27 +452,6 @@
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/%E6%96%87%E4%BB%B6%E6%8D%9F%E5%9D%8F/</loc>
-    <lastmod>2023-12-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://daihuiblog.github.io/tags/%E8%B0%B7%E6%AD%8C%E4%BA%91/</loc>
-    <lastmod>2023-12-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://daihuiblog.github.io/tags/Framework3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</loc>
-    <lastmod>2023-12-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://daihuiblog.github.io/tags/GIS/</loc>
     <lastmod>2023-12-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -494,14 +473,21 @@
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/iTerm-2/</loc>
+    <loc>https://daihuiblog.github.io/tags/%E6%96%87%E4%BB%B6%E6%8D%9F%E5%9D%8F/</loc>
     <lastmod>2023-12-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/Oh-My-Zsh/</loc>
+    <loc>https://daihuiblog.github.io/tags/%E8%B0%B7%E6%AD%8C%E4%BA%91/</loc>
+    <lastmod>2023-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://daihuiblog.github.io/tags/Framework3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2023-12-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -516,6 +502,20 @@
   
   <url>
     <loc>https://daihuiblog.github.io/tags/%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4/</loc>
+    <lastmod>2023-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://daihuiblog.github.io/tags/iTerm-2/</loc>
+    <lastmod>2023-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://daihuiblog.github.io/tags/Oh-My-Zsh/</loc>
     <lastmod>2023-12-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -620,20 +620,6 @@
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/Java8/</loc>
-    <lastmod>2023-12-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://daihuiblog.github.io/tags/Streams-API/</loc>
-    <lastmod>2023-12-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://daihuiblog.github.io/tags/IPD/</loc>
     <lastmod>2023-12-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -642,6 +628,20 @@
   
   <url>
     <loc>https://daihuiblog.github.io/tags/%E5%8D%8E%E4%B8%BA/</loc>
+    <lastmod>2023-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://daihuiblog.github.io/tags/Java8/</loc>
+    <lastmod>2023-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://daihuiblog.github.io/tags/Streams-API/</loc>
     <lastmod>2023-12-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
