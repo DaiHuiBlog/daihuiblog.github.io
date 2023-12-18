@@ -191,6 +191,45 @@
       </tags>
   </entry>
   <entry>
+    <title>Hadoop伪分布式搭建-(2)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
+    <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
+<li>从Windows上传jdk到虚拟机  </li>
+</ul>
+<blockquote>
+<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>解压jdk</li>
+</ul>
+<blockquote>
+<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
+</blockquote>
+<ul>
+<li>将java添加到环境变量中</li>
+</ul>
+<blockquote>
+<p>vim /etc/profile  </p>
+</blockquote>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+<ul>
+<li>刷新配置</li>
+</ul>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>大数据</category>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hadoop伪分布式搭建-(3)</title>
     <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-3/</url>
     <content><![CDATA[<p><code>安装hadoop2.4.1（或其他更高版本&lt;最好用更高的64位版本，免得重新编译&gt;）
@@ -254,45 +293,6 @@
 <p>在这个文件中添加linux主机名和IP的映射关系<br>C:\Windows\System32\drivers\etc\hosts下添加:  </p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">192.168.1.66	dh01</span><br></pre></td></tr></table></figure>
 <p>打开：<a href="http://192.168.8.88:8088验证" target="_blank" rel="noopener">http://192.168.8.88:8088验证</a> （mapreduce管理界面）  </p>
-]]></content>
-      <categories>
-        <category>大数据</category>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>集群</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop伪分布式搭建-(2)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
-    <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
-<li>从Windows上传jdk到虚拟机  </li>
-</ul>
-<blockquote>
-<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
-</blockquote>
-<a id="more"></a>
-<ul>
-<li>解压jdk</li>
-</ul>
-<blockquote>
-<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
-</blockquote>
-<ul>
-<li>将java添加到环境变量中</li>
-</ul>
-<blockquote>
-<p>vim /etc/profile  </p>
-</blockquote>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
-<ul>
-<li>刷新配置</li>
-</ul>
-<blockquote>
-<p>source /etc/profile</p>
-</blockquote>
 ]]></content>
       <categories>
         <category>大数据</category>
@@ -544,26 +544,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac下删除launchpad还有残留图标的应用</title>
-    <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
-    <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
-<h2 id="打开launchpad"><a href="#打开launchpad" class="headerlink" title="打开launchpad"></a>打开launchpad</h2><p>下列三个放都可以打开launchpad  </p>
-<ol>
-<li>fn + F4（F1-F12是正常使用情况）  </li>
-<li>F4（F1-F12使用需要借助fn键使用）  </li>
-<li>四个指头抓一下  </li>
-</ol>
-<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h4 id="1-长按control-option-command，看到图标抖动"><a href="#1-长按control-option-command，看到图标抖动" class="headerlink" title="1. 长按control+option+command，看到图标抖动"></a>1. 长按control+option+command，看到图标抖动</h4><h4 id="2-单击待删除图标，图标中心出现白色问号"><a href="#2-单击待删除图标，图标中心出现白色问号" class="headerlink" title="2. 单击待删除图标，图标中心出现白色问号"></a>2. 单击待删除图标，图标中心出现白色问号</h4><h4 id="3-松开按住的三个快捷键（control-option-command）"><a href="#3-松开按住的三个快捷键（control-option-command）" class="headerlink" title="3. 松开按住的三个快捷键（control+option+command）"></a>3. 松开按住的三个快捷键（control+option+command）</h4><h4 id="4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"><a href="#4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除" class="headerlink" title="4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"></a>4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除</h4>]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac删除</tag>
-        <tag>launchpad</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac下利用GCP和v2ray搭建无限使用梯子</title>
     <url>/2019/02/18/Mac%E4%B8%8B%E5%88%A9%E7%94%A8GCP%E5%92%8Cv2ray%E6%90%AD%E5%BB%BA%E6%97%A0%E9%99%90%E4%BD%BF%E7%94%A8%E6%A2%AF%E5%AD%90/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>妈妈再也不用为我担心没梯子用了</p>
@@ -668,6 +648,26 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac下删除launchpad还有残留图标的应用</title>
+    <url>/2018/05/16/Mac%E4%B8%8B%E5%88%A0%E9%99%A4launchpad%E8%BF%98%E6%9C%89%E6%AE%8B%E7%95%99%E5%9B%BE%E6%A0%87%E7%9A%84%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<p>有时候用户在删除自己应用的时候在应用程序里直接右键“移到废纸楼”，有的应用这样删除后在launchpad里还有残留的图标，按住option键也没有删除标记可以删除该图标。这让人很蛋疼，但是可以通过下面这个小技巧将该图标删除，方法如下：<br><a id="more"></a></p>
+<h2 id="打开launchpad"><a href="#打开launchpad" class="headerlink" title="打开launchpad"></a>打开launchpad</h2><p>下列三个放都可以打开launchpad  </p>
+<ol>
+<li>fn + F4（F1-F12是正常使用情况）  </li>
+<li>F4（F1-F12使用需要借助fn键使用）  </li>
+<li>四个指头抓一下  </li>
+</ol>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h4 id="1-长按control-option-command，看到图标抖动"><a href="#1-长按control-option-command，看到图标抖动" class="headerlink" title="1. 长按control+option+command，看到图标抖动"></a>1. 长按control+option+command，看到图标抖动</h4><h4 id="2-单击待删除图标，图标中心出现白色问号"><a href="#2-单击待删除图标，图标中心出现白色问号" class="headerlink" title="2. 单击待删除图标，图标中心出现白色问号"></a>2. 单击待删除图标，图标中心出现白色问号</h4><h4 id="3-松开按住的三个快捷键（control-option-command）"><a href="#3-松开按住的三个快捷键（control-option-command）" class="headerlink" title="3. 松开按住的三个快捷键（control+option+command）"></a>3. 松开按住的三个快捷键（control+option+command）</h4><h4 id="4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"><a href="#4-再次按下这三个快捷键，图标左上角会出现“✘”，点击删除" class="headerlink" title="4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除"></a>4. 再次按下这三个快捷键，图标左上角会出现“✘”，点击删除</h4>]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac删除</tag>
+        <tag>launchpad</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac下安装mysql5.7完整步骤及问题整理</title>
     <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
     <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
@@ -686,6 +686,33 @@
       <tags>
         <tag>Mac安装Mysql</tag>
         <tag>Mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
+    <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<ol>
+<li><p>首先下载 .Net Framework 3.5.</p>
+</li>
+<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
+<a id="more"></a>
+<blockquote>
+<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
+</blockquote>
+</li>
+</ol>
+<p>其他:</p>
+<ul>
+<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
+<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Framework3.5无法安装</tag>
       </tags>
   </entry>
   <entry>
@@ -736,30 +763,40 @@
       </tags>
   </entry>
   <entry>
-    <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
-    <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<ol>
-<li><p>首先下载 .Net Framework 3.5.</p>
-</li>
-<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
+    <title>win2008R2磁盘脱机和写入保护解决办法</title>
+    <url>/2018/10/22/win2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/1-2023-03-06-11-04-05.png" alt="磁盘脱机"></p>
 <a id="more"></a>
-<blockquote>
-<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
-</blockquote>
+<ol>
+<li><p>打开cmd命令行，输入：<code>diskpart</code>，进入diskpart工具</p>
+</li>
+<li><p>输入：<code>list disk</code>，查看到所有磁盘</p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/2-2023-03-06-11-04-27.png" alt="listdisk1"></p>
+</li>
+<li><p>找到脱机的磁盘，输入：<code>select disk 1</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/3-2023-03-06-11-04-40.png" alt="selectDisk"></p>
+</li>
+<li><p>接着输入：<code>online disk*</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/4-2023-03-06-11-05-49.png" alt="onlineDisk"></p>
+</li>
+<li><p>查看此时磁盘联机状态</p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/5-2023-03-06-11-06-09.png" alt="listdisk2"></p>
+</li>
+<li><p>清除只读属性，输入：<code>attribute disk clear readonly</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/6-2023-03-06-11-06-25.png" alt="attributeDiskClearReadonly"></p>
+</li>
+<li><p>查看此时的清盘情况，输入：<code>attribute disk</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/7-2023-03-06-11-06-53.png" alt="attributeDisk"></p>
 </li>
 </ol>
-<p>其他:</p>
-<ul>
-<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
-<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
-</ul>
 ]]></content>
       <categories>
         <category>OS</category>
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>Framework3.5无法安装</tag>
+        <tag>Windows磁盘脱机</tag>
+        <tag>写入保护</tag>
       </tags>
   </entry>
   <entry>
@@ -841,40 +878,20 @@
       </tags>
   </entry>
   <entry>
-    <title>win2008R2磁盘脱机和写入保护解决办法</title>
-    <url>/2018/10/22/win2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/1-2023-03-06-11-04-05.png" alt="磁盘脱机"></p>
+    <title>基于GIS三维可视化仿真技术的虚拟战场地形研究(PDF)</title>
+    <url>/2019/06/20/%E5%9F%BA%E4%BA%8EGIS%E4%B8%89%E7%BB%B4%E5%8F%AF%E8%A7%86%E5%8C%96%E4%BB%BF%E7%9C%9F%E6%8A%80%E6%9C%AF%E7%9A%84%E8%99%9A%E6%8B%9F%E6%88%98%E5%9C%BA%E5%9C%B0%E5%BD%A2%E7%A0%94%E7%A9%B6(PDF)/</url>
+    <content><![CDATA[<p>【摘要】: 军事行动的空间基础是战场环境。战场环境的仿真是目前军事作战模拟领域研究的热点，而虚拟战场的构建是当前军事仿真领域中的一个非常前沿 性的课题。探讨GIS在仿真虚拟战场环境生成中的应用，比较全面的介绍构建GIS三维可视仿真技术的虚拟战场环境所涉及到的各种技术。</p>
+<p>全文如下：</p>
 <a id="more"></a>
-<ol>
-<li><p>打开cmd命令行，输入：<code>diskpart</code>，进入diskpart工具</p>
-</li>
-<li><p>输入：<code>list disk</code>，查看到所有磁盘</p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/2-2023-03-06-11-04-27.png" alt="listdisk1"></p>
-</li>
-<li><p>找到脱机的磁盘，输入：<code>select disk 1</code></p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/3-2023-03-06-11-04-40.png" alt="selectDisk"></p>
-</li>
-<li><p>接着输入：<code>online disk*</code></p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/4-2023-03-06-11-05-49.png" alt="onlineDisk"></p>
-</li>
-<li><p>查看此时磁盘联机状态</p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/5-2023-03-06-11-06-09.png" alt="listdisk2"></p>
-</li>
-<li><p>清除只读属性，输入：<code>attribute disk clear readonly</code></p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/6-2023-03-06-11-06-25.png" alt="attributeDiskClearReadonly"></p>
-</li>
-<li><p>查看此时的清盘情况，输入：<code>attribute disk</code></p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/7-2023-03-06-11-06-53.png" alt="attributeDisk"></p>
-</li>
-</ol>
+<embed src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/201906201758133.pdf" width="100%" height="800" type="application/pdf">
 ]]></content>
       <categories>
-        <category>OS</category>
-        <category>Windows</category>
+        <category>转载</category>
       </categories>
       <tags>
-        <tag>Windows磁盘脱机</tag>
-        <tag>写入保护</tag>
+        <tag>GIS</tag>
+        <tag>三维可视化</tag>
+        <tag>虚拟战场环境</tag>
       </tags>
   </entry>
   <entry>
@@ -894,23 +911,6 @@
         <tag>作战指挥</tag>
         <tag>武器平台</tag>
         <tag>讨论式对抗</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于GIS三维可视化仿真技术的虚拟战场地形研究(PDF)</title>
-    <url>/2019/06/20/%E5%9F%BA%E4%BA%8EGIS%E4%B8%89%E7%BB%B4%E5%8F%AF%E8%A7%86%E5%8C%96%E4%BB%BF%E7%9C%9F%E6%8A%80%E6%9C%AF%E7%9A%84%E8%99%9A%E6%8B%9F%E6%88%98%E5%9C%BA%E5%9C%B0%E5%BD%A2%E7%A0%94%E7%A9%B6(PDF)/</url>
-    <content><![CDATA[<p>【摘要】: 军事行动的空间基础是战场环境。战场环境的仿真是目前军事作战模拟领域研究的热点，而虚拟战场的构建是当前军事仿真领域中的一个非常前沿 性的课题。探讨GIS在仿真虚拟战场环境生成中的应用，比较全面的介绍构建GIS三维可视仿真技术的虚拟战场环境所涉及到的各种技术。</p>
-<p>全文如下：</p>
-<a id="more"></a>
-<embed src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/201906201758133.pdf" width="100%" height="800" type="application/pdf">
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>GIS</tag>
-        <tag>三维可视化</tag>
-        <tag>虚拟战场环境</tag>
       </tags>
   </entry>
   <entry>
@@ -1125,7 +1125,7 @@
 <h4 id="3-2-1-时间管理机制"><a href="#3-2-1-时间管理机制" class="headerlink" title="3.2.1 时间管理机制"></a>3.2.1 时间管理机制</h4><p>&emsp;&emsp;按照对联邦逻辑时间推进的影响，联邦成员的时间管理策略分为时间受限和时间控制，它们描述联邦成员之间的逻辑时钟推进关系，与时间管理机制的内容密切相关，对联邦成员选择时间管理机制产生影响。在此基础上，HLA的时间管理机制包括两方面的内容:消息传递机制和时间推进机制。消息传递机制包括消息传输方式和消息传递顺序。其中消息传输方式分为“可靠（reliable）”和“快速（best effort）两种，前者保证可靠性，使消息最终能达到目的成员，通常要增加时延;后者以减少传输时延为主要目的，通常要降低可靠性。消息的传递顺序分为两类:接收顺序（Accept Order，RO）、时戳顺序（Timestamp Order，TSO），它们是目前 HLA 支持的两种基本消息传递顺序。时间推进机制可分为两大类:一类为保守时间推进机制，另一类为乐观时间推进机制。HLA 时间管理中保守时间推进机制的基本思想是假设物理系统满足可实现性和可预测性，保证系统发出的 t 时刻的消息 依赖于 t 时刻前收到的消息和状态，且系统能在 t 时刻预测出 t+ε时刻 的消息（ε&gt;0），按照非递减的时戳顺序对时戳消息进行交互，以处理逻辑进程的离散事件实现对系统的正确仿真。在该机制中，“时间前瞻量（Lookahead）”和“时戳下限（LBTS）”是影响时间推进的两个关键变量。尽管保守算法可能会引起死锁，Fujimoto 的研究指出利用“时间前瞻量”可有效解决这个问题。HLA 乐观时间推进机制的基本思想则不遵守保守机制算法，当系统发生逻辑因果错误，利用回滚（retract）机制对系统状态进行恢复，其机制确保事件按 TSO 处理。</p>
 <h4 id="3-2-2-时间推进方式"><a href="#3-2-2-时间推进方式" class="headerlink" title="3.2.2 时间推进方式"></a>3.2.2 时间推进方式</h4><p>&emsp;&emsp;时间推进服务管理分布式网络环境下的事件队列，统一维护仿真过程中模型、系统或外部驱动产生的各类型事件，调度请求仿真时间推进。在 HLA 时间管理中，联邦成员的时间推进方式是由时间管理策略和时间推进机制共同决定的，时间推进方式的选择是在时间推进机制的基础上进行的。时间推进方式分为独立时间推进和协商时间推进。通常在独立时间推进方式下，各联邦成员不受约束地推进各自的时间，且 RTI 不参加协调成员间的时间推进。在协商时间推进方式下， RTI 协同各成员间的时间推进，保证联邦执行与物理系统中事件的先后顺序一致，协商时间推进分为:步进的时间推进、基于事件的时间推进和乐观机制下的时间推进。因此，在保守同步机制下，可选择步进的时间推进方式或基于事件的时间推进方式。</p>
 <h3 id="3-3-事件管理模块"><a href="#3-3-事件管理模块" class="headerlink" title="3.3 事件管理模块"></a>3.3 事件管理模块</h3><p>&emsp;&emsp;仿真引擎提供高效的并行事件管理能力，通过多线程并行执行的方式可以对整个仿真过程的所有事件进行统一维护和调度，在多个线程内同时管理模型事件的执行，包括平台运动事件、传感器探测事件、通信事件、干扰事件等，多个线程间的事件执行完成后统一提交，由时间管理模块进行整个仿真时间的推进，下图描述了单个线程的时间执行生命周期。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/202312141544639.png" alt="图 2 调度器活动图"></p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/202312181018978.png" alt="图 2 调度器活动图"></p>
 <h3 id="3-4-地理处理模块"><a href="#3-4-地理处理模块" class="headerlink" title="3.4 地理处理模块"></a>3.4 地理处理模块</h3><p>&emsp;&emsp;地形处理模块主要负责管理仿真所需的各类地形数据，对数据进行优化存储，提供便于各类实体调用的接口。</p>
 <h3 id="3-5-数据处理模块"><a href="#3-5-数据处理模块" class="headerlink" title="3.5 数据处理模块"></a>3.5 数据处理模块</h3><p>&emsp;&emsp;数据处理模块主要负责管理仿真中的各种数据，对想定数据进行解析，调用实体管理模块初始化各种实体对象，载人各种相关地形数据到地形处理模块。</p>
 <h3 id="3-6-脚本解析模块"><a href="#3-6-脚本解析模块" class="headerlink" title="3.6 脚本解析模块"></a>3.6 脚本解析模块</h3><p>&emsp;&emsp;脚本解析模块负责解析和处理所有脚本声明。脚本是一种用于表示非参数输人的文本语言，可以对各实体进行配置，描述隶属关系，描述简单的作战行动过程及各种触发条件，从而提高想定编辑的灵活性。在仿真时，仿真引擎需要利用该模块对脚本进行解释，分析具体的函数内容，调用相应的处理模块。</p>
