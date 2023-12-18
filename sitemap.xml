@@ -344,6 +344,13 @@
 
   
   <url>
+    <loc>https://daihuiblog.github.io/tags/Git/</loc>
+    <lastmod>2023-12-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://daihuiblog.github.io/tags/UEditor/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -352,13 +359,6 @@
   
   <url>
     <loc>https://daihuiblog.github.io/tags/RichTextEditor/</loc>
-    <lastmod>2023-12-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://daihuiblog.github.io/tags/Git/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -470,14 +470,14 @@
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/Framework3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</loc>
+    <loc>https://daihuiblog.github.io/tags/%E6%96%87%E4%BB%B6%E6%8D%9F%E5%9D%8F/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/tags/%E6%96%87%E4%BB%B6%E6%8D%9F%E5%9D%8F/</loc>
+    <loc>https://daihuiblog.github.io/tags/Framework3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -666,6 +666,13 @@
   </url>
   
   <url>
+    <loc>https://daihuiblog.github.io/tags/%E8%B6%85%E8%BF%87/</loc>
+    <lastmod>2023-12-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://daihuiblog.github.io/tags/%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%87/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -674,13 +681,6 @@
   
   <url>
     <loc>https://daihuiblog.github.io/tags/%E7%A8%8B%E5%BA%8F%E5%91%98/</loc>
-    <lastmod>2023-12-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://daihuiblog.github.io/tags/%E8%B6%85%E8%BF%87/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -766,14 +766,14 @@
 
   
   <url>
-    <loc>https://daihuiblog.github.io/categories/Java/</loc>
+    <loc>https://daihuiblog.github.io/categories/Git/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://daihuiblog.github.io/categories/Git/</loc>
+    <loc>https://daihuiblog.github.io/categories/Java/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
