@@ -90,7 +90,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="仿真,联合作战,仿真引擎," />
+  <meta name="keywords" content="仿真,联合作战,仿真引擎,仿真模型," />
 
 
 
@@ -107,20 +107,21 @@
 
 
 <meta name="description" content="1 概念和需求&amp;emsp;&amp;emsp;引擎一词来源于英语的“Egnien”，一般指的是将能量转化为力量或运动的装置，是系统的“心脏”。在仿真系统中，仿真引擎是驱动模型运行的核心组件，它为模型提供输人数据，控制模型运行，推进仿真时间，为各类分析和表现工具提供输出数据和控制信号。仿真引擎按照战争层次划分为不同的级别，如装备级仿真引擎、战术级仿真引擎、战役级仿真引擎和战略级仿真引擎。通常情况下，由于仿真">
-<meta name="keywords" content="仿真,联合作战,仿真引擎">
+<meta name="keywords" content="仿真,联合作战,仿真引擎,仿真模型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="联合作战仿真引擎分析与设计">
 <meta property="og:url" content="https://daihuiblog.github.io/2018/12/21/联合作战仿真引擎分析与设计/index.html">
 <meta property="og:site_name" content="Hui&#39;s Blog">
 <meta property="og:description" content="1 概念和需求&amp;emsp;&amp;emsp;引擎一词来源于英语的“Egnien”，一般指的是将能量转化为力量或运动的装置，是系统的“心脏”。在仿真系统中，仿真引擎是驱动模型运行的核心组件，它为模型提供输人数据，控制模型运行，推进仿真时间，为各类分析和表现工具提供输出数据和控制信号。仿真引擎按照战争层次划分为不同的级别，如装备级仿真引擎、战术级仿真引擎、战役级仿真引擎和战略级仿真引擎。通常情况下，由于仿真">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/202312141536215.png">
-<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/202312181018978.png">
-<meta property="og:updated_time" content="2023-12-18T03:10:17.664Z">
+<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181015.png">
+<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181130.png">
+<meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221183136.png">
+<meta property="og:updated_time" content="2023-12-22T07:31:39.935Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="联合作战仿真引擎分析与设计">
 <meta name="twitter:description" content="1 概念和需求&amp;emsp;&amp;emsp;引擎一词来源于英语的“Egnien”，一般指的是将能量转化为力量或运动的装置，是系统的“心脏”。在仿真系统中，仿真引擎是驱动模型运行的核心组件，它为模型提供输人数据，控制模型运行，推进仿真时间，为各类分析和表现工具提供输出数据和控制信号。仿真引擎按照战争层次划分为不同的级别，如装备级仿真引擎、战术级仿真引擎、战役级仿真引擎和战略级仿真引擎。通常情况下，由于仿真">
-<meta name="twitter:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/202312141536215.png">
+<meta name="twitter:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181015.png">
 
 
 
@@ -439,7 +440,7 @@
                   
                     <span class="post-meta-item-text">文章字数统计</span>
                   
-                    <span title="文章字数统计" }}">4.2k</span>
+                    <span title="文章字数统计" }}">2.9k</span>
               
 
               
@@ -454,7 +455,7 @@
                     <span class="post-meta-item-text">阅读时间</span>
                   
                     <span title="阅读时间" }}">
-                      14
+                      10
                     </span>
               
             </div>
@@ -476,33 +477,48 @@
         <h2 id="1-概念和需求"><a href="#1-概念和需求" class="headerlink" title="1 概念和需求"></a>1 概念和需求</h2><p>&emsp;&emsp;引擎一词来源于英语的“Egnien”，一般指的是将能量转化为力量或运动的装置，是系统的“心脏”。在仿真系统中，仿真引擎是驱动模型运行的核心组件，它为模型提供输人数据，控制模型运行，推进仿真时间，为各类分析和表现工具提供输出数据和控制信号。仿真引擎按照战争层次划分为不同的级别，如装备级仿真引擎、战术级仿真引擎、战役级仿真引擎和战略级仿真引擎。通常情况下，由于仿真的层次不同，仿真的侧重点也不同，仿真引擎在具体功能上也有不同，特别是其建模框架。按照分布程度可以将仿真引擎分为集中式仿真引擎和分布式仿真引擎，集中式仿真引擎具有单一的运行控制管理模块，而分布式仿真引擎则具有多个可以互相协调的运行控制管理模块。按照内部的处理机制可以将仿真引擎分为串行仿真引擎和并行仿真引擎两种，串行仿真引擎中按顺序调度各实体仿真执行，而并行仿真引擎中则可以支持多个实体同时仿真执行。</p>
 <a id="more"></a>
 <p>&emsp;&emsp;联合作战仿真引擎是面向联合作战仿真系统的仿真引擎，其主要需求应该包括以下几个方面。</p>
-<p>&emsp;&emsp;一是提供联合作战模型的开发框架。模型开发框架采用面向对象的机制组织各类仿真实体，实体类的组织结构要符合联合作战的特点，具有开放性并且易于扩展。模型开发框架支持形式化的作战规则，提供作战规则表述机制和组织管理工具。模型开发框架提供一组设计合理的 AIP，可以对实体的各种属性和行为进行调整，如实体的人员配置参数、武器装备参数、运动方式、通信行为、战役战术行为、毁伤和感知等等。</p>
+<p>&emsp;&emsp;一是提供联合作战模型的开发框架。模型开发框架采用面向对象的机制组织各类仿真实体，实体类的组织结构要符合联合作战的特点，具有开放性并且易于扩展。模型开发框架支持形式化的作战规则，提供作战规则表述机制和组织管理工具。模型开发框架提供一组设计合理的AIP，可以对实体的各种属性和行为进行调整，如实体的人员配置参数、武器装备参数、运动方式、通信行为、战役战术行为、毁伤和感知等等。</p>
 <p>&emsp;&emsp;二是支持多种仿真推进方式。仿真引擎必须支持两种基本推进方式，即时间步长推进方式和事件步长推进方式，具备从模型组件库中读取模型组件信息，并根据这些信息，采用模型驱动的方式推进仿真。</p>
 <p>&emsp;&emsp;三是支持实体的并行式仿真。通过在单一仿真引擎内采用多线程技术，不同的实体可以具有不同的线程，实体可以并行地仿真。</p>
 <p>&emsp;&emsp;四是支持仿真引擎之间的分布式部署。仿真引擎之间可以通过特定的接口和某种通信基础设施进行互操作，从而可以将复杂大规模仿真合理部署到网络上，提高单独仿真引擎的执行效率及仿真实体的规模。</p>
 <p>&emsp;&emsp;五是提供良好的数据组织方式。仿真引擎应提供结构合理、易于扩展的数据组织机制，方便模型读取各种输人数据（如来自想定中的部队配置和武器装备参数等），为态势表现模块和分析评估模块提供方便的输出数据（如部队的各种损耗）。</p>
-<h2 id="2-体系结构"><a href="#2-体系结构" class="headerlink" title="2 体系结构"></a>2 体系结构</h2><p>根据对联合作战仿真引擎的主要需求，联合作战仿真引擎的系统体系结构如下图所示。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/202312141536215.png" alt="图 1 联合作战仿真引擎的概念体系结构"></p>
-<p>&emsp;&emsp;联合作战仿真引擎的核心模块包括实体管理模块、时间管理模块、事件管理模块、地形处理模块、数据处理模型、脚本解析模块、日志管理模块、显示控制模块、界面生成模块、分布式服务模块、网络通信模块等。另外，在仿真系统中与仿真引擎密切相关的其他部分包括用户控制界面、模型编辑工具、想定编辑工具、脚本编辑工具、可视化表现工具和分析评估工具等。</p>
-<h2 id="3-核心模块"><a href="#3-核心模块" class="headerlink" title="3 核心模块"></a>3 核心模块</h2><h3 id="3-1-实体管理模块"><a href="#3-1-实体管理模块" class="headerlink" title="3.1 实体管理模块"></a>3.1 实体管理模块</h3><p>&emsp;&emsp;实体管理模块包括一系列负责管理各类实体的实体管理类，每一个基本实体类都对应一个实体管理类，它控制着实体的创建、销毁、配置、用户界面和各种相关数据，从而可以简化开发人员的相关工作，简化代码编写。</p>
-<h3 id="3-2-时间管理模块"><a href="#3-2-时间管理模块" class="headerlink" title="3.2 时间管理模块"></a>3.2 时间管理模块</h3><p>&emsp;&emsp;时间管理工具能够为仿真运行提供统一的时间服务，协调单机多线程、多机各邦员之间的时间同步，协调分布式仿真运行的仿真推进，以保证联邦成员间收发信息的时间逻辑正确性，协调不同时间管理类型的联邦成员在联邦时间轴上的推进，同时为各联邦成员提供不同传输要求和质量的消息、数据传输。</p>
-<h4 id="3-2-1-时间管理机制"><a href="#3-2-1-时间管理机制" class="headerlink" title="3.2.1 时间管理机制"></a>3.2.1 时间管理机制</h4><p>&emsp;&emsp;按照对联邦逻辑时间推进的影响，联邦成员的时间管理策略分为时间受限和时间控制，它们描述联邦成员之间的逻辑时钟推进关系，与时间管理机制的内容密切相关，对联邦成员选择时间管理机制产生影响。在此基础上，HLA的时间管理机制包括两方面的内容:消息传递机制和时间推进机制。消息传递机制包括消息传输方式和消息传递顺序。其中消息传输方式分为“可靠（reliable）”和“快速（best effort）两种，前者保证可靠性，使消息最终能达到目的成员，通常要增加时延;后者以减少传输时延为主要目的，通常要降低可靠性。消息的传递顺序分为两类:接收顺序（Accept Order，RO）、时戳顺序（Timestamp Order，TSO），它们是目前 HLA 支持的两种基本消息传递顺序。时间推进机制可分为两大类:一类为保守时间推进机制，另一类为乐观时间推进机制。HLA 时间管理中保守时间推进机制的基本思想是假设物理系统满足可实现性和可预测性，保证系统发出的 t 时刻的消息 依赖于 t 时刻前收到的消息和状态，且系统能在 t 时刻预测出 t+ε时刻 的消息（ε&gt;0），按照非递减的时戳顺序对时戳消息进行交互，以处理逻辑进程的离散事件实现对系统的正确仿真。在该机制中，“时间前瞻量（Lookahead）”和“时戳下限（LBTS）”是影响时间推进的两个关键变量。尽管保守算法可能会引起死锁，Fujimoto 的研究指出利用“时间前瞻量”可有效解决这个问题。HLA 乐观时间推进机制的基本思想则不遵守保守机制算法，当系统发生逻辑因果错误，利用回滚（retract）机制对系统状态进行恢复，其机制确保事件按 TSO 处理。</p>
-<h4 id="3-2-2-时间推进方式"><a href="#3-2-2-时间推进方式" class="headerlink" title="3.2.2 时间推进方式"></a>3.2.2 时间推进方式</h4><p>&emsp;&emsp;时间推进服务管理分布式网络环境下的事件队列，统一维护仿真过程中模型、系统或外部驱动产生的各类型事件，调度请求仿真时间推进。在 HLA 时间管理中，联邦成员的时间推进方式是由时间管理策略和时间推进机制共同决定的，时间推进方式的选择是在时间推进机制的基础上进行的。时间推进方式分为独立时间推进和协商时间推进。通常在独立时间推进方式下，各联邦成员不受约束地推进各自的时间，且 RTI 不参加协调成员间的时间推进。在协商时间推进方式下， RTI 协同各成员间的时间推进，保证联邦执行与物理系统中事件的先后顺序一致，协商时间推进分为:步进的时间推进、基于事件的时间推进和乐观机制下的时间推进。因此，在保守同步机制下，可选择步进的时间推进方式或基于事件的时间推进方式。</p>
-<h3 id="3-3-事件管理模块"><a href="#3-3-事件管理模块" class="headerlink" title="3.3 事件管理模块"></a>3.3 事件管理模块</h3><p>&emsp;&emsp;仿真引擎提供高效的并行事件管理能力，通过多线程并行执行的方式可以对整个仿真过程的所有事件进行统一维护和调度，在多个线程内同时管理模型事件的执行，包括平台运动事件、传感器探测事件、通信事件、干扰事件等，多个线程间的事件执行完成后统一提交，由时间管理模块进行整个仿真时间的推进，下图描述了单个线程的时间执行生命周期。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/202312181018978.png" alt="图 2 调度器活动图"></p>
-<h3 id="3-4-地理处理模块"><a href="#3-4-地理处理模块" class="headerlink" title="3.4 地理处理模块"></a>3.4 地理处理模块</h3><p>&emsp;&emsp;地形处理模块主要负责管理仿真所需的各类地形数据，对数据进行优化存储，提供便于各类实体调用的接口。</p>
-<h3 id="3-5-数据处理模块"><a href="#3-5-数据处理模块" class="headerlink" title="3.5 数据处理模块"></a>3.5 数据处理模块</h3><p>&emsp;&emsp;数据处理模块主要负责管理仿真中的各种数据，对想定数据进行解析，调用实体管理模块初始化各种实体对象，载人各种相关地形数据到地形处理模块。</p>
-<h3 id="3-6-脚本解析模块"><a href="#3-6-脚本解析模块" class="headerlink" title="3.6 脚本解析模块"></a>3.6 脚本解析模块</h3><p>&emsp;&emsp;脚本解析模块负责解析和处理所有脚本声明。脚本是一种用于表示非参数输人的文本语言，可以对各实体进行配置，描述隶属关系，描述简单的作战行动过程及各种触发条件，从而提高想定编辑的灵活性。在仿真时，仿真引擎需要利用该模块对脚本进行解释，分析具体的函数内容，调用相应的处理模块。</p>
-<h3 id="3-7-日志管理模块"><a href="#3-7-日志管理模块" class="headerlink" title="3.7 日志管理模块"></a>3.7 日志管理模块</h3><p>&emsp;&emsp;日志管理模块主要负责提供日志管理功能，用于记录仿真过程，进而对数据进行分析或回放。</p>
-<h3 id="3-8-显示控制模块"><a href="#3-8-显示控制模块" class="headerlink" title="3.8 显示控制模块"></a>3.8 显示控制模块</h3><p>&emsp;&emsp;显示控制模块主要提供与显示相关的控制信息，当实体发生状态变化时向可视化表现工具发出相应控制信息。</p>
-<h3 id="3-9-界面生成模块"><a href="#3-9-界面生成模块" class="headerlink" title="3.9 界面生成模块"></a>3.9 界面生成模块</h3><p>&emsp;&emsp;界面生成模块主要用于为仿真过程提供动态界面，如为实体提供特定的属性编辑窗口和行为编辑窗口等。</p>
-<h3 id="3-10-网络通信模块"><a href="#3-10-网络通信模块" class="headerlink" title="3.10 网络通信模块"></a>3.10 网络通信模块</h3><p>&emsp;&emsp;网络通信模块主要负责管理仿真引擎与其它同构仿真引擎或是异构仿真系统之间的消息通信，将消息解析成为仿真引擎和仿真实体可以处理的内部格式。</p>
-<h3 id="3-11-分布式服务模块"><a href="#3-11-分布式服务模块" class="headerlink" title="3.11 分布式服务模块"></a>3.11 分布式服务模块</h3><p>&emsp;&emsp;分布式服务模型提供分布式时间协调服务、数据传输服务、实时监视监听仿服务，其中分布式时间协调服务主要为分布式仿真提供全局统一的时间，保证分布式仿真各个联邦成员之间的时间一致性，提供“作战时间”和“仿真时间”的管理;数据传输服务能够在分布式仿真运行环境中，为仿真各邦员提供仿真数据同步服务，完成不同邦员之间的数据打包、发送、接收、解析、处理等工作。实时监视监听仿服务能够实时监视监听仿真运行过程中的服务（如:调试服务、分布式事件管理服务、数据分发服务等）关键事件。</p>
-<h2 id="4-辅助工具"><a href="#4-辅助工具" class="headerlink" title="4 辅助工具"></a>4 辅助工具</h2><p>&emsp;&emsp;用户控制界面主要负责提供仿真引擎所需要的控制命令，如启动、暂停、步进和结束等。<br>&emsp;&emsp;模型编辑工具处于仿真系统开发的最前端，主要用于模型组件建模，并生成模型组件动态库和描述文件，供想定编辑工具和仿真引擎使用。<br>&emsp;&emsp;想定数据通常按照仿真引擎所需要的格式进行组织，这种格式难以为军事用户所理解和掌握。而想定编辑工具则为想定数据的编辑提供一个可视化和形式化的管理界面，使得用户可以按照通常的军事想定开发习惯设计想定，并且可以使用形象快捷的可视化方法辅助生成该想定。<br>&emsp;&emsp;与想定编辑工具类似，脚本编辑工具也是为了辅助想定制作人员而提供的便捷工具，如提供脚本模板快速生成和在已有脚本上生成新脚本的功能等。可视化表现工具主要用于动态表现仿真过程，它可以接收来自仿真引擎中的实体状态变更消息，从而改变相应的图标位置或状态。<br>&emsp;&emsp;分析评估工具用于为分析人员提供分析和评估界面，如动态统计各方的各种战损，评估未来可能发展趋势等。它可以接收来自仿真引擎的各种实体状态变化，从而对统计数据进行动态更新。</p>
-<h2 id="5-关键技术问题"><a href="#5-关键技术问题" class="headerlink" title="5 关键技术问题"></a>5 关键技术问题</h2><p>&emsp;&emsp;构建这样一个仿真引擎需要解决一系列技术问题，其中的关键技术问题包括以下几个方面。</p>
-<h3 id="5-1-仿真模型框架"><a href="#5-1-仿真模型框架" class="headerlink" title="5.1 仿真模型框架"></a>5.1 仿真模型框架</h3><p>&emsp;&emsp;联合作战仿真系统重点解决联合作战过程中多种实体在时间和空间上的行动和交互，所以仿真引擎不仅要有开放式的、面向对象的体系结构，同时还应提供可扩充性和可重用性强的仿真模型框架。仿真实体模型的构建是这个模型框架的核心。在系统仿真中，实体功能由其对应的功能模型所决定。采用“单元模型+功能模型”的模型结构，可以灵活、方便地创建各种功能的联合作战实体。单元模型是所有仿真实体的载体，它本身不具有指挥功能或作战功能，就像一个空壳，在仿真中代表着该实体，默认情况下不能执行任何功能。实体的运动、感知、通信、决策等功能由与其相关联的功能模型定义。功能模型包括许多类型的基础模型，有的模型模拟指挥人员的行为和决策，有的模型模拟实体所具有的武器装备或设备的性能及功能，有的模型负责作战环境、作战规则及作战效果等方面的描述。本文提出的联合作战仿真引擎模型框架中，实体之间行为交互通过消息进行传递，如通报态势信息和下达指挥作战信息等。消息模型负责模拟实体之间消息的传递。使用脚本关联不同类型的模型，可以定义飞机、装甲部队、导弹、卫星，或其他聚合类实体，实现仿真实体配载武器平台、拥有不同的行为。</p>
-<h3 id="5-2-数据管理"><a href="#5-2-数据管理" class="headerlink" title="5.2 数据管理"></a>5.2 数据管理</h3><p>&emsp;&emsp;数据是模型的基础，也是仿真引擎需要考虑的一个重要内容。仿真引擎中的仿真数据需要具有良好的组织结构和接口，便于实现对仿真实体的快速查找和动态访问。特别需要关注异构数据的组织，通过建立通用的访问接口。可以减少软件开发的复杂度，提高软件质量。为了支持仿真引擎内多线程并行仿真机制，不同线程中的数据需要具有保护机制，维护线程内数据的一致性，如采用关键区或是加锁的线程仿真机制。另外，在分布式的仿真引擎中，还需要解决分布在不同计算机上的动态仿真数据之间的一致性问题分布在不同计算机上的动态仿真数据之间的一致性问题，需要给出特定的一致性维持算法。</p>
-<p><a href="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221220815.docx" target="_blank" rel="noopener">联合作战仿真引擎分析与设计-附件</a></p>
+<h2 id="2-体系架构"><a href="#2-体系架构" class="headerlink" title="2 体系架构"></a>2 体系架构</h2><p>联合作战仿真引擎的整体体系架构如下图所示。</p>
+<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181015.png" alt="图 1 联合作战仿真引擎的概念体系结构" title="图 1 联合作战仿真引擎的概念体系结构"><br>    <p style="text-align:center">图 1 联合作战仿真引擎的概念体系结构</p><br></div>
+
+<p>&emsp;&emsp;联合作战仿真引擎的核心模块为管理器，用于对仿真过程及相应的仿真对象进行管理，提供仿真运行过程中所需的事件管理、对象管理、作战过程模拟功能，其概念结构如下图所示。</p>
+<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181130.png" alt="图 2 联合作战仿真引擎的概念结构" title="图 2 联合作战仿真引擎的概念结构"><br>    <p>图 2 联合作战仿真引擎的概念结构</p><br></div>
+
+<h2 id="3-调度流程"><a href="#3-调度流程" class="headerlink" title="3 调度流程"></a>3 调度流程</h2><p>联合作战仿真引擎的调度流程如下图所示。</p>
+<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221183136.png" alt="图 3 调度器活动图" title="图 3 调度器活动图"><br>    <p>图 3 调度器活动图</p><br></div>
+
+<p>&emsp;&emsp;仿真引擎采用灵活的MAL（Model Argument List）参数传递机制。MAL是包含向其他函数传递的参数列表的对象。每一个参数有独特的数据类型，名称和值。</p>
+<h2 id="4-核心模块"><a href="#4-核心模块" class="headerlink" title="4 核心模块"></a>4 核心模块</h2><h3 id="4-1-仿真元素管理器"><a href="#4-1-仿真元素管理器" class="headerlink" title="4.1 仿真元素管理器"></a>4.1 仿真元素管理器</h3><p>&emsp;&emsp;该类用于仿真元素管理，如仿真元素的创建、注册、删除等。</p>
+<h3 id="4-2-组合实体管理器"><a href="#4-2-组合实体管理器" class="headerlink" title="4.2 组合实体管理器"></a>4.2 组合实体管理器</h3><p>&emsp;&emsp;该类用于组合实体管理，如组合实体的创建、注册、删除等。</p>
+<h3 id="4-3-仿真实体管理器"><a href="#4-3-仿真实体管理器" class="headerlink" title="4.3 仿真实体管理器"></a>4.3 仿真实体管理器</h3><p>&emsp;&emsp;该类用于仿真实体管理，如仿真实体的创建、注册、删除等。</p>
+<h3 id="4-4-弹药实体管理器"><a href="#4-4-弹药实体管理器" class="headerlink" title="4.4 弹药实体管理器"></a>4.4 弹药实体管理器</h3><p>&emsp;&emsp;该类用于提供毁伤裁决服务，能够根据设置的毁伤裁决标准，裁决兵力毁伤程度。</p>
+<h3 id="4-5-认知组件管理器"><a href="#4-5-认知组件管理器" class="headerlink" title="4.5 认知组件管理器"></a>4.5 认知组件管理器</h3><p>&emsp;&emsp;该类用于认知部件管理，包括认知部件的创建、注册、注销等。</p>
+<h3 id="4-6-平台管理器"><a href="#4-6-平台管理器" class="headerlink" title="4.6 平台管理器"></a>4.6 平台管理器</h3><p>&emsp;&emsp;该类用于平台管理，包括平台的创建、注册、注销等。</p>
+<h3 id="4-7-传感器管理器"><a href="#4-7-传感器管理器" class="headerlink" title="4.7 传感器管理器"></a>4.7 传感器管理器</h3><p>&emsp;&emsp;该类用于传感器管理，包括传感器的创建、注册、注销等。</p>
+<h3 id="4-8-通讯装备管理器"><a href="#4-8-通讯装备管理器" class="headerlink" title="4.8 通讯装备管理器"></a>4.8 通讯装备管理器</h3><p>&emsp;&emsp;该类用于通讯装备管理，包括通讯装备的创建、注册、注销等。</p>
+<h3 id="4-9-干扰装置管理器"><a href="#4-9-干扰装置管理器" class="headerlink" title="4.9 干扰装置管理器"></a>4.9 干扰装置管理器</h3><p>&emsp;&emsp;该类用于干扰装置管理，包括干扰装置的创建、注册、注销等。</p>
+<h3 id="4-10-数据处理器管理器"><a href="#4-10-数据处理器管理器" class="headerlink" title="4.10 数据处理器管理器"></a>4.10 数据处理器管理器</h3><p>&emsp;&emsp;该类用于数据处理器管理，包括数据处理器的创建、注册、注销等。数据处理器提供数采集服务，能够采集仿真过程数据，为态势显示等应用提供数据支撑。</p>
+<h3 id="4-11-子系统管理器"><a href="#4-11-子系统管理器" class="headerlink" title="4.11 子系统管理器"></a>4.11 子系统管理器</h3><p>&emsp;&emsp;该类用于仿真子系统管理，包括仿真子系统的创建、注册、注销等。</p>
+<h3 id="4-12-弹药组件管理器"><a href="#4-12-弹药组件管理器" class="headerlink" title="4.12 弹药组件管理器"></a>4.12 弹药组件管理器</h3><p>&emsp;&emsp;该类用于弹药管理，包括弹药的创建、注册、注销等。</p>
+<h3 id="4-13-武器系统管理器"><a href="#4-13-武器系统管理器" class="headerlink" title="4.13 武器系统管理器"></a>4.13 武器系统管理器</h3><p>&emsp;&emsp;该类用于武器系统管理，包括武器系统的创建、注册、注销等。</p>
+<h3 id="4-14-环境管理器"><a href="#4-14-环境管理器" class="headerlink" title="4.14 环境管理器"></a>4.14 环境管理器</h3><p>&emsp;&emsp;该类用于环境管理，包括环境的创建、注册、注销等。</p>
+<h3 id="4-15-大气管理器"><a href="#4-15-大气管理器" class="headerlink" title="4.15 大气管理器"></a>4.15 大气管理器</h3><p>&emsp;&emsp;该类用于大气管理，包括大气的创建、注册、注销等。</p>
+<h3 id="4-16-特征管理器"><a href="#4-16-特征管理器" class="headerlink" title="4.16 特征管理器"></a>4.16 特征管理器</h3><p>&emsp;&emsp;该类用于特征管理，包括特征的创建、注册、注销等。</p>
+<h3 id="4-17-效果管理器"><a href="#4-17-效果管理器" class="headerlink" title="4.17 效果管理器"></a>4.17 效果管理器</h3><p>&emsp;&emsp;该类用于效果管理，包括效果的创建、注册、注销等。</p>
+<h3 id="4-18-空域管理器"><a href="#4-18-空域管理器" class="headerlink" title="4.18 空域管理器"></a>4.18 空域管理器</h3><p>&emsp;&emsp;该类用于空域管理，包括空域的创建、注册、注销等。</p>
+<h2 id="5-辅助工具"><a href="#5-辅助工具" class="headerlink" title="5 辅助工具"></a>5 辅助工具</h2><p>&emsp;&emsp;用户控制界面主要负责提供仿真引擎所需要的控制命令，如启动、暂停、步进和结束等。</p>
+<p>&emsp;&emsp;模型编辑工具处于仿真系统开发的最前端，主要用于模型组件建模，并生成模型组件动态库和描述文件，供想定编辑工具和仿真引擎使用。</p>
+<p>&emsp;&emsp;想定数据通常按照仿真引擎所需要的格式进行组织，这种格式难以为军事用户所理解和掌握。而想定编辑工具则为想定数据的编辑提供一个可视化和形式化的管理界面，使得用户可以按照通常的军事想定开发习惯设计想定，并且可以使用形象快捷的可视化方法辅助生成该想定。</p>
+<p>&emsp;&emsp;与想定编辑工具类似，脚本编辑工具也是为了辅助想定制作人员而提供的便捷工具，如提供脚本模板快速生成和在已有脚本上生成新脚本的功能等。可视化表现工具主要用于动态表现仿真过程，它可以接收来自仿真引擎中的实体状态变更消息，从而改变相应的图标位置或状态。</p>
+<p>&emsp;&emsp;分析评估工具用于为分析人员提供分析和评估界面，如动态统计各方的各种战损，评估未来可能发展趋势等。它可以接收来自仿真引擎的各种实体状态变化，从而对统计数据进行动态更新。</p>
+<h2 id="6-关键技术问题"><a href="#6-关键技术问题" class="headerlink" title="6 关键技术问题"></a>6 关键技术问题</h2><p>&emsp;&emsp;构建这样一个仿真引擎需要解决一系列技术问题，其中的关键技术问题包括以下几个方面。</p>
+<h3 id="6-1-仿真模型框架"><a href="#6-1-仿真模型框架" class="headerlink" title="6.1 仿真模型框架"></a>6.1 仿真模型框架</h3><p>&emsp;&emsp;联合作战仿真系统重点解决联合作战过程中多种实体在时间和空间上的行动和交互，所以仿真引擎不仅要有开放式的、面向对象的体系结构，同时还应提供可扩充性和可重用性强的仿真模型框架。仿真实体模型的构建是这个模型框架的核心。在系统仿真中，实体功能由其对应的功能模型所决定。采用“单元模型+功能模型”的模型结构，可以灵活、方便地创建各种功能的联合作战实体。单元模型是所有仿真实体的载体，它本身不具有指挥功能或作战功能，就像一个空壳，在仿真中代表着该实体，默认情况下不能执行任何功能。实体的运动、感知、通信、决策等功能由与其相关联的功能模型定义。功能模型包括许多类型的基础模型，有的模型模拟指挥人员的行为和决策，有的模型模拟实体所具有的武器装备或设备的性能及功能，有的模型负责作战环境、作战规则及作战效果等方面的描述。本文提出的联合作战仿真引擎模型框架中，实体之间行为交互通过消息进行传递，如通报态势信息和下达指挥作战信息等。消息模型负责模拟实体之间消息的传递。使用脚本关联不同类型的模型，可以定义飞机、装甲部队、导弹、卫星，或其他聚合类实体，实现仿真实体配载武器平台、拥有不同的行为。</p>
+<h3 id="6-2-数据管理"><a href="#6-2-数据管理" class="headerlink" title="6.2 数据管理"></a>6.2 数据管理</h3><p>&emsp;&emsp;数据是模型的基础，也是仿真引擎需要考虑的一个重要内容。仿真引擎中的仿真数据需要具有良好的组织结构和接口，便于实现对仿真实体的快速查找和动态访问。特别需要关注异构数据的组织，通过建立通用的访问接口。可以减少软件开发的复杂度，提高软件质量。为了支持仿真引擎内多线程并行仿真机制，不同线程中的数据需要具有保护机制，维护线程内数据的一致性，如采用关键区或是加锁的线程仿真机制。另外，在分布式的仿真引擎中，还需要解决分布在不同计算机上的动态仿真数据之间的一致性问题分布在不同计算机上的动态仿真数据之间的一致性问题，需要给出特定的一致性维持算法。</p>
+<p><a href="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221220816.docx" target="_blank" rel="noopener">联合作战仿真引擎分析与设计-附件</a></p>
 
       
     </div>
@@ -542,6 +558,8 @@
             <a href="/tags/联合作战/" rel="tag"><i class="fa fa-tag"></i> 联合作战</a>
           
             <a href="/tags/仿真引擎/" rel="tag"><i class="fa fa-tag"></i> 仿真引擎</a>
+          
+            <a href="/tags/仿真模型/" rel="tag"><i class="fa fa-tag"></i> 仿真模型</a>
           
         </div>
       
@@ -672,7 +690,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -754,7 +772,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概念和需求"><span class="nav-number">1.</span> <span class="nav-text">1 概念和需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-体系结构"><span class="nav-number">2.</span> <span class="nav-text">2 体系结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-核心模块"><span class="nav-number">3.</span> <span class="nav-text">3 核心模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-实体管理模块"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 实体管理模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-时间管理模块"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 时间管理模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-时间管理机制"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 时间管理机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-时间推进方式"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 时间推进方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-事件管理模块"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 事件管理模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-地理处理模块"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 地理处理模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-数据处理模块"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 数据处理模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-脚本解析模块"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 脚本解析模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-日志管理模块"><span class="nav-number">3.7.</span> <span class="nav-text">3.7 日志管理模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-显示控制模块"><span class="nav-number">3.8.</span> <span class="nav-text">3.8 显示控制模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-界面生成模块"><span class="nav-number">3.9.</span> <span class="nav-text">3.9 界面生成模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-网络通信模块"><span class="nav-number">3.10.</span> <span class="nav-text">3.10 网络通信模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-11-分布式服务模块"><span class="nav-number">3.11.</span> <span class="nav-text">3.11 分布式服务模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-辅助工具"><span class="nav-number">4.</span> <span class="nav-text">4 辅助工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-关键技术问题"><span class="nav-number">5.</span> <span class="nav-text">5 关键技术问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-仿真模型框架"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 仿真模型框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-数据管理"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 数据管理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概念和需求"><span class="nav-number">1.</span> <span class="nav-text">1 概念和需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-体系架构"><span class="nav-number">2.</span> <span class="nav-text">2 体系架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-调度流程"><span class="nav-number">3.</span> <span class="nav-text">3 调度流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-核心模块"><span class="nav-number">4.</span> <span class="nav-text">4 核心模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-仿真元素管理器"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 仿真元素管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-组合实体管理器"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 组合实体管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-仿真实体管理器"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 仿真实体管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-弹药实体管理器"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 弹药实体管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-认知组件管理器"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 认知组件管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-平台管理器"><span class="nav-number">4.6.</span> <span class="nav-text">4.6 平台管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-传感器管理器"><span class="nav-number">4.7.</span> <span class="nav-text">4.7 传感器管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-通讯装备管理器"><span class="nav-number">4.8.</span> <span class="nav-text">4.8 通讯装备管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-9-干扰装置管理器"><span class="nav-number">4.9.</span> <span class="nav-text">4.9 干扰装置管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-10-数据处理器管理器"><span class="nav-number">4.10.</span> <span class="nav-text">4.10 数据处理器管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-11-子系统管理器"><span class="nav-number">4.11.</span> <span class="nav-text">4.11 子系统管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-12-弹药组件管理器"><span class="nav-number">4.12.</span> <span class="nav-text">4.12 弹药组件管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-13-武器系统管理器"><span class="nav-number">4.13.</span> <span class="nav-text">4.13 武器系统管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-14-环境管理器"><span class="nav-number">4.14.</span> <span class="nav-text">4.14 环境管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-15-大气管理器"><span class="nav-number">4.15.</span> <span class="nav-text">4.15 大气管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-16-特征管理器"><span class="nav-number">4.16.</span> <span class="nav-text">4.16 特征管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-17-效果管理器"><span class="nav-number">4.17.</span> <span class="nav-text">4.17 效果管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-18-空域管理器"><span class="nav-number">4.18.</span> <span class="nav-text">4.18 空域管理器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-辅助工具"><span class="nav-number">5.</span> <span class="nav-text">5 辅助工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-关键技术问题"><span class="nav-number">6.</span> <span class="nav-text">6 关键技术问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-仿真模型框架"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 仿真模型框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-数据管理"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 数据管理</span></a></li></ol></li></ol></div>
             
 
           </div>
