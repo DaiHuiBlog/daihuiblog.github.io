@@ -117,7 +117,7 @@
 <meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181015.png">
 <meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181130.png">
 <meta property="og:image" content="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221183136.png">
-<meta property="og:updated_time" content="2023-12-22T07:31:39.935Z">
+<meta property="og:updated_time" content="2023-12-22T07:35:05.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="联合作战仿真引擎分析与设计">
 <meta name="twitter:description" content="1 概念和需求&amp;emsp;&amp;emsp;引擎一词来源于英语的“Egnien”，一般指的是将能量转化为力量或运动的装置，是系统的“心脏”。在仿真系统中，仿真引擎是驱动模型运行的核心组件，它为模型提供输人数据，控制模型运行，推进仿真时间，为各类分析和表现工具提供输出数据和控制信号。仿真引擎按照战争层次划分为不同的级别，如装备级仿真引擎、战术级仿真引擎、战役级仿真引擎和战略级仿真引擎。通常情况下，由于仿真">
@@ -483,13 +483,13 @@
 <p>&emsp;&emsp;四是支持仿真引擎之间的分布式部署。仿真引擎之间可以通过特定的接口和某种通信基础设施进行互操作，从而可以将复杂大规模仿真合理部署到网络上，提高单独仿真引擎的执行效率及仿真实体的规模。</p>
 <p>&emsp;&emsp;五是提供良好的数据组织方式。仿真引擎应提供结构合理、易于扩展的数据组织机制，方便模型读取各种输人数据（如来自想定中的部队配置和武器装备参数等），为态势表现模块和分析评估模块提供方便的输出数据（如部队的各种损耗）。</p>
 <h2 id="2-体系架构"><a href="#2-体系架构" class="headerlink" title="2 体系架构"></a>2 体系架构</h2><p>联合作战仿真引擎的整体体系架构如下图所示。</p>
-<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181015.png" alt="图 1 联合作战仿真引擎的概念体系结构" title="图 1 联合作战仿真引擎的概念体系结构"><br>    <p style="text-align:center">图 1 联合作战仿真引擎的概念体系结构</p><br></div>
+<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181015.png" alt="图 1 联合作战仿真引擎的概念体系结构" title="图 1 联合作战仿真引擎的概念体系结构"><br></div>
 
 <p>&emsp;&emsp;联合作战仿真引擎的核心模块为管理器，用于对仿真过程及相应的仿真对象进行管理，提供仿真运行过程中所需的事件管理、对象管理、作战过程模拟功能，其概念结构如下图所示。</p>
-<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181130.png" alt="图 2 联合作战仿真引擎的概念结构" title="图 2 联合作战仿真引擎的概念结构"><br>    <p>图 2 联合作战仿真引擎的概念结构</p><br></div>
+<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181130.png" alt="图 2 联合作战仿真引擎的概念结构" title="图 2 联合作战仿真引擎的概念结构"><br></div>
 
 <h2 id="3-调度流程"><a href="#3-调度流程" class="headerlink" title="3 调度流程"></a>3 调度流程</h2><p>联合作战仿真引擎的调度流程如下图所示。</p>
-<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221183136.png" alt="图 3 调度器活动图" title="图 3 调度器活动图"><br>    <p>图 3 调度器活动图</p><br></div>
+<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221183136.png" alt="图 3 调度器活动图" title="图 3 调度器活动图"><br></div>
 
 <p>&emsp;&emsp;仿真引擎采用灵活的MAL（Model Argument List）参数传递机制。MAL是包含向其他函数传递的参数列表的对象。每一个参数有独特的数据类型，名称和值。</p>
 <h2 id="4-核心模块"><a href="#4-核心模块" class="headerlink" title="4 核心模块"></a>4 核心模块</h2><h3 id="4-1-仿真元素管理器"><a href="#4-1-仿真元素管理器" class="headerlink" title="4.1 仿真元素管理器"></a>4.1 仿真元素管理器</h3><p>&emsp;&emsp;该类用于仿真元素管理，如仿真元素的创建、注册、删除等。</p>

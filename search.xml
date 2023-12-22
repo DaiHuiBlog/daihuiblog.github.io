@@ -191,6 +191,161 @@
       </tags>
   </entry>
   <entry>
+    <title>Hadoop伪分布式搭建-(2)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
+    <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
+<li>从Windows上传jdk到虚拟机  </li>
+</ul>
+<blockquote>
+<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>解压jdk</li>
+</ul>
+<blockquote>
+<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
+</blockquote>
+<ul>
+<li>将java添加到环境变量中</li>
+</ul>
+<blockquote>
+<p>vim /etc/profile  </p>
+</blockquote>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+<ul>
+<li>刷新配置</li>
+</ul>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>大数据</category>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hadoop伪分布式搭建-(3)</title>
+    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-3/</url>
+    <content><![CDATA[<p><code>安装hadoop2.4.1（或其他更高版本&lt;最好用更高的64位版本，免得重新编译&gt;）
+注意：hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop伪分布式需要修改5个配置文件</code></p>
+<a id="more"></a>
+<h3 id="上传hadoop并解压到指定目录"><a href="#上传hadoop并解压到指定目录" class="headerlink" title="上传hadoop并解压到指定目录"></a>上传hadoop并解压到指定目录</h3><p>同jdk一样,上传Hadoop的包到本目录,并在root目录下创建/dh/这个目录,将Hadoop解压到该目录</p>
+<h3 id="配置hadoop"><a href="#配置hadoop" class="headerlink" title="配置hadoop"></a>配置hadoop</h3><ol>
+<li><p>hadoop-env.sh文件</p>
+<blockquote>
+<p>vim hadoop-env.sh</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>core-site.xml文件</p>
+<blockquote>
+<p>vim core-site.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--设定NameNode地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://dh01:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span>  <span class="comment">&lt;!--或者把dh01换成对应IP--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定hadoop运行时产生文件的存储目录 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/dh/hadoop-2.4.1/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hdfs-site.xml文件</p>
+<blockquote>
+<p>vim hdfs-site.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定HDFS副本的数量 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span><span class="comment">&lt;!--因为为伪分布式,所以只有一个副本--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mapred-site.xml文件</p>
+<blockquote>
+<p>#重命名<br>mv mapred-site.xml.template mapred-site.xml<br>#打开重命名后的文件<br>vim mapred-site.xml  </p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定mapreduce运行在YARN上 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>yarn-site.xml文件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定YARN的老大（ResourceManager）的地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>dh01<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- mapreduce获取数据的方式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="将hadoop添加到环境变量"><a href="#将hadoop添加到环境变量" class="headerlink" title="将hadoop添加到环境变量"></a>将hadoop添加到环境变量</h3><blockquote>
+<p>vim /etc/proflie</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79</span><br><span class="line">export HADOOP_HOME=/dh/hadoop-2.4.1</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HADOOP_HOME/lib</span><br></pre></td></tr></table></figure>
+<p>刷新配置文件  </p>
+<blockquote>
+<p>source /etc/profile</p>
+</blockquote>
+<h3 id="格式化namenode（是对namenode进行初始化）"><a href="#格式化namenode（是对namenode进行初始化）" class="headerlink" title="格式化namenode（是对namenode进行初始化）"></a>格式化namenode（是对namenode进行初始化）</h3><blockquote>
+<p>hdfs namenode -format (hadoop namenode -format)</p>
+</blockquote>
+<h3 id="启动hadoop"><a href="#启动hadoop" class="headerlink" title="启动hadoop"></a>启动hadoop</h3><p>先启动HDFS</p>
+<blockquote>
+<p>sbin/start-dfs.sh</p>
+</blockquote>
+<p>再启动YARN</p>
+<blockquote>
+<p>sbin/start-yarn.sh</p>
+</blockquote>
+<h3 id="验证是否启动成功"><a href="#验证是否启动成功" class="headerlink" title="验证是否启动成功"></a>验证是否启动成功</h3><p>使用jps命令验证</p>
+<blockquote>
+<p>jsp</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">27408 NameNode</span><br><span class="line">28218 Jps</span><br><span class="line">27643 SecondaryNameNode</span><br><span class="line">28066 NodeManager</span><br><span class="line">27803 ResourceManager</span><br><span class="line">27512 DataNode</span><br></pre></td></tr></table></figure>
+<p><a href="http://192.168.8.88:50070" target="_blank" rel="noopener">http://192.168.8.88:50070</a> （HDFS管理界面）</p>
+<p>在这个文件中添加linux主机名和IP的映射关系<br>C:\Windows\System32\drivers\etc\hosts下添加:  </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">192.168.1.66	dh01</span><br></pre></td></tr></table></figure>
+<p>打开：<a href="http://192.168.8.88:8088验证" target="_blank" rel="noopener">http://192.168.8.88:8088验证</a> （mapreduce管理界面）  </p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>Hadoop</tag>
+        <tag>集群</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo下NexT主题添加Gitment评论插件</title>
+    <url>/2018/06/20/Hexo%E4%B8%8BNexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/</url>
+    <content><![CDATA[<h3 id="最终效果图大概是这个样子"><a href="#最终效果图大概是这个样子" class="headerlink" title="最终效果图大概是这个样子"></a>最终效果图大概是这个样子</h3><p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Hexo下NexT主题添加Gitment评论插件/3-2023-03-06-10-29-40.png" alt="3-2023-03-06-10-29-40"></p>
+<a id="more"></a>
+<p>Gitment 是作者<a href="https://imsun.net/" target="_blank" rel="noopener">imsun</a>实现的一款基于 GitHub Issues 的评论系统。 支持在前端直接引入， 不需要任何后端代码。 可以在页面进行登录， 查看，评论，点赞等操作。 同时有完整的 Markdown / GFM 和代码高亮支持。 尤为适合各种基于 GitHub Pages 的静态博客或项目页面。</p>
+<p>这篇文章仅介绍如果在 hexo-NexT 中添加 Gitment 评论插件，并且增加一个点开显示评论的按钮，对于 Gitment 的使用请参考 <a href="https://imsun.net/" target="_blank" rel="noopener">imsun</a> 的博客。</p>
+<p>另外，本教程的按钮样式和代码均直接取自 <a href="https://ehlxr.me/" target="_blank" rel="noopener">ehlxr</a> 博主。</p>
+<h3 id="注册OAuth-Application"><a href="#注册OAuth-Application" class="headerlink" title="注册OAuth Application"></a>注册OAuth Application</h3><p>因为 Gitment 评论插件是基于Github Issues评论系统，这类评论系统都需要一个OAuth Application，所以咱们没有注册OAuth Application的同学先注册一个。  </p>
+<p>博客咱们已经有啦，例如我的：DaiHuiBlog.github.io。没有的同学以自己GitHub用户新建一个仓库就行：<code>你的用户名.github.io</code></p>
+<p>接下来创建 <em>OAuth Application</em>，没有的同学可以<a href="https://github.com/settings/applications/new" target="_blank" rel="noopener"><strong>新建一个</strong></a>。</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Hexo下NexT主题添加Gitment评论插件/1-2023-03-06-10-32-34.png" alt="1-2023-03-06-10-32-34"></p>
+<p>其中:</p>
+<ul>
+<li><code>Application name</code> 为仓库名，例：daihuiblog.github.io</li>
+<li><code>Homepage URL</code> 填你的博客网址，例：blog.daihui888.com</li>
+<li><code>Application description</code> 描述，随便写</li>
+<li><code>Authorization callback URL</code> 填你的博客网址，例：blog.daihui888.com  </li>
+</ul>
+<p>完成后会生成相应的 <code>clientID</code> 和 <code>clientSecret</code></p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Hexo下NexT主题添加Gitment评论插件/2-2023-03-06-10-33-24.jpg" alt="2-2023-03-06-10-33-24"></p>
+<p>接下来开始配置Gitment</p>
+<h3 id="“显示-Gitment-评论”-的按钮样式"><a href="#“显示-Gitment-评论”-的按钮样式" class="headerlink" title="“显示 Gitment 评论” 的按钮样式"></a>“显示 Gitment 评论” 的按钮样式</h3><p>在 <code>next/source/css/_common/components</code> 目录中新建一个 <code>gitment.styl</code> 的 css 样式文件, 复制以下代码</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.gitment_title</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#0a9caf</span>;</span><br><span class="line">    <span class="attribute">background-image</span>: initial;</span><br><span class="line">    <span class="attribute">background-position-x</span>: initial;</span><br><span class="line">    <span class="attribute">background-position-y</span>: initial;</span><br><span class="line">    <span class="attribute">background-size</span>: initial;</span><br><span class="line">    <span class="attribute">background-repeat-x</span>: initial;</span><br><span class="line">    <span class="attribute">background-repeat-y</span>: initial;</span><br><span class="line">    <span class="attribute">background-attachment</span>: initial;</span><br><span class="line">    <span class="attribute">background-origin</span>: initial;</span><br><span class="line">    <span class="attribute">background-clip</span>: initial;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.gitment_title</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#0a9caf</span>;</span><br><span class="line">    <span class="attribute">border-top-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-top-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-top-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-right-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-right-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-right-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-bottom-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-bottom-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-bottom-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-left-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-left-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-left-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-image-source</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-slice</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-width</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-outset</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-repeat</span>: initial;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-top-left-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-top-right-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-bottom-right-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-bottom-left-radius</span>: <span class="number">4px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.gitment_title</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">padding-top</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#0a9caf</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">14px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后打开同目录中的 <code>components.styl</code> 文件, 找个顺眼的位置添加一句</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="meta">@import</span> <span class="string">"gitment"</span></span><br></pre></td></tr></table></figure>
+<h3 id="添加-Gitment-插件"><a href="#添加-Gitment-插件" class="headerlink" title="添加 Gitment 插件"></a>添加 Gitment 插件</h3><p>打开 <code>/next/layout/_partials/comments.swig</code> 文件, 在最后一个<code>elseif</code>代码块下面添加 Gitment 的内容.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 前面的略... ...</span></span><br><span class="line">&#123;% elseif theme.changyan.appid and theme.changyan.appkey %&#125;</span><br><span class="line"> &lt;div id=<span class="string">"SOHUCS"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#123;% elseif theme.gitment.enable %&#125;</span><br><span class="line"> &lt;div onclick=<span class="string">"showGitment()"</span> id=<span class="string">"gitment_title"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"gitment_title"</span>&gt;显示 Gitment 评论&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"> &lt;div id="container" style="display:none"&gt;&lt;/</span>div&gt;</span><br><span class="line"> &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://imsun.github.io/gitment/style/default.css"</span>&gt;</span><br><span class="line"> &lt;script src=<span class="string">"https://imsun.github.io/gitment/dist/gitment.browser.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"> &lt;script&gt;</span><br><span class="line"> <span class="keyword">const</span> myTheme = &#123;</span><br><span class="line">   render(state, instance) &#123;</span><br><span class="line">     <span class="keyword">const</span> container = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">     container.lang = <span class="string">"en-US"</span>;</span><br><span class="line">     container.className = <span class="string">'gitment-container gitment-root-container'</span>;</span><br><span class="line">     container.appendChild(instance.renderHeader(state, instance));</span><br><span class="line">     container.appendChild(instance.renderEditor(state, instance));</span><br><span class="line">     container.appendChild(instance.renderComments(state, instance));</span><br><span class="line">     container.appendChild(instance.renderFooter(state, instance));</span><br><span class="line">     <span class="keyword">return</span> container;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">showGitment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   $(<span class="string">"#gitment_title"</span>).attr(<span class="string">"style"</span>, <span class="string">"display:none"</span>);</span><br><span class="line">   $(<span class="string">"#container"</span>).attr(<span class="string">"style"</span>, <span class="string">""</span>).addClass(<span class="string">"gitment_container"</span>);</span><br><span class="line">   <span class="keyword">var</span> gitment = <span class="keyword">new</span> Gitment(&#123;</span><br><span class="line">     id: <span class="built_in">decodeURI</span>(<span class="built_in">window</span>.location.pathname),</span><br><span class="line">     theme: myTheme,</span><br><span class="line">     owner: <span class="string">'&#123;&#123; theme.gitment.owner &#125;&#125;'</span>,</span><br><span class="line">     repo: <span class="string">'&#123;&#123; theme.gitment.repo &#125;&#125;'</span>,</span><br><span class="line">     oauth: &#123;</span><br><span class="line">       client_id: <span class="string">'&#123;&#123; theme.gitment.client_id &#125;&#125;'</span>,</span><br><span class="line">       client_secret: <span class="string">'&#123;&#123; theme.gitment.client_secret &#125;&#125;'</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   gitment.render(<span class="string">'container'</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
+<p>然后打开 NexT 主题的_config.yml 文件，在评论相关设置的区域添加下面的代码，并根据 Gitment 文档说明来添加相应的值</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Gitment comments</span></span><br><span class="line"><span class="attr">gitment:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  owner:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  client_id:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  client_secret:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  lazy:</span> <span class="literal">true</span>  <span class="comment">#lazy属性为是否直接显示评论模块，true会显示”显示评论”按钮，false会直接显示</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>另外，Gitment需要自己手动初始化一下来创建一个issues，不喜欢他的同学可以用<a href="https://github.com/gitalk/gitalk" target="_blank" rel="noopener"><strong>Gitalk</strong></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Gitment</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hadoop伪分布式搭建-(4)</title>
     <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-4/</url>
     <content><![CDATA[<h3 id="生成ssh免登陆密钥"><a href="#生成ssh免登陆密钥" class="headerlink" title="生成ssh免登陆密钥"></a>生成ssh免登陆密钥</h3><ul>
@@ -328,161 +483,6 @@
       <tags>
         <tag>Java</tag>
         <tag>异常</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop伪分布式搭建-(3)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-3/</url>
-    <content><![CDATA[<p><code>安装hadoop2.4.1（或其他更高版本&lt;最好用更高的64位版本，免得重新编译&gt;）
-注意：hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop伪分布式需要修改5个配置文件</code></p>
-<a id="more"></a>
-<h3 id="上传hadoop并解压到指定目录"><a href="#上传hadoop并解压到指定目录" class="headerlink" title="上传hadoop并解压到指定目录"></a>上传hadoop并解压到指定目录</h3><p>同jdk一样,上传Hadoop的包到本目录,并在root目录下创建/dh/这个目录,将Hadoop解压到该目录</p>
-<h3 id="配置hadoop"><a href="#配置hadoop" class="headerlink" title="配置hadoop"></a>配置hadoop</h3><ol>
-<li><p>hadoop-env.sh文件</p>
-<blockquote>
-<p>vim hadoop-env.sh</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>core-site.xml文件</p>
-<blockquote>
-<p>vim core-site.xml</p>
-</blockquote>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--设定NameNode地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://dh01:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span>  <span class="comment">&lt;!--或者把dh01换成对应IP--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定hadoop运行时产生文件的存储目录 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/dh/hadoop-2.4.1/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>hdfs-site.xml文件</p>
-<blockquote>
-<p>vim hdfs-site.xml</p>
-</blockquote>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定HDFS副本的数量 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span><span class="comment">&lt;!--因为为伪分布式,所以只有一个副本--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>mapred-site.xml文件</p>
-<blockquote>
-<p>#重命名<br>mv mapred-site.xml.template mapred-site.xml<br>#打开重命名后的文件<br>vim mapred-site.xml  </p>
-</blockquote>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定mapreduce运行在YARN上 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>yarn-site.xml文件</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 指定YARN的老大（ResourceManager）的地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>dh01<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- mapreduce获取数据的方式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="将hadoop添加到环境变量"><a href="#将hadoop添加到环境变量" class="headerlink" title="将hadoop添加到环境变量"></a>将hadoop添加到环境变量</h3><blockquote>
-<p>vim /etc/proflie</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79</span><br><span class="line">export HADOOP_HOME=/dh/hadoop-2.4.1</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HADOOP_HOME/lib</span><br></pre></td></tr></table></figure>
-<p>刷新配置文件  </p>
-<blockquote>
-<p>source /etc/profile</p>
-</blockquote>
-<h3 id="格式化namenode（是对namenode进行初始化）"><a href="#格式化namenode（是对namenode进行初始化）" class="headerlink" title="格式化namenode（是对namenode进行初始化）"></a>格式化namenode（是对namenode进行初始化）</h3><blockquote>
-<p>hdfs namenode -format (hadoop namenode -format)</p>
-</blockquote>
-<h3 id="启动hadoop"><a href="#启动hadoop" class="headerlink" title="启动hadoop"></a>启动hadoop</h3><p>先启动HDFS</p>
-<blockquote>
-<p>sbin/start-dfs.sh</p>
-</blockquote>
-<p>再启动YARN</p>
-<blockquote>
-<p>sbin/start-yarn.sh</p>
-</blockquote>
-<h3 id="验证是否启动成功"><a href="#验证是否启动成功" class="headerlink" title="验证是否启动成功"></a>验证是否启动成功</h3><p>使用jps命令验证</p>
-<blockquote>
-<p>jsp</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">27408 NameNode</span><br><span class="line">28218 Jps</span><br><span class="line">27643 SecondaryNameNode</span><br><span class="line">28066 NodeManager</span><br><span class="line">27803 ResourceManager</span><br><span class="line">27512 DataNode</span><br></pre></td></tr></table></figure>
-<p><a href="http://192.168.8.88:50070" target="_blank" rel="noopener">http://192.168.8.88:50070</a> （HDFS管理界面）</p>
-<p>在这个文件中添加linux主机名和IP的映射关系<br>C:\Windows\System32\drivers\etc\hosts下添加:  </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">192.168.1.66	dh01</span><br></pre></td></tr></table></figure>
-<p>打开：<a href="http://192.168.8.88:8088验证" target="_blank" rel="noopener">http://192.168.8.88:8088验证</a> （mapreduce管理界面）  </p>
-]]></content>
-      <categories>
-        <category>大数据</category>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>集群</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo下NexT主题添加Gitment评论插件</title>
-    <url>/2018/06/20/Hexo%E4%B8%8BNexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/</url>
-    <content><![CDATA[<h3 id="最终效果图大概是这个样子"><a href="#最终效果图大概是这个样子" class="headerlink" title="最终效果图大概是这个样子"></a>最终效果图大概是这个样子</h3><p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Hexo下NexT主题添加Gitment评论插件/3-2023-03-06-10-29-40.png" alt="3-2023-03-06-10-29-40"></p>
-<a id="more"></a>
-<p>Gitment 是作者<a href="https://imsun.net/" target="_blank" rel="noopener">imsun</a>实现的一款基于 GitHub Issues 的评论系统。 支持在前端直接引入， 不需要任何后端代码。 可以在页面进行登录， 查看，评论，点赞等操作。 同时有完整的 Markdown / GFM 和代码高亮支持。 尤为适合各种基于 GitHub Pages 的静态博客或项目页面。</p>
-<p>这篇文章仅介绍如果在 hexo-NexT 中添加 Gitment 评论插件，并且增加一个点开显示评论的按钮，对于 Gitment 的使用请参考 <a href="https://imsun.net/" target="_blank" rel="noopener">imsun</a> 的博客。</p>
-<p>另外，本教程的按钮样式和代码均直接取自 <a href="https://ehlxr.me/" target="_blank" rel="noopener">ehlxr</a> 博主。</p>
-<h3 id="注册OAuth-Application"><a href="#注册OAuth-Application" class="headerlink" title="注册OAuth Application"></a>注册OAuth Application</h3><p>因为 Gitment 评论插件是基于Github Issues评论系统，这类评论系统都需要一个OAuth Application，所以咱们没有注册OAuth Application的同学先注册一个。  </p>
-<p>博客咱们已经有啦，例如我的：DaiHuiBlog.github.io。没有的同学以自己GitHub用户新建一个仓库就行：<code>你的用户名.github.io</code></p>
-<p>接下来创建 <em>OAuth Application</em>，没有的同学可以<a href="https://github.com/settings/applications/new" target="_blank" rel="noopener"><strong>新建一个</strong></a>。</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Hexo下NexT主题添加Gitment评论插件/1-2023-03-06-10-32-34.png" alt="1-2023-03-06-10-32-34"></p>
-<p>其中:</p>
-<ul>
-<li><code>Application name</code> 为仓库名，例：daihuiblog.github.io</li>
-<li><code>Homepage URL</code> 填你的博客网址，例：blog.daihui888.com</li>
-<li><code>Application description</code> 描述，随便写</li>
-<li><code>Authorization callback URL</code> 填你的博客网址，例：blog.daihui888.com  </li>
-</ul>
-<p>完成后会生成相应的 <code>clientID</code> 和 <code>clientSecret</code></p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Hexo下NexT主题添加Gitment评论插件/2-2023-03-06-10-33-24.jpg" alt="2-2023-03-06-10-33-24"></p>
-<p>接下来开始配置Gitment</p>
-<h3 id="“显示-Gitment-评论”-的按钮样式"><a href="#“显示-Gitment-评论”-的按钮样式" class="headerlink" title="“显示 Gitment 评论” 的按钮样式"></a>“显示 Gitment 评论” 的按钮样式</h3><p>在 <code>next/source/css/_common/components</code> 目录中新建一个 <code>gitment.styl</code> 的 css 样式文件, 复制以下代码</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.gitment_title</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#0a9caf</span>;</span><br><span class="line">    <span class="attribute">background-image</span>: initial;</span><br><span class="line">    <span class="attribute">background-position-x</span>: initial;</span><br><span class="line">    <span class="attribute">background-position-y</span>: initial;</span><br><span class="line">    <span class="attribute">background-size</span>: initial;</span><br><span class="line">    <span class="attribute">background-repeat-x</span>: initial;</span><br><span class="line">    <span class="attribute">background-repeat-y</span>: initial;</span><br><span class="line">    <span class="attribute">background-attachment</span>: initial;</span><br><span class="line">    <span class="attribute">background-origin</span>: initial;</span><br><span class="line">    <span class="attribute">background-clip</span>: initial;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.gitment_title</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#0a9caf</span>;</span><br><span class="line">    <span class="attribute">border-top-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-top-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-top-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-right-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-right-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-right-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-bottom-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-bottom-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-bottom-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-left-color</span>: <span class="built_in">rgb</span>(10, 156, 175);</span><br><span class="line">    <span class="attribute">border-left-style</span>: solid;</span><br><span class="line">    <span class="attribute">border-left-width</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">border-image-source</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-slice</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-width</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-outset</span>: initial;</span><br><span class="line">    <span class="attribute">border-image-repeat</span>: initial;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-top-left-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-top-right-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-bottom-right-radius</span>: <span class="number">4px</span>;</span><br><span class="line">    <span class="attribute">border-bottom-left-radius</span>: <span class="number">4px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.gitment_title</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">padding-top</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#0a9caf</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">14px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后打开同目录中的 <code>components.styl</code> 文件, 找个顺眼的位置添加一句</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="meta">@import</span> <span class="string">"gitment"</span></span><br></pre></td></tr></table></figure>
-<h3 id="添加-Gitment-插件"><a href="#添加-Gitment-插件" class="headerlink" title="添加 Gitment 插件"></a>添加 Gitment 插件</h3><p>打开 <code>/next/layout/_partials/comments.swig</code> 文件, 在最后一个<code>elseif</code>代码块下面添加 Gitment 的内容.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 前面的略... ...</span></span><br><span class="line">&#123;% elseif theme.changyan.appid and theme.changyan.appkey %&#125;</span><br><span class="line"> &lt;div id=<span class="string">"SOHUCS"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#123;% elseif theme.gitment.enable %&#125;</span><br><span class="line"> &lt;div onclick=<span class="string">"showGitment()"</span> id=<span class="string">"gitment_title"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"gitment_title"</span>&gt;显示 Gitment 评论&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"> &lt;div id="container" style="display:none"&gt;&lt;/</span>div&gt;</span><br><span class="line"> &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://imsun.github.io/gitment/style/default.css"</span>&gt;</span><br><span class="line"> &lt;script src=<span class="string">"https://imsun.github.io/gitment/dist/gitment.browser.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"> &lt;script&gt;</span><br><span class="line"> <span class="keyword">const</span> myTheme = &#123;</span><br><span class="line">   render(state, instance) &#123;</span><br><span class="line">     <span class="keyword">const</span> container = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">     container.lang = <span class="string">"en-US"</span>;</span><br><span class="line">     container.className = <span class="string">'gitment-container gitment-root-container'</span>;</span><br><span class="line">     container.appendChild(instance.renderHeader(state, instance));</span><br><span class="line">     container.appendChild(instance.renderEditor(state, instance));</span><br><span class="line">     container.appendChild(instance.renderComments(state, instance));</span><br><span class="line">     container.appendChild(instance.renderFooter(state, instance));</span><br><span class="line">     <span class="keyword">return</span> container;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">showGitment</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   $(<span class="string">"#gitment_title"</span>).attr(<span class="string">"style"</span>, <span class="string">"display:none"</span>);</span><br><span class="line">   $(<span class="string">"#container"</span>).attr(<span class="string">"style"</span>, <span class="string">""</span>).addClass(<span class="string">"gitment_container"</span>);</span><br><span class="line">   <span class="keyword">var</span> gitment = <span class="keyword">new</span> Gitment(&#123;</span><br><span class="line">     id: <span class="built_in">decodeURI</span>(<span class="built_in">window</span>.location.pathname),</span><br><span class="line">     theme: myTheme,</span><br><span class="line">     owner: <span class="string">'&#123;&#123; theme.gitment.owner &#125;&#125;'</span>,</span><br><span class="line">     repo: <span class="string">'&#123;&#123; theme.gitment.repo &#125;&#125;'</span>,</span><br><span class="line">     oauth: &#123;</span><br><span class="line">       client_id: <span class="string">'&#123;&#123; theme.gitment.client_id &#125;&#125;'</span>,</span><br><span class="line">       client_secret: <span class="string">'&#123;&#123; theme.gitment.client_secret &#125;&#125;'</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   gitment.render(<span class="string">'container'</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
-<p>然后打开 NexT 主题的_config.yml 文件，在评论相关设置的区域添加下面的代码，并根据 Gitment 文档说明来添加相应的值</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Gitment comments</span></span><br><span class="line"><span class="attr">gitment:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  owner:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  client_id:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  client_secret:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">  lazy:</span> <span class="literal">true</span>  <span class="comment">#lazy属性为是否直接显示评论模块，true会显示”显示评论”按钮，false会直接显示</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>另外，Gitment需要自己手动初始化一下来创建一个issues，不喜欢他的同学可以用<a href="https://github.com/gitalk/gitalk" target="_blank" rel="noopener"><strong>Gitalk</strong></a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Gitment</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop伪分布式搭建-(2)</title>
-    <url>/2018/03/18/Hadoop%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA-2/</url>
-    <content><![CDATA[<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
-<li>从Windows上传jdk到虚拟机  </li>
-</ul>
-<blockquote>
-<p>你可以用FlashFXP/FileZilla/SecureCRT将jdk-7u79-linux-x64.gz传到Linux上。假设现在你已经传到了虚拟机的root目录下</p>
-</blockquote>
-<a id="more"></a>
-<ul>
-<li>解压jdk</li>
-</ul>
-<blockquote>
-<p>mkdir /usr/java<br>tar -zxvf jdk-7u79-linux-x64.gz -C /usr/java/</p>
-</blockquote>
-<ul>
-<li>将java添加到环境变量中</li>
-</ul>
-<blockquote>
-<p>vim /etc/profile  </p>
-</blockquote>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.7.0_79  </span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
-<ul>
-<li>刷新配置</li>
-</ul>
-<blockquote>
-<p>source /etc/profile</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>大数据</category>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>Hadoop</tag>
-        <tag>集群</tag>
       </tags>
   </entry>
   <entry>
@@ -668,26 +668,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac安装软件时提示已损坏的解决方法</title>
-    <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/1-2023-03-06-10-50-35.png" alt="已损坏"></p>
-<a id="more"></a>
-<p>这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>打开终端，在终端中输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
-<p>输入密码，回车。搞定<br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/2-2023-03-06-10-51-14.png" alt="2-2023-03-06-10-51-14"></p>
-]]></content>
-      <categories>
-        <category>OS</category>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac</tag>
-        <tag>文件损坏</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac下安装mysql5.7完整步骤及问题整理</title>
     <url>/2018/03/19/Mac%E4%B8%8B%E5%AE%89%E8%A3%85mysql5-7%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/</url>
     <content><![CDATA[<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>参考以下这个博客:  </p>
@@ -706,6 +686,26 @@
       <tags>
         <tag>Mac安装Mysql</tag>
         <tag>Mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac安装软件时提示已损坏的解决方法</title>
+    <url>/2018/09/27/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>从网上下载的常用软件，安装时总是提示“已损坏，移至废纸篓”这类信息，无法打开。如下图：</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/1-2023-03-06-10-50-35.png" alt="已损坏"></p>
+<a id="more"></a>
+<p>这是新系统（macOS Sierra 10.12.X）惹的祸。新系统加强了安全机制，默认不允许用户自行下载安装应用程序，只能从Mac App Store里安装应用。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>打开终端，在终端中输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
+<p>输入密码，回车。搞定<br><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Mac安装软件时提示已损坏的解决方法/2-2023-03-06-10-51-14.png" alt="2-2023-03-06-10-51-14"></p>
+]]></content>
+      <categories>
+        <category>OS</category>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Mac</tag>
+        <tag>文件损坏</tag>
       </tags>
   </entry>
   <entry>
@@ -736,40 +736,30 @@
       </tags>
   </entry>
   <entry>
-    <title>win2008R2磁盘脱机和写入保护解决办法</title>
-    <url>/2018/10/22/win2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/1-2023-03-06-11-04-05.png" alt="磁盘脱机"></p>
+    <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
+    <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<ol>
+<li><p>首先下载 .Net Framework 3.5.</p>
+</li>
+<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
 <a id="more"></a>
-<ol>
-<li><p>打开cmd命令行，输入：<code>diskpart</code>，进入diskpart工具</p>
-</li>
-<li><p>输入：<code>list disk</code>，查看到所有磁盘</p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/2-2023-03-06-11-04-27.png" alt="listdisk1"></p>
-</li>
-<li><p>找到脱机的磁盘，输入：<code>select disk 1</code></p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/3-2023-03-06-11-04-40.png" alt="selectDisk"></p>
-</li>
-<li><p>接着输入：<code>online disk*</code></p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/4-2023-03-06-11-05-49.png" alt="onlineDisk"></p>
-</li>
-<li><p>查看此时磁盘联机状态</p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/5-2023-03-06-11-06-09.png" alt="listdisk2"></p>
-</li>
-<li><p>清除只读属性，输入：<code>attribute disk clear readonly</code></p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/6-2023-03-06-11-06-25.png" alt="attributeDiskClearReadonly"></p>
-</li>
-<li><p>查看此时的清盘情况，输入：<code>attribute disk</code></p>
-<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/7-2023-03-06-11-06-53.png" alt="attributeDisk"></p>
+<blockquote>
+<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
+</blockquote>
 </li>
 </ol>
+<p>其他:</p>
+<ul>
+<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
+<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
+</ul>
 ]]></content>
       <categories>
         <category>OS</category>
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>Windows磁盘脱机</tag>
-        <tag>写入保护</tag>
+        <tag>Framework3.5无法安装</tag>
       </tags>
   </entry>
   <entry>
@@ -851,30 +841,40 @@
       </tags>
   </entry>
   <entry>
-    <title>Win10下.Net Framework 3.5无法安装【错误代码0x800F081F】</title>
-    <url>/2018/03/18/Win10%E4%B8%8B-Net-Framework-3-5%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<ol>
-<li><p>首先下载 .Net Framework 3.5.</p>
-</li>
-<li><p>将下载的文件复制到复制到 【C盘】 的 【Windows】 文件夹，然后后在“命令提示符（管理员）”中执行下面的命令：</p>
+    <title>win2008R2磁盘脱机和写入保护解决办法</title>
+    <url>/2018/10/22/win2008R2%E7%A3%81%E7%9B%98%E8%84%B1%E6%9C%BA%E5%92%8C%E5%86%99%E5%85%A5%E4%BF%9D%E6%8A%A4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/1-2023-03-06-11-04-05.png" alt="磁盘脱机"></p>
 <a id="more"></a>
-<blockquote>
-<p>dism /online /Enable-Feature /FeatureName:NetFx3 /Source:”%windir%” /LimitAccess</p>
-</blockquote>
+<ol>
+<li><p>打开cmd命令行，输入：<code>diskpart</code>，进入diskpart工具</p>
+</li>
+<li><p>输入：<code>list disk</code>，查看到所有磁盘</p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/2-2023-03-06-11-04-27.png" alt="listdisk1"></p>
+</li>
+<li><p>找到脱机的磁盘，输入：<code>select disk 1</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/3-2023-03-06-11-04-40.png" alt="selectDisk"></p>
+</li>
+<li><p>接着输入：<code>online disk*</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/4-2023-03-06-11-05-49.png" alt="onlineDisk"></p>
+</li>
+<li><p>查看此时磁盘联机状态</p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/5-2023-03-06-11-06-09.png" alt="listdisk2"></p>
+</li>
+<li><p>清除只读属性，输入：<code>attribute disk clear readonly</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/6-2023-03-06-11-06-25.png" alt="attributeDiskClearReadonly"></p>
+</li>
+<li><p>查看此时的清盘情况，输入：<code>attribute disk</code></p>
+<p> <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/win2008R2磁盘脱机和写入保护解决办法/7-2023-03-06-11-06-53.png" alt="attributeDisk"></p>
 </li>
 </ol>
-<p>其他:</p>
-<ul>
-<li>Windows 10下安装有的软件需要 .Net Framework 3.5的环境。默认是没有开启的，一般情况下可以【右键开始】菜单，选择【程序和功能】<br>然后再选择【启用或关闭Windows功能】里的第一项【.Net Framework 3.5(包括.NET 2.0和3.0)  </li>
-<li>再一个就是去官网下一个手动安装一下也行，这两种方法都不行再用上面那个方法，这样大部分人的问题应该都可以解决了。</li>
-</ul>
 ]]></content>
       <categories>
         <category>OS</category>
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>Framework3.5无法安装</tag>
+        <tag>Windows磁盘脱机</tag>
+        <tag>写入保护</tag>
       </tags>
   </entry>
   <entry>
@@ -897,6 +897,23 @@
       </tags>
   </entry>
   <entry>
+    <title>基于GIS三维可视化仿真技术的虚拟战场地形研究(PDF)</title>
+    <url>/2019/06/20/%E5%9F%BA%E4%BA%8EGIS%E4%B8%89%E7%BB%B4%E5%8F%AF%E8%A7%86%E5%8C%96%E4%BB%BF%E7%9C%9F%E6%8A%80%E6%9C%AF%E7%9A%84%E8%99%9A%E6%8B%9F%E6%88%98%E5%9C%BA%E5%9C%B0%E5%BD%A2%E7%A0%94%E7%A9%B6(PDF)/</url>
+    <content><![CDATA[<p>【摘要】: 军事行动的空间基础是战场环境。战场环境的仿真是目前军事作战模拟领域研究的热点，而虚拟战场的构建是当前军事仿真领域中的一个非常前沿 性的课题。探讨GIS在仿真虚拟战场环境生成中的应用，比较全面的介绍构建GIS三维可视仿真技术的虚拟战场环境所涉及到的各种技术。</p>
+<p>全文如下：</p>
+<a id="more"></a>
+<embed src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/201906201758133.pdf" width="100%" height="800" type="application/pdf">
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>GIS</tag>
+        <tag>三维可视化</tag>
+        <tag>虚拟战场环境</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于Xsim平台的防空导弹武器系统仿真平台设计(PDF)</title>
     <url>/2021/04/20/%E5%9F%BA%E4%BA%8EXsim%E5%B9%B3%E5%8F%B0%E7%9A%84%E9%98%B2%E7%A9%BA%E5%AF%BC%E5%BC%B9%E6%AD%A6%E5%99%A8%E7%B3%BB%E7%BB%9F%E4%BB%BF%E7%9C%9F%E5%B9%B3%E5%8F%B0%E8%AE%BE%E8%AE%A1/</url>
     <content><![CDATA[<p>【摘要】：以系统仿真技术在防空导弹武器系统的方案论证、优化设计、飞行试验预测、作战效能评估等方面中的应用为背景，提出了一种基于 Xsim 平台的防空导弹武器系统仿真平台设计方法。论述了该平台的总体架构设计、模型设计以及仿真流程设计，给出了设计思路。完成了某防空导弹武器系统仿真平台的应用开发，实践表明该平台可以较好的开展防空导弹武器系统作战过程仿真，可用于支撑防空武器装备各阶段的仿真工作，提升复杂战场环境下防空武器装备研发论证及设计能力。</p>
@@ -913,23 +930,6 @@
         <tag>仿真</tag>
         <tag>设计方法</tag>
         <tag>试验</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于GIS三维可视化仿真技术的虚拟战场地形研究(PDF)</title>
-    <url>/2019/06/20/%E5%9F%BA%E4%BA%8EGIS%E4%B8%89%E7%BB%B4%E5%8F%AF%E8%A7%86%E5%8C%96%E4%BB%BF%E7%9C%9F%E6%8A%80%E6%9C%AF%E7%9A%84%E8%99%9A%E6%8B%9F%E6%88%98%E5%9C%BA%E5%9C%B0%E5%BD%A2%E7%A0%94%E7%A9%B6(PDF)/</url>
-    <content><![CDATA[<p>【摘要】: 军事行动的空间基础是战场环境。战场环境的仿真是目前军事作战模拟领域研究的热点，而虚拟战场的构建是当前军事仿真领域中的一个非常前沿 性的课题。探讨GIS在仿真虚拟战场环境生成中的应用，比较全面的介绍构建GIS三维可视仿真技术的虚拟战场环境所涉及到的各种技术。</p>
-<p>全文如下：</p>
-<a id="more"></a>
-<embed src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/201906201758133.pdf" width="100%" height="800" type="application/pdf">
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>GIS</tag>
-        <tag>三维可视化</tag>
-        <tag>虚拟战场环境</tag>
       </tags>
   </entry>
   <entry>
@@ -1118,13 +1118,13 @@
 <p>&emsp;&emsp;四是支持仿真引擎之间的分布式部署。仿真引擎之间可以通过特定的接口和某种通信基础设施进行互操作，从而可以将复杂大规模仿真合理部署到网络上，提高单独仿真引擎的执行效率及仿真实体的规模。</p>
 <p>&emsp;&emsp;五是提供良好的数据组织方式。仿真引擎应提供结构合理、易于扩展的数据组织机制，方便模型读取各种输人数据（如来自想定中的部队配置和武器装备参数等），为态势表现模块和分析评估模块提供方便的输出数据（如部队的各种损耗）。</p>
 <h2 id="2-体系架构"><a href="#2-体系架构" class="headerlink" title="2 体系架构"></a>2 体系架构</h2><p>联合作战仿真引擎的整体体系架构如下图所示。</p>
-<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181015.png" alt="图 1 联合作战仿真引擎的概念体系结构" title="图 1 联合作战仿真引擎的概念体系结构"><br>    <p style="text-align:center">图 1 联合作战仿真引擎的概念体系结构</p><br></div>
+<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181015.png" alt="图 1 联合作战仿真引擎的概念体系结构" title="图 1 联合作战仿真引擎的概念体系结构"><br></div>
 
 <p>&emsp;&emsp;联合作战仿真引擎的核心模块为管理器，用于对仿真过程及相应的仿真对象进行管理，提供仿真运行过程中所需的事件管理、对象管理、作战过程模拟功能，其概念结构如下图所示。</p>
-<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181130.png" alt="图 2 联合作战仿真引擎的概念结构" title="图 2 联合作战仿真引擎的概念结构"><br>    <p>图 2 联合作战仿真引擎的概念结构</p><br></div>
+<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221181130.png" alt="图 2 联合作战仿真引擎的概念结构" title="图 2 联合作战仿真引擎的概念结构"><br></div>
 
 <h2 id="3-调度流程"><a href="#3-调度流程" class="headerlink" title="3 调度流程"></a>3 调度流程</h2><p>联合作战仿真引擎的调度流程如下图所示。</p>
-<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221183136.png" alt="图 3 调度器活动图" title="图 3 调度器活动图"><br>    <p>图 3 调度器活动图</p><br></div>
+<div align="center"><br>    <img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/20181221183136.png" alt="图 3 调度器活动图" title="图 3 调度器活动图"><br></div>
 
 <p>&emsp;&emsp;仿真引擎采用灵活的MAL（Model Argument List）参数传递机制。MAL是包含向其他函数传递的参数列表的对象。每一个参数有独特的数据类型，名称和值。</p>
 <h2 id="4-核心模块"><a href="#4-核心模块" class="headerlink" title="4 核心模块"></a>4 核心模块</h2><h3 id="4-1-仿真元素管理器"><a href="#4-1-仿真元素管理器" class="headerlink" title="4.1 仿真元素管理器"></a>4.1 仿真元素管理器</h3><p>&emsp;&emsp;该类用于仿真元素管理，如仿真元素的创建、注册、删除等。</p>
@@ -1299,6 +1299,124 @@
       </categories>
       <tags>
         <tag>axios</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何超过大多数人</title>
+    <url>/2019/07/22/%E5%A6%82%E4%BD%95%E8%B6%85%E8%BF%87%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%BA%BA/</url>
+    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/如何超过大多数人/1-2023-03-06-09-50-46.png" alt="1-2023-03-06-09-50-46"><br><a id="more"></a></p>
+<p>当你看到这篇文章的标题，你一定对这篇文章产生了巨大的5兴趣，因为你的潜意识在告诉你，这是一本人生的 “武林秘籍”，而且还是左耳朵写的，一定有干货满满，只要读完，一定可以练就神功并找到超过大多数人的快车道和捷径…… 然而…… 当你看到我这样开篇时，你一定会觉得我马上就要有个转折，告诉你这是不可能的，一切都需要付出和努力…… 然而，你错了，这篇文章还真就是一篇“秘籍”，只要你把这些“秘籍” 用起来，你就一定可以超过大多数人。而且，这篇文章只有我这个 “人生导师” 可以写得好。毕竟，我的生命过到了十六进制 2B 的年纪，踏入这个社会已超过 20 年，舍我其谁呢？！</p>
+<p>P.S. 这篇文章借鉴于《<a href="https://coolshell.cn/articles/4758.html" target="_blank" rel="noopener">如何写出无法维护的代码</a>》一文的风格…… 嘿嘿</p>
+<blockquote>
+<h4 id="相关技巧和最佳实践"><a href="#相关技巧和最佳实践" class="headerlink" title="相关技巧和最佳实践"></a>相关技巧和最佳实践</h4></blockquote>
+<p>要超过别人其实还是比较简单的，尤其在今天的中国，更是简单。因为，你只看看中国的互联网，你就会发现，他们基本上全部都是在消费大众，让大众变得更为地愚蠢和傻瓜。<strong>所以，在今天的中国，你基本上不用做什么，只需要不使用中国互联网，你就很自然地超过大多数人了</strong>。当然，如果你还想跟他们彻底拉开，甩他们几个身位，把别人打到底层，下面的这些 “技巧” 你要多多了解一下。</p>
+<p>在信息获取上，你要不断地向大众鼓吹下面的这些事：</p>
+<ul>
+<li><p>让大家都用百度搜索引擎查找信息，订阅微信公众号或是到知乎上学习知识…… 要做到这一步，你就需要把 “百度一下” 挂在嘴边，然后要经常在群或朋友圈中转发微信公众号的文章，并且转发知乎里的各种 “如何看待……” 这样的文章，让他们爱上八卦，爱上转发，爱上碎片。</p>
+</li>
+<li><p>让大家到微博或是知识星球上粉一些大咖，密切关注他们的言论和动向…… 是的，告诉大家，大咖的任何想法一言一行都可以在微博、朋友圈或是知识星球上获得，让大家相信，你的成长和大咖的见闻和闲扯非常有关系，你跟牛人在一个圈子里你也会变牛。</p>
+</li>
+<li><p>把今日头条和抖音这样的 APP 推荐给大家…… 你只需要让你有朋友成功地安装这两个 APP，他们就会花大量的时间在上面，而不能自拔，要让他们安装其实还是很容易的，你要不信你就装一个试玩一会看看（嘿嘿嘿）。</p>
+</li>
+<li><p>让大家热爱八卦，八卦并不一定是明星的八卦，还可以是你身边的人，比如，公司的同事，自己的同学，职场见闻，社会热点，争议话题，…… 这些东西总有一些东西会让人心态有很多微妙的变化，甚至花大量的时间去搜索和阅读大量的观点，以及花大量时间与人辩论争论，这个过程会让人上瘾，让人欲罢不能，然而这些事却和自己没有半毛钱关系。你要做的事就是转发其中一些 SB 或是很极端的观点，造成大家的一睦讨论后，就早早离场……</p>
+</li>
+<li><p>利用爱国主义，让大家觉得不用学英文，不要出国，不要翻墙，咱们已经是强国了…… 这点其实还是很容易做到的，因为学习是比较逆人性的，所以，只要你鼓吹那些英文无用论，出国活得更惨，国家和民族都变得很强大，就算自己过得很底层，也有大国人民的感觉。</p>
+</li>
+</ul>
+<p>然后，在知识学习和技能训练上，让他们不得要领并产生幻觉</p>
+<ul>
+<li><p>让他们混淆认识和知识，以为开阔认知就是学习，让他们有学习和成长的幻觉……</p>
+</li>
+<li><p>培养他们要学会使用碎片时间学习。等他们习惯利用碎片时间吃快餐后，他们就会失去精读一本书的耐性……</p>
+</li>
+<li><p>不断地给他们各种各样 “有价值的学习资料”，让他们抓不住重点，成为一个微信公众号或电子书 “收藏家”……</p>
+</li>
+<li><p>让他们看一些枯燥无味的基础知识和硬核知识，这样让他们只会用 “死记硬背” 的方式来学习，甚至直接让他们失去信心，直接放弃……</p>
+</li>
+<li><p>玩具手枪是易用的，重武器是难以操控的，多给他们一些玩具，这样他们就会对玩具玩地得心应手，觉得玩玩具就是自己的专业……</p>
+</li>
+<li><p>让他们喜欢直接得到答案的工作和学习方式，成为一个伸手党，从此学习再也不思考……</p>
+</li>
+<li><p>告诉他们东西做出来就好了，不要追求做漂亮，做优雅，这样他们就会慢慢地变成劳动密集型……</p>
+</li>
+<li><p>让他们觉得自己已经很努力了，剩下的就是运气，并说服他们去‘及时行乐’，然后再也找不到高阶和高效率学习的感觉……</p>
+</li>
+<li><p>让他们觉得 “读完书”、“读过书” 就行了，不需要对书中的东西进行思考，进行总结，或是实践，只要囫囵吞枣尽快读完就等同于学好了……</p>
+</li>
+</ul>
+<p>最后，在认知和格局上，彻底打垮他们，让他们变成韭菜。</p>
+<ul>
+<li><p>让他们不要看到大的形势，只看到眼前的一亩三分地，做好一个井底之蛙。其实这很简单，比如，你不要让他们看到整个计算机互联网技术改变人类社会的趋势，你要多让他看到，从事这一行业的人有多苦逼，然后再说一下其它行业或职业有多好……</p>
+</li>
+<li><p>宣扬一夜暴富以及快速挣钱的案例，最好让他们进入 “赌博类” 或是 “传销类” 的地方，比如：股市、数字货币…… 要让他们相信各种财富神话，相信他们就是那个幸运儿，他们也可以成为巴菲特，可以成为马云……</p>
+</li>
+<li><p>告诉他们，一些看上去很难的事都是有捷径的，比如：21 天就能学会机器学习，用区块链就能颠覆以及重构整个世界等等……</p>
+</li>
+<li><p>多跟他们讲一些小人物的励志的故事，这样让他们相信，不需要学习高级知识，不需要掌握高级技能，只需要用低等的知识和低级的技能，再加上持续不断拼命重复现有的工作，终有一天就会成功……</p>
+</li>
+<li><p>多让他们跟别人比较，人比人不会气死人，但是会让人变得浮躁，变得心急，变得焦虑，当一个人没有办法控制自己的情绪，没有办法让自己静下心来，人会失去耐性和坚持，开始好大喜欢功，开始装逼，开始歪门邪道剑走偏锋……</p>
+</li>
+<li><p>让他们到体制内的一些非常稳定的地方工作，这样他们拥有不思进取、怕承担责任、害怕犯错、喜欢偷懒、得过且过的素质……</p>
+</li>
+<li><p>让他们到体制外的那些喜欢拼命喜欢加班的地方工作，告诉他们爱拼才会赢，努力加班是一种福报，青春就是用来拼的，让他们喜欢上使蛮力的感觉……</p>
+</li>
+<li><p>告诉他们你的行业太累太辛苦，干不到 30 岁。让他们早点转行，不要耽误人生和青春……</p>
+</li>
+<li><p>当他们要做决定的时候，一定要让他们更多的关注自己会失去的东西，而不是会得到的东西。培养他们患得患失心态，让他们认识不到事物真正的价值，失去判断能力……（比如：让他们觉得跟对人拍领导的马屁忠于公司比自我的成长更有价值）</p>
+</li>
+<li><p>告诉他们，你现有的技能和知识不用更新，就能过好一辈子，新出来的东西没有生命力的…… 这样他们就会像我们再也不学习的父辈一样很快就会被时代所抛弃……</p>
+</li>
+<li><p>每个人都喜欢在一些自己做不到的事上找理由，这种能力不教就会，比如，事情太多没有时间，因为工作上没有用到，等等，你要做的就是帮他们为他们做不到的事找各种非常合理的理由，比如：没事的，一切都是最好的安排；你得不到的那个事没什么意思；你没有面好主要原因是那个面试官问的问题都是可以上网查得到的知识，而不没有问到你真正的能力上；这些东西学了不用很快会忘了，等有了环境再学也不迟……</p>
+</li>
+</ul>
+<p><strong>最后友情提示一下，上述的这些 “最佳实践” 你要小心，是所谓，贩毒的人从来不吸毒，开赌场的人从来不赌博！所以，你要小心别自己也掉进去了！这就是 “欲练神功，必先自宫” 的道理。</strong></p>
+<blockquote>
+<h4 id="相关原理和思维模型"><a href="#相关原理和思维模型" class="headerlink" title="相关原理和思维模型"></a>相关原理和思维模型</h4></blockquote>
+<p>对于上面的这些技巧还有很多很多，你自己也可以发明或是找到很多。所以，我来讲讲这其中的一些原理。</p>
+<p>一般来说，超过别人一般来说就是两个维度：</p>
+<ul>
+<li><p><strong>在认知、知识和技能上。</strong> 这是一个人赖以立足社会的能力（参看《<a href="https://coolshell.cn/articles/4235.html" target="_blank" rel="noopener">程序员的荒谬之言还是至理名言？</a>》和《<a href="https://coolshell.cn/articles/2250.html" target="_blank" rel="noopener">21 天教你学会 C++</a>》）</p>
+</li>
+<li><p><strong>在领导力上。</strong> 所谓领导力就是你跑在别人前面，你得要有比别人更好的能力更高的标准（参看《<a href="https://coolshell.cn/articles/17583.html" target="_blank" rel="noopener">技术人员发展之路</a>》）</p>
+</li>
+</ul>
+<p>首先，我们要明白，人的技能是从认识开始，然后通过学校、培训或是书本把 “零碎的认知” 转换成“系统的知识”，而有要把知识转换成技能，就需要训练和实践，这样才能完成从：认识 -&gt; 知识 -&gt; 技能 的转换。这个转换过程是需要耗费很多时间和精力的，而且其中还需要有强大的学习能力和动手能力，这条路径上有很多的“关卡”，每道关卡都会过滤掉一大部分人。比如：对于一些比较枯燥的硬核知识来说，90% 的人基本上就倒下来，不是因为他们没有智商，而是他们没有耐心。</p>
+<blockquote>
+<h4 id="认知"><a href="#认知" class="headerlink" title="认知"></a>认知</h4></blockquote>
+<p>要在认知上超过别人，就要在下面几个方面上做足功夫：</p>
+<p>1）<strong>信息渠道。</strong> 试想如果别人的信息源没有你的好，那么，这些看不见信息源的人，只能接触得到二手信息甚至三手信息，只能获得被别人解读过的信息，这些信息被三传两递后必定会有错误和失真，甚至会被传递信息的中间人 hack 其中的信息（也就是 “中间人攻击”），而这些找不出信息源的人，只能 “被人喂养”，于是，他们最终会被困在信息的底层，永世不得翻身。（比如：学习 C 语言，放着原作者 K&amp;R 的不用，硬要用错误百出谭浩强的书，能有什么好呢？）</p>
+<p>2）<strong>信息质量。</strong> 信息质量主要表现在两个方面，一个是信息中的燥音，另一个是信息中的质量等级，我们都知道，在大数据处理中有一句名言，叫 garbage in garbage out，你天天看的都是垃圾，你的思想和认识也只有垃圾。所以，如果你的信息质量并不好的话，你的认知也不会好，而且你还要花大量的时间来进行有价值信息的挖掘和处理。</p>
+<p>3）<strong>信息密度。</strong> 优质的信息，密度一般都很大，因为这种信息会逼着你去干这么几件事，a）搜索并学习其关联的知识，b）沉思和反省，c）亲手去推理、验证和实践…… 一般来说，经验性的文章会比知识性的文章会更有这样的功效。比如，类似于像 Effiective C++/Java，设计模式，Unix 编程艺术，算法导论等等这样的书就是属于这种密度很大的书，而像 Netflix 的官方 blog 和 AWS CTO 的 blog 等等地方也会经常有一些这样的文章。</p>
+<blockquote>
+<h4 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h4></blockquote>
+<p>要在知识上超过别人，你就需要在下面几个方面上做足功夫：</p>
+<p>1）<strong>知识树（图）。</strong> 任何知识，只在点上学习不够的，需要在面上学习，这叫系统地学习，这需要我们去总结并归纳知识树或知识图，一个知识面会有多个知识板块组成，一个板块又有各种知识点，一个知识点会导出另外的知识点，各种知识点又会交叉和依赖起来，学习就是要系统地学习整个知识树（图）。而我们都知道，<strong>对于一棵树来说，“根基” 是非常重要的，所以，学好基础知识也是非常重要的，对于一个陌生的地方，有一份地图是非常重要的，没有地图的你只会乱窜，只会迷路、练路、走冤枉路！</strong></p>
+<p>2）<strong>知识缘由。</strong> 任何知识都是有缘由的，了解一个知识的来龙去脉和前世今生，会让你对这个知识有非常强的掌握，而不再只是靠记忆去学习。靠记忆去学习是一件非常糟糕的事。而对于一些操作性的知识（不需要了解由来的），我把其叫操作知识，就像一些函数库一样，这样的知识只要学会查文档就好了。<strong>能够知其然，知其所以然的人自然会比识知识到表皮的人段位要高很多。</strong></p>
+<p>3）<strong>方法套路。</strong> 学习不是为了找到答案，而是找到方法。就像数学一样，你学的是方法，是解题思路，是套路，会用方程式解题的和不会用方程式解题的在解题效率上不可比较，而在微积分面前，其它的解题方法都变成了渣渣。你可以看到，掌握高级方法的人比别人的优势有多大，学习的目的就是为了掌握更为高级的方法和解题思路。</p>
+<blockquote>
+<h4 id="技能"><a href="#技能" class="headerlink" title="技能"></a>技能</h4></blockquote>
+<p>要在技能上超过别人，你就需要在下面几个方面做足功夫：</p>
+<p>1）<strong>精益求精。</strong> 如果你想拥有专业的技能，你要做不仅仅是拼命地重复一遍又一遍的训练，而是在每一次重复训练时你都要找到更好的方法，总结经验，让新的一遍能够更好，更漂亮，更有效率，否则，用相同的方法重复，那你只不过在搬砖罢了。</p>
+<p>2）<strong>让自己犯错。</strong> 犯错是有利于成长的，这是因为出错会让人反思，反思更好的方法，反思更完美的方案，总结教训，寻求更好更完美的过程，是技能升级的最好的方式。尤其是当你在出错后，被人鄙视，被人嘲笑后，你会有更大的动力提升自己，这样的动力才是进步的源动力。当然，千万不要同一个错误重复地犯！</p>
+<p>3）<strong>找高手切磋。</strong> 下过棋，打个球的人都知道，你要想提升自己的技艺，你必需找高手切磋，在和高手切磋的过程中你会感受到高手的技能和方法，有时候你会情不自禁地哇地一下，我靠，还可以这么玩！</p>
+<blockquote>
+<h4 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h4></blockquote>
+<p>最后一个是领导力，要有领导力或是影响力这个事并不容易，这跟你的野心有多大，好胜心有多强 ，你愿意付出多少很有关系，因为一个人的领导力跟他的标准很有关系，因为有领导力的人的标准比绝大多数人都要高。</p>
+<p>1）<strong>识别自己的特长和天赋。</strong> 首先，每个人 DNA 都可能或多或少都会有一些比大多数人 NB 的东西（当然，也可能没有），如果你有了，那么在你过去的人生中就一定会表现出来了，就是那种大家遇到这个事会来请教你的寻求你帮助的现象。那种，别人要非常努力，而且毫不费劲的事。一旦你有了这样的特长或天赋，那你就要大力地扩大你的领先优势，千万不要进到那些会限制你优势的地方。你是一条鱼，你就一定要把别人拉到水里来玩，绝对不要去陆地上跟别人拼，不断地在自己的特长和天赋上扩大自己的领先优势，彻底一骑绝尘。</p>
+<p>2）<strong>识别自己的兴趣和事业。</strong> 没有天赋也没有问题，还有兴趣点，都说兴趣是最好的老师，当年，Linus 就是在学校里对 minx 着迷了，于是整出个 Linux 来，这就是兴趣驱动出的东西，一般来说，兴趣驱动的事总是会比那些被动驱动的更好。但是，这里我想说明一下什么叫 “真∙兴趣”，真正的兴趣不是那种三天热度的东西，而是那种，你愿意为之付出一辈子的事，是那种无论有多大困难有多难受你都要死磕的事，这才是“真∙兴趣”，这也就是你的“野心” 和“好胜心”所在，其实上升到了你的事业。相信我，绝大多数人只有职业而没有事业的。</p>
+<p>3）<strong>建立高级的习惯和方法。</strong> 没有天赋没有野心，也还是可以跟别人拼习惯拼方法的，只要你有一些比较好的习惯和方法，那么你一样可以超过大多数人。对此，在习惯上你要做到比较大多数人更自律，更有计划性，更有目标性，比如，每年学习一门新的语言或技术，并可以参与相关的顶级开源项目，每个月训练一个类算法，掌握一种算法，每周阅读一篇英文论文，并把阅读笔记整理出来…… 自律的是非常可怕的。除此之外，你还需要在方法上超过别人，你需要满世界的找各种高级的方法，其中包括，思考的方法，学习的方法、时间管理的方法、沟通的方法这类软实力的，还有，解决问题的方法（trouble shooting 和 problem solving），设计的方法，工程的方法，代码的方法等等硬实力的，一开始照猫画虎，时间长了就可能会自己发明或推导新的方法。</p>
+<p>4）<strong>勤奋努力执着坚持。</strong> 如果上面三件事你都没有也没有能力，那还有最后一件事了，那就是勤奋努力了，就是所谓的 “一万小时定律” 了（参看《21 天教你学会 C++》中的十年学编程一节），我见过很多不聪明的人，悟性也不够（比如我就是一个），别人学一个东西，一个月就好了，而我需要 1 年甚至更长，但是很多东西都是死的，只要肯花时间就有一天你会搞懂的，耐不住我坚持十年二十年，聪明的人发明个飞机飞过去了，笨一点的人愚公移山也过得去，因为更多的人是懒人，我不用拼过聪明人，我只用拼过那些懒人就好了。</p>
+<p>好了，就这么多，如果哪天你变得消极和不自信，你要来读读我的这篇文章，子曰：温故而知新。</p>
+<p>（全文完）</p>
+<blockquote>
+<p>本文转自：<a href="https://coolshell.cn/" target="_blank" rel="noopener">CoolShell</a> 的<a href="https://coolshell.cn/articles/19464.html/comment-page-1#comments" target="_blank" rel="noopener">《如何超过大多数人》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>超过</tag>
       </tags>
   </entry>
   <entry>
@@ -3020,124 +3138,6 @@
       </tags>
   </entry>
   <entry>
-    <title>如何超过大多数人</title>
-    <url>/2019/07/22/%E5%A6%82%E4%BD%95%E8%B6%85%E8%BF%87%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%BA%BA/</url>
-    <content><![CDATA[<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/如何超过大多数人/1-2023-03-06-09-50-46.png" alt="1-2023-03-06-09-50-46"><br><a id="more"></a></p>
-<p>当你看到这篇文章的标题，你一定对这篇文章产生了巨大的5兴趣，因为你的潜意识在告诉你，这是一本人生的 “武林秘籍”，而且还是左耳朵写的，一定有干货满满，只要读完，一定可以练就神功并找到超过大多数人的快车道和捷径…… 然而…… 当你看到我这样开篇时，你一定会觉得我马上就要有个转折，告诉你这是不可能的，一切都需要付出和努力…… 然而，你错了，这篇文章还真就是一篇“秘籍”，只要你把这些“秘籍” 用起来，你就一定可以超过大多数人。而且，这篇文章只有我这个 “人生导师” 可以写得好。毕竟，我的生命过到了十六进制 2B 的年纪，踏入这个社会已超过 20 年，舍我其谁呢？！</p>
-<p>P.S. 这篇文章借鉴于《<a href="https://coolshell.cn/articles/4758.html" target="_blank" rel="noopener">如何写出无法维护的代码</a>》一文的风格…… 嘿嘿</p>
-<blockquote>
-<h4 id="相关技巧和最佳实践"><a href="#相关技巧和最佳实践" class="headerlink" title="相关技巧和最佳实践"></a>相关技巧和最佳实践</h4></blockquote>
-<p>要超过别人其实还是比较简单的，尤其在今天的中国，更是简单。因为，你只看看中国的互联网，你就会发现，他们基本上全部都是在消费大众，让大众变得更为地愚蠢和傻瓜。<strong>所以，在今天的中国，你基本上不用做什么，只需要不使用中国互联网，你就很自然地超过大多数人了</strong>。当然，如果你还想跟他们彻底拉开，甩他们几个身位，把别人打到底层，下面的这些 “技巧” 你要多多了解一下。</p>
-<p>在信息获取上，你要不断地向大众鼓吹下面的这些事：</p>
-<ul>
-<li><p>让大家都用百度搜索引擎查找信息，订阅微信公众号或是到知乎上学习知识…… 要做到这一步，你就需要把 “百度一下” 挂在嘴边，然后要经常在群或朋友圈中转发微信公众号的文章，并且转发知乎里的各种 “如何看待……” 这样的文章，让他们爱上八卦，爱上转发，爱上碎片。</p>
-</li>
-<li><p>让大家到微博或是知识星球上粉一些大咖，密切关注他们的言论和动向…… 是的，告诉大家，大咖的任何想法一言一行都可以在微博、朋友圈或是知识星球上获得，让大家相信，你的成长和大咖的见闻和闲扯非常有关系，你跟牛人在一个圈子里你也会变牛。</p>
-</li>
-<li><p>把今日头条和抖音这样的 APP 推荐给大家…… 你只需要让你有朋友成功地安装这两个 APP，他们就会花大量的时间在上面，而不能自拔，要让他们安装其实还是很容易的，你要不信你就装一个试玩一会看看（嘿嘿嘿）。</p>
-</li>
-<li><p>让大家热爱八卦，八卦并不一定是明星的八卦，还可以是你身边的人，比如，公司的同事，自己的同学，职场见闻，社会热点，争议话题，…… 这些东西总有一些东西会让人心态有很多微妙的变化，甚至花大量的时间去搜索和阅读大量的观点，以及花大量时间与人辩论争论，这个过程会让人上瘾，让人欲罢不能，然而这些事却和自己没有半毛钱关系。你要做的事就是转发其中一些 SB 或是很极端的观点，造成大家的一睦讨论后，就早早离场……</p>
-</li>
-<li><p>利用爱国主义，让大家觉得不用学英文，不要出国，不要翻墙，咱们已经是强国了…… 这点其实还是很容易做到的，因为学习是比较逆人性的，所以，只要你鼓吹那些英文无用论，出国活得更惨，国家和民族都变得很强大，就算自己过得很底层，也有大国人民的感觉。</p>
-</li>
-</ul>
-<p>然后，在知识学习和技能训练上，让他们不得要领并产生幻觉</p>
-<ul>
-<li><p>让他们混淆认识和知识，以为开阔认知就是学习，让他们有学习和成长的幻觉……</p>
-</li>
-<li><p>培养他们要学会使用碎片时间学习。等他们习惯利用碎片时间吃快餐后，他们就会失去精读一本书的耐性……</p>
-</li>
-<li><p>不断地给他们各种各样 “有价值的学习资料”，让他们抓不住重点，成为一个微信公众号或电子书 “收藏家”……</p>
-</li>
-<li><p>让他们看一些枯燥无味的基础知识和硬核知识，这样让他们只会用 “死记硬背” 的方式来学习，甚至直接让他们失去信心，直接放弃……</p>
-</li>
-<li><p>玩具手枪是易用的，重武器是难以操控的，多给他们一些玩具，这样他们就会对玩具玩地得心应手，觉得玩玩具就是自己的专业……</p>
-</li>
-<li><p>让他们喜欢直接得到答案的工作和学习方式，成为一个伸手党，从此学习再也不思考……</p>
-</li>
-<li><p>告诉他们东西做出来就好了，不要追求做漂亮，做优雅，这样他们就会慢慢地变成劳动密集型……</p>
-</li>
-<li><p>让他们觉得自己已经很努力了，剩下的就是运气，并说服他们去‘及时行乐’，然后再也找不到高阶和高效率学习的感觉……</p>
-</li>
-<li><p>让他们觉得 “读完书”、“读过书” 就行了，不需要对书中的东西进行思考，进行总结，或是实践，只要囫囵吞枣尽快读完就等同于学好了……</p>
-</li>
-</ul>
-<p>最后，在认知和格局上，彻底打垮他们，让他们变成韭菜。</p>
-<ul>
-<li><p>让他们不要看到大的形势，只看到眼前的一亩三分地，做好一个井底之蛙。其实这很简单，比如，你不要让他们看到整个计算机互联网技术改变人类社会的趋势，你要多让他看到，从事这一行业的人有多苦逼，然后再说一下其它行业或职业有多好……</p>
-</li>
-<li><p>宣扬一夜暴富以及快速挣钱的案例，最好让他们进入 “赌博类” 或是 “传销类” 的地方，比如：股市、数字货币…… 要让他们相信各种财富神话，相信他们就是那个幸运儿，他们也可以成为巴菲特，可以成为马云……</p>
-</li>
-<li><p>告诉他们，一些看上去很难的事都是有捷径的，比如：21 天就能学会机器学习，用区块链就能颠覆以及重构整个世界等等……</p>
-</li>
-<li><p>多跟他们讲一些小人物的励志的故事，这样让他们相信，不需要学习高级知识，不需要掌握高级技能，只需要用低等的知识和低级的技能，再加上持续不断拼命重复现有的工作，终有一天就会成功……</p>
-</li>
-<li><p>多让他们跟别人比较，人比人不会气死人，但是会让人变得浮躁，变得心急，变得焦虑，当一个人没有办法控制自己的情绪，没有办法让自己静下心来，人会失去耐性和坚持，开始好大喜欢功，开始装逼，开始歪门邪道剑走偏锋……</p>
-</li>
-<li><p>让他们到体制内的一些非常稳定的地方工作，这样他们拥有不思进取、怕承担责任、害怕犯错、喜欢偷懒、得过且过的素质……</p>
-</li>
-<li><p>让他们到体制外的那些喜欢拼命喜欢加班的地方工作，告诉他们爱拼才会赢，努力加班是一种福报，青春就是用来拼的，让他们喜欢上使蛮力的感觉……</p>
-</li>
-<li><p>告诉他们你的行业太累太辛苦，干不到 30 岁。让他们早点转行，不要耽误人生和青春……</p>
-</li>
-<li><p>当他们要做决定的时候，一定要让他们更多的关注自己会失去的东西，而不是会得到的东西。培养他们患得患失心态，让他们认识不到事物真正的价值，失去判断能力……（比如：让他们觉得跟对人拍领导的马屁忠于公司比自我的成长更有价值）</p>
-</li>
-<li><p>告诉他们，你现有的技能和知识不用更新，就能过好一辈子，新出来的东西没有生命力的…… 这样他们就会像我们再也不学习的父辈一样很快就会被时代所抛弃……</p>
-</li>
-<li><p>每个人都喜欢在一些自己做不到的事上找理由，这种能力不教就会，比如，事情太多没有时间，因为工作上没有用到，等等，你要做的就是帮他们为他们做不到的事找各种非常合理的理由，比如：没事的，一切都是最好的安排；你得不到的那个事没什么意思；你没有面好主要原因是那个面试官问的问题都是可以上网查得到的知识，而不没有问到你真正的能力上；这些东西学了不用很快会忘了，等有了环境再学也不迟……</p>
-</li>
-</ul>
-<p><strong>最后友情提示一下，上述的这些 “最佳实践” 你要小心，是所谓，贩毒的人从来不吸毒，开赌场的人从来不赌博！所以，你要小心别自己也掉进去了！这就是 “欲练神功，必先自宫” 的道理。</strong></p>
-<blockquote>
-<h4 id="相关原理和思维模型"><a href="#相关原理和思维模型" class="headerlink" title="相关原理和思维模型"></a>相关原理和思维模型</h4></blockquote>
-<p>对于上面的这些技巧还有很多很多，你自己也可以发明或是找到很多。所以，我来讲讲这其中的一些原理。</p>
-<p>一般来说，超过别人一般来说就是两个维度：</p>
-<ul>
-<li><p><strong>在认知、知识和技能上。</strong> 这是一个人赖以立足社会的能力（参看《<a href="https://coolshell.cn/articles/4235.html" target="_blank" rel="noopener">程序员的荒谬之言还是至理名言？</a>》和《<a href="https://coolshell.cn/articles/2250.html" target="_blank" rel="noopener">21 天教你学会 C++</a>》）</p>
-</li>
-<li><p><strong>在领导力上。</strong> 所谓领导力就是你跑在别人前面，你得要有比别人更好的能力更高的标准（参看《<a href="https://coolshell.cn/articles/17583.html" target="_blank" rel="noopener">技术人员发展之路</a>》）</p>
-</li>
-</ul>
-<p>首先，我们要明白，人的技能是从认识开始，然后通过学校、培训或是书本把 “零碎的认知” 转换成“系统的知识”，而有要把知识转换成技能，就需要训练和实践，这样才能完成从：认识 -&gt; 知识 -&gt; 技能 的转换。这个转换过程是需要耗费很多时间和精力的，而且其中还需要有强大的学习能力和动手能力，这条路径上有很多的“关卡”，每道关卡都会过滤掉一大部分人。比如：对于一些比较枯燥的硬核知识来说，90% 的人基本上就倒下来，不是因为他们没有智商，而是他们没有耐心。</p>
-<blockquote>
-<h4 id="认知"><a href="#认知" class="headerlink" title="认知"></a>认知</h4></blockquote>
-<p>要在认知上超过别人，就要在下面几个方面上做足功夫：</p>
-<p>1）<strong>信息渠道。</strong> 试想如果别人的信息源没有你的好，那么，这些看不见信息源的人，只能接触得到二手信息甚至三手信息，只能获得被别人解读过的信息，这些信息被三传两递后必定会有错误和失真，甚至会被传递信息的中间人 hack 其中的信息（也就是 “中间人攻击”），而这些找不出信息源的人，只能 “被人喂养”，于是，他们最终会被困在信息的底层，永世不得翻身。（比如：学习 C 语言，放着原作者 K&amp;R 的不用，硬要用错误百出谭浩强的书，能有什么好呢？）</p>
-<p>2）<strong>信息质量。</strong> 信息质量主要表现在两个方面，一个是信息中的燥音，另一个是信息中的质量等级，我们都知道，在大数据处理中有一句名言，叫 garbage in garbage out，你天天看的都是垃圾，你的思想和认识也只有垃圾。所以，如果你的信息质量并不好的话，你的认知也不会好，而且你还要花大量的时间来进行有价值信息的挖掘和处理。</p>
-<p>3）<strong>信息密度。</strong> 优质的信息，密度一般都很大，因为这种信息会逼着你去干这么几件事，a）搜索并学习其关联的知识，b）沉思和反省，c）亲手去推理、验证和实践…… 一般来说，经验性的文章会比知识性的文章会更有这样的功效。比如，类似于像 Effiective C++/Java，设计模式，Unix 编程艺术，算法导论等等这样的书就是属于这种密度很大的书，而像 Netflix 的官方 blog 和 AWS CTO 的 blog 等等地方也会经常有一些这样的文章。</p>
-<blockquote>
-<h4 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h4></blockquote>
-<p>要在知识上超过别人，你就需要在下面几个方面上做足功夫：</p>
-<p>1）<strong>知识树（图）。</strong> 任何知识，只在点上学习不够的，需要在面上学习，这叫系统地学习，这需要我们去总结并归纳知识树或知识图，一个知识面会有多个知识板块组成，一个板块又有各种知识点，一个知识点会导出另外的知识点，各种知识点又会交叉和依赖起来，学习就是要系统地学习整个知识树（图）。而我们都知道，<strong>对于一棵树来说，“根基” 是非常重要的，所以，学好基础知识也是非常重要的，对于一个陌生的地方，有一份地图是非常重要的，没有地图的你只会乱窜，只会迷路、练路、走冤枉路！</strong></p>
-<p>2）<strong>知识缘由。</strong> 任何知识都是有缘由的，了解一个知识的来龙去脉和前世今生，会让你对这个知识有非常强的掌握，而不再只是靠记忆去学习。靠记忆去学习是一件非常糟糕的事。而对于一些操作性的知识（不需要了解由来的），我把其叫操作知识，就像一些函数库一样，这样的知识只要学会查文档就好了。<strong>能够知其然，知其所以然的人自然会比识知识到表皮的人段位要高很多。</strong></p>
-<p>3）<strong>方法套路。</strong> 学习不是为了找到答案，而是找到方法。就像数学一样，你学的是方法，是解题思路，是套路，会用方程式解题的和不会用方程式解题的在解题效率上不可比较，而在微积分面前，其它的解题方法都变成了渣渣。你可以看到，掌握高级方法的人比别人的优势有多大，学习的目的就是为了掌握更为高级的方法和解题思路。</p>
-<blockquote>
-<h4 id="技能"><a href="#技能" class="headerlink" title="技能"></a>技能</h4></blockquote>
-<p>要在技能上超过别人，你就需要在下面几个方面做足功夫：</p>
-<p>1）<strong>精益求精。</strong> 如果你想拥有专业的技能，你要做不仅仅是拼命地重复一遍又一遍的训练，而是在每一次重复训练时你都要找到更好的方法，总结经验，让新的一遍能够更好，更漂亮，更有效率，否则，用相同的方法重复，那你只不过在搬砖罢了。</p>
-<p>2）<strong>让自己犯错。</strong> 犯错是有利于成长的，这是因为出错会让人反思，反思更好的方法，反思更完美的方案，总结教训，寻求更好更完美的过程，是技能升级的最好的方式。尤其是当你在出错后，被人鄙视，被人嘲笑后，你会有更大的动力提升自己，这样的动力才是进步的源动力。当然，千万不要同一个错误重复地犯！</p>
-<p>3）<strong>找高手切磋。</strong> 下过棋，打个球的人都知道，你要想提升自己的技艺，你必需找高手切磋，在和高手切磋的过程中你会感受到高手的技能和方法，有时候你会情不自禁地哇地一下，我靠，还可以这么玩！</p>
-<blockquote>
-<h4 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h4></blockquote>
-<p>最后一个是领导力，要有领导力或是影响力这个事并不容易，这跟你的野心有多大，好胜心有多强 ，你愿意付出多少很有关系，因为一个人的领导力跟他的标准很有关系，因为有领导力的人的标准比绝大多数人都要高。</p>
-<p>1）<strong>识别自己的特长和天赋。</strong> 首先，每个人 DNA 都可能或多或少都会有一些比大多数人 NB 的东西（当然，也可能没有），如果你有了，那么在你过去的人生中就一定会表现出来了，就是那种大家遇到这个事会来请教你的寻求你帮助的现象。那种，别人要非常努力，而且毫不费劲的事。一旦你有了这样的特长或天赋，那你就要大力地扩大你的领先优势，千万不要进到那些会限制你优势的地方。你是一条鱼，你就一定要把别人拉到水里来玩，绝对不要去陆地上跟别人拼，不断地在自己的特长和天赋上扩大自己的领先优势，彻底一骑绝尘。</p>
-<p>2）<strong>识别自己的兴趣和事业。</strong> 没有天赋也没有问题，还有兴趣点，都说兴趣是最好的老师，当年，Linus 就是在学校里对 minx 着迷了，于是整出个 Linux 来，这就是兴趣驱动出的东西，一般来说，兴趣驱动的事总是会比那些被动驱动的更好。但是，这里我想说明一下什么叫 “真∙兴趣”，真正的兴趣不是那种三天热度的东西，而是那种，你愿意为之付出一辈子的事，是那种无论有多大困难有多难受你都要死磕的事，这才是“真∙兴趣”，这也就是你的“野心” 和“好胜心”所在，其实上升到了你的事业。相信我，绝大多数人只有职业而没有事业的。</p>
-<p>3）<strong>建立高级的习惯和方法。</strong> 没有天赋没有野心，也还是可以跟别人拼习惯拼方法的，只要你有一些比较好的习惯和方法，那么你一样可以超过大多数人。对此，在习惯上你要做到比较大多数人更自律，更有计划性，更有目标性，比如，每年学习一门新的语言或技术，并可以参与相关的顶级开源项目，每个月训练一个类算法，掌握一种算法，每周阅读一篇英文论文，并把阅读笔记整理出来…… 自律的是非常可怕的。除此之外，你还需要在方法上超过别人，你需要满世界的找各种高级的方法，其中包括，思考的方法，学习的方法、时间管理的方法、沟通的方法这类软实力的，还有，解决问题的方法（trouble shooting 和 problem solving），设计的方法，工程的方法，代码的方法等等硬实力的，一开始照猫画虎，时间长了就可能会自己发明或推导新的方法。</p>
-<p>4）<strong>勤奋努力执着坚持。</strong> 如果上面三件事你都没有也没有能力，那还有最后一件事了，那就是勤奋努力了，就是所谓的 “一万小时定律” 了（参看《21 天教你学会 C++》中的十年学编程一节），我见过很多不聪明的人，悟性也不够（比如我就是一个），别人学一个东西，一个月就好了，而我需要 1 年甚至更长，但是很多东西都是死的，只要肯花时间就有一天你会搞懂的，耐不住我坚持十年二十年，聪明的人发明个飞机飞过去了，笨一点的人愚公移山也过得去，因为更多的人是懒人，我不用拼过聪明人，我只用拼过那些懒人就好了。</p>
-<p>好了，就这么多，如果哪天你变得消极和不自信，你要来读读我的这篇文章，子曰：温故而知新。</p>
-<p>（全文完）</p>
-<blockquote>
-<p>本文转自：<a href="https://coolshell.cn/" target="_blank" rel="noopener">CoolShell</a> 的<a href="https://coolshell.cn/articles/19464.html/comment-page-1#comments" target="_blank" rel="noopener">《如何超过大多数人》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>超过</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>设置mac自带的vim语法高亮</title>
     <url>/2018/06/15/%E8%AE%BE%E7%BD%AEmac%E8%87%AA%E5%B8%A6%E7%9A%84vim%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE/</url>
     <content><![CDATA[<h4 id="最终效果图大概是这个样子"><a href="#最终效果图大概是这个样子" class="headerlink" title="最终效果图大概是这个样子"></a>最终效果图大概是这个样子</h4><p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/设置mac自带的vim语法高亮/15-2023-03-06-09-42-13.png" alt="15-2023-03-06-09-42-13"></p>
@@ -3160,406 +3160,6 @@
       </categories>
       <tags>
         <tag>vim</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java8中的StreamsAPI详解</title>
-    <url>/2018/09/30/Java8%E4%B8%AD%E7%9A%84StreamsAPI%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<h1 id="Java-8-中的-Streams-API-详解"><a href="#Java-8-中的-Streams-API-详解" class="headerlink" title="Java 8 中的 Streams API 详解"></a>Java 8 中的 Streams API 详解</h1><h2 id="为什么需要-Stream"><a href="#为什么需要-Stream" class="headerlink" title="为什么需要 Stream"></a>为什么需要 Stream</h2><p>Stream 作为 Java 8 的一大亮点，它与 java.io 包里的 InputStream 和 OutputStream 是完全不同的概念。它也不同于 StAX 对 XML 解析的 Stream，也不是 Amazon Kinesis 对大数据实时处理的 Stream。Java 8 中的 Stream 是对集合（Collection）对象功能的增强，它专注于对集合对象进行各种非常便利、高效的聚合操作（aggregate operation），或者大批量数据操作 (bulk data     operation)。</p>
-<a id="more"></a>
-<p>Stream API 借助于同样新出现的 Lambda 表达式，极大的提高编程效率和程序可读性。同时它提供串行和并行两种模式进行汇聚操作，并发模式能够充分利用多核处理器的优势，使用 fork/join 并行方式来拆分任务和加速处理过程。通常编写并行代码很难而且容易出错, 但使用 Stream API 无需编写一行多线程的代码，就可以很方便地写出高性能的并发程序。</p>
-<p>所以说，Java 8 中首次出现的 java.util.stream 是一个函数式语言+多核时代综合影响的产物。</p>
-<h3 id="什么是聚合操作"><a href="#什么是聚合操作" class="headerlink" title="什么是聚合操作"></a>什么是聚合操作</h3><p>在传统的 J2EE 应用中，Java 代码经常不得不依赖于关系型数据库的聚合操作来完成诸如：  </p>
-<ul>
-<li>客户每月平均消费金额</li>
-<li>最昂贵的在售商品</li>
-<li>本周完成的有效订单（排除了无效的）</li>
-<li>取十个数据样本作为首页推荐  </li>
-</ul>
-<p>这类的操作。</p>
-<p>但在当今这个数据大爆炸的时代，在数据来源多样化、数据海量化的今天，很多时候不得不脱离 RDBMS，或者以底层返回的数据为基础进行更上层的数据统计。而 Java 的集合 API     中，仅仅有极少量的辅助型方法，更多的时候是程序员需要用 Iterator 来遍历集合，完成相关的聚合应用逻辑。这是一种远不够高效、笨拙的方法。在 Java 7 中，如果要发现 type 为     grocery 的所有交易，然后返回以交易值降序排序好的交易 ID 集合，我们需要这样写：</p>
-<p>清单 1. Java 7 的排序、取值实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Transaction&gt; groceryTransactions = <span class="keyword">new</span> Arraylist&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(Transaction t: transactions)&#123;</span><br><span class="line"> <span class="keyword">if</span>(t.getType() == Transaction.GROCERY)&#123;</span><br><span class="line"> groceryTransactions.add(t);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">Collections.sort(groceryTransactions, <span class="keyword">new</span> Comparator()&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Transaction t1, Transaction t2)</span></span>&#123;</span><br><span class="line"> <span class="keyword">return</span> t2.getValue().compareTo(t1.getValue());</span><br><span class="line"> &#125;</span><br><span class="line">&#125;);</span><br><span class="line">List&lt;Integer&gt; transactionIds = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(Transaction t: groceryTransactions)&#123;</span><br><span class="line"> transactionsIds.add(t.getId());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>而在 Java 8 使用 Stream，代码更加简洁易读；而且使用并发模式，程序执行速度更快。</p>
-<p>清单 2. Java 8 的排序、取值实现</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; transactionsIds = transactions.parallelStream().</span><br><span class="line"> filter(t -&gt; t.getType() == Transaction.GROCERY).</span><br><span class="line"> sorted(comparing(Transaction::getValue).reversed()).</span><br><span class="line"> map(Transaction::getId).</span><br><span class="line"> collect(toList());</span><br></pre></td></tr></table></figure>
-<h2 id="Stream-总览"><a href="#Stream-总览" class="headerlink" title="Stream 总览"></a>Stream 总览</h2><h3 id="什么是流"><a href="#什么是流" class="headerlink" title="什么是流"></a>什么是流</h3><p>Stream 不是集合元素，它不是数据结构并不保存数据，它是有关算法和计算的，它更像一个高级版本的 Iterator。原始版本的     Iterator，用户只能显式地一个一个遍历元素并对其执行某些操作；高级版本的 Stream，用户只要给出需要对其包含的元素执行什么操作，比如 “过滤掉长度大于 10     的字符串”、“获取每个字符串的首字母”等，Stream 会隐式地在内部进行遍历，做出相应的数据转换。</p>
-<p>Stream 就如同一个迭代器（Iterator），单向，不可往复，数据只能遍历一次，遍历过一次后即用尽了，就好比流水从面前流过，一去不复返。</p>
-<p>而和迭代器又不同的是，Stream 可以并行化操作，迭代器只能命令式地、串行化操作。顾名思义，当使用串行方式去遍历时，每个 item 读完后再读下一个     item。而使用并行去遍历时，数据会被分成多个段，其中每一个都在不同的线程中处理，然后将结果一起输出。Stream 的并行操作依赖于 Java7 中引入的 Fork/Join     框架（JSR166y）来拆分任务和加速处理过程。Java 的并行 API 演变历程基本如下：</p>
-<p>1 1.0-1.4 中的 java.lang.Thread</p>
-<p>2 5.0 中的 java.util.concurrent</p>
-<p>3 6.0 中的 Phasers 等</p>
-<p>4 7.0 中的 Fork/Join 框架</p>
-<p>5 8.0 中的 Lambda</p>
-<p>Stream 的另外一大特点是，数据源本身可以是无限的。</p>
-<h3 id="流的构成"><a href="#流的构成" class="headerlink" title="流的构成"></a>流的构成</h3><p>当我们使用一个流的时候，通常包括三个基本步骤：</p>
-<p>获取一个数据源（source）→ 数据转换→执行操作获取想要的结果，每次转换原有 Stream 对象不改变，返回一个新的 Stream     对象（可以有多次转换），这就允许对其操作可以像链条一样排列，变成一个管道，如下图所示。</p>
-<p>图 1. 流管道 (Stream Pipeline) 的构成</p>
-<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Java8中的StreamsAPI详解/1-2023-03-06-10-49-12.png" alt="1-2023-03-06-10-49-12"></p>
-<p>有多种方式生成 Stream Source：</p>
-<ul>
-<li>从 Collection 和数组<ul>
-<li>Collection.stream()</li>
-<li>Collection.parallelStream()</li>
-<li>Arrays.stream(T array) or Stream.of()</li>
-</ul>
-</li>
-<li>从 BufferedReader<ul>
-<li>java.io.BufferedReader.lines()</li>
-</ul>
-</li>
-<li>静态工厂<ul>
-<li>java.util.stream.IntStream.range()</li>
-<li>java.nio.file.Files.walk()</li>
-</ul>
-</li>
-<li>自己构建<ul>
-<li>java.util.Spliterator</li>
-</ul>
-</li>
-<li>其它<ul>
-<li>Random.ints()</li>
-<li>BitSet.stream()</li>
-<li>Pattern.splitAsStream(java.lang.CharSequence)</li>
-<li>JarFile.stream()</li>
-</ul>
-</li>
-</ul>
-<p>流的操作类型分为两种：</p>
-<ul>
-<li><p><strong>Intermediate</strong>：一个流可以后面跟随零个或多个 intermediate      操作。其目的主要是打开流，做出某种程度的数据映射/过滤，然后返回一个新的流，交给下一个操作使用。这类操作都是惰性化的（lazy），就是说，仅仅调用到这类方法，并没有真正开始流的遍历。</p>
-</li>
-<li><p><strong>Terminal</strong>：一个流只能有一个 terminal      操作，当这个操作执行后，流就被使用“光”了，无法再被操作。所以这必定是流的最后一个操作。Terminal 操作的执行，才会真正开始流的遍历，并且会生成一个结果，或者一个 side effect。</p>
-</li>
-</ul>
-<p>在对于一个 Stream 进行多次转换操作 (Intermediate 操作)，每次都对 Stream 的每个元素进行转换，而且是执行多次，这样时间复杂度就是 N（转换次数）个 for 循环里把所有操作都做掉的总和吗？其实不是这样的，转换操作都是 lazy 的，多个转换操作只会在 Terminal 操作的时候融合起来，一次循环完成。我们可以这样简单的理解，Stream 里有个操作函数的集合，每次转换操作就是把转换函数放入这个集合中，在 Terminal 操作的时候循环 Stream 对应的集合，然后对每个元素执行所有的函数。</p>
-<p>还有一种操作被称为 <strong>short-circuiting</strong>。用以指：</p>
-<ul>
-<li><p>对于一个 intermediate 操作，如果它接受的是一个无限大（infinite/unbounded）的 Stream，但返回一个有限的新 Stream。</p>
-</li>
-<li><p>对于一个 terminal 操作，如果它接受的是一个无限大的 Stream，但能在有限的时间计算出结果。</p>
-</li>
-</ul>
-<p>当操作一个无限大的 Stream，而又希望在有限时间内完成操作，则在管道内拥有一个 short-circuiting 操作是必要非充分条件。</p>
-<p>清单 3. 一个流操作的示例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> sum = widgets.stream()</span><br><span class="line">.filter(w -&gt; w.getColor() == RED)</span><br><span class="line"> .mapToInt(w -&gt; w.getWeight())</span><br><span class="line"> .sum();</span><br></pre></td></tr></table></figure>
-<p>stream() 获取当前小物件的 source，filter 和 mapToInt 为 intermediate 操作，进行数据筛选和转换，最后一个 sum() 为 terminal     操作，对符合条件的全部小物件作重量求和。</p>
-<h2 id="流的使用详解"><a href="#流的使用详解" class="headerlink" title="流的使用详解"></a>流的使用详解</h2><p>简单说，对 Stream 的使用就是实现一个 filter-map-reduce 过程，产生一个最终结果，或者导致一个副作用（side effect）。</p>
-<h3 id="流的构造与转换"><a href="#流的构造与转换" class="headerlink" title="流的构造与转换"></a>流的构造与转换</h3><p>下面提供最常见的几种构造 Stream 的样例。</p>
-<p>清单 4. 构造流的几种常见方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. Individual values</span></span><br><span class="line">Stream stream = Stream.of(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>);</span><br><span class="line"><span class="comment">// 2. Arrays</span></span><br><span class="line">String [] strArray = <span class="keyword">new</span> String[] &#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>&#125;;</span><br><span class="line">stream = Stream.of(strArray);</span><br><span class="line">stream = Arrays.stream(strArray);</span><br><span class="line"><span class="comment">// 3. Collections</span></span><br><span class="line">List&lt;String&gt; list = Arrays.asList(strArray);</span><br><span class="line">stream = list.stream();</span><br></pre></td></tr></table></figure>
-<p>需要注意的是，对于基本数值型，目前有三种对应的包装类型 Stream：</p>
-<p>IntStream、LongStream、DoubleStream。当然我们也可以用 Stream&lt;Integer>、Stream&lt;Long>、Stream&lt;Double>，但是 boxing 和 unboxing 会很耗时，所以特别为这三种基本数值型提供了对应的 Stream。</p>
-<p>Java 8 中还没有提供其它数值型 Stream，因为这将导致扩增的内容较多。而常规的数值型聚合运算可以通过上面三种 Stream 进行。</p>
-<p>清单 5. 数值流的构造</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IntStream.of(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;).forEach(System.out::println);</span><br><span class="line">IntStream.range(<span class="number">1</span>, <span class="number">3</span>).forEach(System.out::println);</span><br><span class="line">IntStream.rangeClosed(<span class="number">1</span>, <span class="number">3</span>).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-<p>清单 6. 流转换为其它数据结构</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. Array</span></span><br><span class="line">String[] strArray1 = stream.toArray(String[]::<span class="keyword">new</span>);</span><br><span class="line"><span class="comment">// 2. Collection</span></span><br><span class="line">List&lt;String&gt; list1 = stream.collect(Collectors.toList());</span><br><span class="line">List&lt;String&gt; list2 = stream.collect(Collectors.toCollection(ArrayList::<span class="keyword">new</span>));</span><br><span class="line">Set set1 = stream.collect(Collectors.toSet());</span><br><span class="line">Stack stack1 = stream.collect(Collectors.toCollection(Stack::<span class="keyword">new</span>));</span><br><span class="line"><span class="comment">// 3. String</span></span><br><span class="line">String str = stream.collect(Collectors.joining()).toString();</span><br></pre></td></tr></table></figure>
-<p>一个 Stream 只可以使用一次，上面的代码为了简洁而重复使用了数次。</p>
-<h3 id="流的操作"><a href="#流的操作" class="headerlink" title="流的操作"></a>流的操作</h3><p>接下来，当把一个数据结构包装成 Stream 后，就要开始对里面的元素进行各类操作了。常见的操作可以归类如下。</p>
-<ul>
-<li>Intermediate：</li>
-</ul>
-<p>map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、     sequential、 unordered</p>
-<ul>
-<li>Terminal：</li>
-</ul>
-<p>forEach、 forEachOrdered、 toArray、 reduce、 collect、 min、 max、 count、 anyMatch、     allMatch、 noneMatch、 findFirst、 findAny、 iterator</p>
-<ul>
-<li>Short-circuiting：</li>
-</ul>
-<p>anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 limit</p>
-<p>我们下面看一下 Stream 的比较典型用法。</p>
-<p><strong>map/flatMap</strong>  </p>
-<p>我们先来看 map。如果你熟悉 scala 这类函数式语言，对这个方法应该很了解，它的作用就是把 input Stream 的每一个元素，映射成 output Stream 的另外一个元素。</p>
-<p>清单 7. 转换大写</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; output = wordList.stream().</span><br><span class="line">map(String::toUpperCase).</span><br><span class="line">collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-<p>这段代码把所有的单词转换为大写。</p>
-<p>清单 8. 平方数</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; nums = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">List&lt;Integer&gt; squareNums = nums.stream().</span><br><span class="line">map(n -&gt; n * n).</span><br><span class="line">collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-<p>这段代码生成一个整数 list 的平方数 {1, 4, 9, 16}。</p>
-<p>从上面例子可以看出，map 生成的是个 1:1 映射，每个输入元素，都按照规则转换成为另外一个元素。还有一些场景，是一对多映射关系的，这时需要 flatMap。</p>
-<p>清单 9. 一对多</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Stream&lt;List&lt;Integer&gt;&gt; inputStream = Stream.of(</span><br><span class="line"> Arrays.asList(<span class="number">1</span>),</span><br><span class="line"> Arrays.asList(<span class="number">2</span>, <span class="number">3</span>),</span><br><span class="line"> Arrays.asList(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line"> );</span><br><span class="line">Stream&lt;Integer&gt; outputStream = inputStream.</span><br><span class="line">flatMap((childList) -&gt; childList.stream());</span><br></pre></td></tr></table></figure>
-<p>flatMap 把 input Stream 中的层级结构扁平化，就是将最底层元素抽出来放到一起，最终 output 的新 Stream 里面已经没有 List 了，都是直接的数字。</p>
-<p><strong>filter</strong>  </p>
-<p>filter 对原始 Stream 进行某项测试，通过测试的元素被留下来生成一个新 Stream。</p>
-<p>清单 10. 留下偶数</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Integer[] sixNums = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;;</span><br><span class="line">Integer[] evens =</span><br><span class="line">Stream.of(sixNums).filter(n -&gt; n%<span class="number">2</span> == <span class="number">0</span>).toArray(Integer[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-<p>经过条件“被 2 整除”的 filter，剩下的数字为 {2, 4, 6}。</p>
-<p>清单 11. 把单词挑出来</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; output = reader.lines().</span><br><span class="line"> flatMap(line -&gt; Stream.of(line.split(REGEXP))).</span><br><span class="line"> filter(word -&gt; word.length() &gt; <span class="number">0</span>).</span><br><span class="line"> collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-<p>这段代码首先把每行的单词用 flatMap 整理到新的 Stream，然后保留长度不为 0 的，就是整篇文章中的全部单词了。</p>
-<p><strong>forEach</strong>  </p>
-<p>forEach 方法接收一个 Lambda 表达式，然后在 Stream 的每一个元素上执行该表达式。</p>
-<p>清单 12. 打印姓名（forEach 和 pre-java8 的对比）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Java 8</span></span><br><span class="line">roster.stream()</span><br><span class="line"> .filter(p -&gt; p.getGender() == Person.Sex.MALE)</span><br><span class="line"> .forEach(p -&gt; System.out.println(p.getName()));</span><br><span class="line"><span class="comment">// Pre-Java 8</span></span><br><span class="line"><span class="keyword">for</span> (Person p : roster) &#123;</span><br><span class="line"> <span class="keyword">if</span> (p.getGender() == Person.Sex.MALE) &#123;</span><br><span class="line"> System.out.println(p.getName());</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对一个人员集合遍历，找出男性并打印姓名。可以看出来，forEach 是为 Lambda 而设计的，保持了最紧凑的风格。而且 Lambda     表达式本身是可以重用的，非常方便。当需要为多核系统优化时，可以 parallelStream().forEach()，只是此时原有元素的次序没法保证，并行的情况下将改变串行时操作的行为，此时 forEach 本身的实现不需要调整，而 Java8 以前的 for 循环 code 可能需要加入额外的多线程逻辑。</p>
-<p>但一般认为，forEach 和常规 for 循环的差异不涉及到性能，它们仅仅是函数式风格与传统 Java 风格的差别。</p>
-<p>另外一点需要注意，forEach 是 terminal 操作，因此它执行后，Stream 的元素就被“消费”掉了，你无法对一个 Stream 进行两次 terminal 运算。下面的代码是错误的：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">stream.forEach(element -&gt; doOneThing(element));</span><br><span class="line">stream.forEach(element -&gt; doAnotherThing(element));</span><br></pre></td></tr></table></figure>
-<p>相反，具有相似功能的 intermediate 操作 peek 可以达到上述目的。如下是出现在该 api javadoc 上的一个示例。</p>
-<p>清单 13. peek 对每个元素执行操作并返回一个新的 Stream</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Stream.of(<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>, <span class="string">"four"</span>)</span><br><span class="line"> .filter(e -&gt; e.length() &gt; <span class="number">3</span>)</span><br><span class="line"> .peek(e -&gt; System.out.println(<span class="string">"Filtered value: "</span> + e))</span><br><span class="line"> .map(String::toUpperCase)</span><br><span class="line"> .peek(e -&gt; System.out.println(<span class="string">"Mapped value: "</span> + e))</span><br><span class="line"> .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-<p>forEach 不能修改自己包含的本地变量值，也不能用 break/return 之类的关键字提前结束循环。</p>
-<p><strong>findFirst</strong>  </p>
-<p>这是一个 termimal 兼 short-circuiting 操作，它总是返回 Stream 的第一个元素，或者空。</p>
-<p>这里比较重点的是它的返回值类型：Optional。这也是一个模仿 Scala 语言中的概念，作为一个容器，它可能含有某值，或者不包含。使用它的目的是尽可能避免     NullPointerException。</p>
-<p>清单 14. Optional 的两个用例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String strA = <span class="string">" abcd "</span>, strB = <span class="keyword">null</span>;</span><br><span class="line">print(strA);</span><br><span class="line">print(<span class="string">""</span>);</span><br><span class="line">print(strB);</span><br><span class="line">getLength(strA);</span><br><span class="line">getLength(<span class="string">""</span>);</span><br><span class="line">getLength(strB);</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(String text)</span> </span>&#123;</span><br><span class="line"> <span class="comment">// Java 8</span></span><br><span class="line"> Optional.ofNullable(text).ifPresent(System.out::println);</span><br><span class="line"> <span class="comment">// Pre-Java 8</span></span><br><span class="line"> <span class="keyword">if</span> (text != <span class="keyword">null</span>) &#123;</span><br><span class="line"> System.out.println(text);</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getLength</span><span class="params">(String text)</span> </span>&#123;</span><br><span class="line"> <span class="comment">// Java 8</span></span><br><span class="line"><span class="keyword">return</span> Optional.ofNullable(text).map(String::length).orElse(-<span class="number">1</span>);</span><br><span class="line"> <span class="comment">// Pre-Java 8</span></span><br><span class="line"><span class="comment">// return if (text != null) ? text.length() : -1;</span></span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
-<p>在更复杂的 if (xx != null) 的情况中，使用 Optional 代码的可读性更好，而且它提供的是编译时检查，能极大的降低 NPE 这种 Runtime Exception 对程序的影响，或者迫使程序员更早的在编码阶段处理空值问题，而不是留到运行时再发现和调试。</p>
-<p>Stream 中的 findAny、max/min、reduce 等方法等返回 Optional 值。还有例如 IntStream.average() 返回 OptionalDouble 等等。</p>
-<p><strong>reduce</strong>  </p>
-<p>这个方法的主要作用是把 Stream 元素组合起来。它提供一个起始值（种子），然后依照运算规则（BinaryOperator），和前面 Stream 的第一个、第二个、第 n     个元素组合。从这个意义上说，字符串拼接、数值的 sum、min、max、average 都是特殊的 reduce。例如 Stream 的 sum 就相当于</p>
-<p>Integer sum = integers.reduce(0, (a, b) -&gt; a+b); 或</p>
-<p>Integer sum = integers.reduce(0, Integer::sum);</p>
-<p>也有没有起始值的情况，这时会把 Stream 的前面两个元素组合起来，返回的是 Optional。</p>
-<p>清单 15. reduce 的用例</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串连接，concat = "ABCD"</span></span><br><span class="line">String concat = Stream.of(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>).reduce(<span class="string">""</span>, String::concat); </span><br><span class="line"><span class="comment">// 求最小值，minValue = -3.0</span></span><br><span class="line"><span class="keyword">double</span> minValue = Stream.of(-<span class="number">1.5</span>, <span class="number">1.0</span>, -<span class="number">3.0</span>, -<span class="number">2.0</span>).reduce(Double.MAX_VALUE, Double::min); </span><br><span class="line"><span class="comment">// 求和，sumValue = 10, 有起始值</span></span><br><span class="line"><span class="keyword">int</span> sumValue = Stream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>).reduce(<span class="number">0</span>, Integer::sum);</span><br><span class="line"><span class="comment">// 求和，sumValue = 10, 无起始值</span></span><br><span class="line">sumValue = Stream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>).reduce(Integer::sum).get();</span><br><span class="line"><span class="comment">// 过滤，字符串连接，concat = "ace"</span></span><br><span class="line">concat = Stream.of(<span class="string">"a"</span>, <span class="string">"B"</span>, <span class="string">"c"</span>, <span class="string">"D"</span>, <span class="string">"e"</span>, <span class="string">"F"</span>).</span><br><span class="line"> filter(x -&gt; x.compareTo(<span class="string">"Z"</span>) &gt; <span class="number">0</span>).</span><br><span class="line"> reduce(<span class="string">""</span>, String::concat);</span><br></pre></td></tr></table></figure>
-<p>上面代码例如第一个示例的 reduce()，第一个参数（空白字符）即为起始值，第二个参数（String::concat）为 BinaryOperator。这类有起始值的 reduce()     都返回具体的对象。而对于第四个示例没有起始值的 reduce()，由于可能没有足够的元素，返回的是 Optional，请留意这个区别。</p>
-<p><strong>limit/skip</strong>  </p>
-<p>limit 返回 Stream 的前面 n 个元素；skip 则是扔掉前 n 个元素（它是由一个叫 subStream 的方法改名而来）。</p>
-<p>清单 16. limit 和 skip 对运行次数的影响</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLimitAndSkip</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> List&lt;Person&gt; persons = <span class="keyword">new</span> ArrayList();</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10000</span>; i++) &#123;</span><br><span class="line"> Person person = <span class="keyword">new</span> Person(i, <span class="string">"name"</span> + i);</span><br><span class="line"> persons.add(person);</span><br><span class="line"> &#125;</span><br><span class="line">List&lt;String&gt; personList2 = persons.stream().</span><br><span class="line">map(Person::getName).limit(<span class="number">10</span>).skip(<span class="number">3</span>).collect(Collectors.toList());</span><br><span class="line"> System.out.println(personList2);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">int</span> no;</span><br><span class="line"> <span class="keyword">private</span> String name;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">Person</span> <span class="params">(<span class="keyword">int</span> no, String name)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.no = no;</span><br><span class="line"> <span class="keyword">this</span>.name = name;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> System.out.println(name);</span><br><span class="line"> <span class="keyword">return</span> name;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果为：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">name1</span><br><span class="line">name2</span><br><span class="line">name3</span><br><span class="line">name4</span><br><span class="line">name5</span><br><span class="line">name6</span><br><span class="line">name7</span><br><span class="line">name8</span><br><span class="line">name9</span><br><span class="line">name10</span><br><span class="line">[name4, name5, name6, name7, name8, name9, name10]</span><br></pre></td></tr></table></figure>
-<p>这是一个有 10，000 个元素的 Stream，但在 short-circuiting 操作 limit 和 skip 的作用下，管道中 map 操作指定的 getName()     方法的执行次数为 limit 所限定的 10 次，而最终返回结果在跳过前 3 个元素后只有后面 7 个返回。</p>
-<p>有一种情况是 limit/skip 无法达到 short-circuiting 目的的，就是把它们放在 Stream 的排序操作后，原因跟 sorted 这个 intermediate     操作有关：此时系统并不知道 Stream 排序后的次序如何，所以 sorted 中的操作看上去就像完全没有被 limit 或者 skip 一样。</p>
-<p>清单 17. limit 和 skip 对 sorted 后的运行次数无影响</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Person&gt; persons = <span class="keyword">new</span> ArrayList();</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line"> Person person = <span class="keyword">new</span> Person(i, <span class="string">"name"</span> + i);</span><br><span class="line"> persons.add(person);</span><br><span class="line"> &#125;</span><br><span class="line">List&lt;Person&gt; personList2 = persons.stream().sorted((p1, p2) -&gt; </span><br><span class="line">p1.getName().compareTo(p2.getName())).limit(<span class="number">2</span>).collect(Collectors.toList());</span><br><span class="line">System.out.println(personList2);</span><br></pre></td></tr></table></figure>
-<p>上面的示例对清单 13 做了微调，首先对 5 个元素的 Stream 排序，然后进行 limit 操作。输出结果为：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">name2</span><br><span class="line">name1</span><br><span class="line">name3</span><br><span class="line">name2</span><br><span class="line">name4</span><br><span class="line">name3</span><br><span class="line">name5</span><br><span class="line">name4</span><br><span class="line">[stream.StreamDW$Person@<span class="number">816f</span>27d, stream.StreamDW$Person@<span class="number">87</span>aac27]</span><br></pre></td></tr></table></figure>
-<p>即虽然最后的返回元素数量是 2，但整个管道中的 sorted 表达式执行次数没有像前面例子相应减少。</p>
-<p>最后有一点需要注意的是，对一个 parallel 的 Steam 管道来说，如果其元素是有序的，那么 limit 操作的成本会比较大，因为它的返回对象必须是前 n 个也有一样次序的元素。取而代之的策略是取消元素间的次序，或者不要用 parallel Stream。</p>
-<p><strong>sorted</strong></p>
-<p>对 Stream 的排序通过 sorted 进行，它比数组的排序更强之处在于你可以首先对 Stream 进行各类 map、filter、limit、skip 甚至 distinct     来减少元素数量后，再排序，这能帮助程序明显缩短执行时间。我们对清单 14 进行优化：</p>
-<p>清单 18. 优化：排序前进行 limit 和 skip</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Person&gt; persons = <span class="keyword">new</span> ArrayList();</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line"> Person person = <span class="keyword">new</span> Person(i, <span class="string">"name"</span> + i);</span><br><span class="line"> persons.add(person);</span><br><span class="line"> &#125;</span><br><span class="line">List&lt;Person&gt; personList2 = persons.stream().limit(<span class="number">2</span>).sorted((p1, p2) -&gt; p1.getName().compareTo(p2.getName())).collect(Collectors.toList());</span><br><span class="line">System.out.println(personList2);</span><br></pre></td></tr></table></figure>
-<p>结果会简单很多：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">name2</span><br><span class="line">name1</span><br><span class="line">[stream.StreamDW$Person@<span class="number">6</span>ce253f1, stream.StreamDW$Person@<span class="number">53</span>d8d10a]</span><br></pre></td></tr></table></figure>
-<p>当然，这种优化是有 business logic 上的局限性的：即不要求排序后再取值。</p>
-<p><strong>min/max/distinct</strong></p>
-<p>min 和 max 的功能也可以通过对 Stream 元素先排序，再 findFirst 来实现，但前者的性能会更好，为 O(n)，而 sorted 的成本是 O(n log n)。同时它们作为特殊的 reduce 方法被独立出来也是因为求最大最小值是很常见的操作。</p>
-<p>清单 19. 找出最长一行的长度</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="string">"c:\\SUService.log"</span>));</span><br><span class="line"><span class="keyword">int</span> longest = br.lines().</span><br><span class="line"> mapToInt(String::length).</span><br><span class="line"> max().</span><br><span class="line"> getAsInt();</span><br><span class="line">br.close();</span><br><span class="line">System.out.println(longest);</span><br></pre></td></tr></table></figure>
-<p>下面的例子则使用 distinct 来找出不重复的单词。</p>
-<p>清单 20. 找出全文的单词，转小写，并排序</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; words = br.lines().</span><br><span class="line"> flatMap(line -&gt; Stream.of(line.split(<span class="string">" "</span>))).</span><br><span class="line"> filter(word -&gt; word.length() &gt; <span class="number">0</span>).</span><br><span class="line"> map(String::toLowerCase).</span><br><span class="line"> distinct().</span><br><span class="line"> sorted().</span><br><span class="line"> collect(Collectors.toList());</span><br><span class="line">br.close();</span><br><span class="line">System.out.println(words);</span><br></pre></td></tr></table></figure>
-<p><strong>Match</strong></p>
-<p>Stream 有三个 match 方法，从语义上说：</p>
-<ul>
-<li>allMatch：Stream 中全部元素符合传入的 predicate，返回 true</li>
-<li>anyMatch：Stream 中只要有一个元素符合传入的 predicate，返回 true</li>
-<li>noneMatch：Stream 中没有一个元素符合传入的 predicate，返回 true</li>
-</ul>
-<p>它们都不是要遍历全部元素才能返回结果。例如 allMatch 只要一个元素不满足条件，就 skip 剩下的所有元素，返回 false。对清单 13 中的 Person 类稍做修改，加入一个 age 属性和 getAge 方法。</p>
-<p>清单 21. 使用 Match</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Person&gt; persons = <span class="keyword">new</span> ArrayList();</span><br><span class="line">persons.add(<span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">"name"</span> + <span class="number">1</span>, <span class="number">10</span>));</span><br><span class="line">persons.add(<span class="keyword">new</span> Person(<span class="number">2</span>, <span class="string">"name"</span> + <span class="number">2</span>, <span class="number">21</span>));</span><br><span class="line">persons.add(<span class="keyword">new</span> Person(<span class="number">3</span>, <span class="string">"name"</span> + <span class="number">3</span>, <span class="number">34</span>));</span><br><span class="line">persons.add(<span class="keyword">new</span> Person(<span class="number">4</span>, <span class="string">"name"</span> + <span class="number">4</span>, <span class="number">6</span>));</span><br><span class="line">persons.add(<span class="keyword">new</span> Person(<span class="number">5</span>, <span class="string">"name"</span> + <span class="number">5</span>, <span class="number">55</span>));</span><br><span class="line"><span class="keyword">boolean</span> isAllAdult = persons.stream().</span><br><span class="line"> allMatch(p -&gt; p.getAge() &gt; <span class="number">18</span>);</span><br><span class="line">System.out.println(<span class="string">"All are adult? "</span> + isAllAdult);</span><br><span class="line"><span class="keyword">boolean</span> isThereAnyChild = persons.stream().</span><br><span class="line"> anyMatch(p -&gt; p.getAge() &lt; <span class="number">12</span>);</span><br><span class="line">System.out.println(<span class="string">"Any child? "</span> + isThereAnyChild);</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">All are adult? <span class="keyword">false</span></span><br><span class="line">Any child? <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
-<h3 id="进阶：自己生成流"><a href="#进阶：自己生成流" class="headerlink" title="进阶：自己生成流"></a>进阶：自己生成流</h3><p><strong>Stream.generate</strong></p>
-<p>通过实现 Supplier 接口，你可以自己来控制流的生成。这种情形通常用于随机数、常量的 Stream，或者需要前后元素间维持着某种状态信息的 Stream。把 Supplier     实例传递给 Stream.generate() 生成的 Stream，默认是串行（相对 parallel 而言）但无序的（相对 ordered 而言）。由于它是无限的，在管道中，必须利用     limit 之类的操作限制 Stream 大小。</p>
-<p>清单 22. 生成 10 个随机整数</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Random seed = <span class="keyword">new</span> Random();</span><br><span class="line">Supplier&lt;Integer&gt; random = seed::nextInt;</span><br><span class="line">Stream.generate(random).limit(<span class="number">10</span>).forEach(System.out::println);</span><br><span class="line"><span class="comment">//Another way</span></span><br><span class="line">IntStream.generate(() -&gt; (<span class="keyword">int</span>) (System.nanoTime() % <span class="number">100</span>)).</span><br><span class="line">limit(<span class="number">10</span>).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-<p>Stream.generate() 还接受自己实现的 Supplier。例如在构造海量测试数据的时候，用某种自动的规则给每一个变量赋值；或者依据公式计算 Stream     的每个元素值。这些都是维持状态信息的情形。</p>
-<p>清单 23. 自实现 Supplier</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Stream.generate(<span class="keyword">new</span> PersonSupplier()).</span><br><span class="line">limit(<span class="number">10</span>).</span><br><span class="line">forEach(p -&gt; System.out.println(p.getName() + <span class="string">", "</span> + p.getAge()));</span><br><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonSupplier</span> <span class="keyword">implements</span> <span class="title">Supplier</span>&lt;<span class="title">Person</span>&gt; </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">private</span> Random random = <span class="keyword">new</span> Random();</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> Person <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> Person(index++, <span class="string">"StormTestUser"</span> + index, random.nextInt(<span class="number">100</span>));</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">StormTestUser1, <span class="number">9</span></span><br><span class="line">StormTestUser2, <span class="number">12</span></span><br><span class="line">StormTestUser3, <span class="number">88</span></span><br><span class="line">StormTestUser4, <span class="number">51</span></span><br><span class="line">StormTestUser5, <span class="number">22</span></span><br><span class="line">StormTestUser6, <span class="number">28</span></span><br><span class="line">StormTestUser7, <span class="number">81</span></span><br><span class="line">StormTestUser8, <span class="number">51</span></span><br><span class="line">StormTestUser9, <span class="number">4</span></span><br><span class="line">StormTestUser10, <span class="number">76</span></span><br></pre></td></tr></table></figure>
-<p><strong>Stream.iterate</strong></p>
-<p>iterate 跟 reduce 操作很像，接受一个种子值，和一个 UnaryOperator（例如 f）。然后种子值成为 Stream 的第一个元素，f(seed)     为第二个，f(f(seed)) 第三个，以此类推。</p>
-<p>清单 24. 生成一个等差数列</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Stream.iterate(<span class="number">0</span>, n -&gt; n + <span class="number">3</span>).limit(<span class="number">10</span>). forEach(x -&gt; System.out.print(x + <span class="string">" "</span>));.</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span> <span class="number">3</span> <span class="number">6</span> <span class="number">9</span> <span class="number">12</span> <span class="number">15</span> <span class="number">18</span> <span class="number">21</span> <span class="number">24</span> <span class="number">27</span></span><br></pre></td></tr></table></figure>
-<p>与 Stream.generate 相仿，在 iterate 时候管道必须有 limit 这样的操作来限制 Stream 大小。</p>
-<h3 id="进阶：用-Collectors-来进行-reduction-操作"><a href="#进阶：用-Collectors-来进行-reduction-操作" class="headerlink" title="进阶：用 Collectors 来进行 reduction 操作"></a>进阶：用 Collectors 来进行 reduction 操作</h3><p>java.util.stream.Collectors 类的主要作用就是辅助进行各类有用的 reduction 操作，例如转变输出为 Collection，把 Stream 元素进行归组。<br>groupingBy/partitioningBy</p>
-<p>清单 25. 按照年龄归组</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Integer, List&lt;Person&gt;&gt; personGroups = Stream.generate(<span class="keyword">new</span> PersonSupplier()).</span><br><span class="line"> limit(<span class="number">100</span>).</span><br><span class="line"> collect(Collectors.groupingBy(Person::getAge));</span><br><span class="line">Iterator it = personGroups.entrySet().iterator();</span><br><span class="line"><span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line"> Map.Entry&lt;Integer, List&lt;Person&gt;&gt; persons = (Map.Entry) it.next();</span><br><span class="line"> System.out.println(<span class="string">"Age "</span> + persons.getKey() + <span class="string">" = "</span> + persons.getValue().size());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的 code，首先生成 100 人的信息，然后按照年龄归组，相同年龄的人放到同一个 list 中，可以看到如下的输出：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Age <span class="number">0</span> = <span class="number">2</span></span><br><span class="line">Age <span class="number">1</span> = <span class="number">2</span></span><br><span class="line">Age <span class="number">5</span> = <span class="number">2</span></span><br><span class="line">Age <span class="number">8</span> = <span class="number">1</span></span><br><span class="line">Age <span class="number">9</span> = <span class="number">1</span></span><br><span class="line">Age <span class="number">11</span> = <span class="number">2</span></span><br><span class="line">……</span><br></pre></td></tr></table></figure>
-<p>清单 26. 按照未成年人和成年人归组</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Boolean, List&lt;Person&gt;&gt; children = Stream.generate(<span class="keyword">new</span> PersonSupplier()).</span><br><span class="line">limit(<span class="number">100</span>).</span><br><span class="line"> collect(Collectors.partitioningBy(p -&gt; p.getAge() &lt; <span class="number">18</span>));</span><br><span class="line">System.out.println(<span class="string">"Children number: "</span> + children.get(<span class="keyword">true</span>).size());</span><br><span class="line">System.out.println(<span class="string">"Adult number: "</span> + children.get(<span class="keyword">false</span>).size());</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Children number: <span class="number">23</span> </span><br><span class="line">Adult number: <span class="number">77</span></span><br></pre></td></tr></table></figure>
-<p>在使用条件“年龄小于 18”进行分组后可以看到，不到 18 岁的未成年人是一组，成年人是另外一组。partitioningBy 其实是一种特殊的     groupingBy，它依照条件测试的是否两种结果来构造返回的数据结构，get(true) 和 get(false) 能即为全部的元素对象。</p>
-<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>总之，Stream 的特性可以归纳为：</p>
-<ul>
-<li>不是数据结构</li>
-<li>它没有内部存储，它只是用操作管道从 source（数据结构、数组、generator function、IO channel）抓取数据。</li>
-<li>它也绝不修改自己所封装的底层数据结构的数据。例如 Stream 的 filter 操作会产生一个不包含被过滤元素的新 Stream，而不是从 source 删除那些元素。</li>
-<li>所有 Stream 的操作必须以 lambda 表达式为参数</li>
-<li>不支持索引访问</li>
-<li>你可以请求第一个元素，但无法请求第二个，第三个，或最后一个。不过请参阅下一项。</li>
-<li>很容易生成数组或者 List</li>
-<li>惰性化</li>
-<li>很多 Stream 操作是向后延迟的，一直到它弄清楚了最后需要多少数据才会开始。</li>
-<li>Intermediate 操作永远是惰性化的。</li>
-<li>并行能力</li>
-<li>当一个 Stream 是并行化的，就不需要再写多线程代码，所有对它的操作会自动并行进行的。</li>
-<li>可以是无限的</li>
-<li>集合有固定大小，Stream 则不必。limit(n) 和 findFirst() 这类的 short-circuiting 操作可以对无限的 Stream        进行运算并很快完成。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>Stream</category>
-      </categories>
-      <tags>
-        <tag>Java8</tag>
-        <tag>Streams API</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>学不会的华为 IPD，其实是这样！</title>
-    <url>/2022/12/21/%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E5%8D%8E%E4%B8%BA%20IPD%EF%BC%8C%E5%85%B6%E5%AE%9E%E6%98%AF%E8%BF%99%E6%A0%B7%EF%BC%81/</url>
-    <content><![CDATA[<p>美国著名作家弗格森说了一句话 “谁也无法说服他人改变，因为我们每个人都守着一扇只能从内心开启的改变之门，不论动之以情或晓之以理，我们都不能替别人开门”。</p>
-<p>改变真的是由内而外的？不是！改变是由外而内，再由内而外的过程。只有当我们有信息输入，在新的信息下触发自身，只有触发自身的信息才能引发一场由内而外的改变。我们将用以下的文章内容来提供触发信息。</p>
-<a id="more"></a>
-<h4 id="一、让你的企业成为资产的思维"><a href="#一、让你的企业成为资产的思维" class="headerlink" title="一、让你的企业成为资产的思维"></a><strong>一、让你的企业成为资产的思维</strong></h4><p>企业经营的目标是要创造价值、利润，那么如何创造客户、并且持续不断的为客户创造价值、留住客户，是企业经营的法宝。产品无疑在企业与客户之间建立了一座桥梁。企业通过产品为客户创造价值。持续不断的高品质的产品输出，是一个企业持续立于不败之地的法宝。</p>
-<p>然而，一个企业要成长，就要未雨绸缪、不断变革，以保持持续的生命力。华为公司就是一家保持持续变革的伟大公司，持续管理变革的目标就是实现高效的流程化运作，确保端到端的自动优质交付，从而实现企业的自动化管道系统。</p>
-<p>今天我们向华为学习企业的变革之下的研发流程体系，其实是一个研发管道系统，在华为，这条管道叫做——IPD 体系。华为公司认为，研发不仅是研发部门的事，更是关系公司市场到产品变现的全流程。IPD 是企业实现产品商业化的管道系统，IPD 体系构建了产品从 idea 到产品变现的全流程。</p>
-<p>经营企业需要具备系统性的全局思维，将企业看做资产的思维，企业是不断创造价值的资产，需要融入经营者的经营思维、战略思维、管理思维、并赋予工具、流程和方法，让其实现自动化运行的系统。当然不是所有企业都可以看成资产，只有创造价值，创造利润的企业才能称为资产。</p>
-<p>作为经营者、管理者需要以经营资产的思维来经营企业。</p>
-<h4 id="二、IPD-的起源和发展"><a href="#二、IPD-的起源和发展" class="headerlink" title="二、IPD 的起源和发展"></a><strong>二、IPD 的起源和发展</strong></h4><p><strong>1、跨界的 IBM 领导者为何要建 IPD</strong></p>
-<p>IPD 起源于这家公司——IBM，一个世界级的巨无霸，全球最大的信息技术和业务解决方案公司，拥有 30 多万员工，业务遍及 160 多个国家和地区。2018 年《财富》世界 500 强排行榜发布，IBM 位列 92 位。</p>
-<p>那么就是这样一家世界级的公司，在 1991～1993 年间累计面临巨大的财务困境，三年间累计亏损达 162 亿美元，几乎是每天亏损掉 1480 万美元。93 年的 4 月 1 日，54 岁，路易斯 · 郭士纳临危受命，担任 IBM 的执行总裁。</p>
-<p>郭士纳的上任当时并不被人们看好，包含美国的媒体，人们不相信一个曾经以食品和烟草起家的公司老板，能够扭转 IBM 的困局。</p>
-<p>郭士纳就任后，做了三件事：</p>
-<p>第一件事：让 IBM 停止流血；郭士纳裁剪了 IBM 流血的部门和人员，半年内果断裁人 4.5 万。</p>
-<p>第二件事：重振大型机业务，拓展服务业范围，并带领 IBM 重新向 PC 市场发动攻击。</p>
-<p>第三件事：梳理公司流程体制，进行流程重构和再造工程。</p>
-<p>这第三件事情是与新班子花了近一年时间，研究如何对 IBM 进行 “再造工程”。IBM 组织团队进行分析，经过分析后，他们发现公司三个方面上远远落后于业界最佳——研发费用、研发浪费和产品上市时间。</p>
-<p>分析的结果：IBM 研发费用为销售收入的 12%，而业界最佳为 6%；　　研发损失费用为整个研发费用的 25%，而业界最佳仅为 3.3%；而在上市时间（指产品从概念产生到投放市场所需的时间）方面，36.5% 项目的上市时间是业界最佳的 1.25 倍，其余项目的上市时间多于业界最佳的 1.5-2 倍。</p>
-<p>为了重新获得市场竞争优势，IBM 提出了两个 50% 的目标，一是，将产品上市时间减少 50%，二是，在不影响产品开发结果的情况下，将研发费用减少 50% 的目标。</p>
-<p>为达成这个目标，IBM 公司应用了 PACE 的方法（Product And Cycle-time Excellence，产品及周期优化法）从流程重整和产品重整两个方面来达到缩短产品上市时间、提高产品利润的目标。</p>
-<p>时隔三年，1995 年，IBM 营收突破了 700 亿美元大关，IBM 的大型机业务也复活了。利润 60 亿美元。不得不说，IBM 公司流程重构在提升自身竞争力上发挥了巨大的作用。</p>
-<p>IBM 成为了全球率先应用 IPD 方法并取得成功实践的企业，这就是 IPD 的起源。</p>
-<p>美国著名的 PTRM 公司总结实施 IPD 后带来的好处是：</p>
-<p><img src="https://pic3.zhimg.com/v2-cbb22c372c41b100de7a85da06ff48f6_r.jpg" alt=""></p>
-<p>IPD 是集成产品开发的英文单词首字母，经过 IBM 公司实践的一套先进的、成熟的研发管理思想、模式和方法。</p>
-<p><strong>2、华为搭上 IPD 的快车</strong></p>
-<p>1997 年西方圣诞节前一周，任总重点考察了 IBM。圣诞节前夕美国各大企业都已经放假了，但 IBM 包括 CEO 郭士纳在内的高层领导均照常上班，并真诚而系统地向任正非介绍了他们的管理内涵。</p>
-<p>这次调研中整整一天时间，IBM 从产品预研到项目管理、从生产流程到项目寿命终结的投资评审做了详尽的介绍。为了强化任正非对 IPD 的认识，IBM 副总裁送给他一本哈佛大学出版的关于研发管理的著作，后来他发现朗讯、惠普等美国著名企业也都实施这样的研发模式。</p>
-<p>这次考察更加坚定了任正非对华为实施变革的坚定决心，华为要像 IBM 一样强大，不仅自己要以郭士纳为榜样，而且华为必须虔诚地拜 IBM 为师，不惜一切代价将其管理精髓移植到华为身上。</p>
-<p>1998 年 8 月初，华为与 IBM 中国区总裁周伟焜签订了金额 20 亿人民币的变革项目合作协议，当时 20 亿是华为当年全年的利润，可见任总的魄力非常人所能及也。</p>
-<p>这个项目包含了 IPD（集成产品开发）、ISC（集成供应链）、IT 系统重整、财务四统一等 8 个管理变革项目。这成为是华为历史上最重要的转折点，这个项目将华为带进了高速赛道。</p>
-<p>华为公司第一家引进和实施 IPD，也是受益最大的国内企业。从 98 年的 IPD1.0 到 2014 年的 IPD7.0, 华为不断升级优化。</p>
-<p>华为公司 1998 年启动 IPD 项目，分为关注、发明、推广 3 个阶段。根据 1998 年的计划，用两年多的时间就可以实现全面推广。</p>
-<p>华为在 2001 年华为颁布了《华为基本法》，基本法一个重要的方面是统一了公司变革的思想。</p>
-<p>经过了四年的梳理建设，IPD 在 2002 年在全公司推广使用。华为公司走上了与世界领先企业并肩同行的管理道路。</p>
-<h4 id="三、IPD-的核心思想"><a href="#三、IPD-的核心思想" class="headerlink" title="三、IPD 的核心思想"></a><strong>三、IPD 的核心思想</strong></h4><p><strong>1. 研发本质是研发是企业的一项投资</strong></p>
-<p>首先，IPD 认为研发是一项投资；因为这是一项投资决策，所以，需要对它进行有效的投资组合分析，在开发过程中，设置检查点，通过阶段性评审来决定项目是继续、暂停、终止还是改变方向。</p>
-<p><strong>IPD(Integrated product development 集成产品开发)，IPD 是一套先进的、成熟的研发管理思想、模式和方法。</strong></p>
-<p><strong>2. 基于市场的研发才是有效投资</strong></p>
-<p>IPD 强调，产品创新一定要是基于市场需求和竞争分析的创新，要准确地做正确的事情，要将正确定义产品概念、充分理解市场需求作为流程的第一步。</p>
-<p>在 IT 圈有个现象，一天公司其中一个人有个创意，然后召集人员参与讨论，之后，就规划出一个产品创意来，然后互相鼓励，觉得我们这个创意就是最牛逼的，我们是世界第一，没有人想到，只有我们想到。并且互相叮嘱，我们要保密哦，要充分注重信息安全，不能透露给外人。这样的产品规划，我们通常叫做意向创业；貌似具有非常强的执行力，立即组建团队，就卷起袖子加油干！立项、设计、开发、出样机、投生产。节奏很快，也很有魄力。恨不得 3 个月就能出产品，然后做营销、做销售。经历了千辛万苦，产品出来后，面向市场发布，结果无人问津。</p>
-<p>这里我们强调产品一定是基于市场需求的开发，一定要解决市场的问题和痛点，痒点都不行，必须是痛点。</p>
-<p>所以说，这种方式就不满足 IPD 的核心思想。我们说市场的端到端，是需求来源于市场，最终产品回归于市场。你都没有做充分的市场调研，怎么能够被市场所接受。</p>
-<p><strong>3. 如何穿越部门墙建立研发快车道</strong></p>
-<p>一个产品，尤其是以硬件为主的产品，设计产品的方方面面、结构、硬件、软件、工程、制造、采购、包装、市场推广等，是需要全部门协同配合的一个事情。所以必须要有跨部门的团队协作。</p>
-<p>采用跨部门的产品开发团队 (Product Development Team, 简称 PDT)，通过有效的沟通、协调以及决策，到达尽快将产品推向市场的目的。</p>
-<p>有的创业者，把这个事情想得太简单，完全没有搞清楚状况，拖几个人就开始干，在他们的理念中，出产品就是出样机，觉得样机出来了，产品就出来了，殊不知一个产品样机出来，仅仅只等效于产品开发过程只完成 40%，还有大量的工作要做。</p>
-<p>并且，在这种思想下，产品的是不完善的，是不具备量产化的，以样机为产品终结的思想，完全不会考虑到产品的后端需求。比如可测试性、可制造性、可服务性等 DFX 的需求。</p>
-<p>跨部门的团队，强调无缝沟通，强调把专业的团队串起来，为了一个共同的目标而努力。</p>
-<p>老罗有这么一句对自己的总结 “只有等到你掉到坑里的时候，你才刻骨铭心地意识到前辈们的忠告是如此的正确”。</p>
-<p>创业初期，老罗一直认为，除了乔布斯，锤子拥有世界上一流的工业设计团队。于是呢，我们看到，老罗开始打造工艺品，追求完美的产品设计。在产品转生产试制的时候，多次亲自在富士康的生产线跟线。在追求产品完美外观和软件体验细节的上面，忽略了产品的可实现性。后来老罗在一次产品发布会上深刻总结了做产品不是做艺术品，需要充分考虑产品的可制造性。其实老罗在 2012 年摩托罗拉大裁员的时候吸收了一大批摩托罗拉的技术专家。如果当时，他充分利用各类部门技术专家的优势，锤子 T1 手机就不会遭遇 “噩梦一般的三个月”。</p>
-<p><strong>4. 给新产品开发造一个发动机</strong></p>
-<p>IPD 同样也关注平台，平台化的开发带来了两大好处，铁打的银盘流水的兵，即使关键岗位的人员流动也不会对企业带来影响，平台让我们的开发成果得到积累和沉淀；另一方面，平台化的开发，支撑了我们新产品开发的速度。</p>
-<p><strong>5. 每个人都应该知道该干什么的方法</strong></p>
-<p>结构化的流程，所谓结构化，是指相互关联的工作要有一个框架结构，并要有一定的组织原则来支持它；每项工作都应清清楚楚地明确规定出来。所有与产品开发有关的人应该清楚他们所参与的是什么工作，用什么方法去完成。</p>
-<p>同时，有了结构化的流程，我们就不在受关键岗位、关键人才的限制。</p>
-<p>几年前，我就职过的一家公司，一个项目经理总览了一个产品系列的所有软硬件的全套技术和技术文件，以此为由，要求公司 CEO 给他加薪，CEO 最后不得不接受。当然，我们不希望这样的事情发生，同时我们也期望给公司员工带来更多的福利。可是这种情况在公司发展，对公司的发展，对员工的发展都是非常不利的。</p>
-<p><strong>6. 海陆空模式远比顺序模式强大</strong></p>
-<p><strong>异步开发模式</strong>，也称并行工程。通过严谨的计划、系统的设计、严格的流程控制，节点评审，把原来的许多后续活动提前进行，缩短产品上市时间。</p>
-<p>产品立项之后，总体方案评审通过，进入详细设计阶段，我们的动作就可以开始做了。</p>
-<p>产品的宣传资料可以出了，产品样机还没有出来，产品的市场预热推广已经开始了。这就是并行工程。那么我们通常情况下，我们敢不敢在样机还没有出来的时候有已经开始了产品的市场动作？敢不敢？</p>
-<p>我想很多企业是不敢的，产品没有出来就大量的投入营销，那么如果产品出不来怎么办呢？</p>
-<p>而在 IPD 的流程体系中，产品不会不出来，而且计划是产品不会不按照原定计划出来。</p>
-<p>一方面，IPD 强调的 “一次性把事情做好”；</p>
-<p>另外一方面，IPD 有系统的流程控制方法来保证产品开发如期完成。</p>
-<p><strong>重用性</strong> 尽量采用公共构建模块 (Common Building Block, 简称 CBB)，提高产品开发效率。</p>
-<p><strong>CBB</strong>，称为公共构建模块，这些模块，可以是软件的、可以是硬件的、可以是测试的、可以是生产的。有了这些模块，我们开发过程就聚焦在模块之外的其他需求进行，一方面减少了工作量。</p>
-<p>我在做手机的时候，我们曾做了一个 1.5 个月研发出一款手机并成功转量产的记录，就是充分应用了 CBB 的重用思想。</p>
-<p><strong>7. 中小企业也可以插上 IPD 的翅膀</strong></p>
-<p>第七个核心思想，阐述了 IPD 的灵活的，随着业务和技术的发展而变化的，可以全面应用，要可裁剪应用。因地制宜，随机应变。</p>
-<p>至今，华为的 IPD 还在不断的优化和升级，并且运用在了终端、无线、存储等各个产品线。</p>
-<p>而 IPD 最小的业务模式也同样适用于中小型企业。</p>
-<p>以上这七个横向的内容就是 IPD 的核心思想，IPD 的核心思想是 IPD 最重要管理精髓。</p>
-<p>当然除了横向的核心思想，IPD 还包含了纵向的核心内容：</p>
-<p>第一个内容，IPD 包含了 MM 市场管理流程，核心思想中强调了新产品开发是基于市场需求的开发，所以从市场到产品开发，一定需要一个市场管理流程来支撑。市场管理流程通过对市场的收集、分析、做出业务规划，输出产品开发任务书，作为产品开发的输入，是市场到开发的转化过程；</p>
-<p>第二个内容是 IPD 集成产品开发流程，这是我们实现产品开发落地的流程，怎样做出产品来，就是在这个流程中体现。后边的章节里我们会更详细的介绍。</p>
-<p>第三个内容技术开发流程，这个流程是实现企业的技术积累，核心竞争力的沉淀；</p>
-<p>第四个内容是项目管理流程，IPD 核心管理是基于项目管理来进行的，而项目管理是在管什么呢，是在管资源。</p>
-<p>第五个内容矩阵型组织结构，这是团队形式，核心思想中包含了跨部门团队，这个跨部门团队需要一个矩阵式的管理。</p>
-<p>第六个内容是：绩效与激励，从业务上来看着是一个支撑内容，为我们业务目标服务的。从管理上来看，这条非常重要，包含了企业文化、HR 的思想等。一句话，门朝哪里开，人就会从哪里走，就在这里来操作。我们的门要向着目标的方向打开。</p>
-<p>第七个内容 是管理优化与变革，这里强调了随着业务的发展，我们前面的这六点基于管理的内容要不断的优化升级，以更好的适配公司业务的发展。在华为公司，专门成立了管理优化部门，每年投入销售额的 3-5% 进行管理的优化变革。同时公司内部也有一个管理优化报，面向全公司发布。</p>
-<p>七横七纵，从概念上介绍了 IPD 的全貌，是 IPD 的精华所在，希望大家能够理解和运用它。</p>
-<h4 id="四、八个特征掌握-IPD"><a href="#四、八个特征掌握-IPD" class="headerlink" title="四、八个特征掌握 IPD"></a><strong>四、八个特征掌握 IPD</strong></h4><p><strong>1. IPD 的一套框架</strong></p>
-<p><img src="https://pic3.zhimg.com/v2-557be7394adda907102507443972ce8a_r.jpg" alt=""></p>
-<p>从公司战略出发、收集市场信息、客户反馈、竞争信息、技术趋势、产品组合进入市场管理流程。通过市场管理流程的对信息的分析、转化为业务计划，输出产品规划的 charter（产品业务计划书）</p>
-<p>输入到产品开发流程，一部分输送给技术开发流程。通过产品开发流程和技术开发流程，实现对产品和技术的输出。</p>
-<p><strong>2. IPD 的两种评审模式 DCP 和 TR</strong></p>
-<p><img src="https://pic1.zhimg.com/v2-1b93002f94e2aded7cb220d1241c15b8_r.jpg" alt=""></p>
-<p>产品开发流程使用两种评审机制，一种是基于业务决策线的评审；另一种是基于技术线的决策评审。</p>
-<p>业务决策评审是集成产品开发管理团队（IPMT）管理产品投资的重要手段，在决策评审中，IPMT 始终站在投资商的角度来进行评审。</p>
-<p>业务决策评审包含了 charter 决策评审、概念决策评审、计划决策评审、验证决策评审、生命周期决策评审</p>
-<p>另外一种是技术决策评审，通过技术评审，帮助产品开发团队尽早发现产品开发中存在的问题和风险，及时采取相应的解决方案和行动计划，保证产品开发质量，减少浪费。</p>
-<p><strong>3. IPD 的三大业务流程</strong></p>
-<p><img src="https://pic4.zhimg.com/v2-22db8a6eb8546a2cd01a4ebfafc16737_r.jpg" alt=""></p>
-<p><strong>4. IPD 的四大组织</strong>  </p>
-<p><img src="https://pic4.zhimg.com/v2-e9ee51a0800a6e6ddfac5209208838a7_r.jpg" alt=""></p>
-<p>（1）集成组合管理团队（IPMT）：产品投资决策和评审机构，负责制定公司总的使命愿景和战略方向，并对新产品线的产生进行决策。通常是一个高层跨部门团队，成员包括各个部门最高主管。</p>
-<p>（2）产品开发团队（PDT）：一个虚拟的组织，其成员在产品开发期间一起工作，由产品经理 / 项目经理组织，一般是产品经理 / 项目经理负责的矩阵组织结构。</p>
-<p>（3）产品生命周期管理团队（LMT）：在产品生命周期中，联合研发、制造、销售、使用、安全部门等各方面的资源，从根本上保证了产品在全生命周期中的管理能够高效、有序，并使产品保持低故障率。</p>
-<p>（4）技术开发团队（TMT）：利用从研究和试验获得的知识或技术，为产品开发提供新的工艺和系统而进行实质性的改进。</p>
-<p> <strong>5. IPD 的五个业务决策评审点</strong></p>
-<p><img src="https://pic2.zhimg.com/v2-dea016a73693563cde089ff9463e4259_r.jpg" alt=""></p>
-<p>（1）Charter：立项评审</p>
-<p>（2）CDCP(Concept?DCP)：概念决策评审</p>
-<p>（3）PDCP(Plan?DCP)：计划决策评审</p>
-<p>（4）ADCP(Availability?DCP)：可获得性决策评审</p>
-<p>（5）EDCP(EOL?DCP)：生命周期终止决策评审</p>
-<p><strong>6. IPD 的六个开发阶段</strong></p>
-<p><img src="https://pic3.zhimg.com/v2-a9c7db1b072a48d9a4bde310d25b0252_r.jpg" alt=""></p>
-<p><strong>7. IPD 的七个技术评审点</strong></p>
-<p><img src="https://pic3.zhimg.com/v2-cfb4bd36c41890aeb65d95f6ec329b9e_r.jpg" alt=""></p>
-<p>当然，IPD 流程中设置了很多机制来对这类问题的解决。比如说我们的研发质量规范、我们的代码规范、代码检视、单元测试、系统测试等等。</p>
-<p>IPD 的流程中为了最大限度的节省缺陷或问题流入后端造成了损失。就体现在前面介绍的两种评审机制，不论是基于业务的还会基于技术的评审，只要上一个评审点没有通过，就无法进入下一个评审点。这种机制有效的解决和平衡的我们新产品开发过程中的遇到的问题。</p>
-<p>每一个环节都有自己的客户，我们一定要清楚自己的客户是谁，我们是为谁在服务。IPD 强调下一道工序就是你的客户！</p>
-<h4 id="五、实施-IPD，你也可以"><a href="#五、实施-IPD，你也可以" class="headerlink" title="五、实施 IPD，你也可以"></a><strong>五、实施 IPD，你也可以</strong></h4><p><strong>1. 小组织也可以 IPD</strong></p>
-<p>重量级团队削弱了功能部门的影响力。事实：功能部门在 IPD 的执行与决策中都占据着关键的地位。但是角色发生了变化。就像在乐队的演奏中，每个人都有自己的角色。如果鼓手演奏的声音比其他人大，如果鼓手想控制整个音乐（即使鼓手的技能不够），虽然鼓手自己可能感觉很强大，但是整个音乐已经不和谐了，已经被破坏了。扪心自问，实事求是地考虑一下自己真正的权力来自哪里。功能部门在 IPD 中扮演着非常重要的角色，不过在 IPD 流程中以团队的形式进行运作很重要。如果没有本身优秀的强大功能部门，IPD 也无法发挥自己的作用。功能部门在许多方面都发挥着重要的作用，如对本部门员工技能的培养进行管理，制定功能部门策略，向 PDT 和 IPMT 做出并履行承诺，将本功能部门与其他部门及公司联合起来，加强本功能部门对承诺的执行。同样，IRB 和 EMT 已经签发了政策和指导来更好地支撑华为的重量级团队建设环境，包括激励，PBC 和资源池。可是每个团队成员仍然有责任充分参与团队工作，积极帮助团队实现目标。</p>
-<p>IPD 组织结构通常可以看成一个小公司。这就是为什么华为 18.8 万人的企业中，研发能够快速响应的一个重要原因。  </p>
-<p>误区一：<strong>IPD 是大公司的事情，我们是小公司，没有实施 IPD 的必要</strong></p>
-<p>IPD 本身是一种产品研发的最佳实践，强调研发要做正确的事情，体现市场驱动，把研发资源投入到最有价值的项目中，这些理念对中小企业同样有非常大的指导意义；尤其中小企业面临资源匮乏，一个项目的失败可能会导致整个公司的倒闭，这种状态下，更应该践行 IPD 的研发方法，确保项目的成功率，甚至要追求 120% 的成功率。 <strong>我们是项目化公司，IPD 是产品开发，所以不适合我们</strong></p>
-<p>IPD 本身是从商业角度分析产品和项目是否值得投资，即使项目化的公司，也需要追求项目的投入产出率，也需要时刻关注客户需求，尤其是国内项目化公司普遍面临缺乏平台、跨项目共享差、交付成本高的问题，IPD 的市场驱动、异步开发模式、项目决策分析都可以非常好地解决这些问题。所以项目化公司同样需要 IPD。<br><strong>IPD 实施推行需要非常高的成本，实施周期很长，我们目前没有能力搞。</strong></p>
-<p>大家有这种认识纯粹是 IBM、IPD 实施顾问忽悠的结果，把 IPD 忽悠的多么神圣、多么高档、如此之难，进而从客户手里多搂钱，把实施费用搞的奇贵，从而让客户感觉 IPD 是非常贵族化的东西，身份的象征。其实街边小餐馆都是按照 IPD 的思路运作的，在哪里开？市场客户决定 —（IPD 之市场驱动）；费用多少？竞争对比分析而定 — （IPD 之竞争分析）；每天早上要准备多少材料？历史销售情况 + 今天的销售预期决定 — （IPD 之预算管理）；提供哪些种类？制作周期太长的不做，因为客户没有时间等 — （IPD 之产品交付）；丰盛大餐的不做，因为厨师水平要求高，费用高 — （IPD 之项目研发费用）；每天晚上核算今天盈利、与历史对比 — （IPD 之衡量指标与对比分析）；客户喜欢的、利润高的种类放在菜单最上面 — （IPD 之投资组合分析）；所以 IPD 在中小企业同样适用，并且可以分步实施，实施难度、成本都是在可控范围之内。 <strong>还有诸多疑虑……</strong></p>
-<p>误区二：<strong>IPD 是要在速度与质量之间做出取舍？</strong></p>
-<p>误区三：<strong>IPD 影响决策的速度？</strong></p>
-<p>误区四：<strong>重量级团队削弱了功能部门的影响力？</strong></p>
-<p><strong>……</strong></p>
-<p><strong>2. 貌似缺失的质量控制缺是最有效的控制</strong></p>
-<p>IPD 是速度与质量相结合。技术评审点即使技术评审又是质量评审，质量管理被融入在 IPD 的流程和体系当中，潜移默化的，自然的服务于产品和控制产品质量。IPD 的目的是保证速度，但同时也要保证产品的高质量。IPD 不仅要使产品开发速度更快，而且还提供了一种规范，保证能够生产出高质量的产品。</p>
-<p><strong>3. 环环相扣，齿齿相连，一次性把事情做好</strong></p>
-<p><strong>环环相扣，齿齿相连</strong></p>
-<p>每个角色都处于 IPD 的一个环节，只有当上一个环节完成了，并且是按照产品质量要求完成了，才会流向下一个环节，正如流水生产线一样，只有上一个工序的工作完成了，且被检验为合格了才能流到下一个工序。也只有上一个工序完成时，下一个工序才能开始，一切都在项目计划的控制之中。每个工序都会对下一个工序产生影响。</p>
-<p><strong>一次性把事情做好！慢即是快。</strong></p>
-<p>从整个 IPD 的核心思想方面来说，所有的流程和关键的评审点都是围绕这个 “一次性把事情做好” 这句话来的，因为在研发当中，一次性把事情做好，效率才是最高的。比如原本计划下个月的进行新产品的试制，原材料已经准备好，生产计划已经按照出生产线为我们的试制产品做准备。如果产品试制不能如期进行，生产线的计划将被打乱。相关的人员安排可能临时不能调度，原计划的试制期间的生产资源就会造成浪费。</p>
-<p><strong>【结尾】</strong></p>
-<p>公司的战略是选择方向，就是解决做正确的事情，做与公司目标相匹配的事情。</p>
-<p>IPD(Integrated product development 集成产品开发) 是针对公司已经选择确定战略规划之下，正确的做公司规划的产品开发的事情，即使通常我们讲的正确的做事。</p>
-<p>只有做正确的事情和正确的做事，才能保障经营的不败。</p>
-<p>我想把一个复杂的系统，还原成一个常识的理解。只要我们理解和认识了 IPD，我们也同样可以穿上 IPD 之鞋，谁说灰姑娘就不能穿上漂亮的舞鞋跳舞呢？</p>
-<blockquote>
-<p>原文地址 <a href="https://zhuanlan.zhihu.com/p/392385187" target="_blank" rel="noopener">知乎</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>IPD</tag>
-        <tag>华为</tag>
       </tags>
   </entry>
   <entry>
@@ -4254,6 +3854,406 @@
       <tags>
         <tag>Docker</tag>
         <tag>命令</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java8中的StreamsAPI详解</title>
+    <url>/2018/09/30/Java8%E4%B8%AD%E7%9A%84StreamsAPI%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="Java-8-中的-Streams-API-详解"><a href="#Java-8-中的-Streams-API-详解" class="headerlink" title="Java 8 中的 Streams API 详解"></a>Java 8 中的 Streams API 详解</h1><h2 id="为什么需要-Stream"><a href="#为什么需要-Stream" class="headerlink" title="为什么需要 Stream"></a>为什么需要 Stream</h2><p>Stream 作为 Java 8 的一大亮点，它与 java.io 包里的 InputStream 和 OutputStream 是完全不同的概念。它也不同于 StAX 对 XML 解析的 Stream，也不是 Amazon Kinesis 对大数据实时处理的 Stream。Java 8 中的 Stream 是对集合（Collection）对象功能的增强，它专注于对集合对象进行各种非常便利、高效的聚合操作（aggregate operation），或者大批量数据操作 (bulk data     operation)。</p>
+<a id="more"></a>
+<p>Stream API 借助于同样新出现的 Lambda 表达式，极大的提高编程效率和程序可读性。同时它提供串行和并行两种模式进行汇聚操作，并发模式能够充分利用多核处理器的优势，使用 fork/join 并行方式来拆分任务和加速处理过程。通常编写并行代码很难而且容易出错, 但使用 Stream API 无需编写一行多线程的代码，就可以很方便地写出高性能的并发程序。</p>
+<p>所以说，Java 8 中首次出现的 java.util.stream 是一个函数式语言+多核时代综合影响的产物。</p>
+<h3 id="什么是聚合操作"><a href="#什么是聚合操作" class="headerlink" title="什么是聚合操作"></a>什么是聚合操作</h3><p>在传统的 J2EE 应用中，Java 代码经常不得不依赖于关系型数据库的聚合操作来完成诸如：  </p>
+<ul>
+<li>客户每月平均消费金额</li>
+<li>最昂贵的在售商品</li>
+<li>本周完成的有效订单（排除了无效的）</li>
+<li>取十个数据样本作为首页推荐  </li>
+</ul>
+<p>这类的操作。</p>
+<p>但在当今这个数据大爆炸的时代，在数据来源多样化、数据海量化的今天，很多时候不得不脱离 RDBMS，或者以底层返回的数据为基础进行更上层的数据统计。而 Java 的集合 API     中，仅仅有极少量的辅助型方法，更多的时候是程序员需要用 Iterator 来遍历集合，完成相关的聚合应用逻辑。这是一种远不够高效、笨拙的方法。在 Java 7 中，如果要发现 type 为     grocery 的所有交易，然后返回以交易值降序排序好的交易 ID 集合，我们需要这样写：</p>
+<p>清单 1. Java 7 的排序、取值实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Transaction&gt; groceryTransactions = <span class="keyword">new</span> Arraylist&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(Transaction t: transactions)&#123;</span><br><span class="line"> <span class="keyword">if</span>(t.getType() == Transaction.GROCERY)&#123;</span><br><span class="line"> groceryTransactions.add(t);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">Collections.sort(groceryTransactions, <span class="keyword">new</span> Comparator()&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Transaction t1, Transaction t2)</span></span>&#123;</span><br><span class="line"> <span class="keyword">return</span> t2.getValue().compareTo(t1.getValue());</span><br><span class="line"> &#125;</span><br><span class="line">&#125;);</span><br><span class="line">List&lt;Integer&gt; transactionIds = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(Transaction t: groceryTransactions)&#123;</span><br><span class="line"> transactionsIds.add(t.getId());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而在 Java 8 使用 Stream，代码更加简洁易读；而且使用并发模式，程序执行速度更快。</p>
+<p>清单 2. Java 8 的排序、取值实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; transactionsIds = transactions.parallelStream().</span><br><span class="line"> filter(t -&gt; t.getType() == Transaction.GROCERY).</span><br><span class="line"> sorted(comparing(Transaction::getValue).reversed()).</span><br><span class="line"> map(Transaction::getId).</span><br><span class="line"> collect(toList());</span><br></pre></td></tr></table></figure>
+<h2 id="Stream-总览"><a href="#Stream-总览" class="headerlink" title="Stream 总览"></a>Stream 总览</h2><h3 id="什么是流"><a href="#什么是流" class="headerlink" title="什么是流"></a>什么是流</h3><p>Stream 不是集合元素，它不是数据结构并不保存数据，它是有关算法和计算的，它更像一个高级版本的 Iterator。原始版本的     Iterator，用户只能显式地一个一个遍历元素并对其执行某些操作；高级版本的 Stream，用户只要给出需要对其包含的元素执行什么操作，比如 “过滤掉长度大于 10     的字符串”、“获取每个字符串的首字母”等，Stream 会隐式地在内部进行遍历，做出相应的数据转换。</p>
+<p>Stream 就如同一个迭代器（Iterator），单向，不可往复，数据只能遍历一次，遍历过一次后即用尽了，就好比流水从面前流过，一去不复返。</p>
+<p>而和迭代器又不同的是，Stream 可以并行化操作，迭代器只能命令式地、串行化操作。顾名思义，当使用串行方式去遍历时，每个 item 读完后再读下一个     item。而使用并行去遍历时，数据会被分成多个段，其中每一个都在不同的线程中处理，然后将结果一起输出。Stream 的并行操作依赖于 Java7 中引入的 Fork/Join     框架（JSR166y）来拆分任务和加速处理过程。Java 的并行 API 演变历程基本如下：</p>
+<p>1 1.0-1.4 中的 java.lang.Thread</p>
+<p>2 5.0 中的 java.util.concurrent</p>
+<p>3 6.0 中的 Phasers 等</p>
+<p>4 7.0 中的 Fork/Join 框架</p>
+<p>5 8.0 中的 Lambda</p>
+<p>Stream 的另外一大特点是，数据源本身可以是无限的。</p>
+<h3 id="流的构成"><a href="#流的构成" class="headerlink" title="流的构成"></a>流的构成</h3><p>当我们使用一个流的时候，通常包括三个基本步骤：</p>
+<p>获取一个数据源（source）→ 数据转换→执行操作获取想要的结果，每次转换原有 Stream 对象不改变，返回一个新的 Stream     对象（可以有多次转换），这就允许对其操作可以像链条一样排列，变成一个管道，如下图所示。</p>
+<p>图 1. 流管道 (Stream Pipeline) 的构成</p>
+<p><img src="https://daihuiblog.oss-cn-beijing.aliyuncs.com/picgo/Java8中的StreamsAPI详解/1-2023-03-06-10-49-12.png" alt="1-2023-03-06-10-49-12"></p>
+<p>有多种方式生成 Stream Source：</p>
+<ul>
+<li>从 Collection 和数组<ul>
+<li>Collection.stream()</li>
+<li>Collection.parallelStream()</li>
+<li>Arrays.stream(T array) or Stream.of()</li>
+</ul>
+</li>
+<li>从 BufferedReader<ul>
+<li>java.io.BufferedReader.lines()</li>
+</ul>
+</li>
+<li>静态工厂<ul>
+<li>java.util.stream.IntStream.range()</li>
+<li>java.nio.file.Files.walk()</li>
+</ul>
+</li>
+<li>自己构建<ul>
+<li>java.util.Spliterator</li>
+</ul>
+</li>
+<li>其它<ul>
+<li>Random.ints()</li>
+<li>BitSet.stream()</li>
+<li>Pattern.splitAsStream(java.lang.CharSequence)</li>
+<li>JarFile.stream()</li>
+</ul>
+</li>
+</ul>
+<p>流的操作类型分为两种：</p>
+<ul>
+<li><p><strong>Intermediate</strong>：一个流可以后面跟随零个或多个 intermediate      操作。其目的主要是打开流，做出某种程度的数据映射/过滤，然后返回一个新的流，交给下一个操作使用。这类操作都是惰性化的（lazy），就是说，仅仅调用到这类方法，并没有真正开始流的遍历。</p>
+</li>
+<li><p><strong>Terminal</strong>：一个流只能有一个 terminal      操作，当这个操作执行后，流就被使用“光”了，无法再被操作。所以这必定是流的最后一个操作。Terminal 操作的执行，才会真正开始流的遍历，并且会生成一个结果，或者一个 side effect。</p>
+</li>
+</ul>
+<p>在对于一个 Stream 进行多次转换操作 (Intermediate 操作)，每次都对 Stream 的每个元素进行转换，而且是执行多次，这样时间复杂度就是 N（转换次数）个 for 循环里把所有操作都做掉的总和吗？其实不是这样的，转换操作都是 lazy 的，多个转换操作只会在 Terminal 操作的时候融合起来，一次循环完成。我们可以这样简单的理解，Stream 里有个操作函数的集合，每次转换操作就是把转换函数放入这个集合中，在 Terminal 操作的时候循环 Stream 对应的集合，然后对每个元素执行所有的函数。</p>
+<p>还有一种操作被称为 <strong>short-circuiting</strong>。用以指：</p>
+<ul>
+<li><p>对于一个 intermediate 操作，如果它接受的是一个无限大（infinite/unbounded）的 Stream，但返回一个有限的新 Stream。</p>
+</li>
+<li><p>对于一个 terminal 操作，如果它接受的是一个无限大的 Stream，但能在有限的时间计算出结果。</p>
+</li>
+</ul>
+<p>当操作一个无限大的 Stream，而又希望在有限时间内完成操作，则在管道内拥有一个 short-circuiting 操作是必要非充分条件。</p>
+<p>清单 3. 一个流操作的示例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> sum = widgets.stream()</span><br><span class="line">.filter(w -&gt; w.getColor() == RED)</span><br><span class="line"> .mapToInt(w -&gt; w.getWeight())</span><br><span class="line"> .sum();</span><br></pre></td></tr></table></figure>
+<p>stream() 获取当前小物件的 source，filter 和 mapToInt 为 intermediate 操作，进行数据筛选和转换，最后一个 sum() 为 terminal     操作，对符合条件的全部小物件作重量求和。</p>
+<h2 id="流的使用详解"><a href="#流的使用详解" class="headerlink" title="流的使用详解"></a>流的使用详解</h2><p>简单说，对 Stream 的使用就是实现一个 filter-map-reduce 过程，产生一个最终结果，或者导致一个副作用（side effect）。</p>
+<h3 id="流的构造与转换"><a href="#流的构造与转换" class="headerlink" title="流的构造与转换"></a>流的构造与转换</h3><p>下面提供最常见的几种构造 Stream 的样例。</p>
+<p>清单 4. 构造流的几种常见方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. Individual values</span></span><br><span class="line">Stream stream = Stream.of(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>);</span><br><span class="line"><span class="comment">// 2. Arrays</span></span><br><span class="line">String [] strArray = <span class="keyword">new</span> String[] &#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>&#125;;</span><br><span class="line">stream = Stream.of(strArray);</span><br><span class="line">stream = Arrays.stream(strArray);</span><br><span class="line"><span class="comment">// 3. Collections</span></span><br><span class="line">List&lt;String&gt; list = Arrays.asList(strArray);</span><br><span class="line">stream = list.stream();</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，对于基本数值型，目前有三种对应的包装类型 Stream：</p>
+<p>IntStream、LongStream、DoubleStream。当然我们也可以用 Stream&lt;Integer>、Stream&lt;Long>、Stream&lt;Double>，但是 boxing 和 unboxing 会很耗时，所以特别为这三种基本数值型提供了对应的 Stream。</p>
+<p>Java 8 中还没有提供其它数值型 Stream，因为这将导致扩增的内容较多。而常规的数值型聚合运算可以通过上面三种 Stream 进行。</p>
+<p>清单 5. 数值流的构造</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IntStream.of(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;).forEach(System.out::println);</span><br><span class="line">IntStream.range(<span class="number">1</span>, <span class="number">3</span>).forEach(System.out::println);</span><br><span class="line">IntStream.rangeClosed(<span class="number">1</span>, <span class="number">3</span>).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<p>清单 6. 流转换为其它数据结构</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. Array</span></span><br><span class="line">String[] strArray1 = stream.toArray(String[]::<span class="keyword">new</span>);</span><br><span class="line"><span class="comment">// 2. Collection</span></span><br><span class="line">List&lt;String&gt; list1 = stream.collect(Collectors.toList());</span><br><span class="line">List&lt;String&gt; list2 = stream.collect(Collectors.toCollection(ArrayList::<span class="keyword">new</span>));</span><br><span class="line">Set set1 = stream.collect(Collectors.toSet());</span><br><span class="line">Stack stack1 = stream.collect(Collectors.toCollection(Stack::<span class="keyword">new</span>));</span><br><span class="line"><span class="comment">// 3. String</span></span><br><span class="line">String str = stream.collect(Collectors.joining()).toString();</span><br></pre></td></tr></table></figure>
+<p>一个 Stream 只可以使用一次，上面的代码为了简洁而重复使用了数次。</p>
+<h3 id="流的操作"><a href="#流的操作" class="headerlink" title="流的操作"></a>流的操作</h3><p>接下来，当把一个数据结构包装成 Stream 后，就要开始对里面的元素进行各类操作了。常见的操作可以归类如下。</p>
+<ul>
+<li>Intermediate：</li>
+</ul>
+<p>map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、     sequential、 unordered</p>
+<ul>
+<li>Terminal：</li>
+</ul>
+<p>forEach、 forEachOrdered、 toArray、 reduce、 collect、 min、 max、 count、 anyMatch、     allMatch、 noneMatch、 findFirst、 findAny、 iterator</p>
+<ul>
+<li>Short-circuiting：</li>
+</ul>
+<p>anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 limit</p>
+<p>我们下面看一下 Stream 的比较典型用法。</p>
+<p><strong>map/flatMap</strong>  </p>
+<p>我们先来看 map。如果你熟悉 scala 这类函数式语言，对这个方法应该很了解，它的作用就是把 input Stream 的每一个元素，映射成 output Stream 的另外一个元素。</p>
+<p>清单 7. 转换大写</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; output = wordList.stream().</span><br><span class="line">map(String::toUpperCase).</span><br><span class="line">collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>这段代码把所有的单词转换为大写。</p>
+<p>清单 8. 平方数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; nums = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">List&lt;Integer&gt; squareNums = nums.stream().</span><br><span class="line">map(n -&gt; n * n).</span><br><span class="line">collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>这段代码生成一个整数 list 的平方数 {1, 4, 9, 16}。</p>
+<p>从上面例子可以看出，map 生成的是个 1:1 映射，每个输入元素，都按照规则转换成为另外一个元素。还有一些场景，是一对多映射关系的，这时需要 flatMap。</p>
+<p>清单 9. 一对多</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Stream&lt;List&lt;Integer&gt;&gt; inputStream = Stream.of(</span><br><span class="line"> Arrays.asList(<span class="number">1</span>),</span><br><span class="line"> Arrays.asList(<span class="number">2</span>, <span class="number">3</span>),</span><br><span class="line"> Arrays.asList(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line"> );</span><br><span class="line">Stream&lt;Integer&gt; outputStream = inputStream.</span><br><span class="line">flatMap((childList) -&gt; childList.stream());</span><br></pre></td></tr></table></figure>
+<p>flatMap 把 input Stream 中的层级结构扁平化，就是将最底层元素抽出来放到一起，最终 output 的新 Stream 里面已经没有 List 了，都是直接的数字。</p>
+<p><strong>filter</strong>  </p>
+<p>filter 对原始 Stream 进行某项测试，通过测试的元素被留下来生成一个新 Stream。</p>
+<p>清单 10. 留下偶数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Integer[] sixNums = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;;</span><br><span class="line">Integer[] evens =</span><br><span class="line">Stream.of(sixNums).filter(n -&gt; n%<span class="number">2</span> == <span class="number">0</span>).toArray(Integer[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+<p>经过条件“被 2 整除”的 filter，剩下的数字为 {2, 4, 6}。</p>
+<p>清单 11. 把单词挑出来</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; output = reader.lines().</span><br><span class="line"> flatMap(line -&gt; Stream.of(line.split(REGEXP))).</span><br><span class="line"> filter(word -&gt; word.length() &gt; <span class="number">0</span>).</span><br><span class="line"> collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>这段代码首先把每行的单词用 flatMap 整理到新的 Stream，然后保留长度不为 0 的，就是整篇文章中的全部单词了。</p>
+<p><strong>forEach</strong>  </p>
+<p>forEach 方法接收一个 Lambda 表达式，然后在 Stream 的每一个元素上执行该表达式。</p>
+<p>清单 12. 打印姓名（forEach 和 pre-java8 的对比）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Java 8</span></span><br><span class="line">roster.stream()</span><br><span class="line"> .filter(p -&gt; p.getGender() == Person.Sex.MALE)</span><br><span class="line"> .forEach(p -&gt; System.out.println(p.getName()));</span><br><span class="line"><span class="comment">// Pre-Java 8</span></span><br><span class="line"><span class="keyword">for</span> (Person p : roster) &#123;</span><br><span class="line"> <span class="keyword">if</span> (p.getGender() == Person.Sex.MALE) &#123;</span><br><span class="line"> System.out.println(p.getName());</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对一个人员集合遍历，找出男性并打印姓名。可以看出来，forEach 是为 Lambda 而设计的，保持了最紧凑的风格。而且 Lambda     表达式本身是可以重用的，非常方便。当需要为多核系统优化时，可以 parallelStream().forEach()，只是此时原有元素的次序没法保证，并行的情况下将改变串行时操作的行为，此时 forEach 本身的实现不需要调整，而 Java8 以前的 for 循环 code 可能需要加入额外的多线程逻辑。</p>
+<p>但一般认为，forEach 和常规 for 循环的差异不涉及到性能，它们仅仅是函数式风格与传统 Java 风格的差别。</p>
+<p>另外一点需要注意，forEach 是 terminal 操作，因此它执行后，Stream 的元素就被“消费”掉了，你无法对一个 Stream 进行两次 terminal 运算。下面的代码是错误的：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">stream.forEach(element -&gt; doOneThing(element));</span><br><span class="line">stream.forEach(element -&gt; doAnotherThing(element));</span><br></pre></td></tr></table></figure>
+<p>相反，具有相似功能的 intermediate 操作 peek 可以达到上述目的。如下是出现在该 api javadoc 上的一个示例。</p>
+<p>清单 13. peek 对每个元素执行操作并返回一个新的 Stream</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Stream.of(<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>, <span class="string">"four"</span>)</span><br><span class="line"> .filter(e -&gt; e.length() &gt; <span class="number">3</span>)</span><br><span class="line"> .peek(e -&gt; System.out.println(<span class="string">"Filtered value: "</span> + e))</span><br><span class="line"> .map(String::toUpperCase)</span><br><span class="line"> .peek(e -&gt; System.out.println(<span class="string">"Mapped value: "</span> + e))</span><br><span class="line"> .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>forEach 不能修改自己包含的本地变量值，也不能用 break/return 之类的关键字提前结束循环。</p>
+<p><strong>findFirst</strong>  </p>
+<p>这是一个 termimal 兼 short-circuiting 操作，它总是返回 Stream 的第一个元素，或者空。</p>
+<p>这里比较重点的是它的返回值类型：Optional。这也是一个模仿 Scala 语言中的概念，作为一个容器，它可能含有某值，或者不包含。使用它的目的是尽可能避免     NullPointerException。</p>
+<p>清单 14. Optional 的两个用例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String strA = <span class="string">" abcd "</span>, strB = <span class="keyword">null</span>;</span><br><span class="line">print(strA);</span><br><span class="line">print(<span class="string">""</span>);</span><br><span class="line">print(strB);</span><br><span class="line">getLength(strA);</span><br><span class="line">getLength(<span class="string">""</span>);</span><br><span class="line">getLength(strB);</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(String text)</span> </span>&#123;</span><br><span class="line"> <span class="comment">// Java 8</span></span><br><span class="line"> Optional.ofNullable(text).ifPresent(System.out::println);</span><br><span class="line"> <span class="comment">// Pre-Java 8</span></span><br><span class="line"> <span class="keyword">if</span> (text != <span class="keyword">null</span>) &#123;</span><br><span class="line"> System.out.println(text);</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getLength</span><span class="params">(String text)</span> </span>&#123;</span><br><span class="line"> <span class="comment">// Java 8</span></span><br><span class="line"><span class="keyword">return</span> Optional.ofNullable(text).map(String::length).orElse(-<span class="number">1</span>);</span><br><span class="line"> <span class="comment">// Pre-Java 8</span></span><br><span class="line"><span class="comment">// return if (text != null) ? text.length() : -1;</span></span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
+<p>在更复杂的 if (xx != null) 的情况中，使用 Optional 代码的可读性更好，而且它提供的是编译时检查，能极大的降低 NPE 这种 Runtime Exception 对程序的影响，或者迫使程序员更早的在编码阶段处理空值问题，而不是留到运行时再发现和调试。</p>
+<p>Stream 中的 findAny、max/min、reduce 等方法等返回 Optional 值。还有例如 IntStream.average() 返回 OptionalDouble 等等。</p>
+<p><strong>reduce</strong>  </p>
+<p>这个方法的主要作用是把 Stream 元素组合起来。它提供一个起始值（种子），然后依照运算规则（BinaryOperator），和前面 Stream 的第一个、第二个、第 n     个元素组合。从这个意义上说，字符串拼接、数值的 sum、min、max、average 都是特殊的 reduce。例如 Stream 的 sum 就相当于</p>
+<p>Integer sum = integers.reduce(0, (a, b) -&gt; a+b); 或</p>
+<p>Integer sum = integers.reduce(0, Integer::sum);</p>
+<p>也有没有起始值的情况，这时会把 Stream 的前面两个元素组合起来，返回的是 Optional。</p>
+<p>清单 15. reduce 的用例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 字符串连接，concat = "ABCD"</span></span><br><span class="line">String concat = Stream.of(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>).reduce(<span class="string">""</span>, String::concat); </span><br><span class="line"><span class="comment">// 求最小值，minValue = -3.0</span></span><br><span class="line"><span class="keyword">double</span> minValue = Stream.of(-<span class="number">1.5</span>, <span class="number">1.0</span>, -<span class="number">3.0</span>, -<span class="number">2.0</span>).reduce(Double.MAX_VALUE, Double::min); </span><br><span class="line"><span class="comment">// 求和，sumValue = 10, 有起始值</span></span><br><span class="line"><span class="keyword">int</span> sumValue = Stream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>).reduce(<span class="number">0</span>, Integer::sum);</span><br><span class="line"><span class="comment">// 求和，sumValue = 10, 无起始值</span></span><br><span class="line">sumValue = Stream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>).reduce(Integer::sum).get();</span><br><span class="line"><span class="comment">// 过滤，字符串连接，concat = "ace"</span></span><br><span class="line">concat = Stream.of(<span class="string">"a"</span>, <span class="string">"B"</span>, <span class="string">"c"</span>, <span class="string">"D"</span>, <span class="string">"e"</span>, <span class="string">"F"</span>).</span><br><span class="line"> filter(x -&gt; x.compareTo(<span class="string">"Z"</span>) &gt; <span class="number">0</span>).</span><br><span class="line"> reduce(<span class="string">""</span>, String::concat);</span><br></pre></td></tr></table></figure>
+<p>上面代码例如第一个示例的 reduce()，第一个参数（空白字符）即为起始值，第二个参数（String::concat）为 BinaryOperator。这类有起始值的 reduce()     都返回具体的对象。而对于第四个示例没有起始值的 reduce()，由于可能没有足够的元素，返回的是 Optional，请留意这个区别。</p>
+<p><strong>limit/skip</strong>  </p>
+<p>limit 返回 Stream 的前面 n 个元素；skip 则是扔掉前 n 个元素（它是由一个叫 subStream 的方法改名而来）。</p>
+<p>清单 16. limit 和 skip 对运行次数的影响</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLimitAndSkip</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> List&lt;Person&gt; persons = <span class="keyword">new</span> ArrayList();</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10000</span>; i++) &#123;</span><br><span class="line"> Person person = <span class="keyword">new</span> Person(i, <span class="string">"name"</span> + i);</span><br><span class="line"> persons.add(person);</span><br><span class="line"> &#125;</span><br><span class="line">List&lt;String&gt; personList2 = persons.stream().</span><br><span class="line">map(Person::getName).limit(<span class="number">10</span>).skip(<span class="number">3</span>).collect(Collectors.toList());</span><br><span class="line"> System.out.println(personList2);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">int</span> no;</span><br><span class="line"> <span class="keyword">private</span> String name;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">Person</span> <span class="params">(<span class="keyword">int</span> no, String name)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">this</span>.no = no;</span><br><span class="line"> <span class="keyword">this</span>.name = name;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> System.out.println(name);</span><br><span class="line"> <span class="keyword">return</span> name;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">name1</span><br><span class="line">name2</span><br><span class="line">name3</span><br><span class="line">name4</span><br><span class="line">name5</span><br><span class="line">name6</span><br><span class="line">name7</span><br><span class="line">name8</span><br><span class="line">name9</span><br><span class="line">name10</span><br><span class="line">[name4, name5, name6, name7, name8, name9, name10]</span><br></pre></td></tr></table></figure>
+<p>这是一个有 10，000 个元素的 Stream，但在 short-circuiting 操作 limit 和 skip 的作用下，管道中 map 操作指定的 getName()     方法的执行次数为 limit 所限定的 10 次，而最终返回结果在跳过前 3 个元素后只有后面 7 个返回。</p>
+<p>有一种情况是 limit/skip 无法达到 short-circuiting 目的的，就是把它们放在 Stream 的排序操作后，原因跟 sorted 这个 intermediate     操作有关：此时系统并不知道 Stream 排序后的次序如何，所以 sorted 中的操作看上去就像完全没有被 limit 或者 skip 一样。</p>
+<p>清单 17. limit 和 skip 对 sorted 后的运行次数无影响</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Person&gt; persons = <span class="keyword">new</span> ArrayList();</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line"> Person person = <span class="keyword">new</span> Person(i, <span class="string">"name"</span> + i);</span><br><span class="line"> persons.add(person);</span><br><span class="line"> &#125;</span><br><span class="line">List&lt;Person&gt; personList2 = persons.stream().sorted((p1, p2) -&gt; </span><br><span class="line">p1.getName().compareTo(p2.getName())).limit(<span class="number">2</span>).collect(Collectors.toList());</span><br><span class="line">System.out.println(personList2);</span><br></pre></td></tr></table></figure>
+<p>上面的示例对清单 13 做了微调，首先对 5 个元素的 Stream 排序，然后进行 limit 操作。输出结果为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">name2</span><br><span class="line">name1</span><br><span class="line">name3</span><br><span class="line">name2</span><br><span class="line">name4</span><br><span class="line">name3</span><br><span class="line">name5</span><br><span class="line">name4</span><br><span class="line">[stream.StreamDW$Person@<span class="number">816f</span>27d, stream.StreamDW$Person@<span class="number">87</span>aac27]</span><br></pre></td></tr></table></figure>
+<p>即虽然最后的返回元素数量是 2，但整个管道中的 sorted 表达式执行次数没有像前面例子相应减少。</p>
+<p>最后有一点需要注意的是，对一个 parallel 的 Steam 管道来说，如果其元素是有序的，那么 limit 操作的成本会比较大，因为它的返回对象必须是前 n 个也有一样次序的元素。取而代之的策略是取消元素间的次序，或者不要用 parallel Stream。</p>
+<p><strong>sorted</strong></p>
+<p>对 Stream 的排序通过 sorted 进行，它比数组的排序更强之处在于你可以首先对 Stream 进行各类 map、filter、limit、skip 甚至 distinct     来减少元素数量后，再排序，这能帮助程序明显缩短执行时间。我们对清单 14 进行优化：</p>
+<p>清单 18. 优化：排序前进行 limit 和 skip</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Person&gt; persons = <span class="keyword">new</span> ArrayList();</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line"> Person person = <span class="keyword">new</span> Person(i, <span class="string">"name"</span> + i);</span><br><span class="line"> persons.add(person);</span><br><span class="line"> &#125;</span><br><span class="line">List&lt;Person&gt; personList2 = persons.stream().limit(<span class="number">2</span>).sorted((p1, p2) -&gt; p1.getName().compareTo(p2.getName())).collect(Collectors.toList());</span><br><span class="line">System.out.println(personList2);</span><br></pre></td></tr></table></figure>
+<p>结果会简单很多：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">name2</span><br><span class="line">name1</span><br><span class="line">[stream.StreamDW$Person@<span class="number">6</span>ce253f1, stream.StreamDW$Person@<span class="number">53</span>d8d10a]</span><br></pre></td></tr></table></figure>
+<p>当然，这种优化是有 business logic 上的局限性的：即不要求排序后再取值。</p>
+<p><strong>min/max/distinct</strong></p>
+<p>min 和 max 的功能也可以通过对 Stream 元素先排序，再 findFirst 来实现，但前者的性能会更好，为 O(n)，而 sorted 的成本是 O(n log n)。同时它们作为特殊的 reduce 方法被独立出来也是因为求最大最小值是很常见的操作。</p>
+<p>清单 19. 找出最长一行的长度</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="string">"c:\\SUService.log"</span>));</span><br><span class="line"><span class="keyword">int</span> longest = br.lines().</span><br><span class="line"> mapToInt(String::length).</span><br><span class="line"> max().</span><br><span class="line"> getAsInt();</span><br><span class="line">br.close();</span><br><span class="line">System.out.println(longest);</span><br></pre></td></tr></table></figure>
+<p>下面的例子则使用 distinct 来找出不重复的单词。</p>
+<p>清单 20. 找出全文的单词，转小写，并排序</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; words = br.lines().</span><br><span class="line"> flatMap(line -&gt; Stream.of(line.split(<span class="string">" "</span>))).</span><br><span class="line"> filter(word -&gt; word.length() &gt; <span class="number">0</span>).</span><br><span class="line"> map(String::toLowerCase).</span><br><span class="line"> distinct().</span><br><span class="line"> sorted().</span><br><span class="line"> collect(Collectors.toList());</span><br><span class="line">br.close();</span><br><span class="line">System.out.println(words);</span><br></pre></td></tr></table></figure>
+<p><strong>Match</strong></p>
+<p>Stream 有三个 match 方法，从语义上说：</p>
+<ul>
+<li>allMatch：Stream 中全部元素符合传入的 predicate，返回 true</li>
+<li>anyMatch：Stream 中只要有一个元素符合传入的 predicate，返回 true</li>
+<li>noneMatch：Stream 中没有一个元素符合传入的 predicate，返回 true</li>
+</ul>
+<p>它们都不是要遍历全部元素才能返回结果。例如 allMatch 只要一个元素不满足条件，就 skip 剩下的所有元素，返回 false。对清单 13 中的 Person 类稍做修改，加入一个 age 属性和 getAge 方法。</p>
+<p>清单 21. 使用 Match</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Person&gt; persons = <span class="keyword">new</span> ArrayList();</span><br><span class="line">persons.add(<span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">"name"</span> + <span class="number">1</span>, <span class="number">10</span>));</span><br><span class="line">persons.add(<span class="keyword">new</span> Person(<span class="number">2</span>, <span class="string">"name"</span> + <span class="number">2</span>, <span class="number">21</span>));</span><br><span class="line">persons.add(<span class="keyword">new</span> Person(<span class="number">3</span>, <span class="string">"name"</span> + <span class="number">3</span>, <span class="number">34</span>));</span><br><span class="line">persons.add(<span class="keyword">new</span> Person(<span class="number">4</span>, <span class="string">"name"</span> + <span class="number">4</span>, <span class="number">6</span>));</span><br><span class="line">persons.add(<span class="keyword">new</span> Person(<span class="number">5</span>, <span class="string">"name"</span> + <span class="number">5</span>, <span class="number">55</span>));</span><br><span class="line"><span class="keyword">boolean</span> isAllAdult = persons.stream().</span><br><span class="line"> allMatch(p -&gt; p.getAge() &gt; <span class="number">18</span>);</span><br><span class="line">System.out.println(<span class="string">"All are adult? "</span> + isAllAdult);</span><br><span class="line"><span class="keyword">boolean</span> isThereAnyChild = persons.stream().</span><br><span class="line"> anyMatch(p -&gt; p.getAge() &lt; <span class="number">12</span>);</span><br><span class="line">System.out.println(<span class="string">"Any child? "</span> + isThereAnyChild);</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">All are adult? <span class="keyword">false</span></span><br><span class="line">Any child? <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="进阶：自己生成流"><a href="#进阶：自己生成流" class="headerlink" title="进阶：自己生成流"></a>进阶：自己生成流</h3><p><strong>Stream.generate</strong></p>
+<p>通过实现 Supplier 接口，你可以自己来控制流的生成。这种情形通常用于随机数、常量的 Stream，或者需要前后元素间维持着某种状态信息的 Stream。把 Supplier     实例传递给 Stream.generate() 生成的 Stream，默认是串行（相对 parallel 而言）但无序的（相对 ordered 而言）。由于它是无限的，在管道中，必须利用     limit 之类的操作限制 Stream 大小。</p>
+<p>清单 22. 生成 10 个随机整数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Random seed = <span class="keyword">new</span> Random();</span><br><span class="line">Supplier&lt;Integer&gt; random = seed::nextInt;</span><br><span class="line">Stream.generate(random).limit(<span class="number">10</span>).forEach(System.out::println);</span><br><span class="line"><span class="comment">//Another way</span></span><br><span class="line">IntStream.generate(() -&gt; (<span class="keyword">int</span>) (System.nanoTime() % <span class="number">100</span>)).</span><br><span class="line">limit(<span class="number">10</span>).forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<p>Stream.generate() 还接受自己实现的 Supplier。例如在构造海量测试数据的时候，用某种自动的规则给每一个变量赋值；或者依据公式计算 Stream     的每个元素值。这些都是维持状态信息的情形。</p>
+<p>清单 23. 自实现 Supplier</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Stream.generate(<span class="keyword">new</span> PersonSupplier()).</span><br><span class="line">limit(<span class="number">10</span>).</span><br><span class="line">forEach(p -&gt; System.out.println(p.getName() + <span class="string">", "</span> + p.getAge()));</span><br><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonSupplier</span> <span class="keyword">implements</span> <span class="title">Supplier</span>&lt;<span class="title">Person</span>&gt; </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">private</span> Random random = <span class="keyword">new</span> Random();</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> Person <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> Person(index++, <span class="string">"StormTestUser"</span> + index, random.nextInt(<span class="number">100</span>));</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">StormTestUser1, <span class="number">9</span></span><br><span class="line">StormTestUser2, <span class="number">12</span></span><br><span class="line">StormTestUser3, <span class="number">88</span></span><br><span class="line">StormTestUser4, <span class="number">51</span></span><br><span class="line">StormTestUser5, <span class="number">22</span></span><br><span class="line">StormTestUser6, <span class="number">28</span></span><br><span class="line">StormTestUser7, <span class="number">81</span></span><br><span class="line">StormTestUser8, <span class="number">51</span></span><br><span class="line">StormTestUser9, <span class="number">4</span></span><br><span class="line">StormTestUser10, <span class="number">76</span></span><br></pre></td></tr></table></figure>
+<p><strong>Stream.iterate</strong></p>
+<p>iterate 跟 reduce 操作很像，接受一个种子值，和一个 UnaryOperator（例如 f）。然后种子值成为 Stream 的第一个元素，f(seed)     为第二个，f(f(seed)) 第三个，以此类推。</p>
+<p>清单 24. 生成一个等差数列</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Stream.iterate(<span class="number">0</span>, n -&gt; n + <span class="number">3</span>).limit(<span class="number">10</span>). forEach(x -&gt; System.out.print(x + <span class="string">" "</span>));.</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span> <span class="number">3</span> <span class="number">6</span> <span class="number">9</span> <span class="number">12</span> <span class="number">15</span> <span class="number">18</span> <span class="number">21</span> <span class="number">24</span> <span class="number">27</span></span><br></pre></td></tr></table></figure>
+<p>与 Stream.generate 相仿，在 iterate 时候管道必须有 limit 这样的操作来限制 Stream 大小。</p>
+<h3 id="进阶：用-Collectors-来进行-reduction-操作"><a href="#进阶：用-Collectors-来进行-reduction-操作" class="headerlink" title="进阶：用 Collectors 来进行 reduction 操作"></a>进阶：用 Collectors 来进行 reduction 操作</h3><p>java.util.stream.Collectors 类的主要作用就是辅助进行各类有用的 reduction 操作，例如转变输出为 Collection，把 Stream 元素进行归组。<br>groupingBy/partitioningBy</p>
+<p>清单 25. 按照年龄归组</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Integer, List&lt;Person&gt;&gt; personGroups = Stream.generate(<span class="keyword">new</span> PersonSupplier()).</span><br><span class="line"> limit(<span class="number">100</span>).</span><br><span class="line"> collect(Collectors.groupingBy(Person::getAge));</span><br><span class="line">Iterator it = personGroups.entrySet().iterator();</span><br><span class="line"><span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line"> Map.Entry&lt;Integer, List&lt;Person&gt;&gt; persons = (Map.Entry) it.next();</span><br><span class="line"> System.out.println(<span class="string">"Age "</span> + persons.getKey() + <span class="string">" = "</span> + persons.getValue().size());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的 code，首先生成 100 人的信息，然后按照年龄归组，相同年龄的人放到同一个 list 中，可以看到如下的输出：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Age <span class="number">0</span> = <span class="number">2</span></span><br><span class="line">Age <span class="number">1</span> = <span class="number">2</span></span><br><span class="line">Age <span class="number">5</span> = <span class="number">2</span></span><br><span class="line">Age <span class="number">8</span> = <span class="number">1</span></span><br><span class="line">Age <span class="number">9</span> = <span class="number">1</span></span><br><span class="line">Age <span class="number">11</span> = <span class="number">2</span></span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+<p>清单 26. 按照未成年人和成年人归组</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Boolean, List&lt;Person&gt;&gt; children = Stream.generate(<span class="keyword">new</span> PersonSupplier()).</span><br><span class="line">limit(<span class="number">100</span>).</span><br><span class="line"> collect(Collectors.partitioningBy(p -&gt; p.getAge() &lt; <span class="number">18</span>));</span><br><span class="line">System.out.println(<span class="string">"Children number: "</span> + children.get(<span class="keyword">true</span>).size());</span><br><span class="line">System.out.println(<span class="string">"Adult number: "</span> + children.get(<span class="keyword">false</span>).size());</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Children number: <span class="number">23</span> </span><br><span class="line">Adult number: <span class="number">77</span></span><br></pre></td></tr></table></figure>
+<p>在使用条件“年龄小于 18”进行分组后可以看到，不到 18 岁的未成年人是一组，成年人是另外一组。partitioningBy 其实是一种特殊的     groupingBy，它依照条件测试的是否两种结果来构造返回的数据结构，get(true) 和 get(false) 能即为全部的元素对象。</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>总之，Stream 的特性可以归纳为：</p>
+<ul>
+<li>不是数据结构</li>
+<li>它没有内部存储，它只是用操作管道从 source（数据结构、数组、generator function、IO channel）抓取数据。</li>
+<li>它也绝不修改自己所封装的底层数据结构的数据。例如 Stream 的 filter 操作会产生一个不包含被过滤元素的新 Stream，而不是从 source 删除那些元素。</li>
+<li>所有 Stream 的操作必须以 lambda 表达式为参数</li>
+<li>不支持索引访问</li>
+<li>你可以请求第一个元素，但无法请求第二个，第三个，或最后一个。不过请参阅下一项。</li>
+<li>很容易生成数组或者 List</li>
+<li>惰性化</li>
+<li>很多 Stream 操作是向后延迟的，一直到它弄清楚了最后需要多少数据才会开始。</li>
+<li>Intermediate 操作永远是惰性化的。</li>
+<li>并行能力</li>
+<li>当一个 Stream 是并行化的，就不需要再写多线程代码，所有对它的操作会自动并行进行的。</li>
+<li>可以是无限的</li>
+<li>集合有固定大小，Stream 则不必。limit(n) 和 findFirst() 这类的 short-circuiting 操作可以对无限的 Stream        进行运算并很快完成。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>Stream</category>
+      </categories>
+      <tags>
+        <tag>Java8</tag>
+        <tag>Streams API</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学不会的华为 IPD，其实是这样！</title>
+    <url>/2022/12/21/%E4%BD%A0%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E5%8D%8E%E4%B8%BA%20IPD%EF%BC%8C%E5%85%B6%E5%AE%9E%E6%98%AF%E8%BF%99%E6%A0%B7%EF%BC%81/</url>
+    <content><![CDATA[<p>美国著名作家弗格森说了一句话 “谁也无法说服他人改变，因为我们每个人都守着一扇只能从内心开启的改变之门，不论动之以情或晓之以理，我们都不能替别人开门”。</p>
+<p>改变真的是由内而外的？不是！改变是由外而内，再由内而外的过程。只有当我们有信息输入，在新的信息下触发自身，只有触发自身的信息才能引发一场由内而外的改变。我们将用以下的文章内容来提供触发信息。</p>
+<a id="more"></a>
+<h4 id="一、让你的企业成为资产的思维"><a href="#一、让你的企业成为资产的思维" class="headerlink" title="一、让你的企业成为资产的思维"></a><strong>一、让你的企业成为资产的思维</strong></h4><p>企业经营的目标是要创造价值、利润，那么如何创造客户、并且持续不断的为客户创造价值、留住客户，是企业经营的法宝。产品无疑在企业与客户之间建立了一座桥梁。企业通过产品为客户创造价值。持续不断的高品质的产品输出，是一个企业持续立于不败之地的法宝。</p>
+<p>然而，一个企业要成长，就要未雨绸缪、不断变革，以保持持续的生命力。华为公司就是一家保持持续变革的伟大公司，持续管理变革的目标就是实现高效的流程化运作，确保端到端的自动优质交付，从而实现企业的自动化管道系统。</p>
+<p>今天我们向华为学习企业的变革之下的研发流程体系，其实是一个研发管道系统，在华为，这条管道叫做——IPD 体系。华为公司认为，研发不仅是研发部门的事，更是关系公司市场到产品变现的全流程。IPD 是企业实现产品商业化的管道系统，IPD 体系构建了产品从 idea 到产品变现的全流程。</p>
+<p>经营企业需要具备系统性的全局思维，将企业看做资产的思维，企业是不断创造价值的资产，需要融入经营者的经营思维、战略思维、管理思维、并赋予工具、流程和方法，让其实现自动化运行的系统。当然不是所有企业都可以看成资产，只有创造价值，创造利润的企业才能称为资产。</p>
+<p>作为经营者、管理者需要以经营资产的思维来经营企业。</p>
+<h4 id="二、IPD-的起源和发展"><a href="#二、IPD-的起源和发展" class="headerlink" title="二、IPD 的起源和发展"></a><strong>二、IPD 的起源和发展</strong></h4><p><strong>1、跨界的 IBM 领导者为何要建 IPD</strong></p>
+<p>IPD 起源于这家公司——IBM，一个世界级的巨无霸，全球最大的信息技术和业务解决方案公司，拥有 30 多万员工，业务遍及 160 多个国家和地区。2018 年《财富》世界 500 强排行榜发布，IBM 位列 92 位。</p>
+<p>那么就是这样一家世界级的公司，在 1991～1993 年间累计面临巨大的财务困境，三年间累计亏损达 162 亿美元，几乎是每天亏损掉 1480 万美元。93 年的 4 月 1 日，54 岁，路易斯 · 郭士纳临危受命，担任 IBM 的执行总裁。</p>
+<p>郭士纳的上任当时并不被人们看好，包含美国的媒体，人们不相信一个曾经以食品和烟草起家的公司老板，能够扭转 IBM 的困局。</p>
+<p>郭士纳就任后，做了三件事：</p>
+<p>第一件事：让 IBM 停止流血；郭士纳裁剪了 IBM 流血的部门和人员，半年内果断裁人 4.5 万。</p>
+<p>第二件事：重振大型机业务，拓展服务业范围，并带领 IBM 重新向 PC 市场发动攻击。</p>
+<p>第三件事：梳理公司流程体制，进行流程重构和再造工程。</p>
+<p>这第三件事情是与新班子花了近一年时间，研究如何对 IBM 进行 “再造工程”。IBM 组织团队进行分析，经过分析后，他们发现公司三个方面上远远落后于业界最佳——研发费用、研发浪费和产品上市时间。</p>
+<p>分析的结果：IBM 研发费用为销售收入的 12%，而业界最佳为 6%；　　研发损失费用为整个研发费用的 25%，而业界最佳仅为 3.3%；而在上市时间（指产品从概念产生到投放市场所需的时间）方面，36.5% 项目的上市时间是业界最佳的 1.25 倍，其余项目的上市时间多于业界最佳的 1.5-2 倍。</p>
+<p>为了重新获得市场竞争优势，IBM 提出了两个 50% 的目标，一是，将产品上市时间减少 50%，二是，在不影响产品开发结果的情况下，将研发费用减少 50% 的目标。</p>
+<p>为达成这个目标，IBM 公司应用了 PACE 的方法（Product And Cycle-time Excellence，产品及周期优化法）从流程重整和产品重整两个方面来达到缩短产品上市时间、提高产品利润的目标。</p>
+<p>时隔三年，1995 年，IBM 营收突破了 700 亿美元大关，IBM 的大型机业务也复活了。利润 60 亿美元。不得不说，IBM 公司流程重构在提升自身竞争力上发挥了巨大的作用。</p>
+<p>IBM 成为了全球率先应用 IPD 方法并取得成功实践的企业，这就是 IPD 的起源。</p>
+<p>美国著名的 PTRM 公司总结实施 IPD 后带来的好处是：</p>
+<p><img src="https://pic3.zhimg.com/v2-cbb22c372c41b100de7a85da06ff48f6_r.jpg" alt=""></p>
+<p>IPD 是集成产品开发的英文单词首字母，经过 IBM 公司实践的一套先进的、成熟的研发管理思想、模式和方法。</p>
+<p><strong>2、华为搭上 IPD 的快车</strong></p>
+<p>1997 年西方圣诞节前一周，任总重点考察了 IBM。圣诞节前夕美国各大企业都已经放假了，但 IBM 包括 CEO 郭士纳在内的高层领导均照常上班，并真诚而系统地向任正非介绍了他们的管理内涵。</p>
+<p>这次调研中整整一天时间，IBM 从产品预研到项目管理、从生产流程到项目寿命终结的投资评审做了详尽的介绍。为了强化任正非对 IPD 的认识，IBM 副总裁送给他一本哈佛大学出版的关于研发管理的著作，后来他发现朗讯、惠普等美国著名企业也都实施这样的研发模式。</p>
+<p>这次考察更加坚定了任正非对华为实施变革的坚定决心，华为要像 IBM 一样强大，不仅自己要以郭士纳为榜样，而且华为必须虔诚地拜 IBM 为师，不惜一切代价将其管理精髓移植到华为身上。</p>
+<p>1998 年 8 月初，华为与 IBM 中国区总裁周伟焜签订了金额 20 亿人民币的变革项目合作协议，当时 20 亿是华为当年全年的利润，可见任总的魄力非常人所能及也。</p>
+<p>这个项目包含了 IPD（集成产品开发）、ISC（集成供应链）、IT 系统重整、财务四统一等 8 个管理变革项目。这成为是华为历史上最重要的转折点，这个项目将华为带进了高速赛道。</p>
+<p>华为公司第一家引进和实施 IPD，也是受益最大的国内企业。从 98 年的 IPD1.0 到 2014 年的 IPD7.0, 华为不断升级优化。</p>
+<p>华为公司 1998 年启动 IPD 项目，分为关注、发明、推广 3 个阶段。根据 1998 年的计划，用两年多的时间就可以实现全面推广。</p>
+<p>华为在 2001 年华为颁布了《华为基本法》，基本法一个重要的方面是统一了公司变革的思想。</p>
+<p>经过了四年的梳理建设，IPD 在 2002 年在全公司推广使用。华为公司走上了与世界领先企业并肩同行的管理道路。</p>
+<h4 id="三、IPD-的核心思想"><a href="#三、IPD-的核心思想" class="headerlink" title="三、IPD 的核心思想"></a><strong>三、IPD 的核心思想</strong></h4><p><strong>1. 研发本质是研发是企业的一项投资</strong></p>
+<p>首先，IPD 认为研发是一项投资；因为这是一项投资决策，所以，需要对它进行有效的投资组合分析，在开发过程中，设置检查点，通过阶段性评审来决定项目是继续、暂停、终止还是改变方向。</p>
+<p><strong>IPD(Integrated product development 集成产品开发)，IPD 是一套先进的、成熟的研发管理思想、模式和方法。</strong></p>
+<p><strong>2. 基于市场的研发才是有效投资</strong></p>
+<p>IPD 强调，产品创新一定要是基于市场需求和竞争分析的创新，要准确地做正确的事情，要将正确定义产品概念、充分理解市场需求作为流程的第一步。</p>
+<p>在 IT 圈有个现象，一天公司其中一个人有个创意，然后召集人员参与讨论，之后，就规划出一个产品创意来，然后互相鼓励，觉得我们这个创意就是最牛逼的，我们是世界第一，没有人想到，只有我们想到。并且互相叮嘱，我们要保密哦，要充分注重信息安全，不能透露给外人。这样的产品规划，我们通常叫做意向创业；貌似具有非常强的执行力，立即组建团队，就卷起袖子加油干！立项、设计、开发、出样机、投生产。节奏很快，也很有魄力。恨不得 3 个月就能出产品，然后做营销、做销售。经历了千辛万苦，产品出来后，面向市场发布，结果无人问津。</p>
+<p>这里我们强调产品一定是基于市场需求的开发，一定要解决市场的问题和痛点，痒点都不行，必须是痛点。</p>
+<p>所以说，这种方式就不满足 IPD 的核心思想。我们说市场的端到端，是需求来源于市场，最终产品回归于市场。你都没有做充分的市场调研，怎么能够被市场所接受。</p>
+<p><strong>3. 如何穿越部门墙建立研发快车道</strong></p>
+<p>一个产品，尤其是以硬件为主的产品，设计产品的方方面面、结构、硬件、软件、工程、制造、采购、包装、市场推广等，是需要全部门协同配合的一个事情。所以必须要有跨部门的团队协作。</p>
+<p>采用跨部门的产品开发团队 (Product Development Team, 简称 PDT)，通过有效的沟通、协调以及决策，到达尽快将产品推向市场的目的。</p>
+<p>有的创业者，把这个事情想得太简单，完全没有搞清楚状况，拖几个人就开始干，在他们的理念中，出产品就是出样机，觉得样机出来了，产品就出来了，殊不知一个产品样机出来，仅仅只等效于产品开发过程只完成 40%，还有大量的工作要做。</p>
+<p>并且，在这种思想下，产品的是不完善的，是不具备量产化的，以样机为产品终结的思想，完全不会考虑到产品的后端需求。比如可测试性、可制造性、可服务性等 DFX 的需求。</p>
+<p>跨部门的团队，强调无缝沟通，强调把专业的团队串起来，为了一个共同的目标而努力。</p>
+<p>老罗有这么一句对自己的总结 “只有等到你掉到坑里的时候，你才刻骨铭心地意识到前辈们的忠告是如此的正确”。</p>
+<p>创业初期，老罗一直认为，除了乔布斯，锤子拥有世界上一流的工业设计团队。于是呢，我们看到，老罗开始打造工艺品，追求完美的产品设计。在产品转生产试制的时候，多次亲自在富士康的生产线跟线。在追求产品完美外观和软件体验细节的上面，忽略了产品的可实现性。后来老罗在一次产品发布会上深刻总结了做产品不是做艺术品，需要充分考虑产品的可制造性。其实老罗在 2012 年摩托罗拉大裁员的时候吸收了一大批摩托罗拉的技术专家。如果当时，他充分利用各类部门技术专家的优势，锤子 T1 手机就不会遭遇 “噩梦一般的三个月”。</p>
+<p><strong>4. 给新产品开发造一个发动机</strong></p>
+<p>IPD 同样也关注平台，平台化的开发带来了两大好处，铁打的银盘流水的兵，即使关键岗位的人员流动也不会对企业带来影响，平台让我们的开发成果得到积累和沉淀；另一方面，平台化的开发，支撑了我们新产品开发的速度。</p>
+<p><strong>5. 每个人都应该知道该干什么的方法</strong></p>
+<p>结构化的流程，所谓结构化，是指相互关联的工作要有一个框架结构，并要有一定的组织原则来支持它；每项工作都应清清楚楚地明确规定出来。所有与产品开发有关的人应该清楚他们所参与的是什么工作，用什么方法去完成。</p>
+<p>同时，有了结构化的流程，我们就不在受关键岗位、关键人才的限制。</p>
+<p>几年前，我就职过的一家公司，一个项目经理总览了一个产品系列的所有软硬件的全套技术和技术文件，以此为由，要求公司 CEO 给他加薪，CEO 最后不得不接受。当然，我们不希望这样的事情发生，同时我们也期望给公司员工带来更多的福利。可是这种情况在公司发展，对公司的发展，对员工的发展都是非常不利的。</p>
+<p><strong>6. 海陆空模式远比顺序模式强大</strong></p>
+<p><strong>异步开发模式</strong>，也称并行工程。通过严谨的计划、系统的设计、严格的流程控制，节点评审，把原来的许多后续活动提前进行，缩短产品上市时间。</p>
+<p>产品立项之后，总体方案评审通过，进入详细设计阶段，我们的动作就可以开始做了。</p>
+<p>产品的宣传资料可以出了，产品样机还没有出来，产品的市场预热推广已经开始了。这就是并行工程。那么我们通常情况下，我们敢不敢在样机还没有出来的时候有已经开始了产品的市场动作？敢不敢？</p>
+<p>我想很多企业是不敢的，产品没有出来就大量的投入营销，那么如果产品出不来怎么办呢？</p>
+<p>而在 IPD 的流程体系中，产品不会不出来，而且计划是产品不会不按照原定计划出来。</p>
+<p>一方面，IPD 强调的 “一次性把事情做好”；</p>
+<p>另外一方面，IPD 有系统的流程控制方法来保证产品开发如期完成。</p>
+<p><strong>重用性</strong> 尽量采用公共构建模块 (Common Building Block, 简称 CBB)，提高产品开发效率。</p>
+<p><strong>CBB</strong>，称为公共构建模块，这些模块，可以是软件的、可以是硬件的、可以是测试的、可以是生产的。有了这些模块，我们开发过程就聚焦在模块之外的其他需求进行，一方面减少了工作量。</p>
+<p>我在做手机的时候，我们曾做了一个 1.5 个月研发出一款手机并成功转量产的记录，就是充分应用了 CBB 的重用思想。</p>
+<p><strong>7. 中小企业也可以插上 IPD 的翅膀</strong></p>
+<p>第七个核心思想，阐述了 IPD 的灵活的，随着业务和技术的发展而变化的，可以全面应用，要可裁剪应用。因地制宜，随机应变。</p>
+<p>至今，华为的 IPD 还在不断的优化和升级，并且运用在了终端、无线、存储等各个产品线。</p>
+<p>而 IPD 最小的业务模式也同样适用于中小型企业。</p>
+<p>以上这七个横向的内容就是 IPD 的核心思想，IPD 的核心思想是 IPD 最重要管理精髓。</p>
+<p>当然除了横向的核心思想，IPD 还包含了纵向的核心内容：</p>
+<p>第一个内容，IPD 包含了 MM 市场管理流程，核心思想中强调了新产品开发是基于市场需求的开发，所以从市场到产品开发，一定需要一个市场管理流程来支撑。市场管理流程通过对市场的收集、分析、做出业务规划，输出产品开发任务书，作为产品开发的输入，是市场到开发的转化过程；</p>
+<p>第二个内容是 IPD 集成产品开发流程，这是我们实现产品开发落地的流程，怎样做出产品来，就是在这个流程中体现。后边的章节里我们会更详细的介绍。</p>
+<p>第三个内容技术开发流程，这个流程是实现企业的技术积累，核心竞争力的沉淀；</p>
+<p>第四个内容是项目管理流程，IPD 核心管理是基于项目管理来进行的，而项目管理是在管什么呢，是在管资源。</p>
+<p>第五个内容矩阵型组织结构，这是团队形式，核心思想中包含了跨部门团队，这个跨部门团队需要一个矩阵式的管理。</p>
+<p>第六个内容是：绩效与激励，从业务上来看着是一个支撑内容，为我们业务目标服务的。从管理上来看，这条非常重要，包含了企业文化、HR 的思想等。一句话，门朝哪里开，人就会从哪里走，就在这里来操作。我们的门要向着目标的方向打开。</p>
+<p>第七个内容 是管理优化与变革，这里强调了随着业务的发展，我们前面的这六点基于管理的内容要不断的优化升级，以更好的适配公司业务的发展。在华为公司，专门成立了管理优化部门，每年投入销售额的 3-5% 进行管理的优化变革。同时公司内部也有一个管理优化报，面向全公司发布。</p>
+<p>七横七纵，从概念上介绍了 IPD 的全貌，是 IPD 的精华所在，希望大家能够理解和运用它。</p>
+<h4 id="四、八个特征掌握-IPD"><a href="#四、八个特征掌握-IPD" class="headerlink" title="四、八个特征掌握 IPD"></a><strong>四、八个特征掌握 IPD</strong></h4><p><strong>1. IPD 的一套框架</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-557be7394adda907102507443972ce8a_r.jpg" alt=""></p>
+<p>从公司战略出发、收集市场信息、客户反馈、竞争信息、技术趋势、产品组合进入市场管理流程。通过市场管理流程的对信息的分析、转化为业务计划，输出产品规划的 charter（产品业务计划书）</p>
+<p>输入到产品开发流程，一部分输送给技术开发流程。通过产品开发流程和技术开发流程，实现对产品和技术的输出。</p>
+<p><strong>2. IPD 的两种评审模式 DCP 和 TR</strong></p>
+<p><img src="https://pic1.zhimg.com/v2-1b93002f94e2aded7cb220d1241c15b8_r.jpg" alt=""></p>
+<p>产品开发流程使用两种评审机制，一种是基于业务决策线的评审；另一种是基于技术线的决策评审。</p>
+<p>业务决策评审是集成产品开发管理团队（IPMT）管理产品投资的重要手段，在决策评审中，IPMT 始终站在投资商的角度来进行评审。</p>
+<p>业务决策评审包含了 charter 决策评审、概念决策评审、计划决策评审、验证决策评审、生命周期决策评审</p>
+<p>另外一种是技术决策评审，通过技术评审，帮助产品开发团队尽早发现产品开发中存在的问题和风险，及时采取相应的解决方案和行动计划，保证产品开发质量，减少浪费。</p>
+<p><strong>3. IPD 的三大业务流程</strong></p>
+<p><img src="https://pic4.zhimg.com/v2-22db8a6eb8546a2cd01a4ebfafc16737_r.jpg" alt=""></p>
+<p><strong>4. IPD 的四大组织</strong>  </p>
+<p><img src="https://pic4.zhimg.com/v2-e9ee51a0800a6e6ddfac5209208838a7_r.jpg" alt=""></p>
+<p>（1）集成组合管理团队（IPMT）：产品投资决策和评审机构，负责制定公司总的使命愿景和战略方向，并对新产品线的产生进行决策。通常是一个高层跨部门团队，成员包括各个部门最高主管。</p>
+<p>（2）产品开发团队（PDT）：一个虚拟的组织，其成员在产品开发期间一起工作，由产品经理 / 项目经理组织，一般是产品经理 / 项目经理负责的矩阵组织结构。</p>
+<p>（3）产品生命周期管理团队（LMT）：在产品生命周期中，联合研发、制造、销售、使用、安全部门等各方面的资源，从根本上保证了产品在全生命周期中的管理能够高效、有序，并使产品保持低故障率。</p>
+<p>（4）技术开发团队（TMT）：利用从研究和试验获得的知识或技术，为产品开发提供新的工艺和系统而进行实质性的改进。</p>
+<p> <strong>5. IPD 的五个业务决策评审点</strong></p>
+<p><img src="https://pic2.zhimg.com/v2-dea016a73693563cde089ff9463e4259_r.jpg" alt=""></p>
+<p>（1）Charter：立项评审</p>
+<p>（2）CDCP(Concept?DCP)：概念决策评审</p>
+<p>（3）PDCP(Plan?DCP)：计划决策评审</p>
+<p>（4）ADCP(Availability?DCP)：可获得性决策评审</p>
+<p>（5）EDCP(EOL?DCP)：生命周期终止决策评审</p>
+<p><strong>6. IPD 的六个开发阶段</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-a9c7db1b072a48d9a4bde310d25b0252_r.jpg" alt=""></p>
+<p><strong>7. IPD 的七个技术评审点</strong></p>
+<p><img src="https://pic3.zhimg.com/v2-cfb4bd36c41890aeb65d95f6ec329b9e_r.jpg" alt=""></p>
+<p>当然，IPD 流程中设置了很多机制来对这类问题的解决。比如说我们的研发质量规范、我们的代码规范、代码检视、单元测试、系统测试等等。</p>
+<p>IPD 的流程中为了最大限度的节省缺陷或问题流入后端造成了损失。就体现在前面介绍的两种评审机制，不论是基于业务的还会基于技术的评审，只要上一个评审点没有通过，就无法进入下一个评审点。这种机制有效的解决和平衡的我们新产品开发过程中的遇到的问题。</p>
+<p>每一个环节都有自己的客户，我们一定要清楚自己的客户是谁，我们是为谁在服务。IPD 强调下一道工序就是你的客户！</p>
+<h4 id="五、实施-IPD，你也可以"><a href="#五、实施-IPD，你也可以" class="headerlink" title="五、实施 IPD，你也可以"></a><strong>五、实施 IPD，你也可以</strong></h4><p><strong>1. 小组织也可以 IPD</strong></p>
+<p>重量级团队削弱了功能部门的影响力。事实：功能部门在 IPD 的执行与决策中都占据着关键的地位。但是角色发生了变化。就像在乐队的演奏中，每个人都有自己的角色。如果鼓手演奏的声音比其他人大，如果鼓手想控制整个音乐（即使鼓手的技能不够），虽然鼓手自己可能感觉很强大，但是整个音乐已经不和谐了，已经被破坏了。扪心自问，实事求是地考虑一下自己真正的权力来自哪里。功能部门在 IPD 中扮演着非常重要的角色，不过在 IPD 流程中以团队的形式进行运作很重要。如果没有本身优秀的强大功能部门，IPD 也无法发挥自己的作用。功能部门在许多方面都发挥着重要的作用，如对本部门员工技能的培养进行管理，制定功能部门策略，向 PDT 和 IPMT 做出并履行承诺，将本功能部门与其他部门及公司联合起来，加强本功能部门对承诺的执行。同样，IRB 和 EMT 已经签发了政策和指导来更好地支撑华为的重量级团队建设环境，包括激励，PBC 和资源池。可是每个团队成员仍然有责任充分参与团队工作，积极帮助团队实现目标。</p>
+<p>IPD 组织结构通常可以看成一个小公司。这就是为什么华为 18.8 万人的企业中，研发能够快速响应的一个重要原因。  </p>
+<p>误区一：<strong>IPD 是大公司的事情，我们是小公司，没有实施 IPD 的必要</strong></p>
+<p>IPD 本身是一种产品研发的最佳实践，强调研发要做正确的事情，体现市场驱动，把研发资源投入到最有价值的项目中，这些理念对中小企业同样有非常大的指导意义；尤其中小企业面临资源匮乏，一个项目的失败可能会导致整个公司的倒闭，这种状态下，更应该践行 IPD 的研发方法，确保项目的成功率，甚至要追求 120% 的成功率。 <strong>我们是项目化公司，IPD 是产品开发，所以不适合我们</strong></p>
+<p>IPD 本身是从商业角度分析产品和项目是否值得投资，即使项目化的公司，也需要追求项目的投入产出率，也需要时刻关注客户需求，尤其是国内项目化公司普遍面临缺乏平台、跨项目共享差、交付成本高的问题，IPD 的市场驱动、异步开发模式、项目决策分析都可以非常好地解决这些问题。所以项目化公司同样需要 IPD。<br><strong>IPD 实施推行需要非常高的成本，实施周期很长，我们目前没有能力搞。</strong></p>
+<p>大家有这种认识纯粹是 IBM、IPD 实施顾问忽悠的结果，把 IPD 忽悠的多么神圣、多么高档、如此之难，进而从客户手里多搂钱，把实施费用搞的奇贵，从而让客户感觉 IPD 是非常贵族化的东西，身份的象征。其实街边小餐馆都是按照 IPD 的思路运作的，在哪里开？市场客户决定 —（IPD 之市场驱动）；费用多少？竞争对比分析而定 — （IPD 之竞争分析）；每天早上要准备多少材料？历史销售情况 + 今天的销售预期决定 — （IPD 之预算管理）；提供哪些种类？制作周期太长的不做，因为客户没有时间等 — （IPD 之产品交付）；丰盛大餐的不做，因为厨师水平要求高，费用高 — （IPD 之项目研发费用）；每天晚上核算今天盈利、与历史对比 — （IPD 之衡量指标与对比分析）；客户喜欢的、利润高的种类放在菜单最上面 — （IPD 之投资组合分析）；所以 IPD 在中小企业同样适用，并且可以分步实施，实施难度、成本都是在可控范围之内。 <strong>还有诸多疑虑……</strong></p>
+<p>误区二：<strong>IPD 是要在速度与质量之间做出取舍？</strong></p>
+<p>误区三：<strong>IPD 影响决策的速度？</strong></p>
+<p>误区四：<strong>重量级团队削弱了功能部门的影响力？</strong></p>
+<p><strong>……</strong></p>
+<p><strong>2. 貌似缺失的质量控制缺是最有效的控制</strong></p>
+<p>IPD 是速度与质量相结合。技术评审点即使技术评审又是质量评审，质量管理被融入在 IPD 的流程和体系当中，潜移默化的，自然的服务于产品和控制产品质量。IPD 的目的是保证速度，但同时也要保证产品的高质量。IPD 不仅要使产品开发速度更快，而且还提供了一种规范，保证能够生产出高质量的产品。</p>
+<p><strong>3. 环环相扣，齿齿相连，一次性把事情做好</strong></p>
+<p><strong>环环相扣，齿齿相连</strong></p>
+<p>每个角色都处于 IPD 的一个环节，只有当上一个环节完成了，并且是按照产品质量要求完成了，才会流向下一个环节，正如流水生产线一样，只有上一个工序的工作完成了，且被检验为合格了才能流到下一个工序。也只有上一个工序完成时，下一个工序才能开始，一切都在项目计划的控制之中。每个工序都会对下一个工序产生影响。</p>
+<p><strong>一次性把事情做好！慢即是快。</strong></p>
+<p>从整个 IPD 的核心思想方面来说，所有的流程和关键的评审点都是围绕这个 “一次性把事情做好” 这句话来的，因为在研发当中，一次性把事情做好，效率才是最高的。比如原本计划下个月的进行新产品的试制，原材料已经准备好，生产计划已经按照出生产线为我们的试制产品做准备。如果产品试制不能如期进行，生产线的计划将被打乱。相关的人员安排可能临时不能调度，原计划的试制期间的生产资源就会造成浪费。</p>
+<p><strong>【结尾】</strong></p>
+<p>公司的战略是选择方向，就是解决做正确的事情，做与公司目标相匹配的事情。</p>
+<p>IPD(Integrated product development 集成产品开发) 是针对公司已经选择确定战略规划之下，正确的做公司规划的产品开发的事情，即使通常我们讲的正确的做事。</p>
+<p>只有做正确的事情和正确的做事，才能保障经营的不败。</p>
+<p>我想把一个复杂的系统，还原成一个常识的理解。只要我们理解和认识了 IPD，我们也同样可以穿上 IPD 之鞋，谁说灰姑娘就不能穿上漂亮的舞鞋跳舞呢？</p>
+<blockquote>
+<p>原文地址 <a href="https://zhuanlan.zhihu.com/p/392385187" target="_blank" rel="noopener">知乎</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>IPD</tag>
+        <tag>华为</tag>
       </tags>
   </entry>
   <entry>
